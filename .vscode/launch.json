@@ -1,0 +1,23 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "exa_gammer_movil (run)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "run"
+        },
+        {
+            "name": "exa_gammer_movil (profile)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "exa_gammer_movil (release)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        }
+    ]
+}
