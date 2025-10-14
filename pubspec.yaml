@@ -35,6 +35,7 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
+  get: ^4.7.2
 
 dev_dependencies:
   flutter_test:
@@ -52,18 +53,23 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
+
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
-
-  # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/logo_del_sitio.png
-    - assets/images/
-
-  # An image asset can refer to one or more resolution-specific "variants", see
-  # https://flutter.dev/to/resolution-aware-images
+    - assets/imagen/logo_exa.png
+  fonts:
+    - family: TitanOne
+      fonts:
+        - asset: assets/fonts/TitanOne-Regular.ttf
+    - family: Inter
+      fonts:
+        - asset: assets/fonts/Inter-Regular.ttf
+        - asset: assets/fonts/Inter-Bold.ttf
+          weight: 700
+          
 
   # For details regarding adding assets from package dependencies, see
   # https://flutter.dev/to/asset-from-package
