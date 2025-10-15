@@ -1,14 +1,17 @@
+import 'package:exa_gammer_movil/controllers/user_controller.dart';
+import 'package:exa_gammer_movil/models/clase_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:exa_gammer_movil/controllers/actividad_controller.dart';
 import 'package:exa_gammer_movil/ui/home/profesor/add_actividad.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 
 class DetalleClase extends StatelessWidget {
-  final ActividadController actividadController = Get.put(
-    ActividadController(),
-  );
+  final ExamenController actividadController = Get.put(ExamenController());
+  final UserController usercontroller = Get.find<UserController>();
+  final clase clasek;
 
-  DetalleClase({super.key});
+  DetalleClase({super.key, required this.clasek});
 
   @override
   Widget build(BuildContext context) {
@@ -25,17 +28,21 @@ class DetalleClase extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-
               Row(
                 children: [
                   Image.asset('assets/imagen/logo_exa.png', height: 75),
                   const SizedBox(width: 12),
-                  const Text(
-                    'EXA-GAMMER',
-                    style: TextStyle(
-                      fontSize: 36,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: "TitanOne",
+                  Flexible(
+                    child: AutoSizeText(
+                      clasek.nombre.toUpperCase(),
+                      style: const TextStyle(
+                        fontSize: 36,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: "TitanOne",
+                      ),
+                      textAlign: TextAlign.center,
+                      maxLines: 2,
+                      minFontSize: 18,
                     ),
                   ),
                 ],
@@ -57,7 +64,12 @@ class DetalleClase extends StatelessWidget {
               // Lista de actividades
               Expanded(
                 child: Obx(() {
-                  final actividades = actividadController.actividadList;
+                  final user = usercontroller.getuser;
+                  final token = usercontroller.gettoken;
+                  final actividades = actividadController.filteredList(
+                    user.id,
+                    token,
+                  );
 
                   if (actividades.isEmpty) {
                     return const Center(
@@ -89,7 +101,6 @@ class DetalleClase extends StatelessWidget {
                             children: [
                               const SizedBox(height: 4),
                               Text('Tema: ${actividad.tema}'),
-                              Text('Tipo: ${actividad.tipo}'),
                               const SizedBox(height: 4),
                               Text('Descripción: ${actividad.descripcion}'),
                             ],

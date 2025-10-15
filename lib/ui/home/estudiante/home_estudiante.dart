@@ -1,3 +1,5 @@
+import 'package:exa_gammer_movil/controllers/user_controller.dart';
+import 'package:exa_gammer_movil/ui/home/vista/ClaseCard.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:exa_gammer_movil/controllers/clase_controller.dart';
@@ -7,6 +9,7 @@ import 'package:exa_gammer_movil/ui/home/profesor/detalle_clase.dart';
 
 class HomeEstudiante extends StatelessWidget {
   final ClaseController pc = Get.find();
+  final UserController usercontroller = Get.find<UserController>();
   HomeEstudiante({super.key});
 
   @override
@@ -48,7 +51,9 @@ class HomeEstudiante extends StatelessWidget {
               // Lista de clases
               Expanded(
                 child: Obx(() {
-                  final filteredClase = pc.filteredList;
+                  final user = usercontroller.getuser;
+                  final token = usercontroller.gettoken;
+                  var filteredClase = pc.filteredList(user.id, token);
 
                   if (filteredClase.isEmpty) {
                     return const Center(
@@ -59,21 +64,33 @@ class HomeEstudiante extends StatelessWidget {
                     );
                   }
 
-                  return ListView.builder(
-                    itemCount: filteredClase.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      final clase = filteredClase[index];
+                  return LayoutBuilder(
+                    builder: (context, constraints) {
+                      int crossAxisCount = constraints.maxWidth > 800
+                          ? 4
+                          : constraints.maxWidth > 600
+                          ? 3
+                          : 2;
 
-                      return Card(
-                        margin: const EdgeInsets.symmetric(vertical: 8.0),
-                        child: ListTile(
-                          leading: CircleAvatar(child: Text(clase.nombre[0])),
-                          title: Text(clase.nombre),
-                          subtitle: Text('${clase.tema} - ${clase.autor}'),
-                          onTap: () {
-                            Get.to(() => DetalleClase());
-                          },
+                      return GridView.builder(
+                        padding: const EdgeInsets.all(10),
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: crossAxisCount,
+                          crossAxisSpacing: 10,
+                          mainAxisSpacing: 10,
+                          childAspectRatio: 0.85,
                         ),
+                        itemCount: filteredClase.length,
+                        itemBuilder: (context, index) {
+                          final clase = filteredClase[index];
+                          return ObjetoCard(
+                            titulo: clase.nombre,
+                            imagenUrl: clase.img,
+                            onTap: () {
+                              Get.to(() => DetalleClase(clasek: clase));
+                            },
+                          );
+                        },
                       );
                     },
                   );

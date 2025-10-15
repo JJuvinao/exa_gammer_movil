@@ -6,7 +6,7 @@ import 'package:exa_gammer_movil/models/actividad_model.dart';
 class AddActividad extends StatelessWidget {
   AddActividad({super.key});
 
-  final ActividadController actividadController = Get.find();
+  final ExamenController actividadController = Get.find();
 
   final TextEditingController nombreController = TextEditingController();
   final TextEditingController temaController = TextEditingController();
@@ -14,11 +14,7 @@ class AddActividad extends StatelessWidget {
 
   final RxString tipoSeleccionado = ''.obs;
 
-  final List<String> tiposJuego = [
-    'Juego',
-    'Evaluación',
-
-  ];
+  final List<String> tiposJuego = ['Juego', 'Evaluación'];
 
   final _formKey = GlobalKey<FormState>();
 
@@ -155,14 +151,9 @@ class AddActividad extends StatelessWidget {
                         child: ElevatedButton.icon(
                           onPressed: () {
                             if (_formKey.currentState!.validate()) {
-                              final nuevaActividad = Actividad(
-                                nombre: nombreController.text,
-                                tema: temaController.text,
-                                descripcion: descripcionController.text,
-                                tipo: tipoSeleccionado.value,
-                              );
+                              final nuevaActividad = null;
 
-                              actividadController.addActividad(nuevaActividad);
+                              actividadController.addExamen(nuevaActividad);
 
                               Get.back();
 
@@ -179,7 +170,9 @@ class AddActividad extends StatelessWidget {
                           label: const Text('Guardar Actividad'),
                           style: ElevatedButton.styleFrom(
                             padding: const EdgeInsets.symmetric(
-                                horizontal: 24, vertical: 12),
+                              horizontal: 24,
+                              vertical: 12,
+                            ),
                           ),
                         ),
                       ),

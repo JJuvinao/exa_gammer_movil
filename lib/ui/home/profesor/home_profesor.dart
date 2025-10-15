@@ -1,3 +1,5 @@
+import 'package:exa_gammer_movil/controllers/user_controller.dart';
+import 'package:exa_gammer_movil/ui/home/vista/ClaseCard.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:exa_gammer_movil/controllers/clase_controller.dart';
@@ -9,6 +11,8 @@ import 'package:exa_gammer_movil/ui/home/profesor/detalle_clase.dart';
 
 class HomeProfesor extends StatelessWidget {
   final ClaseController pc = Get.find();
+  final UserController usercontroller = Get.find<UserController>();
+
   HomeProfesor({super.key});
 
   @override
@@ -18,14 +22,13 @@ class HomeProfesor extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Color(0xFFC8C1C1),
         elevation: 0,
-        toolbarHeight: 0, 
+        toolbarHeight: 0,
       ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(24.0),
           child: Column(
             children: [
-              
               // Encabezado con logo y texto
               SizedBox(height: 24),
               Row(
@@ -52,7 +55,9 @@ class HomeProfesor extends StatelessWidget {
               // Lista de clases
               Expanded(
                 child: Obx(() {
-                  final filteredClase = pc.filteredList;
+                  final user = usercontroller.getuser;
+                  final token = usercontroller.gettoken;
+                  var filteredClase = pc.filteredList(user.id, token);
 
                   if (filteredClase.isEmpty) {
                     return const Center(
@@ -63,43 +68,33 @@ class HomeProfesor extends StatelessWidget {
                     );
                   }
 
-                  return ListView.builder(
-                    itemCount: filteredClase.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      final clase = filteredClase[index];
-                      final realIndex = pc.claseList.indexOf(clase);
+                  return LayoutBuilder(
+                    builder: (context, constraints) {
+                      int crossAxisCount = constraints.maxWidth > 800
+                          ? 4
+                          : constraints.maxWidth > 600
+                          ? 3
+                          : 2;
 
-                      return Card(
-                        margin: const EdgeInsets.symmetric(vertical: 8.0),
-                        child: ListTile(
-                          leading: CircleAvatar(
-                            child: Text(clase.nombre[0]),
-                          ),
-                          title: Text(clase.nombre),
-                          subtitle: Text('${clase.tema} - ${clase.autor}'),
-                          trailing: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              IconButton(
-                                onPressed: () {
-                                  Get.to(() => UpdateClase(index: realIndex));
-                                },
-                                icon: const Icon(Icons.edit, color: Colors.blue),
-                              ),
-                              IconButton(
-                                onPressed: () {
-                                  deleteClase(context: context, index: realIndex);
-                                },
-                                icon: const Icon(Icons.delete, color: Colors.red),
-                              ),
-                            ],
-                          ),
-                          onTap: () {
-
-                            Get.to(() => DetalleClase());
-                          },
-
+                      return GridView.builder(
+                        padding: const EdgeInsets.all(10),
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: crossAxisCount,
+                          crossAxisSpacing: 10,
+                          mainAxisSpacing: 10,
+                          childAspectRatio: 0.85,
                         ),
+                        itemCount: filteredClase.length,
+                        itemBuilder: (context, index) {
+                          final clase = filteredClase[index];
+                          return ObjetoCard(
+                            titulo: clase.nombre,
+                            imagenUrl: clase.img,
+                            onTap: () {
+                              Get.to(() => DetalleClase(clasek: clase));
+                            },
+                          );
+                        },
                       );
                     },
                   );
