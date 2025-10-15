@@ -5,11 +5,10 @@ import 'package:exa_gammer_movil/ui/home/home_page.dart';
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return 
-    GetMaterialApp(
+    return GetMaterialApp(
       title: 'EXA-GAMMER',
       debugShowCheckedModeBanner: false,
-      home: HomePage(), 
+      home: HomePage(),
     );
   }
 }

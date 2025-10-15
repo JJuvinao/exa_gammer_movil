@@ -1,6 +1,6 @@
+import 'package:exa_gammer_movil/ui/home/inicio_sesion/diseologin.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:exa_gammer_movil/ui/home/inicio_sesion/diseologin.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -10,15 +10,11 @@ class HomePage extends StatelessWidget {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
 
-    const Color fondoExa = Color(0xFFC8C1C1); 
+    const Color fondoExa = Color(0xFFC8C1C1);
 
     return Scaffold(
       backgroundColor: fondoExa,
-      appBar: AppBar(
-        backgroundColor: fondoExa,
-        elevation: 0,
-        toolbarHeight: 0, 
-      ),
+      appBar: AppBar(backgroundColor: fondoExa, elevation: 0, toolbarHeight: 0),
 
       body: SafeArea(
         child: Padding(
@@ -47,21 +43,19 @@ class HomePage extends StatelessWidget {
               ),
               SizedBox(height: screenHeight * 0.09),
 
-
-
               Center(
                 child: SizedBox(
-                  width: screenWidth * 0.7, 
+                  width: screenWidth * 0.7,
                   child: ElevatedButton(
                     onPressed: () {
-                      Get.to(()=> Vistalogin());                     
+                      Get.to(() => Vistalogin());
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFF0D59A1),
                       elevation: 0,
                       foregroundColor: Color(0XFFFAF4F4),
                       padding: EdgeInsets.symmetric(
-                        vertical: screenHeight * 0.02, 
+                        vertical: screenHeight * 0.02,
                         horizontal: screenWidth * 0.05,
                       ),
 
@@ -74,8 +68,7 @@ class HomePage extends StatelessWidget {
                         borderRadius: BorderRadius.circular(screenWidth * 0.3),
                       ),
                     ),
-                    child: const Text('Comenzar')
-                    ,
+                    child: const Text('Comenzar'),
                   ),
                 ),
               ),

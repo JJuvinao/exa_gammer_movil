@@ -44,15 +44,25 @@ class _AgregarUsuarioState extends State<AgregarUsuario> {
           child: ElevatedButton(
             style: _buttonStyle(),
 
-            onPressed: () {
+            onPressed: () async {
               if (selectedRole != null) {
-                userController.registerUser(
+                var res = await userController.registerUser(
                   usuario.text,
                   clave.text,
                   selectedRole!,
                   email.text,
                 );
-
+                if (!res) {
+                  Get.snackbar(
+                    'Registro fallido',
+                    'El usuario no se pudo registrar  correctamente',
+                    backgroundColor: Colors.red,
+                    colorText: Colors.white,
+                    snackPosition: SnackPosition.BOTTOM,
+                    duration: Duration(seconds: 3),
+                  );
+                  return;
+                }
                 Get.snackbar(
                   'Registro exitoso',
                   'El usuario ha sido registrado correctamente',
