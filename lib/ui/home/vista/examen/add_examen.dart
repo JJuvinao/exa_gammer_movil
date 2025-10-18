@@ -1,24 +1,38 @@
+import 'package:exa_gammer_movil/controllers/clase_controller.dart';
+import 'package:exa_gammer_movil/controllers/user_controller.dart';
+import 'package:exa_gammer_movil/models/juego_model.dart';
+
+import 'formahorcado.dart';
+import 'package:exa_gammer_movil/ui/home/vista/examen/formheroes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:exa_gammer_movil/controllers/examen_controller.dart';
+import 'package:exa_gammer_movil/controllers/juego_controller.dart';
 
-class AddActividad extends StatelessWidget {
-  AddActividad({super.key});
+class AddExamen extends StatelessWidget {
+  AddExamen({super.key});
 
   final ExamenController actividadController = Get.find();
+  final GlobalKey<AhorcadoFormState> ahorcadoFormKey =
+      GlobalKey<AhorcadoFormState>();
+  final GlobalKey<HeroesFormState> heroesFormKey = GlobalKey<HeroesFormState>();
+
+  final UserController userController = Get.find();
+  final ClaseController claseController = Get.find();
+  final JuegoController juegoController = Get.find();
 
   final TextEditingController nombreController = TextEditingController();
   final TextEditingController temaController = TextEditingController();
   final TextEditingController descripcionController = TextEditingController();
 
-  final RxString tipoSeleccionado = ''.obs;
-
-  final List<String> tiposJuego = ['Juego', 'Evaluación'];
-
   final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
+    final Rxn<Juego> JuegoSeleccionado = Rxn<Juego>();
+    List<Juego> juegos = juegoController.getjuegoList();
+    final List<Juego> tiposJuego = juegos;
+
     return Scaffold(
       backgroundColor: const Color(0xFFC8C1C1),
       appBar: AppBar(
@@ -70,7 +84,7 @@ class AddActividad extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Text(
-                        'Agregar Actividad',
+                        'Agregar Examen',
                         style: TextStyle(
                           fontSize: 22,
                           fontWeight: FontWeight.bold,
@@ -120,53 +134,122 @@ class AddActividad extends StatelessWidget {
 
                       // Dropdown: Tipo
                       Obx(() {
-                        return DropdownButtonFormField<String>(
-                          value: tipoSeleccionado.value.isEmpty
+                        return DropdownButtonFormField<Juego>(
+                          value: JuegoSeleccionado.value == null
                               ? null
-                              : tipoSeleccionado.value,
+                              : JuegoSeleccionado.value,
                           items: tiposJuego.map((tipo) {
                             return DropdownMenuItem(
                               value: tipo,
-                              child: Text(tipo),
+                              child: Text(tipo.nombre),
                             );
                           }).toList(),
                           onChanged: (value) {
-                            tipoSeleccionado.value = value ?? '';
+                            JuegoSeleccionado.value = value;
                           },
                           decoration: const InputDecoration(
-                            labelText: 'Tipo de Actividad',
+                            labelText: 'Tipo de Juego',
                             border: OutlineInputBorder(),
                           ),
-                          validator: (value) => value == null || value.isEmpty
-                              ? 'Seleccione un tipo'
-                              : null,
+                          validator: (value) =>
+                              value == null ? 'Seleccione un tipo' : null,
                         );
                       }),
 
                       const SizedBox(height: 24),
+                      Obx(() {
+                        if (JuegoSeleccionado.value?.id == 1) {
+                          return AhorcadoForm(key: ahorcadoFormKey);
+                        }
+                        if (JuegoSeleccionado.value?.id == 2) {
+                          return HeroesForm(key: heroesFormKey);
+                        }
+                        return const Text('Seleccione un tipo de examen');
+                      }),
+                      const SizedBox(height: 24),
+                      const Text(
+                        'Después de completar el formulario, presione "Guardar Examen" para registrar el nuevo examen.',
+                        style: TextStyle(fontSize: 14, color: Colors.black54),
+                      ),
 
                       // Botón: Guardar
                       Center(
                         child: ElevatedButton.icon(
-                          onPressed: () {
-                            if (_formKey.currentState!.validate()) {
-                              final nuevaActividad = null;
+                          onPressed: () async {
+                            if (!_formKey.currentState!.validate()) return;
 
-                              actividadController.addExamen(nuevaActividad);
+                            Map<String, dynamic>? datos;
 
-                              Get.back();
+                            if (JuegoSeleccionado.value?.id == 1) {
+                              datos = ahorcadoFormKey.currentState?.getData();
+                              if (datos == null) return;
+                            }
+                            if (JuegoSeleccionado.value?.id == 2) {
+                              datos = heroesFormKey.currentState?.getData();
+                              if (datos == null ||
+                                  datos['lispreheroe'].length < 5) {
+                                Get.snackbar(
+                                  'Error',
+                                  'Debe agregar al menos 5 preguntas.',
+                                  snackPosition: SnackPosition.BOTTOM,
+                                  backgroundColor: Colors.red[100],
+                                  colorText: Colors.black,
+                                );
+                                return;
+                              }
+                            }
 
+                            Map<dynamic, dynamic> datosExamen = {};
+                            if (datos != null) {
+                              if (JuegoSeleccionado.value?.id == 2) {
+                                datosExamen = {
+                                  'tipo': 'heroes',
+                                  'datos': datos,
+                                };
+                              } else if (JuegoSeleccionado.value?.id == 1) {
+                                datosExamen = {
+                                  'tipo': 'ahorcado',
+                                  'datos': datos,
+                                };
+                              }
+                            }
+
+                            final examen = {
+                              'Nombre': nombreController.text,
+                              'Tema': temaController.text,
+                              'Autor': userController.getuser.username,
+                              'Descripcion': descripcionController.text,
+                              'ImagenExamen': "/avatars/avatar1.jpg",
+                              'Id_Clase': claseController.getclase.id,
+                              'Id_Juego': JuegoSeleccionado.value?.id,
+                            };
+
+                            var res = await actividadController.guardarExamen(
+                              examen,
+                              datosExamen,
+                              userController.gettoken,
+                            );
+                            Get.back();
+                            if (res) {
                               Get.snackbar(
-                                'Actividad Agregada',
-                                'La actividad fue registrada exitosamente.',
+                                'Examen Agregado',
+                                'El examen fue registrado exitosamente.',
                                 snackPosition: SnackPosition.BOTTOM,
                                 backgroundColor: Colors.green[100],
+                                colorText: Colors.black87,
+                              );
+                            } else {
+                              Get.snackbar(
+                                'Error',
+                                'Hubo un problema al guardar el examen',
+                                snackPosition: SnackPosition.BOTTOM,
+                                backgroundColor: Colors.red[100],
                                 colorText: Colors.black87,
                               );
                             }
                           },
                           icon: const Icon(Icons.save),
-                          label: const Text('Guardar Actividad'),
+                          label: const Text('Guardar Examen'),
                           style: ElevatedButton.styleFrom(
                             padding: const EdgeInsets.symmetric(
                               horizontal: 24,

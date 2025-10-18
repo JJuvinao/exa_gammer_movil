@@ -57,4 +57,67 @@ class ExamenController extends GetxController {
       print("ERROR DE LA CARGA DE EXAMENES ${e.toString()}");
     }
   }
+
+  Future<bool> guardarExamen(
+    Map<String, dynamic> examen,
+    Map<dynamic, dynamic> data,
+    String token,
+  ) async {
+    String urls = '';
+    var datos = {
+      'palabra': data['datos']['palabra'],
+      'pista': data['datos']['pista'],
+      'lispreheroe': data['datos']['lispreheroe'],
+    };
+    var datosExamen = {};
+    if (data['tipo'] == 'ahorcado') {
+      urls = 'https://apiexagammer.somee.com/api/Examenes/Ahorcado';
+      datosExamen = {
+        'Nombre': examen['Nombre'],
+        'Tema': examen['Tema'],
+        'Autor': examen['Autor'],
+        'Descripcion': examen['Descripcion'],
+        'ImagenExamen': examen['ImagenExamen'],
+        'Id_Clase': examen['Id_Clase'],
+        'Id_Juego': examen['Id_Juego'],
+        'Palabras': datos['palabras'],
+        'Pistas': datos['pistas'],
+      };
+    }
+    if (data['tipo'] == 'heroes') {
+      urls = 'https://apiexagammer.somee.com/api/Examenes/Heroes';
+      datosExamen = {
+        'Nombre': examen['Nombre'],
+        'Tema': examen['Tema'],
+        'Autor': examen['Autor'],
+        'Descripcion': examen['Descripcion'],
+        'ImagenExamen': examen['ImagenExamen'],
+        'Id_Clase': examen['Id_Clase'],
+        'Id_Juego': examen['Id_Juego'],
+        'Heroes': datos['lispreheroe'],
+      };
+    }
+    try {
+      final url = Uri.parse(urls);
+
+      final res = await http.post(
+        url,
+        headers: {
+          'Authorization': 'Bearer ${token}',
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode(datosExamen),
+      );
+
+      if (res.statusCode == 200) {
+        return true;
+      } else {
+        print('Error al guardar el examen: ${res.statusCode}');
+        return false;
+      }
+    } catch (e) {
+      print('Error al guardar el examen: $e');
+    }
+    return false;
+  }
 }
