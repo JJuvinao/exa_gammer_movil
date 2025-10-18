@@ -8,7 +8,7 @@ class Vistalogin extends StatefulWidget {
 }
 
 class _VistaloginState extends State<Vistalogin> {
-  int selectedTabIndex = 1;
+  int selectedTabIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,7 @@ class _VistaloginState extends State<Vistalogin> {
                 children: [
                   Image.asset('assets/imagen/logo_exa.png', height: 75),
                   SizedBox(width: 12),
-                  
+
                   Expanded(
                     child: FittedBox(
                       fit: BoxFit.scaleDown,
@@ -32,7 +32,7 @@ class _VistaloginState extends State<Vistalogin> {
                       child: Text(
                         'EXA-GAMMER',
                         style: TextStyle(
-                          fontSize:36, 
+                          fontSize: 36,
                           fontWeight: FontWeight.bold,
                           fontFamily: "TitanOne",
                         ),
@@ -52,9 +52,7 @@ class _VistaloginState extends State<Vistalogin> {
                 ),
 
                 child: ConstrainedBox(
-                  constraints: BoxConstraints(
-                    maxWidth: 500,
-                  ), 
+                  constraints: BoxConstraints(maxWidth: 500),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [

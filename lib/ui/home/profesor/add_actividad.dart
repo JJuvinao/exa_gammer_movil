@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:exa_gammer_movil/controllers/actividad_controller.dart';
-import 'package:exa_gammer_movil/models/actividad_model.dart';
+import 'package:exa_gammer_movil/controllers/examen_controller.dart';
 
 class AddActividad extends StatelessWidget {
   AddActividad({super.key});

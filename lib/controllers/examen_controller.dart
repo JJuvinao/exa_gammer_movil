@@ -1,10 +1,14 @@
-import 'package:exa_gammer_movil/models/actividad_model.dart';
+import 'package:exa_gammer_movil/models/examen_model.dart';
+import 'package:exa_gammer_movil/service/localServices.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class ExamenController extends GetxController {
   var ExamenList = <Examen>[].obs;
+  final _storageService = Get.find<StorageService>();
+
+  Examen get getexamen => _storageService.displayExamen;
 
   void addExamen(Examen actividad) {
     ExamenList.add(actividad);
@@ -29,7 +33,7 @@ class ExamenController extends GetxController {
   Future<void> CargarExamne(int id, String token) async {
     try {
       final url = Uri.parse(
-        'http://192.168.107.108:5111/api/Examenes/ExamenesClase/${id}',
+        'https://apiexagammer.somee.com/api/Examenes/ExamenesClase/${id}',
       );
 
       final res = await http.get(
