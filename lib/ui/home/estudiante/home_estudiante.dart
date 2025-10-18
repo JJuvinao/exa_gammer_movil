@@ -87,7 +87,8 @@ class HomeEstudiante extends StatelessWidget {
                             titulo: clase.nombre,
                             imagenUrl: clase.img,
                             onTap: () {
-                              Get.to(() => DetalleClase(clasek: clase));
+                              pc.saveClase(clase);
+                              Get.to(() => DetalleClase());
                             },
                           );
                         },

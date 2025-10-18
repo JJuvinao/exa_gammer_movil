@@ -1,20 +1,23 @@
 import 'package:exa_gammer_movil/controllers/user_controller.dart';
-import 'package:exa_gammer_movil/models/clase_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:exa_gammer_movil/controllers/actividad_controller.dart';
+import 'package:exa_gammer_movil/controllers/examen_controller.dart';
 import 'package:exa_gammer_movil/ui/home/profesor/add_actividad.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:exa_gammer_movil/game/ahorcado/ahorcado_page.dart';
+import 'package:exa_gammer_movil/ui/home/profesor/detalle_examen.dart';
+import 'package:exa_gammer_movil/controllers/clase_controller.dart';
 
 class DetalleClase extends StatelessWidget {
-  final ExamenController actividadController = Get.put(ExamenController());
+  final ExamenController examenController = Get.put(ExamenController());
   final UserController usercontroller = Get.find<UserController>();
-  final clase clasek;
+  final ClaseController claseController = Get.find<ClaseController>();
 
-  DetalleClase({super.key, required this.clasek});
+  DetalleClase({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final clasek = claseController.getclase;
     return Scaffold(
       backgroundColor: const Color(0xFFC8C1C1),
       appBar: AppBar(
@@ -28,6 +31,25 @@ class DetalleClase extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              ElevatedButton(
+                onPressed: () {
+                  Get.to(() => AhorcadoPage());
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.grey[700],
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 12,
+                    horizontal: 30,
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+                child: const Text(
+                  "IR AL JUEGO",
+                  style: TextStyle(fontSize: 16, color: Colors.white),
+                ),
+              ),
               Row(
                 children: [
                   Image.asset('assets/imagen/logo_exa.png', height: 75),
@@ -66,12 +88,12 @@ class DetalleClase extends StatelessWidget {
                 child: Obx(() {
                   final user = usercontroller.getuser;
                   final token = usercontroller.gettoken;
-                  final actividades = actividadController.filteredList(
+                  final examenes = examenController.filteredList(
                     user.id,
                     token,
                   );
 
-                  if (actividades.isEmpty) {
+                  if (examenes.isEmpty) {
                     return const Center(
                       child: Text(
                         'No hay actividades registradas.',
@@ -81,9 +103,9 @@ class DetalleClase extends StatelessWidget {
                   }
 
                   return ListView.builder(
-                    itemCount: actividades.length,
+                    itemCount: examenes.length,
                     itemBuilder: (context, index) {
-                      final actividad = actividades[index];
+                      final actividad = examenes[index];
 
                       return Card(
                         margin: const EdgeInsets.symmetric(vertical: 8.0),
@@ -96,6 +118,7 @@ class DetalleClase extends StatelessWidget {
                               fontSize: 18,
                             ),
                           ),
+                          onTap: () => Get.to(() => DetalleExamenPage()),
                           subtitle: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [

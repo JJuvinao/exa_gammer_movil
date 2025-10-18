@@ -1,13 +1,45 @@
-import 'package:get/get.dart';
 import 'package:exa_gammer_movil/models/clase_model.dart';
+import 'package:exa_gammer_movil/service/localServices.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class ClaseController extends GetxController {
-  var claseList = <clase>[].obs;
+  var claseList = <Clase>[].obs;
   var searchQuery = ''.obs;
+  final _storageService = Get.find<StorageService>();
 
-  void addClase(String nombre, String tema, String autor) {}
+  Clase get getclase => _storageService.displayClase;
+
+  Future<void> saveClase(Clase newClase) async {
+    await _storageService.saveClase(newClase);
+  }
+
+  Future<bool> AddClase(Clasedto newclase, String token) async {
+    final url = Uri.parse(
+      'https://apiexagammer.somee.com/api/Clases/ClasePost',
+    );
+    try {
+      final res = await http
+          .post(
+            url,
+            headers: {
+              'Authorization': 'Bearer ${token}',
+              'Content-Type': 'application/json',
+            },
+            body: jsonEncode(newclase.toJson()),
+          )
+          .timeout(Duration(seconds: 15));
+      if (res.statusCode != 200) {
+        return false;
+      } else {
+        return true;
+      }
+    } catch (e) {
+      print("ERROR DEL AGRECAR CLASE");
+    }
+    return false;
+  }
 
   void updateClase(
     int index,
@@ -25,7 +57,7 @@ class ClaseController extends GetxController {
     searchQuery.value = query;
   }
 
-  List<clase> filteredList(int id, String token) {
+  List<Clase> filteredList(int id, String token) {
     CragarClases(id, token);
     if (claseList.isEmpty) {
       return [];
@@ -49,21 +81,23 @@ class ClaseController extends GetxController {
         'https://apiexagammer.somee.com/api/Clases/Profe_Clases/${id}',
       );
 
-      final res = await http.get(
-        url,
-        headers: {
-          'Authorization': 'Bearer ${token}',
-          'Content-Type': 'application/json',
-        },
-      );
+      final res = await http
+          .get(
+            url,
+            headers: {
+              'Authorization': 'Bearer ${token}',
+              'Content-Type': 'application/json',
+            },
+          )
+          .timeout(Duration(seconds: 15));
 
       if (res.statusCode != 200) {
         print(res.statusCode);
       }
       final data = jsonDecode(res.body);
-      List<clase> _claseList = [];
+      List<Clase> _claseList = [];
       for (var item in data) {
-        _claseList.add(clase.fromjson(item));
+        _claseList.add(Clase.fromjson(item));
       }
       claseList.value = _claseList;
     } catch (e) {

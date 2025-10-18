@@ -1,4 +1,4 @@
-class clase {
+class Clase {
   final int id;
   final String nombre;
   final String tema;
@@ -9,7 +9,7 @@ class clase {
   final String img;
   final int id_profe;
 
-  clase({
+  Clase({
     required this.id,
     required this.nombre,
     required this.tema,
@@ -21,8 +21,8 @@ class clase {
     required this.id_profe,
   });
 
-  factory clase.fromjson(Map<String, dynamic> json) {
-    return clase(
+  factory Clase.fromjson(Map<String, dynamic> json) {
+    return Clase(
       id: json["id_Clase"],
       nombre: json["nombre"],
       tema: json["tema"],
@@ -33,5 +33,31 @@ class clase {
       img: json["imagenClase"],
       id_profe: json["id_Profe"],
     );
+  }
+}
+
+class Clasedto {
+  final String nombre;
+  final String tema;
+  final String autor;
+  final String imagenClase;
+  final int id_Profe;
+
+  Clasedto({
+    required this.nombre,
+    required this.tema,
+    required this.autor,
+    required this.imagenClase,
+    required this.id_Profe,
+  });
+
+  Map<String, dynamic> toJson() {
+    return {
+      "nombre": nombre,
+      "tema": tema,
+      "autor": autor,
+      "imagenClase": imagenClase,
+      "id_Profe": id_Profe,
+    };
   }
 }

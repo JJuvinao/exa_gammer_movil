@@ -91,7 +91,7 @@ class HomeProfesor extends StatelessWidget {
                             titulo: clase.nombre,
                             imagenUrl: clase.img,
                             onTap: () {
-                              Get.to(() => DetalleClase(clasek: clase));
+                              Get.to(() => DetalleClase());
                             },
                           );
                         },

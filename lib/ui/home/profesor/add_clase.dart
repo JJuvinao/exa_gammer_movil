@@ -1,18 +1,26 @@
+import 'package:exa_gammer_movil/controllers/user_controller.dart';
+import 'package:exa_gammer_movil/models/clase_model.dart';
+import 'package:exa_gammer_movil/ui/home/profesor/home_profesor.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:exa_gammer_movil/controllers/clase_controller.dart';
 
 class Agregarclase extends StatelessWidget {
   final ClaseController pc = Get.find();
+  final UserController usercontroller = Get.find<UserController>();
 
   Agregarclase({super.key});
 
   final TextEditingController txtNombre = TextEditingController();
   final TextEditingController txtTema = TextEditingController();
-  final TextEditingController txtAutor = TextEditingController(text: 'Pedro');
 
   @override
   Widget build(BuildContext context) {
+    var user = usercontroller.getuser;
+    var token = usercontroller.gettoken;
+    final TextEditingController txtAutor = TextEditingController(
+      text: user.username,
+    );
     return Scaffold(
       backgroundColor: const Color(0xFFC8C1C1),
       appBar: AppBar(
@@ -91,9 +99,7 @@ class Agregarclase extends StatelessWidget {
                       const Spacer(),
                       ElevatedButton(
                         onPressed: () {
-                          
                           //falta funcionalidad de avatar
-
                         },
                         child: const Text('Elegir'),
                         style: ElevatedButton.styleFrom(
@@ -104,24 +110,41 @@ class Agregarclase extends StatelessWidget {
                   ),
                   const SizedBox(height: 30),
                   ElevatedButton.icon(
-                    onPressed: () {
-                      
-                      if (txtNombre.text.isEmpty ||
-                          txtTema.text.isEmpty ||
-                          txtAutor.text.isEmpty) {
+                    onPressed: () async {
+                      if (txtNombre.text.isEmpty || txtTema.text.isEmpty) {
                         Get.snackbar(
                           'Error',
                           'Por favor completa todos los campos.',
                         );
                       } else {
-                        
-                        pc.addClase(
-                          txtNombre.text,
-                          txtTema.text,
-                          txtAutor.text,
+                        Clasedto newclase = Clasedto(
+                          nombre: txtNombre.text,
+                          tema: txtTema.text,
+                          autor: txtAutor.text,
+                          imagenClase: "assets/avatars/avatar1.jpg",
+                          id_Profe: user.id,
                         );
-                        
-                        Get.back();
+                        var res = await pc.AddClase(newclase, token);
+                        if (res == true) {
+                          Get.snackbar(
+                            'Éxito',
+                            'Clase creada correctamente.',
+                            backgroundColor: Colors.green,
+                            colorText: Colors.white,
+                            snackPosition: SnackPosition.BOTTOM,
+                            duration: Duration(seconds: 3),
+                          );
+                          Get.to(() => HomeProfesor());
+                        } else {
+                          Get.snackbar(
+                            'Error',
+                            'No se pudo crear la clase. Inténtalo de nuevo.',
+                            backgroundColor: Colors.red,
+                            colorText: Colors.white,
+                            snackPosition: SnackPosition.BOTTOM,
+                            duration: Duration(seconds: 3),
+                          );
+                        }
                       }
                     },
                     icon: const Icon(Icons.save),
