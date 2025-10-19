@@ -11,6 +11,7 @@ import 'package:exa_gammer_movil/ui/home/vista/profile_view.dart';
 class HomeProfesor extends StatelessWidget {
   final ClaseController pc = Get.find();
   final UserController usercontroller = Get.find<UserController>();
+  final ClaseController claseController = Get.find<ClaseController>();
 
   HomeProfesor({super.key});
 
@@ -111,6 +112,7 @@ class HomeProfesor extends StatelessWidget {
                             titulo: clase.nombre,
                             imagenUrl: clase.img,
                             onTap: () {
+                              claseController.saveClase(clase);
                               Get.to(() => DetalleClase());
                             },
                           );

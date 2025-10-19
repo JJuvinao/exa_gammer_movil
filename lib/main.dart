@@ -7,6 +7,7 @@ import 'package:exa_gammer_movil/game/ahorcado/ahorcado_controller.dart';
 import 'package:exa_gammer_movil/service/localServices.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:exa_gammer_movil/ui/app.dart';
+import 'package:exa_gammer_movil/controllers/juego_controller.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,6 +16,7 @@ Future<void> main() async {
 
   Get.put(ClaseController());
   Get.put(UserController());
+  Get.put(JuegoController());
   Get.put(ExamenController());
   Get.put(AhorcadoController());
 
