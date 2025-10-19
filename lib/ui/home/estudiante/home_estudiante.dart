@@ -6,6 +6,7 @@ import 'package:exa_gammer_movil/controllers/clase_controller.dart';
 import 'package:exa_gammer_movil/ui/dialogs/dialogo_ingresar_clase.dart';
 import 'package:exa_gammer_movil/ui/home/buscar.dart';
 import 'package:exa_gammer_movil/ui/home/profesor/detalle_clase.dart';
+import 'package:exa_gammer_movil/ui/home/vista/profile_view.dart';
 
 class HomeEstudiante extends StatelessWidget {
   final ClaseController pc = Get.find();
@@ -43,7 +44,24 @@ class HomeEstudiante extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 24),
-
+              Align(
+                alignment: Alignment.centerRight,
+                child: ElevatedButton.icon(
+                  onPressed: () {
+                    // 👇 Abre directamente la vista de perfil
+                    Get.to(() => ProfileView());
+                  },
+                  icon: const Icon(Icons.person),
+                  label: const Text("Mi perfil"),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blueGrey[700],
+                    foregroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                ),
+              ),
               // Campo de búsqueda
               BuscarClase(),
               const SizedBox(height: 10),
