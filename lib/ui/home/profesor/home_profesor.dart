@@ -4,10 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:exa_gammer_movil/controllers/clase_controller.dart';
 import 'package:exa_gammer_movil/ui/home/buscar.dart';
-import 'package:exa_gammer_movil/ui/home/editar.dart';
-import 'package:exa_gammer_movil/ui/home/eliminar.dart';
 import 'package:exa_gammer_movil/ui/home/profesor/add_clase.dart';
 import 'package:exa_gammer_movil/ui/home/profesor/detalle_clase.dart';
+import 'package:exa_gammer_movil/ui/home/vista/profile_view.dart'; 
 
 class HomeProfesor extends StatelessWidget {
   final ClaseController pc = Get.find();
@@ -19,9 +18,9 @@ class HomeProfesor extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFC8C1C1),
+      backgroundColor: const Color(0xFFC8C1C1),
       appBar: AppBar(
-        backgroundColor: Color(0xFFC8C1C1),
+        backgroundColor: const Color(0xFFC8C1C1),
         elevation: 0,
         toolbarHeight: 0,
       ),
@@ -30,8 +29,7 @@ class HomeProfesor extends StatelessWidget {
           padding: const EdgeInsets.all(24.0),
           child: Column(
             children: [
-              // Encabezado con logo y texto
-              SizedBox(height: 24),
+              const SizedBox(height: 24),
               Row(
                 children: [
                   Image.asset('assets/imagen/logo_exa.png', height: 75),
@@ -46,14 +44,35 @@ class HomeProfesor extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: 24),
 
-              // Campo de búsqueda
+              const SizedBox(height: 10),
+
+              // 🔹 Botón que lleva al perfil
+              Align(
+                alignment: Alignment.centerRight,
+                child: ElevatedButton.icon(
+                  onPressed: () {
+                    // 👇 Abre directamente la vista de perfil
+                    Get.to(() => ProfileView());
+                  },
+                  icon: const Icon(Icons.person),
+                  label: const Text("Mi perfil"),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blueGrey[700],
+                    foregroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                ),
+              ),
+
+              const SizedBox(height: 20),
+
               BuscarClase(),
 
               const SizedBox(height: 10),
 
-              // Lista de clases
               Expanded(
                 child: Obx(() {
                   final user = usercontroller.getuser;
@@ -74,12 +93,13 @@ class HomeProfesor extends StatelessWidget {
                       int crossAxisCount = constraints.maxWidth > 800
                           ? 4
                           : constraints.maxWidth > 600
-                          ? 3
-                          : 2;
+                              ? 3
+                              : 2;
 
                       return GridView.builder(
                         padding: const EdgeInsets.all(10),
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        gridDelegate:
+                            SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: crossAxisCount,
                           crossAxisSpacing: 10,
                           mainAxisSpacing: 10,
@@ -115,3 +135,7 @@ class HomeProfesor extends StatelessWidget {
     );
   }
 }
+
+
+
+
