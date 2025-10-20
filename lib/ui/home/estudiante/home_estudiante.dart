@@ -8,10 +8,30 @@ import 'package:exa_gammer_movil/ui/home/buscar.dart';
 import 'package:exa_gammer_movil/ui/home/profesor/detalle_clase.dart';
 import 'package:exa_gammer_movil/ui/home/vista/profile_view.dart';
 
-class HomeEstudiante extends StatelessWidget {
-  final ClaseController pc = Get.find();
-  final UserController usercontroller = Get.find<UserController>();
+class HomeEstudiante extends StatefulWidget {
   HomeEstudiante({super.key});
+
+  @override
+  State<HomeEstudiante> createState() => _HomeEstudianteState();
+}
+
+class _HomeEstudianteState extends State<HomeEstudiante> {
+  final ClaseController pc = Get.find();
+
+  final UserController usercontroller = Get.find<UserController>();
+  var filteredClase = <dynamic>[].obs;
+
+  @override
+  void initState() {
+    super.initState();
+    CargarClase();
+  }
+
+  void CargarClase() async {
+    final user = usercontroller.getuser;
+    final token = usercontroller.gettoken;
+    filteredClase.value = await pc.filteredList(user.id, token);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -69,10 +89,6 @@ class HomeEstudiante extends StatelessWidget {
               // Lista de clases
               Expanded(
                 child: Obx(() {
-                  final user = usercontroller.getuser;
-                  final token = usercontroller.gettoken;
-                  var filteredClase = pc.filteredList(user.id, token);
-
                   if (filteredClase.isEmpty) {
                     return const Center(
                       child: Text(

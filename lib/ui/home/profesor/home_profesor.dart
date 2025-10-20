@@ -6,14 +6,35 @@ import 'package:exa_gammer_movil/controllers/clase_controller.dart';
 import 'package:exa_gammer_movil/ui/home/buscar.dart';
 import 'package:exa_gammer_movil/ui/home/profesor/add_clase.dart';
 import 'package:exa_gammer_movil/ui/home/profesor/detalle_clase.dart';
-import 'package:exa_gammer_movil/ui/home/vista/profile_view.dart'; 
+import 'package:exa_gammer_movil/ui/home/vista/profile_view.dart';
 
-class HomeProfesor extends StatelessWidget {
+class HomeProfesor extends StatefulWidget {
+  HomeProfesor({super.key});
+
+  @override
+  State<HomeProfesor> createState() => _HomeProfesorState();
+}
+
+class _HomeProfesorState extends State<HomeProfesor> {
   final ClaseController pc = Get.find();
+
   final UserController usercontroller = Get.find<UserController>();
+
   final ClaseController claseController = Get.find<ClaseController>();
 
-  HomeProfesor({super.key});
+  var filteredClase = <dynamic>[].obs;
+
+  @override
+  void initState() {
+    super.initState();
+    CargarClase();
+  }
+
+  void CargarClase() async {
+    final user = usercontroller.getuser;
+    final token = usercontroller.gettoken;
+    filteredClase.value = await pc.filteredList(user.id, token);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -75,10 +96,6 @@ class HomeProfesor extends StatelessWidget {
 
               Expanded(
                 child: Obx(() {
-                  final user = usercontroller.getuser;
-                  final token = usercontroller.gettoken;
-                  var filteredClase = pc.filteredList(user.id, token);
-
                   if (filteredClase.isEmpty) {
                     return const Center(
                       child: Text(
@@ -93,13 +110,12 @@ class HomeProfesor extends StatelessWidget {
                       int crossAxisCount = constraints.maxWidth > 800
                           ? 4
                           : constraints.maxWidth > 600
-                              ? 3
-                              : 2;
+                          ? 3
+                          : 2;
 
                       return GridView.builder(
                         padding: const EdgeInsets.all(10),
-                        gridDelegate:
-                            SliverGridDelegateWithFixedCrossAxisCount(
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: crossAxisCount,
                           crossAxisSpacing: 10,
                           mainAxisSpacing: 10,
@@ -135,7 +151,3 @@ class HomeProfesor extends StatelessWidget {
     );
   }
 }
-
-
-
-

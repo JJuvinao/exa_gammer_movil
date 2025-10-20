@@ -1,3 +1,4 @@
+import 'package:exa_gammer_movil/ui/home/inicio_sesion/diseologin.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:exa_gammer_movil/controllers/user_controller.dart';
@@ -25,18 +26,7 @@ class ProfileView extends StatelessWidget {
           child: Column(
             children: [
               // Foto o avatar
-              CircleAvatar(
-                radius: 60,
-                backgroundColor: _colorFromName(user.username),
-                child: Text(
-                  user.username.isNotEmpty ? user.username[0].toUpperCase() : "?",
-                  style: const TextStyle(
-                    fontSize: 40,
-                    color: Color(0xFFC8C1C1),
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
+              CircleAvatar(radius: 60, backgroundImage: NetworkImage(user.img)),
               const SizedBox(height: 20),
 
               // Nombre
@@ -52,10 +42,7 @@ class ProfileView extends StatelessWidget {
               // Email
               Text(
                 user.email,
-                style: const TextStyle(
-                  fontSize: 16,
-                  color: Colors.black,
-                ),
+                style: const TextStyle(fontSize: 16, color: Colors.black),
               ),
               const SizedBox(height: 5),
 
@@ -107,7 +94,10 @@ class ProfileView extends StatelessWidget {
                   ElevatedButton.icon(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFFC8C1C1),
-                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 20,
+                        vertical: 12,
+                      ),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
@@ -120,11 +110,17 @@ class ProfileView extends StatelessWidget {
                       );
                     },
                     icon: const Icon(Icons.edit, color: Colors.black),
-                    label: const Text("Editar perfil", style: TextStyle(color: Colors.black)),
+                    label: const Text(
+                      "Editar perfil",
+                      style: TextStyle(color: Colors.black),
+                    ),
                   ),
                   const SizedBox(width: 20),
                   ElevatedButton.icon(
-                    onPressed: () async {},
+                    onPressed: () async {
+                      await userController.logout();
+                      Get.to(() => Vistalogin());
+                    },
                     icon: const Icon(Icons.logout),
                     label: const Text("Cerrar sesión"),
                     style: ElevatedButton.styleFrom(
@@ -160,6 +156,3 @@ class ProfileView extends StatelessWidget {
     return colors[hash % colors.length];
   }
 }
-
-
-

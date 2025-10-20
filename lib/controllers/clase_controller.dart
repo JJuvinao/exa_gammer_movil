@@ -57,8 +57,8 @@ class ClaseController extends GetxController {
     searchQuery.value = query;
   }
 
-  List<Clase> filteredList(int id, String token) {
-    CragarClases(id, token);
+  Future<List<Clase>> filteredList(int id, String token) async {
+    await CragarClases(id, token);
     if (claseList.isEmpty) {
       return [];
     }
