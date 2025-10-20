@@ -136,12 +136,23 @@ class _HomeEstudianteState extends State<HomeEstudiante> {
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          IngresarCodigo(context); // ✅ LLAMADA
-          Get.to(() => courseScreen());
-        },
-        child: const Icon(Icons.meeting_room),
+      floatingActionButton: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          FloatingActionButton(
+            onPressed: () {
+              IngresarCodigo(context);
+            },
+            child: const Icon(Icons.meeting_room),
+          ),
+          const SizedBox(width: 16),
+          FloatingActionButton(
+            onPressed: () {
+              Get.to(() => courseScreen());
+            },
+            child: const Icon(Icons.school),
+          ),
+        ],
       ),
     );
   }
