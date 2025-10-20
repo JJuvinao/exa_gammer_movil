@@ -1,4 +1,5 @@
 import 'package:exa_gammer_movil/controllers/user_controller.dart';
+import 'package:exa_gammer_movil/ui/course/courseView.dart';
 import 'package:exa_gammer_movil/ui/home/vista/ClaseCard.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -138,6 +139,7 @@ class _HomeEstudianteState extends State<HomeEstudiante> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           IngresarCodigo(context); // ✅ LLAMADA
+          Get.to(() => courseScreen());
         },
         child: const Icon(Icons.meeting_room),
       ),

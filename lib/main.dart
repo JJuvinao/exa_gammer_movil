@@ -1,3 +1,4 @@
+import 'package:exa_gammer_movil/controllers/curso_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:exa_gammer_movil/controllers/clase_controller.dart';
@@ -19,10 +20,7 @@ Future<void> main() async {
   Get.put(JuegoController());
   Get.put(ExamenController());
   Get.put(AhorcadoController());
+  Get.put(CursoController());
 
   runApp(MyApp());
 }
-
-
-
-
