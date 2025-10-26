@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:exa_gammer_movil/ui/home/widget/Plan_card.dart';
-import 'package:exa_gammer_movil/ui/home/vista/Pago_premium.dart';
+import 'package:exa_gammer_movil/ui/home/vista/perfil/Pago_premium.dart';
 
 class PremiumView extends StatelessWidget {
   const PremiumView({super.key});
@@ -57,10 +57,12 @@ class PremiumView extends StatelessWidget {
               color: const Color(0xFF0D59A1),
               textColor: Colors.white,
               onPressed: () {
-                Get.to(() => PagosPremiumView(
-                      plan: 'Paquete Mensual',
-                      precio: '\$39.900 / mes',
-                    ));
+                Get.to(
+                  () => PagosPremiumView(
+                    plan: 'Paquete Mensual',
+                    precio: '\$39.900 / mes',
+                  ),
+                );
               },
             ),
 
@@ -78,10 +80,12 @@ class PremiumView extends StatelessWidget {
               color: Colors.amber.shade400,
               textColor: Colors.black,
               onPressed: () {
-                Get.to(() => PagosPremiumView(
-                      plan: 'Paquete Anual',
-                      precio: '\$359.000 / año',
-                    ));
+                Get.to(
+                  () => PagosPremiumView(
+                    plan: 'Paquete Anual',
+                    precio: '\$359.000 / año',
+                  ),
+                );
               },
             ),
           ],
@@ -90,4 +94,3 @@ class PremiumView extends StatelessWidget {
     );
   }
 }
-

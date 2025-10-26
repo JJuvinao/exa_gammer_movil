@@ -71,9 +71,9 @@ class _LoginFromState extends State<LoginForm> {
 
                 // ✅ Redirigir según rol
                 if (rol == 'Profesor') {
-                  Get.to(() => HomeProfesor());
+                  Get.off(() => HomeProfesor());
                 } else if (rol == 'Estudiante') {
-                  Get.to(() => HomeEstudiante());
+                  Get.off(() => HomeEstudiante());
                 } else {
                   Get.snackbar(
                     'Error',

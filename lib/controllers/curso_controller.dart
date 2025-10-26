@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:exa_gammer_movil/models/CursoModel/curso_model.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;

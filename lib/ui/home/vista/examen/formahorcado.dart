@@ -19,12 +19,11 @@ class AhorcadoFormState extends State<AhorcadoForm> {
         'pista': _pistaController.text.trim(),
       };
     }
-    return null; // si no pasa la validación
+    return null;
   }
 
   @override
   Widget build(BuildContext context) {
-    // Tamaño de pantalla (para hacerlo responsive)
     final size = MediaQuery.of(context).size;
     final isHorizontal = size.width > size.height;
 
@@ -42,14 +41,13 @@ class AhorcadoFormState extends State<AhorcadoForm> {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 20),
                   child: Image.asset(
-                    'assets/avatars/ahorcado.png', // 👈 Asegúrate de agregar la imagen en assets
+                    'assets/avatars/ahorcado.png',
                     width: isHorizontal ? size.width * 0.3 : size.width * 0.7,
                     height: isHorizontal ? 200 : 250,
                     fit: BoxFit.contain,
                   ),
                 ),
 
-                // Campo Palabra
                 TextFormField(
                   controller: _palabraController,
                   decoration: const InputDecoration(
@@ -63,7 +61,6 @@ class AhorcadoFormState extends State<AhorcadoForm> {
                 ),
                 const SizedBox(height: 16),
 
-                // Campo Pista
                 TextFormField(
                   controller: _pistaController,
                   decoration: const InputDecoration(

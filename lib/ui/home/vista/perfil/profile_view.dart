@@ -2,7 +2,7 @@ import 'package:exa_gammer_movil/ui/home/inicio_sesion/diseologin.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:exa_gammer_movil/controllers/user_controller.dart';
-import 'package:exa_gammer_movil/ui/home/vista/PremiumView.dart';
+import 'package:exa_gammer_movil/ui/home/vista/perfil/PremiumView.dart';
 
 class ProfileView extends StatelessWidget {
   final UserController userController = Get.find<UserController>();
@@ -119,7 +119,7 @@ class ProfileView extends StatelessWidget {
                   ElevatedButton.icon(
                     onPressed: () async {
                       await userController.logout();
-                      Get.to(() => Vistalogin());
+                      Get.offAll(() => Vistalogin());
                     },
                     icon: const Icon(Icons.logout),
                     label: const Text("Cerrar sesión"),

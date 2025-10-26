@@ -57,8 +57,12 @@ class ClaseController extends GetxController {
     searchQuery.value = query;
   }
 
-  Future<List<Clase>> filteredList(int id, String token) async {
-    await CragarClases(id, token);
+  Future<List<Clase>> filteredList(int id, String token, String rol) async {
+    if (rol == 'Profesor') {
+      await CragarClases(id, token);
+    } else {
+      await CragarClases_Estudiante(id, token);
+    }
     if (claseList.isEmpty) {
       return [];
     }
@@ -79,6 +83,36 @@ class ClaseController extends GetxController {
     try {
       final url = Uri.parse(
         'https://apiexagammer.somee.com/api/Clases/Profe_Clases/${id}',
+      );
+
+      final res = await http
+          .get(
+            url,
+            headers: {
+              'Authorization': 'Bearer ${token}',
+              'Content-Type': 'application/json',
+            },
+          )
+          .timeout(Duration(seconds: 15));
+
+      if (res.statusCode != 200) {
+        print(res.statusCode);
+      }
+      final data = jsonDecode(res.body);
+      List<Clase> _claseList = [];
+      for (var item in data) {
+        _claseList.add(Clase.fromjson(item));
+      }
+      claseList.value = _claseList;
+    } catch (e) {
+      print("ERROR DE LA CARGA DE CLASES ${e.toString()}");
+    }
+  }
+
+  Future<void> CragarClases_Estudiante(int id, String token) async {
+    try {
+      final url = Uri.parse(
+        'https://apiexagammer.somee.com/api/Estudi_Clases/${id}',
       );
 
       final res = await http

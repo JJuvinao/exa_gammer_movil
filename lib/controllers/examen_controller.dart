@@ -23,14 +23,14 @@ class ExamenController extends GetxController {
   }
 
   List<Examen> filteredList(int id, String token) {
-    CargarExamne(id, token);
+    CargarExamenes(id, token);
     if (ExamenList.isEmpty) {
       return [];
     }
     return ExamenList;
   }
 
-  Future<void> CargarExamne(int id, String token) async {
+  Future<void> CargarExamenes(int id, String token) async {
     try {
       final url = Uri.parse(
         'https://apiexagammer.somee.com/api/Examenes/ExamenesClase/${id}',

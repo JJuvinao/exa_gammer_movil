@@ -1,13 +1,13 @@
 import 'package:exa_gammer_movil/controllers/user_controller.dart';
 import 'package:exa_gammer_movil/ui/course/courseView.dart';
-import 'package:exa_gammer_movil/ui/home/vista/ClaseCard.dart';
+import 'package:exa_gammer_movil/ui/home/widget/ClaseCard.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:exa_gammer_movil/controllers/clase_controller.dart';
 import 'package:exa_gammer_movil/ui/dialogs/dialogo_ingresar_clase.dart';
 import 'package:exa_gammer_movil/ui/home/buscar.dart';
 import 'package:exa_gammer_movil/ui/home/profesor/detalle_clase.dart';
-import 'package:exa_gammer_movil/ui/home/vista/profile_view.dart';
+import 'package:exa_gammer_movil/ui/home/vista/perfil/profile_view.dart';
 
 class HomeEstudiante extends StatefulWidget {
   HomeEstudiante({super.key});
@@ -31,7 +31,7 @@ class _HomeEstudianteState extends State<HomeEstudiante> {
   void CargarClase() async {
     final user = usercontroller.getuser;
     final token = usercontroller.gettoken;
-    filteredClase.value = await pc.filteredList(user.id, token);
+    filteredClase.value = await pc.filteredList(user.id, token, user.rol);
   }
 
   @override
@@ -69,7 +69,6 @@ class _HomeEstudianteState extends State<HomeEstudiante> {
                 alignment: Alignment.centerRight,
                 child: ElevatedButton.icon(
                   onPressed: () {
-                    // 👇 Abre directamente la vista de perfil
                     Get.to(() => ProfileView());
                   },
                   icon: const Icon(Icons.person),
@@ -83,11 +82,9 @@ class _HomeEstudianteState extends State<HomeEstudiante> {
                   ),
                 ),
               ),
-              // Campo de búsqueda
               BuscarClase(),
               const SizedBox(height: 10),
 
-              // Lista de clases
               Expanded(
                 child: Obx(() {
                   if (filteredClase.isEmpty) {
@@ -136,12 +133,27 @@ class _HomeEstudianteState extends State<HomeEstudiante> {
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          IngresarCodigo(context); // ✅ LLAMADA
-          Get.to(() => courseScreen());
-        },
-        child: const Icon(Icons.meeting_room),
+      floatingActionButton: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          FloatingActionButton(
+            onPressed: () async {
+              final result = await IngresarCodigo(context);
+              print("resultado del dialogo: $result");
+              if (result == true) {
+                CargarClase();
+              }
+            },
+            child: const Icon(Icons.meeting_room),
+          ),
+          const SizedBox(width: 16),
+          FloatingActionButton(
+            onPressed: () {
+              Get.to(() => courseScreen());
+            },
+            child: const Icon(Icons.school),
+          ),
+        ],
       ),
     );
   }

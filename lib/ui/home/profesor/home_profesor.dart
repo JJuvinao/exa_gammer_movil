@@ -1,12 +1,13 @@
 import 'package:exa_gammer_movil/controllers/user_controller.dart';
-import 'package:exa_gammer_movil/ui/home/vista/ClaseCard.dart';
+import 'package:exa_gammer_movil/ui/home/widget/ClaseCard.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:exa_gammer_movil/controllers/clase_controller.dart';
 import 'package:exa_gammer_movil/ui/home/buscar.dart';
 import 'package:exa_gammer_movil/ui/home/profesor/add_clase.dart';
 import 'package:exa_gammer_movil/ui/home/profesor/detalle_clase.dart';
-import 'package:exa_gammer_movil/ui/home/vista/profile_view.dart';
+import 'package:exa_gammer_movil/ui/home/vista/perfil/profile_view.dart';
+import 'package:exa_gammer_movil/ui/course/courseView.dart';
 
 class HomeProfesor extends StatefulWidget {
   HomeProfesor({super.key});
@@ -33,7 +34,7 @@ class _HomeProfesorState extends State<HomeProfesor> {
   void CargarClase() async {
     final user = usercontroller.getuser;
     final token = usercontroller.gettoken;
-    filteredClase.value = await pc.filteredList(user.id, token);
+    filteredClase.value = await pc.filteredList(user.id, token, user.rol);
   }
 
   @override
@@ -68,24 +69,45 @@ class _HomeProfesorState extends State<HomeProfesor> {
 
               const SizedBox(height: 10),
 
-              // 🔹 Botón que lleva al perfil
-              Align(
-                alignment: Alignment.centerRight,
-                child: ElevatedButton.icon(
-                  onPressed: () {
-                    // 👇 Abre directamente la vista de perfil
-                    Get.to(() => ProfileView());
-                  },
-                  icon: const Icon(Icons.person),
-                  label: const Text("Mi perfil"),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blueGrey[700],
-                    foregroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: ElevatedButton.icon(
+                      onPressed: () {
+                        Get.to(() => ProfileView());
+                      },
+                      icon: const Icon(Icons.person),
+                      label: const Text("Mi perfil"),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blueGrey[700],
+                        foregroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
                     ),
                   ),
-                ),
+
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: ElevatedButton.icon(
+                      onPressed: () {
+                        Get.to(() => courseScreen());
+                      },
+                      icon: const Icon(Icons.person),
+                      label: const Text("Cursos"),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blueGrey[700],
+                        foregroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
 
               const SizedBox(height: 20),

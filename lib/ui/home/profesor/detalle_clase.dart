@@ -72,7 +72,6 @@ class DetalleClase extends StatelessWidget {
 
               const SizedBox(height: 24),
 
-              // Título sección
               const Text(
                 'Actividades',
                 style: TextStyle(
@@ -83,7 +82,6 @@ class DetalleClase extends StatelessWidget {
               ),
               const SizedBox(height: 12),
 
-              // Lista de actividades
               Expanded(
                 child: Obx(() {
                   final user = usercontroller.getuser;

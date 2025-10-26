@@ -15,12 +15,12 @@ Future<void> main() async {
   await GetStorage.init();
   await Get.putAsync(() => StorageService().init());
 
-  Get.put(ClaseController());
+  Get.lazyPut(() => ClaseController());
   Get.put(UserController());
+  Get.lazyPut(() => ExamenController());
   Get.put(JuegoController());
-  Get.put(ExamenController());
-  Get.put(AhorcadoController());
-  Get.put(CursoController());
+  Get.lazyPut(() => AhorcadoController());
+  Get.lazyPut(() => CursoController());
 
   runApp(MyApp());
 }
