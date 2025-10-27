@@ -68,8 +68,7 @@ class Agregarclase extends StatelessWidget {
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
-                mainAxisSize:
-                    MainAxisSize.min, // 👈 Limita el alto al contenido
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   Center(
                     child: Text(
@@ -98,9 +97,7 @@ class Agregarclase extends StatelessWidget {
                       ),
                       const Spacer(),
                       ElevatedButton(
-                        onPressed: () {
-                          //falta funcionalidad de avatar
-                        },
+                        onPressed: () {},
                         child: const Text('Elegir'),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.blue.shade600,

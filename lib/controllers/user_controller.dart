@@ -79,4 +79,35 @@ class UserController extends GetxController {
     }
     return null;
   }
+
+  Future<bool> UnirseClase(String codigoClase) async {
+    final url = Uri.parse(
+      'https://apiexagammer.somee.com/api/Estudi_Clases/Ingresar',
+    );
+    try {
+      final res = await http
+          .post(
+            url,
+            headers: <String, String>{
+              'Content-Type': 'application/json; charset=UTF-8',
+              'Authorization': 'Bearer ${gettoken}',
+            },
+            body: jsonEncode(
+              new Userclase(
+                userid: getuser.id,
+                claseid: 0,
+                codigo: codigoClase,
+              ),
+            ),
+          )
+          .timeout(Duration(seconds: 15));
+      if (res.statusCode != 200) {
+        return false;
+      }
+      return true;
+    } catch (e) {
+      print("ERROR AL UNIRSE A LA CLASE");
+    }
+    return false;
+  }
 }

@@ -29,7 +29,6 @@ class HeroesFormState extends State<HeroesForm> {
 
       setState(() {
         _preguntas.add(pregunta);
-        // Limpiar campos después de agregar
         _preguntaController.clear();
         _respuestaVController.clear();
         _respuesta1Controller.clear();
@@ -44,7 +43,7 @@ class HeroesFormState extends State<HeroesForm> {
   }
 
   Map<String, dynamic>? getData() {
-    return {'lispreheroe': _preguntas}; // si no pasa la validación
+    return {'lispreheroe': _preguntas};
   }
 
   @override
@@ -61,7 +60,6 @@ class HeroesFormState extends State<HeroesForm> {
             key: _formKey,
             child: Column(
               children: [
-                // Imágenes
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -83,7 +81,6 @@ class HeroesFormState extends State<HeroesForm> {
                 ),
                 const SizedBox(height: 20),
 
-                // Campo: Pregunta
                 TextFormField(
                   controller: _preguntaController,
                   decoration: const InputDecoration(
@@ -99,7 +96,6 @@ class HeroesFormState extends State<HeroesForm> {
                 ),
                 const SizedBox(height: 16),
 
-                // Campo: Respuesta correcta
                 TextFormField(
                   controller: _respuestaVController,
                   decoration: const InputDecoration(
@@ -113,7 +109,6 @@ class HeroesFormState extends State<HeroesForm> {
                 ),
                 const SizedBox(height: 16),
 
-                // Respuestas incorrectas
                 TextFormField(
                   controller: _respuesta1Controller,
                   decoration: const InputDecoration(

@@ -6,16 +6,15 @@ import 'package:exa_gammer_movil/models/juego_model.dart';
 class JuegoController extends GetxController {
   var juegoList = <Juego>[].obs;
 
-  List<Juego> getjuegoList() {
-    CargarExamne();
+  Future<List<Juego>> getjuegoList() async {
+    await CargarJuegos();
     if (juegoList.isEmpty) {
       return [];
-    } else {
-      return juegoList;
     }
+    return juegoList;
   }
 
-  Future<void> CargarExamne() async {
+  Future<void> CargarJuegos() async {
     try {
       final url = Uri.parse('https://apiexagammer.somee.com/api/juego');
 

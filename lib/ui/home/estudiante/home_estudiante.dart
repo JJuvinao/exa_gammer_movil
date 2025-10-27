@@ -1,16 +1,38 @@
 import 'package:exa_gammer_movil/controllers/user_controller.dart';
-import 'package:exa_gammer_movil/ui/home/vista/ClaseCard.dart';
+import 'package:exa_gammer_movil/ui/course/courseView.dart';
+import 'package:exa_gammer_movil/ui/home/widget/ClaseCard.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:exa_gammer_movil/controllers/clase_controller.dart';
 import 'package:exa_gammer_movil/ui/dialogs/dialogo_ingresar_clase.dart';
 import 'package:exa_gammer_movil/ui/home/buscar.dart';
 import 'package:exa_gammer_movil/ui/home/profesor/detalle_clase.dart';
+import 'package:exa_gammer_movil/ui/home/vista/perfil/profile_view.dart';
 
-class HomeEstudiante extends StatelessWidget {
-  final ClaseController pc = Get.find();
-  final UserController usercontroller = Get.find<UserController>();
+class HomeEstudiante extends StatefulWidget {
   HomeEstudiante({super.key});
+
+  @override
+  State<HomeEstudiante> createState() => _HomeEstudianteState();
+}
+
+class _HomeEstudianteState extends State<HomeEstudiante> {
+  final ClaseController pc = Get.find();
+
+  final UserController usercontroller = Get.find<UserController>();
+  var filteredClase = <dynamic>[].obs;
+
+  @override
+  void initState() {
+    super.initState();
+    CargarClase();
+  }
+
+  void CargarClase() async {
+    final user = usercontroller.getuser;
+    final token = usercontroller.gettoken;
+    filteredClase.value = await pc.filteredList(user.id, token, user.rol);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,18 +65,28 @@ class HomeEstudiante extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 24),
-
-              // Campo de búsqueda
+              Align(
+                alignment: Alignment.centerRight,
+                child: ElevatedButton.icon(
+                  onPressed: () {
+                    Get.to(() => ProfileView());
+                  },
+                  icon: const Icon(Icons.person),
+                  label: const Text("Mi perfil"),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blueGrey[700],
+                    foregroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                ),
+              ),
               BuscarClase(),
               const SizedBox(height: 10),
 
-              // Lista de clases
               Expanded(
                 child: Obx(() {
-                  final user = usercontroller.getuser;
-                  final token = usercontroller.gettoken;
-                  var filteredClase = pc.filteredList(user.id, token);
-
                   if (filteredClase.isEmpty) {
                     return const Center(
                       child: Text(
@@ -101,11 +133,27 @@ class HomeEstudiante extends StatelessWidget {
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          IngresarCodigo(context); // ✅ LLAMADA
-        },
-        child: const Icon(Icons.meeting_room),
+      floatingActionButton: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          FloatingActionButton(
+            onPressed: () async {
+              final result = await IngresarCodigo(context);
+              print("resultado del dialogo: $result");
+              if (result == true) {
+                CargarClase();
+              }
+            },
+            child: const Icon(Icons.meeting_room),
+          ),
+          const SizedBox(width: 16),
+          FloatingActionButton(
+            onPressed: () {
+              Get.to(() => courseScreen());
+            },
+            child: const Icon(Icons.school),
+          ),
+        ],
       ),
     );
   }
