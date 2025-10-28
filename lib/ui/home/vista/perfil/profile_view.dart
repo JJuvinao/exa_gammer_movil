@@ -139,20 +139,4 @@ class ProfileView extends StatelessWidget {
       ),
     );
   }
-
-  Color _colorFromName(String name) {
-    final hash = name.codeUnits.fold(0, (prev, elem) => prev + elem);
-    final colors = [
-      Colors.red,
-      Colors.blue,
-      Colors.green,
-      Colors.orange,
-      Colors.purple,
-      Colors.teal,
-      Colors.indigo,
-      Colors.pink,
-      Colors.brown,
-    ];
-    return colors[hash % colors.length];
-  }
 }

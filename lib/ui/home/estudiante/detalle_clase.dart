@@ -3,20 +3,19 @@ import 'package:exa_gammer_movil/ui/home/inicio_sesion/diseologin.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:exa_gammer_movil/controllers/examen_controller.dart';
-import 'package:exa_gammer_movil/ui/home/vista/examen/add_examen.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:exa_gammer_movil/game/ahorcado/ahorcado_page.dart';
 import 'package:exa_gammer_movil/ui/home/vista/examen/detalle_examen.dart';
 import 'package:exa_gammer_movil/controllers/clase_controller.dart';
 
-class DetalleClase extends StatefulWidget {
-  DetalleClase({super.key});
+class DetalleClase_Estu extends StatefulWidget {
+  DetalleClase_Estu({super.key});
 
   @override
-  State<DetalleClase> createState() => _DetalleClaseState();
+  State<DetalleClase_Estu> createState() => _DetalleClase_EstuState();
 }
 
-class _DetalleClaseState extends State<DetalleClase> {
+class _DetalleClase_EstuState extends State<DetalleClase_Estu> {
   final ExamenController examenController = Get.put(ExamenController());
 
   final UserController usercontroller = Get.find<UserController>();
@@ -168,12 +167,6 @@ class _DetalleClaseState extends State<DetalleClase> {
               ],
             ),
           ),
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Get.to(() => AddExamen());
-          },
-          child: const Icon(Icons.add),
         ),
       ),
     );

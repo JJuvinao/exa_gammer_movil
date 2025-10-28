@@ -1,6 +1,6 @@
 import 'package:exa_gammer_movil/controllers/user_controller.dart';
 import 'package:exa_gammer_movil/models/clase_model.dart';
-import 'package:exa_gammer_movil/ui/home/profesor/home_profesor.dart';
+import 'package:exa_gammer_movil/ui/home/profesor/main_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:exa_gammer_movil/controllers/clase_controller.dart';
@@ -131,7 +131,7 @@ class Agregarclase extends StatelessWidget {
                             snackPosition: SnackPosition.BOTTOM,
                             duration: Duration(seconds: 3),
                           );
-                          Get.to(() => HomeProfesor());
+                          Get.to(() => MainView(vista: "Profesor"));
                         } else {
                           Get.snackbar(
                             'Error',

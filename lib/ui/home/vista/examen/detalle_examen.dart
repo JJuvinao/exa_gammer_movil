@@ -35,6 +35,7 @@ class DetalleExamenPage extends StatelessWidget {
       ),
       body: LayoutBuilder(
         builder: (context, constraints) {
+          // ignore: unused_local_variable
           final isWide = constraints.maxWidth > 700;
           return SingleChildScrollView(
             padding: const EdgeInsets.all(16),
