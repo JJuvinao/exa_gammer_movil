@@ -15,6 +15,14 @@ class ClaseController extends GetxController {
     await _storageService.saveClase(newClase);
   }
 
+  Future<void> logoutClase() async {
+    await _storageService.logoutClase();
+  }
+
+  void ClearClase() {
+    claseList.clear();
+  }
+
   Future<bool> AddClase(Clasedto newclase, String token) async {
     final url = Uri.parse(
       'https://apiexagammer.somee.com/api/Clases/ClasePost',

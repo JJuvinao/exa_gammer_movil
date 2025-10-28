@@ -95,16 +95,8 @@ class StorageService extends GetxService {
     await _box.write(_examenKey, newExamen);
   }
 
-  bool get isLoggedIn => _box.read<bool>(_isLoggedInKey) ?? false;
-
-  Future<void> logout() async {
-    await _box.remove(_isLoggedInKey);
-    await _box.remove(_userKey);
-    await _box.remove(_tokenKey);
+  Future<void> logoutClase() async {
     await _box.remove(_claseKey);
-    await _box.remove(_examenKey);
-    token.value = '';
-    user.value = User(id: 0, username: '', rol: '', email: '', img: '');
     clase.value = Clase(
       id: 0,
       nombre: '',
@@ -116,6 +108,10 @@ class StorageService extends GetxService {
       img: '',
       id_profe: 0,
     );
+  }
+
+  Future<void> logoutExamen() async {
+    await _box.remove(_examenKey);
     examen.value = Examen(
       id: 0,
       nombre: '',
@@ -127,5 +123,16 @@ class StorageService extends GetxService {
       img: '',
       id_juego: 0,
     );
+  }
+
+  bool get isLoggedIn => _box.read<bool>(_isLoggedInKey) ?? false;
+
+  Future<void> logout() async {
+    await _box.remove(_isLoggedInKey);
+    await _box.remove(_userKey);
+    await _box.remove(_tokenKey);
+
+    token.value = '';
+    user.value = User(id: 0, username: '', rol: '', email: '', img: '');
   }
 }
