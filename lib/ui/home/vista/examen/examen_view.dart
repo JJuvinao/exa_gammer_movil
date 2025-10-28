@@ -1,24 +1,22 @@
 import 'package:exa_gammer_movil/controllers/vista_controles.dart';
-import 'package:exa_gammer_movil/ui/home/profesor/main_view.dart';
-import 'package:exa_gammer_movil/controllers/user_controller.dart';
+import 'package:exa_gammer_movil/ui/home/vista/clase/clase_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class ClaseView extends StatefulWidget {
+class ExamenView extends StatefulWidget {
   final String vista;
-  const ClaseView({super.key, required this.vista});
+  const ExamenView({super.key, required this.vista});
   @override
-  State<ClaseView> createState() => _ClaseViewState();
+  State<ExamenView> createState() => _ExamenViewState();
 }
 
-class _ClaseViewState extends State<ClaseView> {
+class _ExamenViewState extends State<ExamenView> {
   int _currentIndex = 0;
-  final UserController user = Get.find<UserController>();
 
   List<BottomNavigationBarItem> get _navBarItems =>
       Get.find<VistaControles>().navBarItems(widget.vista);
 
-  List<Widget> get _screens => Get.find<VistaControles>().getScreens_Clase();
+  List<Widget> get _screens => Get.find<VistaControles>().getScreens_Examen();
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +30,7 @@ class _ClaseViewState extends State<ClaseView> {
         currentIndex: _currentIndex,
         onTap: (index) {
           if (index == 0) {
-            Get.to(() => MainView(vista: user.getuser.rol));
+            Get.to(() => ClaseView(vista: "Clase"));
             return;
           }
           setState(() {

@@ -1,12 +1,12 @@
 import 'package:exa_gammer_movil/controllers/user_controller.dart';
 import 'package:exa_gammer_movil/ui/home/inicio_sesion/diseologin.dart';
+import 'package:exa_gammer_movil/ui/home/vista/examen/examen_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:exa_gammer_movil/controllers/examen_controller.dart';
 import 'package:exa_gammer_movil/ui/home/vista/examen/add_examen.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:exa_gammer_movil/game/ahorcado/ahorcado_page.dart';
-import 'package:exa_gammer_movil/ui/home/vista/examen/detalle_examen.dart';
 import 'package:exa_gammer_movil/controllers/clase_controller.dart';
 
 class DetalleClase extends StatefulWidget {
@@ -148,7 +148,8 @@ class _DetalleClaseState extends State<DetalleClase> {
                                 fontSize: 18,
                               ),
                             ),
-                            onTap: () => Get.to(() => DetalleExamenPage()),
+                            onTap: () =>
+                                Get.to(() => ExamenView(vista: "Examen")),
                             subtitle: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [

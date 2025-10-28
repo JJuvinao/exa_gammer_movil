@@ -2,6 +2,8 @@ import 'package:exa_gammer_movil/controllers/user_controller.dart';
 import 'package:exa_gammer_movil/ui/home/profesor/detalle_clase.dart';
 import 'package:exa_gammer_movil/ui/home/profesor/home_profesor.dart';
 import 'package:exa_gammer_movil/ui/course/courseView.dart';
+import 'package:exa_gammer_movil/ui/home/vista/examen/calificacion.dart';
+import 'package:exa_gammer_movil/ui/home/vista/examen/detalle_examen.dart';
 import 'package:exa_gammer_movil/ui/home/vista/perfil/profile_view.dart';
 import 'package:exa_gammer_movil/ui/home/estudiante/home_estudiante.dart';
 import 'package:exa_gammer_movil/ui/home/vista/clase/info_clase.dart';
@@ -42,21 +44,26 @@ class VistaControles extends GetxController {
     return screens;
   }
 
-  List<Widget> getScreens_Clase(String vista) {
-    switch (vista) {
-      case 'Clase':
-        screens.clear();
-        screens.addAll([
-          DetalleClase(),
-          DetalleClase(),
-          Info_Clase(),
-          Estud_Clase(),
-        ]);
-        return screens;
-      default:
-        screens.clear();
-        break;
-    }
+  List<Widget> getScreens_Clase() {
+    screens.clear();
+    screens.addAll([
+      DetalleClase(),
+      DetalleClase(),
+      Info_Clase(),
+      Estud_Clase(),
+    ]);
+    return screens;
+  }
+
+  List<Widget> getScreens_Examen() {
+    screens.clear();
+    screens.addAll([
+      DetalleExamenPage(),
+      DetalleExamenPage(),
+      Info_Clase(),
+      Estud_Clase(),
+      Calificacion(),
+    ]);
     return screens;
   }
 
@@ -90,6 +97,25 @@ class VistaControles extends GetxController {
           BottomNavigationBarItem(
             icon: Icon(Icons.group),
             label: 'Estudiantes',
+          ),
+        ]);
+        return _navBarItems;
+      case 'Examen':
+        _navBarItems.clear();
+        _navBarItems.addAll(const [
+          BottomNavigationBarItem(icon: Icon(Icons.arrow_back), label: 'Clase'),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.assignment),
+            label: 'Detalle Examen',
+          ),
+          BottomNavigationBarItem(icon: Icon(Icons.info), label: 'Info Examen'),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.group),
+            label: 'Estudiantes',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.grade),
+            label: 'Calificaciones',
           ),
         ]);
         return _navBarItems;

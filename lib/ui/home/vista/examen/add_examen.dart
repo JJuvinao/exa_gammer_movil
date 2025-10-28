@@ -43,6 +43,8 @@ class _AddExamenState extends State<AddExamen> {
   void initState() {
     super.initState();
     CargarJuego();
+    tiposJuego.refresh();
+    print(tiposJuego);
   }
 
   void CargarJuego() async {

@@ -1,12 +1,12 @@
 import 'package:exa_gammer_movil/controllers/user_controller.dart';
 import 'package:exa_gammer_movil/ui/home/inicio_sesion/diseologin.dart';
+import 'package:exa_gammer_movil/ui/home/vista/clase/clase_view.dart';
 import 'package:exa_gammer_movil/ui/home/widget/ClaseCard.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:exa_gammer_movil/controllers/clase_controller.dart';
 import 'package:exa_gammer_movil/ui/home/buscar.dart';
 import 'package:exa_gammer_movil/ui/home/profesor/add_clase.dart';
-import 'package:exa_gammer_movil/ui/home/profesor/main_view.dart';
 
 class HomeProfesor extends StatefulWidget {
   HomeProfesor({super.key});
@@ -135,7 +135,7 @@ class _HomeProfesorState extends State<HomeProfesor> {
                               imagenUrl: clase.img,
                               onTap: () {
                                 claseController.saveClase(clase);
-                                Get.to(() => MainView(vista: "Clase"));
+                                Get.to(() => ClaseView(vista: "Clase"));
                               },
                             );
                           },
