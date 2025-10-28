@@ -24,12 +24,17 @@ class _HomeProfesorState extends State<HomeProfesor> {
   @override
   void initState() {
     super.initState();
-
-    // Obtenemos los controladores asegurándonos de que ya estén inicializados en main.dart
     claseController = Get.find<ClaseController>();
     userController = Get.find<UserController>();
 
     CargarClase();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    filteredClase.clear();
+    claseController.logoutClase();
   }
 
   void CargarClase() async {
@@ -40,6 +45,50 @@ class _HomeProfesorState extends State<HomeProfesor> {
       token,
       user.rol,
     );
+  }
+
+  Widget build_Clases(BuildContext context) {
+    return Obx(() {
+      if (filteredClase.isEmpty) {
+        return const Center(
+          child: Text(
+            'No hay clases registradas.',
+            style: TextStyle(fontSize: 16, color: Colors.grey),
+          ),
+        );
+      }
+      return LayoutBuilder(
+        builder: (context, constraints) {
+          int crossAxisCount = constraints.maxWidth > 800
+              ? 4
+              : constraints.maxWidth > 600
+              ? 3
+              : 2;
+
+          return GridView.builder(
+            padding: const EdgeInsets.all(10),
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: crossAxisCount,
+              crossAxisSpacing: 10,
+              mainAxisSpacing: 10,
+              childAspectRatio: 0.85,
+            ),
+            itemCount: filteredClase.length,
+            itemBuilder: (context, index) {
+              final clase = filteredClase[index];
+              return ObjetoCard(
+                titulo: clase.nombre,
+                imagenUrl: clase.img,
+                onTap: () {
+                  claseController.saveClase(clase);
+                  Get.to(() => ClaseView(vista: "Clase"));
+                },
+              );
+            },
+          );
+        },
+      );
+    });
   }
 
   Future<bool> _onWillPop() async {
@@ -99,51 +148,7 @@ class _HomeProfesorState extends State<HomeProfesor> {
                 const SizedBox(height: 30),
                 BuscarClase(),
                 const SizedBox(height: 10),
-                Expanded(
-                  child: Obx(() {
-                    if (filteredClase.isEmpty) {
-                      return const Center(
-                        child: Text(
-                          'No hay clases registradas.',
-                          style: TextStyle(fontSize: 16, color: Colors.grey),
-                        ),
-                      );
-                    }
-
-                    return LayoutBuilder(
-                      builder: (context, constraints) {
-                        int crossAxisCount = constraints.maxWidth > 800
-                            ? 4
-                            : constraints.maxWidth > 600
-                            ? 3
-                            : 2;
-
-                        return GridView.builder(
-                          padding: const EdgeInsets.all(10),
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: crossAxisCount,
-                                crossAxisSpacing: 10,
-                                mainAxisSpacing: 10,
-                                childAspectRatio: 0.85,
-                              ),
-                          itemCount: filteredClase.length,
-                          itemBuilder: (context, index) {
-                            final clase = filteredClase[index];
-                            return ObjetoCard(
-                              titulo: clase.nombre,
-                              imagenUrl: clase.img,
-                              onTap: () {
-                                claseController.saveClase(clase);
-                                Get.to(() => ClaseView(vista: "Clase"));
-                              },
-                            );
-                          },
-                        );
-                      },
-                    );
-                  }),
-                ),
+                Expanded(child: build_Clases(context)),
               ],
             ),
           ),

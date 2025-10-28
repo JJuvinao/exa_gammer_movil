@@ -1,5 +1,5 @@
 import 'package:exa_gammer_movil/controllers/user_controller.dart';
-import 'package:exa_gammer_movil/ui/home/profesor/detalle_clase.dart';
+import 'package:exa_gammer_movil/ui/home/profesor/detalle_clase_profe.dart';
 import 'package:exa_gammer_movil/ui/home/profesor/home_profesor.dart';
 import 'package:exa_gammer_movil/ui/course/courseView.dart';
 import 'package:exa_gammer_movil/ui/home/vista/examen/calificacion.dart';

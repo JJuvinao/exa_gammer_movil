@@ -1,6 +1,7 @@
 import 'package:exa_gammer_movil/controllers/clase_controller.dart';
 import 'package:exa_gammer_movil/controllers/user_controller.dart';
 import 'package:exa_gammer_movil/models/juego_model.dart';
+import 'package:exa_gammer_movil/ui/home/widget/avatares.dart';
 
 import 'formahorcado.dart';
 import 'package:exa_gammer_movil/ui/home/vista/examen/formheroes.dart';
@@ -38,6 +39,16 @@ class _AddExamenState extends State<AddExamen> {
 
   final _formKey = GlobalKey<FormState>();
   var tiposJuego = <dynamic>[].obs;
+  bool mostaravatar = false;
+  String? selecionAvatar;
+
+  final List<String> avatarList = [
+    "assets/avatars/avatar1.jpg",
+    "assets/avatars/avatar2.jpg",
+    "assets/avatars/avatar3.jpg",
+    "assets/avatars/avatar5.jpg",
+    "assets/avatars/avatar6.jpg",
+  ];
 
   @override
   void initState() {
@@ -149,6 +160,50 @@ class _AddExamenState extends State<AddExamen> {
                       ),
                       const SizedBox(height: 16),
 
+                      Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            if (mostaravatar == true)
+                              ClipOval(
+                                child: Image.asset(
+                                  selecionAvatar!,
+                                  width: 100,
+                                  height: 100,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            const SizedBox(height: 16),
+
+                            ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.blue,
+                                foregroundColor: Colors.white,
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 24,
+                                  vertical: 12,
+                                ),
+                                textStyle: const TextStyle(fontSize: 18),
+                              ),
+                              onPressed: () async {
+                                final avatar = await AvatarSelectorModal.show(
+                                  context,
+                                  avatarList,
+                                );
+                                if (avatar != null) {
+                                  setState(() {
+                                    selecionAvatar = avatar;
+                                    mostaravatar = true;
+                                  });
+                                }
+                              },
+                              child: const Text('Elegir avatar'),
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      const SizedBox(height: 16),
                       // Dropdown: Tipo
                       Obx(() {
                         return DropdownButtonFormField<dynamic>(

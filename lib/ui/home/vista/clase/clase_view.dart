@@ -12,7 +12,7 @@ class ClaseView extends StatefulWidget {
 }
 
 class _ClaseViewState extends State<ClaseView> {
-  int _currentIndex = 0;
+  int _currentIndex = 1;
   final UserController user = Get.find<UserController>();
 
   List<BottomNavigationBarItem> get _navBarItems =>

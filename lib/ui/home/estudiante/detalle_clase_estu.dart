@@ -21,6 +21,20 @@ class _DetalleClase_EstuState extends State<DetalleClase_Estu> {
   final UserController usercontroller = Get.find<UserController>();
 
   final ClaseController claseController = Get.find<ClaseController>();
+  List<dynamic> examenes = [];
+  final clasek = null;
+
+  @override
+  void initState() {
+    super.initState();
+    cargarExamen();
+  }
+
+  void cargarExamen() async {
+    final clasek = claseController.getclase;
+    final token = usercontroller.gettoken;
+    examenes = examenController.filteredList(clasek.id, token);
+  }
 
   Future<bool> _onWillPop() async {
     return await showDialog(
@@ -47,7 +61,6 @@ class _DetalleClase_EstuState extends State<DetalleClase_Estu> {
 
   @override
   Widget build(BuildContext context) {
-    final clasek = claseController.getclase;
     return WillPopScope(
       onWillPop: _onWillPop,
       child: Scaffold(
@@ -116,12 +129,6 @@ class _DetalleClase_EstuState extends State<DetalleClase_Estu> {
 
                 Expanded(
                   child: Obx(() {
-                    final token = usercontroller.gettoken;
-                    final examenes = examenController.filteredList(
-                      clasek.id,
-                      token,
-                    );
-
                     if (examenes.isEmpty) {
                       return const Center(
                         child: Text(
