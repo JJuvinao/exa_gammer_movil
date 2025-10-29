@@ -22,18 +22,18 @@ class ExamenController extends GetxController {
     ExamenList.clear();
   }
 
-  List<Examen> filteredList(int id, String token) {
-    CargarExamne(id, token);
+  Future<List<Examen>> filteredList(int id, String token) async {
+    await CargarExamenes(id, token);
     if (ExamenList.isEmpty) {
       return [];
     }
     return ExamenList;
   }
 
-  Future<void> CargarExamne(int id, String token) async {
+  Future<void> CargarExamenes(int id, String token) async {
     try {
       final url = Uri.parse(
-        'https://apiexagammer.somee.com/api/Examenes/ExamenesClase/${id}',
+        'https://www.apiexagammer.somee.com/api/Examenes/ExamenesClase/${id}',
       );
 
       final res = await http.get(
@@ -71,7 +71,7 @@ class ExamenController extends GetxController {
     };
     var datosExamen = {};
     if (data['tipo'] == 'ahorcado') {
-      urls = 'https://apiexagammer.somee.com/api/Examenes/Ahorcado';
+      urls = 'https://www.apiexagammer.somee.com/api/Examenes/Ahorcado';
       datosExamen = {
         'Nombre': examen['Nombre'],
         'Tema': examen['Tema'],
@@ -85,7 +85,7 @@ class ExamenController extends GetxController {
       };
     }
     if (data['tipo'] == 'heroes') {
-      urls = 'https://apiexagammer.somee.com/api/Examenes/Heroes';
+      urls = 'https://www.apiexagammer.somee.com/api/Examenes/Heroes';
       datosExamen = {
         'Nombre': examen['Nombre'],
         'Tema': examen['Tema'],

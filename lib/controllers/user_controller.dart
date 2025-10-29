@@ -28,7 +28,7 @@ class UserController extends GetxController {
       img: "assets/imagen/fotoperfil.png",
     );
     final url = Uri.parse(
-      'https://apiexagammer.somee.com/api/Usuarios/Registro',
+      'https://www.apiexagammer.somee.com/api/Usuarios/Registro',
     );
     try {
       final res = await http
@@ -45,7 +45,7 @@ class UserController extends GetxController {
       }
       return true;
     } catch (e) {
-      print("ERROR DEL RESGISTRO");
+      print("ERROR DEL RESGISTRO ${e.toString()}");
     }
     return false;
   }
@@ -78,5 +78,36 @@ class UserController extends GetxController {
       print("ERROR DEL LOGIN ${e.toString()}");
     }
     return null;
+  }
+
+  Future<bool> UnirseClase(String codigoClase) async {
+    final url = Uri.parse(
+      'https://www.apiexagammer.somee.com/api/Estudi_Clases/Ingresar',
+    );
+    try {
+      final res = await http
+          .post(
+            url,
+            headers: <String, String>{
+              'Content-Type': 'application/json; charset=UTF-8',
+              'Authorization': 'Bearer ${gettoken}',
+            },
+            body: jsonEncode(
+              new Userclase(
+                userid: getuser.id,
+                claseid: 0,
+                codigo: codigoClase,
+              ),
+            ),
+          )
+          .timeout(Duration(seconds: 15));
+      if (res.statusCode != 200) {
+        return false;
+      }
+      return true;
+    } catch (e) {
+      print("ERROR AL UNIRSE A LA CLASE");
+    }
+    return false;
   }
 }

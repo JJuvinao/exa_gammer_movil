@@ -18,7 +18,6 @@ class _AhorcadoPageState extends State<AhorcadoPage> {
   void initState() {
     super.initState();
     controller.nuevaPalabra();
-    // Bloquea en horizontal
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.landscapeLeft,
       DeviceOrientation.landscapeRight,
@@ -27,7 +26,6 @@ class _AhorcadoPageState extends State<AhorcadoPage> {
 
   @override
   void dispose() {
-    // Restaurar orientación por defecto al salir
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,

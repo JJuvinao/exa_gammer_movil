@@ -62,7 +62,7 @@ class Coursecontentview extends StatelessWidget {
 }
 
 class _ModulesTab extends StatelessWidget {
-  const _ModulesTab({super.key, required this.curso});
+  const _ModulesTab({required this.curso});
 
   final Curso curso;
 
@@ -101,7 +101,7 @@ class _ModulesTab extends StatelessWidget {
 }
 
 class _QuestionsTab extends StatelessWidget {
-  const _QuestionsTab({super.key, required this.curso});
+  const _QuestionsTab({required this.curso});
 
   final Curso curso;
 

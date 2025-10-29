@@ -1,19 +1,94 @@
 import 'package:exa_gammer_movil/controllers/user_controller.dart';
-import 'package:exa_gammer_movil/ui/home/vista/ClaseCard.dart';
+import 'package:exa_gammer_movil/ui/home/vista/clase/clase_view.dart';
+import 'package:exa_gammer_movil/ui/home/widget/ClaseCard.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:exa_gammer_movil/controllers/clase_controller.dart';
 import 'package:exa_gammer_movil/ui/home/buscar.dart';
 import 'package:exa_gammer_movil/ui/home/profesor/add_clase.dart';
-import 'package:exa_gammer_movil/ui/home/profesor/detalle_clase.dart';
-import 'package:exa_gammer_movil/ui/home/vista/profile_view.dart'; 
 
-class HomeProfesor extends StatelessWidget {
-  final ClaseController pc = Get.find();
-  final UserController usercontroller = Get.find<UserController>();
-  final ClaseController claseController = Get.find<ClaseController>();
-
+class HomeProfesor extends StatefulWidget {
   HomeProfesor({super.key});
+
+  @override
+  State<HomeProfesor> createState() => _HomeProfesorState();
+}
+
+class _HomeProfesorState extends State<HomeProfesor> {
+  late final ClaseController claseController;
+  late final UserController userController;
+
+  var filteredClase = <dynamic>[].obs;
+
+  @override
+  void initState() {
+    super.initState();
+    claseController = Get.find<ClaseController>();
+    userController = Get.find<UserController>();
+
+    CargarClase();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    filteredClase.clear();
+    claseController.logoutClase();
+  }
+
+  void CargarClase() async {
+    final user = userController.getuser;
+    final token = userController.gettoken;
+    filteredClase.value = await claseController.filteredList(
+      user.id,
+      token,
+      user.rol,
+    );
+  }
+
+  Widget build_Clases(BuildContext context) {
+    return Obx(() {
+      if (filteredClase.isEmpty) {
+        return const Center(
+          child: Text(
+            'No hay clases registradas.',
+            style: TextStyle(fontSize: 16, color: Colors.grey),
+          ),
+        );
+      }
+      return LayoutBuilder(
+        builder: (context, constraints) {
+          int crossAxisCount = constraints.maxWidth > 800
+              ? 4
+              : constraints.maxWidth > 600
+              ? 3
+              : 2;
+
+          return GridView.builder(
+            padding: const EdgeInsets.all(10),
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: crossAxisCount,
+              crossAxisSpacing: 10,
+              mainAxisSpacing: 10,
+              childAspectRatio: 0.85,
+            ),
+            itemCount: filteredClase.length,
+            itemBuilder: (context, index) {
+              final clase = filteredClase[index];
+              return ObjetoCard(
+                titulo: clase.nombre,
+                imagenUrl: clase.img,
+                onTap: () {
+                  claseController.saveClase(clase);
+                  Get.to(() => ClaseView(vista: "Clase"));
+                },
+              );
+            },
+          );
+        },
+      );
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,84 +119,10 @@ class HomeProfesor extends StatelessWidget {
                   ),
                 ],
               ),
-
-              const SizedBox(height: 10),
-
-              // 🔹 Botón que lleva al perfil
-              Align(
-                alignment: Alignment.centerRight,
-                child: ElevatedButton.icon(
-                  onPressed: () {
-                    // 👇 Abre directamente la vista de perfil
-                    Get.to(() => ProfileView());
-                  },
-                  icon: const Icon(Icons.person),
-                  label: const Text("Mi perfil"),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blueGrey[700],
-                    foregroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                ),
-              ),
-
-              const SizedBox(height: 20),
-
+              const SizedBox(height: 30),
               BuscarClase(),
-
               const SizedBox(height: 10),
-
-              Expanded(
-                child: Obx(() {
-                  final user = usercontroller.getuser;
-                  final token = usercontroller.gettoken;
-                  var filteredClase = pc.filteredList(user.id, token);
-
-                  if (filteredClase.isEmpty) {
-                    return const Center(
-                      child: Text(
-                        'No hay clases registradas.',
-                        style: TextStyle(fontSize: 16, color: Colors.grey),
-                      ),
-                    );
-                  }
-
-                  return LayoutBuilder(
-                    builder: (context, constraints) {
-                      int crossAxisCount = constraints.maxWidth > 800
-                          ? 4
-                          : constraints.maxWidth > 600
-                              ? 3
-                              : 2;
-
-                      return GridView.builder(
-                        padding: const EdgeInsets.all(10),
-                        gridDelegate:
-                            SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: crossAxisCount,
-                          crossAxisSpacing: 10,
-                          mainAxisSpacing: 10,
-                          childAspectRatio: 0.85,
-                        ),
-                        itemCount: filteredClase.length,
-                        itemBuilder: (context, index) {
-                          final clase = filteredClase[index];
-                          return ObjetoCard(
-                            titulo: clase.nombre,
-                            imagenUrl: clase.img,
-                            onTap: () {
-                              claseController.saveClase(clase);
-                              Get.to(() => DetalleClase());
-                            },
-                          );
-                        },
-                      );
-                    },
-                  );
-                }),
-              ),
+              Expanded(child: build_Clases(context)),
             ],
           ),
         ),
@@ -135,7 +136,3 @@ class HomeProfesor extends StatelessWidget {
     );
   }
 }
-
-
-
-

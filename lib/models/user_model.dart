@@ -60,3 +60,19 @@ class Userfrom {
     };
   }
 }
+
+class Userclase {
+  final int userid;
+  final int claseid;
+  final String codigo;
+
+  Userclase({
+    required this.userid,
+    required this.claseid,
+    required this.codigo,
+  });
+
+  Map<String, dynamic> toJson() {
+    return {'Id_Usuario': userid, 'Id_Clase': claseid, 'Codigo': codigo};
+  }
+}

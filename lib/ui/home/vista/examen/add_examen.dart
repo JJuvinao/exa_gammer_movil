@@ -1,6 +1,7 @@
 import 'package:exa_gammer_movil/controllers/clase_controller.dart';
 import 'package:exa_gammer_movil/controllers/user_controller.dart';
 import 'package:exa_gammer_movil/models/juego_model.dart';
+import 'package:exa_gammer_movil/ui/home/widget/avatares.dart';
 
 import 'formahorcado.dart';
 import 'package:exa_gammer_movil/ui/home/vista/examen/formheroes.dart';
@@ -9,36 +10,68 @@ import 'package:get/get.dart';
 import 'package:exa_gammer_movil/controllers/examen_controller.dart';
 import 'package:exa_gammer_movil/controllers/juego_controller.dart';
 
-class AddExamen extends StatelessWidget {
+class AddExamen extends StatefulWidget {
   AddExamen({super.key});
 
+  @override
+  State<AddExamen> createState() => _AddExamenState();
+}
+
+class _AddExamenState extends State<AddExamen> {
   final ExamenController actividadController = Get.find();
+
   final GlobalKey<AhorcadoFormState> ahorcadoFormKey =
       GlobalKey<AhorcadoFormState>();
+
   final GlobalKey<HeroesFormState> heroesFormKey = GlobalKey<HeroesFormState>();
 
   final UserController userController = Get.find();
+
   final ClaseController claseController = Get.find();
+
   final JuegoController juegoController = Get.find();
 
   final TextEditingController nombreController = TextEditingController();
+
   final TextEditingController temaController = TextEditingController();
+
   final TextEditingController descripcionController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
+  var tiposJuego = <dynamic>[].obs;
+  bool mostaravatar = false;
+  String? selecionAvatar;
+
+  final List<String> avatarList = [
+    "assets/fondo/cieloatardecer.jpg",
+    "assets/fondo/cieloazul.jpg",
+    "assets/fondo/cielomorado.jpg",
+    "assets/fondo/cielonoche.jpg",
+    "assets/fondo/fondo1.jpg",
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+    CargarJuego();
+    tiposJuego.refresh();
+    print(tiposJuego);
+  }
+
+  void CargarJuego() async {
+    tiposJuego.value = await juegoController.getjuegoList();
+  }
 
   @override
   Widget build(BuildContext context) {
     final Rxn<Juego> JuegoSeleccionado = Rxn<Juego>();
-    List<Juego> juegos = juegoController.getjuegoList();
-    final List<Juego> tiposJuego = juegos;
 
     return Scaffold(
       backgroundColor: const Color(0xFFC8C1C1),
       appBar: AppBar(
         backgroundColor: const Color(0xFFC8C1C1),
         elevation: 0,
-        toolbarHeight: 0,
+        iconTheme: const IconThemeData(color: Colors.black87),
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -46,7 +79,6 @@ class AddExamen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Logo y título
               Row(
                 children: [
                   Image.asset('assets/imagen/logo_exa.png', height: 75),
@@ -63,7 +95,6 @@ class AddExamen extends StatelessWidget {
               ),
               const SizedBox(height: 32),
 
-              // Contenedor del formulario
               Container(
                 width: double.infinity,
                 padding: const EdgeInsets.all(20),
@@ -92,7 +123,6 @@ class AddExamen extends StatelessWidget {
                       ),
                       const SizedBox(height: 20),
 
-                      // Campo: Nombre
                       TextFormField(
                         controller: nombreController,
                         decoration: const InputDecoration(
@@ -105,7 +135,6 @@ class AddExamen extends StatelessWidget {
                       ),
                       const SizedBox(height: 16),
 
-                      // Campo: Tema
                       TextFormField(
                         controller: temaController,
                         decoration: const InputDecoration(
@@ -118,7 +147,6 @@ class AddExamen extends StatelessWidget {
                       ),
                       const SizedBox(height: 16),
 
-                      // Campo: Descripción
                       TextFormField(
                         controller: descripcionController,
                         decoration: const InputDecoration(
@@ -132,9 +160,53 @@ class AddExamen extends StatelessWidget {
                       ),
                       const SizedBox(height: 16),
 
+                      Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            if (mostaravatar == true)
+                              ClipOval(
+                                child: Image.asset(
+                                  selecionAvatar!,
+                                  width: 100,
+                                  height: 100,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            const SizedBox(height: 16),
+
+                            ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.blue,
+                                foregroundColor: Colors.white,
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 24,
+                                  vertical: 12,
+                                ),
+                                textStyle: const TextStyle(fontSize: 18),
+                              ),
+                              onPressed: () async {
+                                final avatar = await AvatarSelectorModal.show(
+                                  context,
+                                  avatarList,
+                                );
+                                if (avatar != null) {
+                                  setState(() {
+                                    selecionAvatar = avatar;
+                                    mostaravatar = true;
+                                  });
+                                }
+                              },
+                              child: const Text('Elegir avatar'),
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      const SizedBox(height: 16),
                       // Dropdown: Tipo
                       Obx(() {
-                        return DropdownButtonFormField<Juego>(
+                        return DropdownButtonFormField<dynamic>(
                           value: JuegoSeleccionado.value == null
                               ? null
                               : JuegoSeleccionado.value,
@@ -172,7 +244,6 @@ class AddExamen extends StatelessWidget {
                         style: TextStyle(fontSize: 14, color: Colors.black54),
                       ),
 
-                      // Botón: Guardar
                       Center(
                         child: ElevatedButton.icon(
                           onPressed: () async {
