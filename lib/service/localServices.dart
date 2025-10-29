@@ -12,7 +12,14 @@ class StorageService extends GetxService {
   final String _claseKey = 'clase';
   final String _examenKey = 'examen';
 
-  final user = User(id: 0, username: '', rol: '', email: '', img: '').obs;
+  final user = User(
+    id: 0,
+    username: '',
+    rol: '',
+    email: '',
+    img: '',
+    premium: false,
+  ).obs;
   final token = ''.obs;
   final clase = Clase(
     id: 0,
@@ -45,7 +52,7 @@ class StorageService extends GetxService {
   Future<StorageService> init() async {
     user.value =
         _box.read<User>(_userKey) ??
-        User(id: 0, username: '', rol: '', email: '', img: '');
+        User(id: 0, username: '', rol: '', email: '', img: '', premium: false);
     token.value = _box.read<String>(_tokenKey) ?? '';
     clase.value =
         _box.read<Clase>(_claseKey) ??
@@ -133,6 +140,13 @@ class StorageService extends GetxService {
     await _box.remove(_tokenKey);
 
     token.value = '';
-    user.value = User(id: 0, username: '', rol: '', email: '', img: '');
+    user.value = User(
+      id: 0,
+      username: '',
+      rol: '',
+      email: '',
+      img: '',
+      premium: false,
+    );
   }
 }

@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:exa_gammer_movil/controllers/clase_controller.dart';
 import 'package:exa_gammer_movil/ui/dialogs/dialogo_ingresar_clase.dart';
-import 'package:exa_gammer_movil/ui/home/buscar.dart';
+import 'package:exa_gammer_movil/ui/home/widget/buscar.dart';
 
 class HomeEstudiante extends StatefulWidget {
   HomeEstudiante({super.key});

@@ -161,59 +161,6 @@ class _DetalleExamenPageState extends State<DetalleExamenPage> {
                           ),
                         ),
                       ),
-
-                      const SizedBox(height: 16),
-
-                      // === ESTUDIANTES REGISTRADOS ===
-                      Card(
-                        elevation: 3,
-                        child: Padding(
-                          padding: const EdgeInsets.all(16),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Text(
-                                "Estudiantes registrados en la clase",
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              const SizedBox(height: 8),
-                              Container(
-                                width: double.infinity,
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                    color: Colors.grey.shade300,
-                                  ),
-                                  borderRadius: BorderRadius.circular(6),
-                                ),
-                                child: DataTable(
-                                  headingRowColor: WidgetStateProperty.all(
-                                    Colors.grey.shade200,
-                                  ),
-                                  columns: const [
-                                    DataColumn(label: Text("N°")),
-                                    DataColumn(label: Text("Nombre")),
-                                  ],
-                                  rows: const [
-                                    DataRow(
-                                      cells: [
-                                        DataCell(Text("—")),
-                                        DataCell(
-                                          Text(
-                                            "No hay estudiantes registrados.",
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
                     ],
                   ),
                 ),

@@ -1,4 +1,5 @@
 import 'package:exa_gammer_movil/models/clase_model.dart';
+import 'package:exa_gammer_movil/models/user_model.dart';
 import 'package:exa_gammer_movil/service/localServices.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -145,5 +146,37 @@ class ClaseController extends GetxController {
     } catch (e) {
       print("ERROR DE LA CARGA DE CLASES ${e.toString()}");
     }
+  }
+
+  Future<List<User>> CargarUser_Clase(int id_clase, String token) async {
+    try {
+      final url = Uri.parse(
+        'https://apiexagammer.somee.com/api/Estudi_Clases/usersclase/${id_clase}',
+      );
+
+      final res = await http
+          .get(
+            url,
+            headers: {
+              'Authorization': 'Bearer ${token}',
+              'Content-Type': 'application/json',
+            },
+          )
+          .timeout(Duration(seconds: 15));
+
+      if (res.statusCode != 200) {
+        print(res.statusCode);
+        return [];
+      }
+      final data = jsonDecode(res.body);
+      List<User> _userList = [];
+      for (var item in data) {
+        _userList.add(User.fromjson(item));
+      }
+      return _userList;
+    } catch (e) {
+      print("ERROR DE LA CARGA LOS ESTUDIANTES DE LA CLASES ${e.toString()}");
+    }
+    return [];
   }
 }
