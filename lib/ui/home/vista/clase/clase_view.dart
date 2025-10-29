@@ -18,7 +18,8 @@ class _ClaseViewState extends State<ClaseView> {
   List<BottomNavigationBarItem> get _navBarItems =>
       Get.find<VistaControles>().navBarItems(widget.vista);
 
-  List<Widget> get _screens => Get.find<VistaControles>().getScreens_Clase();
+  List<Widget> get _screens =>
+      Get.find<VistaControles>().getScreens_Clase(user.getuser.rol);
 
   @override
   Widget build(BuildContext context) {

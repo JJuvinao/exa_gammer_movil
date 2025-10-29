@@ -43,11 +43,11 @@ class _AddExamenState extends State<AddExamen> {
   String? selecionAvatar;
 
   final List<String> avatarList = [
-    "assets/avatars/avatar1.jpg",
-    "assets/avatars/avatar2.jpg",
-    "assets/avatars/avatar3.jpg",
-    "assets/avatars/avatar5.jpg",
-    "assets/avatars/avatar6.jpg",
+    "assets/fondo/cieloatardecer.jpg",
+    "assets/fondo/cieloazul.jpg",
+    "assets/fondo/cielomorado.jpg",
+    "assets/fondo/cielonoche.jpg",
+    "assets/fondo/fondo1.jpg",
   ];
 
   @override
@@ -71,7 +71,7 @@ class _AddExamenState extends State<AddExamen> {
       appBar: AppBar(
         backgroundColor: const Color(0xFFC8C1C1),
         elevation: 0,
-        toolbarHeight: 0,
+        iconTheme: const IconThemeData(color: Colors.black87),
       ),
       body: SafeArea(
         child: SingleChildScrollView(

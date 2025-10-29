@@ -5,11 +5,7 @@ class PagosPremiumView extends StatefulWidget {
   final String plan;
   final String precio;
 
-  const PagosPremiumView({
-    super.key,
-    required this.plan,
-    required this.precio,
-  });
+  const PagosPremiumView({super.key, required this.plan, required this.precio});
 
   @override
   State<PagosPremiumView> createState() => _PagosPremiumViewState();
@@ -68,17 +64,23 @@ class _PagosPremiumViewState extends State<PagosPremiumView> {
               Text('Plan: ${widget.plan}'),
               Text('Precio: ${widget.precio}'),
               const SizedBox(height: 8),
-              const Text('Comprador:',
-                  style: TextStyle(fontWeight: FontWeight.bold)),
+              const Text(
+                'Comprador:',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
               Text(_buyerNameController.text),
               Text(_buyerEmailController.text),
               const SizedBox(height: 8),
-              const Text('Banco:',
-                  style: TextStyle(fontWeight: FontWeight.bold)),
+              const Text(
+                'Banco:',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
               Text(_bancoSeleccionado ?? ''),
               const SizedBox(height: 8),
-              const Text('Tarjeta:',
-                  style: TextStyle(fontWeight: FontWeight.bold)),
+              const Text(
+                'Tarjeta:',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
               Text(_last4(_cardNumberController.text)),
             ],
           ),
@@ -114,7 +116,7 @@ class _PagosPremiumViewState extends State<PagosPremiumView> {
     setState(() => _isProcessing = false);
 
     await Future.delayed(const Duration(milliseconds: 300));
-    Get.back(); // Cierra la vista actual
+    Get.back();
 
     Future.delayed(const Duration(milliseconds: 400), () {
       Get.snackbar(
@@ -136,7 +138,7 @@ class _PagosPremiumViewState extends State<PagosPremiumView> {
     );
 
     return Scaffold(
-      backgroundColor: const Color(0xFFC8C1C1), // fondo personalizado
+      backgroundColor: const Color(0xFFC8C1C1),
       appBar: AppBar(
         title: const Text(
           'Pago - Premium',
@@ -170,12 +172,15 @@ class _PagosPremiumViewState extends State<PagosPremiumView> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(widget.plan,
-                          style: const TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.bold)),
+                      Text(
+                        widget.plan,
+                        style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                       const SizedBox(height: 6),
-                      Text(widget.precio,
-                          style: const TextStyle(fontSize: 16)),
+                      Text(widget.precio, style: const TextStyle(fontSize: 16)),
                     ],
                   ),
                 ),
@@ -192,7 +197,8 @@ class _PagosPremiumViewState extends State<PagosPremiumView> {
                     border: cardStyle,
                     enabledBorder: cardStyle,
                     focusedBorder: cardStyle.copyWith(
-                        borderSide: const BorderSide(color: Colors.black)),
+                      borderSide: const BorderSide(color: Colors.black),
+                    ),
                   ),
                 ),
                 const SizedBox(height: 14),
@@ -207,11 +213,11 @@ class _PagosPremiumViewState extends State<PagosPremiumView> {
                     border: cardStyle,
                     enabledBorder: cardStyle,
                     focusedBorder: cardStyle.copyWith(
-                        borderSide: const BorderSide(color: Colors.black)),
+                      borderSide: const BorderSide(color: Colors.black),
+                    ),
                   ),
                   items: _bancos
-                      .map((b) =>
-                          DropdownMenuItem(value: b, child: Text(b)))
+                      .map((b) => DropdownMenuItem(value: b, child: Text(b)))
                       .toList(),
                   onChanged: (v) => setState(() => _bancoSeleccionado = v),
                 ),
@@ -229,7 +235,8 @@ class _PagosPremiumViewState extends State<PagosPremiumView> {
                     border: cardStyle,
                     enabledBorder: cardStyle,
                     focusedBorder: cardStyle.copyWith(
-                        borderSide: const BorderSide(color: Colors.black)),
+                      borderSide: const BorderSide(color: Colors.black),
+                    ),
                   ),
                 ),
                 const SizedBox(height: 14),
@@ -246,7 +253,8 @@ class _PagosPremiumViewState extends State<PagosPremiumView> {
                     border: cardStyle,
                     enabledBorder: cardStyle,
                     focusedBorder: cardStyle.copyWith(
-                        borderSide: const BorderSide(color: Colors.black)),
+                      borderSide: const BorderSide(color: Colors.black),
+                    ),
                   ),
                 ),
                 const SizedBox(height: 28),
@@ -260,7 +268,9 @@ class _PagosPremiumViewState extends State<PagosPremiumView> {
                             backgroundColor: Colors.grey[800],
                             foregroundColor: Colors.white,
                             padding: const EdgeInsets.symmetric(
-                                horizontal: 20, vertical: 14),
+                              horizontal: 20,
+                              vertical: 14,
+                            ),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12),
                             ),

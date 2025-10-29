@@ -16,7 +16,7 @@ class JuegoController extends GetxController {
 
   Future<void> CargarJuegos() async {
     try {
-      final url = Uri.parse('https://apiexagammer.somee.com/api/juego');
+      final url = Uri.parse('https://www.apiexagammer.somee.com/api/juego');
 
       final res = await http.get(
         url,

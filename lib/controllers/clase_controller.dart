@@ -25,7 +25,7 @@ class ClaseController extends GetxController {
 
   Future<bool> AddClase(Clasedto newclase, String token) async {
     final url = Uri.parse(
-      'https://apiexagammer.somee.com/api/Clases/ClasePost',
+      'https://www.apiexagammer.somee.com/api/Clases/ClasePost',
     );
     try {
       final res = await http
@@ -67,9 +67,9 @@ class ClaseController extends GetxController {
 
   Future<List<Clase>> filteredList(int id, String token, String rol) async {
     if (rol == 'Profesor') {
-      await CragarClases(id, token);
+      await CargarClases(id, token);
     } else {
-      await CragarClases_Estudiante(id, token);
+      await CargarClases_Estudiante(id, token);
     }
     if (claseList.isEmpty) {
       return [];
@@ -87,10 +87,10 @@ class ClaseController extends GetxController {
     }
   }
 
-  Future<void> CragarClases(int id, String token) async {
+  Future<void> CargarClases(int id, String token) async {
     try {
       final url = Uri.parse(
-        'https://apiexagammer.somee.com/api/Clases/Profe_Clases/${id}',
+        'https://www.apiexagammer.somee.com/api/Clases/Profe_Clases/${id}',
       );
 
       final res = await http
@@ -117,10 +117,10 @@ class ClaseController extends GetxController {
     }
   }
 
-  Future<void> CragarClases_Estudiante(int id, String token) async {
+  Future<void> CargarClases_Estudiante(int id, String token) async {
     try {
       final url = Uri.parse(
-        'https://apiexagammer.somee.com/api/Estudi_Clases/${id}',
+        'https://www.apiexagammer.somee.com/api/Estudi_Clases/${id}',
       );
 
       final res = await http

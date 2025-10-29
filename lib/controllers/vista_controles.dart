@@ -1,4 +1,5 @@
 import 'package:exa_gammer_movil/controllers/user_controller.dart';
+import 'package:exa_gammer_movil/ui/home/estudiante/detalle_clase_estu.dart';
 import 'package:exa_gammer_movil/ui/home/profesor/detalle_clase_profe.dart';
 import 'package:exa_gammer_movil/ui/home/profesor/home_profesor.dart';
 import 'package:exa_gammer_movil/ui/course/courseView.dart';
@@ -44,14 +45,23 @@ class VistaControles extends GetxController {
     return screens;
   }
 
-  List<Widget> getScreens_Clase() {
+  List<Widget> getScreens_Clase(String vista) {
     screens.clear();
-    screens.addAll([
-      DetalleClase(),
-      DetalleClase(),
-      Info_Clase(),
-      Estud_Clase(),
-    ]);
+    if (vista == "Profesor") {
+      screens.addAll([
+        DetalleClase(),
+        DetalleClase(),
+        Info_Clase(),
+        Estud_Clase(),
+      ]);
+    } else {
+      screens.addAll([
+        DetalleClase_Estu(),
+        DetalleClase_Estu(),
+        Info_Clase(),
+        Estud_Clase(),
+      ]);
+    }
     return screens;
   }
 

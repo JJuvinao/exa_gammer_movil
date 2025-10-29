@@ -28,7 +28,7 @@ class UserController extends GetxController {
       img: "assets/imagen/fotoperfil.png",
     );
     final url = Uri.parse(
-      'https://apiexagammer.somee.com/api/Usuarios/Registro',
+      'https://www.apiexagammer.somee.com/api/Usuarios/Registro',
     );
     try {
       final res = await http
@@ -45,7 +45,7 @@ class UserController extends GetxController {
       }
       return true;
     } catch (e) {
-      print("ERROR DEL RESGISTRO");
+      print("ERROR DEL RESGISTRO ${e.toString()}");
     }
     return false;
   }
@@ -82,7 +82,7 @@ class UserController extends GetxController {
 
   Future<bool> UnirseClase(String codigoClase) async {
     final url = Uri.parse(
-      'https://apiexagammer.somee.com/api/Estudi_Clases/Ingresar',
+      'https://www.apiexagammer.somee.com/api/Estudi_Clases/Ingresar',
     );
     try {
       final res = await http

@@ -1,5 +1,4 @@
 import 'package:exa_gammer_movil/controllers/user_controller.dart';
-import 'package:exa_gammer_movil/ui/home/inicio_sesion/diseologin.dart';
 import 'package:exa_gammer_movil/ui/home/vista/clase/clase_view.dart';
 import 'package:exa_gammer_movil/ui/home/widget/ClaseCard.dart';
 import 'package:flutter/material.dart';
@@ -91,74 +90,48 @@ class _HomeProfesorState extends State<HomeProfesor> {
     });
   }
 
-  Future<bool> _onWillPop() async {
-    return await showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-            title: const Text('Cerrar sesión'),
-            content: const Text('¿Desea cerrar sesión?'),
-            actions: <Widget>[
-              TextButton(
-                onPressed: () => Navigator.of(context).pop(false),
-                child: const Text('No'),
-              ),
-              TextButton(
-                onPressed: () {
-                  Get.offAll(() => Vistalogin()); // Limpia todo el stack
-                },
-                child: const Text('Sí'),
-              ),
-            ],
-          ),
-        ) ??
-        false;
-  }
-
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: _onWillPop,
-      child: Scaffold(
+    return Scaffold(
+      backgroundColor: const Color(0xFFC8C1C1),
+      appBar: AppBar(
         backgroundColor: const Color(0xFFC8C1C1),
-        appBar: AppBar(
-          backgroundColor: const Color(0xFFC8C1C1),
-          elevation: 0,
-          toolbarHeight: 0,
-        ),
-        body: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(24.0),
-            child: Column(
-              children: [
-                const SizedBox(height: 24),
-                Row(
-                  children: [
-                    Image.asset('assets/imagen/logo_exa.png', height: 75),
-                    const SizedBox(width: 12),
-                    const Text(
-                      'EXA-GAMMER',
-                      style: TextStyle(
-                        fontSize: 36,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: "TitanOne",
-                      ),
+        elevation: 0,
+        toolbarHeight: 0,
+      ),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(24.0),
+          child: Column(
+            children: [
+              const SizedBox(height: 24),
+              Row(
+                children: [
+                  Image.asset('assets/imagen/logo_exa.png', height: 75),
+                  const SizedBox(width: 12),
+                  const Text(
+                    'EXA-GAMMER',
+                    style: TextStyle(
+                      fontSize: 36,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: "TitanOne",
                     ),
-                  ],
-                ),
-                const SizedBox(height: 30),
-                BuscarClase(),
-                const SizedBox(height: 10),
-                Expanded(child: build_Clases(context)),
-              ],
-            ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 30),
+              BuscarClase(),
+              const SizedBox(height: 10),
+              Expanded(child: build_Clases(context)),
+            ],
           ),
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Get.to(() => Agregarclase());
-          },
-          child: const Icon(Icons.add),
-        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Get.to(() => Agregarclase());
+        },
+        child: const Icon(Icons.add),
       ),
     );
   }
