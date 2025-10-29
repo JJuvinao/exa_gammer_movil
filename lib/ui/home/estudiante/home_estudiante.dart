@@ -116,27 +116,15 @@ class _HomeEstudianteState extends State<HomeEstudiante> {
         ),
       ),
 
-      floatingActionButton: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          FloatingActionButton(
-            onPressed: () async {
-              final result = await IngresarCodigo(context);
-              print("resultado del dialogo: $result");
-              if (result == true) {
-                CargarClase();
-              }
-            },
-            child: const Icon(Icons.meeting_room),
-          ),
-          const SizedBox(width: 16),
-          FloatingActionButton(
-            onPressed: () {
-              Get.to(() => courseScreen());
-            },
-            child: const Icon(Icons.school),
-          ),
-        ],
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          final result = await IngresarCodigo(context);
+          print("resultado del dialogo: $result");
+          if (result == true) {
+            CargarClase();
+          }
+        },
+        child: const Icon(Icons.meeting_room),
       ),
     );
   }

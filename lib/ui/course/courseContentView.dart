@@ -1,4 +1,6 @@
 import 'package:exa_gammer_movil/models/CursoModel/curso_model.dart';
+import 'package:exa_gammer_movil/ui/course/widget/modulesTab.dart';
+import 'package:exa_gammer_movil/ui/course/widget/questionTab.dart';
 import 'package:flutter/material.dart';
 
 class Coursecontentview extends StatelessWidget {
@@ -49,91 +51,14 @@ class Coursecontentview extends StatelessWidget {
             Expanded(
               child: TabBarView(
                 children: [
-                  _ModulesTab(curso: curso),
-                  _QuestionsTab(curso: curso),
+                  ModulesTab(curso: curso),
+                  QuestionsTab(curso: curso),
                 ],
               ),
             ),
           ],
         ),
       ),
-    );
-  }
-}
-
-class _ModulesTab extends StatelessWidget {
-  const _ModulesTab({required this.curso});
-
-  final Curso curso;
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView.builder(
-      padding: EdgeInsets.all(16),
-      itemCount: curso.modules.length,
-      itemBuilder: (context, i) {
-        final modulo = curso.modules[i];
-        return Card(
-          margin: EdgeInsets.only(bottom: 12),
-          child: ExpansionTile(
-            leading: CircleAvatar(child: Text('${i + 1}')),
-            title: Text(modulo.title),
-            subtitle: Text('${modulo.lessons.length} lecciones'),
-            trailing: Icon(
-              modulo.Completed
-                  ? Icons.check_circle
-                  : Icons.radio_button_unchecked,
-            ),
-            children: modulo.lessons
-                .map(
-                  (leccion) => ListTile(
-                    leading: Icon(Icons.article),
-                    title: Text(leccion.title),
-                    subtitle: Text(leccion.content.substring(0, 50) + '...'),
-                  ),
-                )
-                .toList(),
-          ),
-        );
-      },
-    );
-  }
-}
-
-class _QuestionsTab extends StatelessWidget {
-  const _QuestionsTab({required this.curso});
-
-  final Curso curso;
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView.builder(
-      padding: EdgeInsets.all(16),
-      itemCount: curso.questions.length,
-      itemBuilder: (context, i) {
-        final pregunta = curso.questions[i];
-        return Card(
-          margin: EdgeInsets.only(bottom: 12),
-          child: Padding(
-            padding: EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Pregunta ${i + 1}: ${pregunta.text}',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-                SizedBox(height: 12),
-                ...pregunta.options.asMap().entries.map((entry) {
-                  int idx = entry.key;
-                  String option = entry.value;
-                  return RadioListTile<int>(title: Text(option), value: idx);
-                }),
-              ],
-            ),
-          ),
-        );
-      },
     );
   }
 }
