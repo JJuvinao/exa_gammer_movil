@@ -26,7 +26,10 @@ class ProfileView extends StatelessWidget {
         child: Center(
           child: Column(
             children: [
-              CircleAvatar(radius: 60, backgroundImage: NetworkImage(user.img)),
+              CircleAvatar(
+                radius: 60,
+                backgroundImage: NetworkImage(user.img!),
+              ),
               const SizedBox(height: 20),
 
               Text(

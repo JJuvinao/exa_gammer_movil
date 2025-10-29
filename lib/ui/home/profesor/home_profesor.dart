@@ -4,7 +4,7 @@ import 'package:exa_gammer_movil/ui/home/widget/ClaseCard.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:exa_gammer_movil/controllers/clase_controller.dart';
-import 'package:exa_gammer_movil/ui/home/buscar.dart';
+import 'package:exa_gammer_movil/ui/home/widget/buscar.dart';
 import 'package:exa_gammer_movil/ui/home/profesor/add_clase.dart';
 
 class HomeProfesor extends StatefulWidget {
