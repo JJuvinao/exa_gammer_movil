@@ -35,6 +35,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/avatars/
+    - assets/fondo/
     - assets/imagen/logo_exa.png
   fonts:
     - family: TitanOne

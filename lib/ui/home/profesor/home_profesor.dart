@@ -56,34 +56,26 @@ class _HomeProfesorState extends State<HomeProfesor> {
           ),
         );
       }
-      return LayoutBuilder(
-        builder: (context, constraints) {
-          int crossAxisCount = constraints.maxWidth > 800
-              ? 4
-              : constraints.maxWidth > 600
-              ? 3
-              : 2;
 
-          return GridView.builder(
-            padding: const EdgeInsets.all(10),
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: crossAxisCount,
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 10,
-              childAspectRatio: 0.85,
-            ),
-            itemCount: filteredClase.length,
-            itemBuilder: (context, index) {
-              final clase = filteredClase[index];
-              return ObjetoCard(
+      // Cambiamos GridView por ListView
+      return ListView.builder(
+        padding: const EdgeInsets.symmetric(vertical: 10),
+        itemCount: filteredClase.length,
+        itemBuilder: (context, index) {
+          final clase = filteredClase[index];
+          return Padding(
+            padding: const EdgeInsets.only(bottom: 12.0),
+            child: SizedBox(
+              height: 120, // altura rectangular
+              child: ObjetoCard(
                 titulo: clase.nombre,
                 imagenUrl: clase.img,
                 onTap: () {
                   claseController.saveClase(clase);
                   Get.to(() => ClaseView(vista: "Clase"));
                 },
-              );
-            },
+              ),
+            ),
           );
         },
       );
