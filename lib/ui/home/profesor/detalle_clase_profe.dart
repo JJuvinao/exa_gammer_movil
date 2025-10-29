@@ -1,5 +1,4 @@
 import 'package:exa_gammer_movil/controllers/user_controller.dart';
-import 'package:exa_gammer_movil/ui/home/inicio_sesion/diseologin.dart';
 import 'package:exa_gammer_movil/ui/home/vista/examen/examen_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -16,25 +15,32 @@ class DetalleClase extends StatefulWidget {
 }
 
 class _DetalleClaseState extends State<DetalleClase> {
-  final ExamenController examenController = Get.put(ExamenController());
+  late final ExamenController examenController;
 
-  final UserController usercontroller = Get.find<UserController>();
+  late final UserController usercontroller;
 
-  final ClaseController claseController = Get.find<ClaseController>();
+  late final ClaseController claseController;
+
+  var exameneslist = <dynamic>[].obs;
 
   @override
-  void dispose() {
-    super.dispose();
-    claseController.logoutClase();
-    examenController.clearExamen();
+  void initState() {
+    super.initState();
+    examenController = Get.put(ExamenController());
+    claseController = Get.find<ClaseController>();
+    usercontroller = Get.find<UserController>();
+    cargarExamen();
+  }
+
+  void cargarExamen() async {
+    final clasek = claseController.getclase;
+    final token = usercontroller.gettoken;
+    exameneslist.value = await examenController.filteredList(clasek.id, token);
   }
 
   Widget build_Examenes(BuildContext context) {
     return Obx(() {
-      final clasek = claseController.getclase;
-      final token = usercontroller.gettoken;
-      var examenes = examenController.filteredList(clasek.id, token);
-      if (examenes.isEmpty) {
+      if (exameneslist.isEmpty) {
         return const Center(
           child: Text(
             'No hay actividades registradas.',
@@ -44,9 +50,9 @@ class _DetalleClaseState extends State<DetalleClase> {
       }
 
       return ListView.builder(
-        itemCount: examenes.length,
+        itemCount: exameneslist.length,
         itemBuilder: (context, index) {
-          final actividad = examenes[index];
+          final actividad = exameneslist[index];
 
           return Card(
             margin: const EdgeInsets.symmetric(vertical: 8.0),
@@ -77,90 +83,64 @@ class _DetalleClaseState extends State<DetalleClase> {
     });
   }
 
-  Future<bool> _onWillPop() async {
-    return await showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-            title: const Text('Cerrar sesión'),
-            content: const Text('¿Desea cerrar sesión?'),
-            actions: <Widget>[
-              TextButton(
-                onPressed: () => Navigator.of(context).pop(false),
-                child: const Text('No'),
-              ),
-              TextButton(
-                onPressed: () {
-                  Get.offAll(() => Vistalogin()); // Limpia todo el stack
-                },
-                child: const Text('Sí'),
-              ),
-            ],
-          ),
-        ) ??
-        false;
-  }
-
   @override
   Widget build(BuildContext context) {
     final clasek = claseController.getclase;
-    return WillPopScope(
-      onWillPop: _onWillPop,
-      child: Scaffold(
+    return Scaffold(
+      backgroundColor: const Color(0xFFC8C1C1),
+      appBar: AppBar(
         backgroundColor: const Color(0xFFC8C1C1),
-        appBar: AppBar(
-          backgroundColor: const Color(0xFFC8C1C1),
-          elevation: 0,
-          toolbarHeight: 0,
-        ),
-        body: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(24.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    Image.asset('assets/imagen/logo_exa.png', height: 75),
-                    const SizedBox(width: 12),
-                    Flexible(
-                      child: AutoSizeText(
-                        clasek.nombre.toUpperCase(),
-                        style: const TextStyle(
-                          fontSize: 36,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: "TitanOne",
-                        ),
-                        textAlign: TextAlign.center,
-                        maxLines: 2,
-                        minFontSize: 18,
+        elevation: 0,
+        toolbarHeight: 0,
+      ),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(24.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Image.asset('assets/imagen/logo_exa.png', height: 75),
+                  const SizedBox(width: 12),
+                  Flexible(
+                    child: AutoSizeText(
+                      clasek.nombre.toUpperCase(),
+                      style: const TextStyle(
+                        fontSize: 36,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: "TitanOne",
                       ),
+                      textAlign: TextAlign.center,
+                      maxLines: 2,
+                      minFontSize: 18,
                     ),
-                  ],
-                ),
-
-                const SizedBox(height: 24),
-
-                const Text(
-                  'Actividades',
-                  style: TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: "Inter",
                   ),
-                ),
-                const SizedBox(height: 12),
+                ],
+              ),
 
-                Expanded(child: build_Examenes(context)),
-              ],
-            ),
+              const SizedBox(height: 24),
+
+              const Text(
+                'Actividades',
+                style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: "Inter",
+                ),
+              ),
+              const SizedBox(height: 12),
+
+              Expanded(child: build_Examenes(context)),
+            ],
           ),
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Get.to(() => AddExamen());
-          },
-          child: const Icon(Icons.add),
-        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Get.to(() => AddExamen());
+        },
+        child: const Icon(Icons.add),
       ),
     );
   }

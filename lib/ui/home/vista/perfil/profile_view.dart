@@ -16,6 +16,7 @@ class ProfileView extends StatelessWidget {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 225, 219, 219),
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: const Text("Perfil del Usuario"),
         backgroundColor: const Color(0xFFC8C1C1),
         centerTitle: true,
@@ -25,11 +26,9 @@ class ProfileView extends StatelessWidget {
         child: Center(
           child: Column(
             children: [
-              // Foto o avatar
               CircleAvatar(radius: 60, backgroundImage: NetworkImage(user.img)),
               const SizedBox(height: 20),
 
-              // Nombre
               Text(
                 user.username,
                 style: const TextStyle(
@@ -39,14 +38,12 @@ class ProfileView extends StatelessWidget {
               ),
               const SizedBox(height: 10),
 
-              // Email
               Text(
                 user.email,
                 style: const TextStyle(fontSize: 16, color: Colors.black),
               ),
               const SizedBox(height: 5),
 
-              // Rol
               Text(
                 "Rol: ${user.rol}",
                 style: const TextStyle(
@@ -57,7 +54,6 @@ class ProfileView extends StatelessWidget {
               ),
               const SizedBox(height: 30),
 
-              // 👇 Solo se muestra si NO es estudiante
               if (user.rol.toLowerCase() != 'estudiante')
                 Center(
                   child: SizedBox(
@@ -87,7 +83,6 @@ class ProfileView extends StatelessWidget {
 
               const SizedBox(height: 20),
 
-              // Botones de acciones
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

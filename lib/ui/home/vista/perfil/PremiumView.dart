@@ -24,7 +24,6 @@ class PremiumView extends StatelessWidget {
           children: [
             const SizedBox(height: 16),
 
-            // Plan gratuito
             PlanCard(
               title: 'Prueba Gratis (7 días)',
               features: [
@@ -46,7 +45,6 @@ class PremiumView extends StatelessWidget {
 
             const SizedBox(height: 20),
 
-            // Plan mensual
             PlanCard(
               title: 'Paquete Mensual',
               features: [
@@ -68,7 +66,6 @@ class PremiumView extends StatelessWidget {
 
             const SizedBox(height: 20),
 
-            // Plan anual
             PlanCard(
               title: 'Paquete Anual',
               features: [
