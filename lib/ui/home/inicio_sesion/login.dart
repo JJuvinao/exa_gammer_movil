@@ -1,14 +1,20 @@
+import 'package:exa_gammer_movil/ui/home/profesor/main_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:exa_gammer_movil/controllers/clase_controller.dart';
 import 'package:exa_gammer_movil/controllers/user_controller.dart';
-import 'package:exa_gammer_movil/ui/home/profesor/home_profesor.dart';
-import 'package:exa_gammer_movil/ui/home/estudiante/home_estudiante.dart';
 
-class LoginForm extends StatelessWidget {
+class LoginForm extends StatefulWidget {
+  const LoginForm({super.key});
+  @override
+  State<LoginForm> createState() => _LoginFromState();
+}
+
+class _LoginFromState extends State<LoginForm> {
   final usuario = TextEditingController();
   final clave = TextEditingController();
   final UserController userController = Get.find<UserController>();
+  bool _obscureText = true;
 
   @override
   Widget build(BuildContext context) {
@@ -18,16 +24,29 @@ class LoginForm extends StatelessWidget {
         SizedBox(height: 16),
         TextField(
           controller: clave,
-          obscureText: true,
-          decoration: _input('Contraseña'),
+          obscureText: _obscureText,
+          decoration: InputDecoration(
+            labelText: 'Contraseña',
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+            suffixIcon: IconButton(
+              icon: Icon(
+                _obscureText ? Icons.visibility_off : Icons.visibility,
+              ),
+              onPressed: () {
+                setState(() {
+                  _obscureText = !_obscureText;
+                });
+              },
+            ),
+          ),
         ),
         SizedBox(height: 24),
         SizedBox(
           width: double.infinity,
           child: ElevatedButton(
             style: _buttonStyle(),
-            onPressed: () {
-              final rol = userController.iniciarSesionYObtenerRol(
+            onPressed: () async {
+              final rol = await userController.iniciarSesionYObtenerRol(
                 usuario.text,
                 clave.text,
               );
@@ -51,9 +70,9 @@ class LoginForm extends StatelessWidget {
 
                 // ✅ Redirigir según rol
                 if (rol == 'Profesor') {
-                  Get.to(() => HomeProfesor());
+                  Get.offAll(() => MainView(vista: "Profesor"));
                 } else if (rol == 'Estudiante') {
-                  Get.to(() => HomeEstudiante());
+                  Get.off(() => MainView(vista: "Estudiante"));
                 } else {
                   Get.snackbar(
                     'Error',
@@ -85,8 +104,8 @@ class LoginForm extends StatelessWidget {
       InputDecoration(labelText: label, border: OutlineInputBorder());
 
   ButtonStyle _buttonStyle() => ElevatedButton.styleFrom(
-        backgroundColor: Color(0xFF0D59A1),
-        foregroundColor: Colors.white,
-        padding: EdgeInsets.symmetric(vertical: 16),
-      );
+    backgroundColor: Color(0xFF0D59A1),
+    foregroundColor: Colors.white,
+    padding: EdgeInsets.symmetric(vertical: 16),
+  );
 }

@@ -1,46 +1,113 @@
-import 'package:get/get.dart';
 import 'package:exa_gammer_movil/models/user_model.dart';
+import 'package:exa_gammer_movil/service/localServices.dart';
+import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class UserController extends GetxController {
-  var userList = <User>[].obs;
+  final _storageService = Get.find<StorageService>();
 
-  final List<Map<String, String>> usuariosRegistrados = [
-  ];
-
-  /// Agrega un nuevo usuario a la lista dinámica
-  void registerUser(String username, String password, String role, String email) {
-    userList.add(User(
-      usuario: username,
-      clave: password,
-      rol: role,
-      email: email,
-    ));
-    print('✅ Usuario registrado: $username');
+  Future<void> logout() async {
+    await _storageService.logout();
   }
 
-  String? iniciarSesionYObtenerRol(String username, String password) {
-    // 1. Buscar en los usuarios registrados por defecto
-    final defaultUser = usuariosRegistrados.firstWhereOrNull(
-      (user) => user['usuario'] == username && user['clave'] == password,
+  User get getuser => _storageService.displayUser;
+  String get gettoken => _storageService.displayToken;
+
+  Future<bool> registerUser(
+    String username,
+    String password,
+    String role,
+    String email,
+  ) async {
+    Userfrom _userfrom = Userfrom(
+      username: username,
+      password: password,
+      rol: role,
+      correo: email,
+      img: "assets/imagen/fotoperfil.png",
     );
-
-    if (defaultUser != null) {
-      print('🔓 Usuario por defecto autenticado: ${defaultUser['usuario']}');
-      return defaultUser['rol'];
-    }
-
-    // 2. Buscar en los usuarios registrados dinámicamente
-    final dynamicUser = userList.firstWhereOrNull(
-      (user) => user.usuario == username && user.clave == password,
+    final url = Uri.parse(
+      'https://www.apiexagammer.somee.com/api/Usuarios/Registro',
     );
-
-    if (dynamicUser != null) {
-      print('🔓 Usuario registrado autenticado: ${dynamicUser.usuario}');
-      return dynamicUser.rol;
+    try {
+      final res = await http
+          .post(
+            url,
+            headers: <String, String>{
+              'Content-Type': 'application/json; charset=UTF-8',
+            },
+            body: jsonEncode(_userfrom.toJson()),
+          )
+          .timeout(Duration(seconds: 15));
+      if (res.statusCode != 200) {
+        return false;
+      }
+      return true;
+    } catch (e) {
+      print("ERROR DEL RESGISTRO ${e.toString()}");
     }
+    return false;
+  }
 
-    // 3. Usuario no encontrado
-    print('Credenciales incorrectas para $username');
+  Future<String?> iniciarSesionYObtenerRol(
+    String username,
+    String password,
+  ) async {
+    Userdto _userdto = Userdto(username: username, password: password);
+    final url = Uri.parse('https://apiexagammer.somee.com/api/Login');
+    try {
+      final res = await http
+          .post(
+            url,
+            headers: {'Content-Type': 'application/json'},
+            body: jsonEncode(_userdto.toJson()),
+          )
+          .timeout(Duration(seconds: 15));
+
+      if (res.statusCode != 200) {
+        print(res.statusCode);
+        return null;
+      }
+      final data = jsonDecode(res.body);
+      User user = User.fromjson(data["user"]);
+      String token = data["token"];
+      await _storageService.login(user, token);
+      return user.rol;
+    } catch (e) {
+      print("ERROR DEL LOGIN ${e.toString()}");
+    }
     return null;
+  }
+
+  Future<bool> UnirseClase(String codigoClase) async {
+    final url = Uri.parse(
+      'https://www.apiexagammer.somee.com/api/Estudi_Clases/Ingresar',
+    );
+    try {
+      final res = await http
+          .post(
+            url,
+            headers: <String, String>{
+              'Content-Type': 'application/json; charset=UTF-8',
+              'Authorization': 'Bearer ${gettoken}',
+            },
+            body: jsonEncode(
+              new Userclase(
+                userid: getuser.id,
+                claseid: 0,
+                codigo: codigoClase,
+              ),
+            ),
+          )
+          .timeout(Duration(seconds: 15));
+      if (res.statusCode != 200) {
+        return false;
+      }
+      return true;
+    } catch (e) {
+      print("ERROR AL UNIRSE A LA CLASE");
+    }
+    return false;
   }
 }

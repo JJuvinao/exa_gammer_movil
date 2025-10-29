@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:exa_gammer_movil/controllers/user_controller.dart';
 
-void IngresarCodigo(BuildContext context) {
+Future<bool?> IngresarCodigo(BuildContext context) async {
   final TextEditingController codigoController = TextEditingController();
+  final UserController usercontroller = Get.find<UserController>();
 
   showDialog(
     context: context,
@@ -11,8 +13,6 @@ void IngresarCodigo(BuildContext context) {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         title: Row(
           children: [
-            Image.asset('assets/imagen/logo_exa.png', height: 40),
-            const SizedBox(width: 12),
             const Text(
               'EXA-GAMMER',
               style: TextStyle(
@@ -43,16 +43,24 @@ void IngresarCodigo(BuildContext context) {
         actions: [
           TextButton(
             onPressed: () {
-              Navigator.pop(context);
+              Navigator.pop(context, false);
             },
             child: const Text('Cancelar'),
           ),
           ElevatedButton(
-            onPressed: () {
+            onPressed: () async {
               final codigo = codigoController.text.trim();
-              Navigator.pop(context);
-
-              if (codigo.isEmpty) {
+              final exito = await usercontroller.UnirseClase(codigo);
+              if (exito) {
+                Get.snackbar(
+                  'Éxito',
+                  'Te has unido a la clase con éxito.',
+                  backgroundColor: Colors.green[100],
+                  colorText: Colors.black,
+                  snackPosition: SnackPosition.BOTTOM,
+                );
+                Navigator.pop(context, true);
+              } else {
                 Get.snackbar(
                   'Error',
                   'Por favor ingresa un código válido.',
@@ -60,18 +68,7 @@ void IngresarCodigo(BuildContext context) {
                   colorText: Colors.black,
                   snackPosition: SnackPosition.BOTTOM,
                 );
-                return;
               }
-
-              Get.snackbar(
-                'Código ingresado',
-                'Intentando unirse con código: $codigo',
-                backgroundColor: Colors.blue[100],
-                colorText: Colors.black,
-                snackPosition: SnackPosition.BOTTOM,
-              );
-
-              // TODO: Validar si el código existe y unir a la clase
             },
             child: const Text('Unirse'),
           ),
@@ -79,4 +76,5 @@ void IngresarCodigo(BuildContext context) {
       );
     },
   );
+  return null;
 }

@@ -1,13 +1,37 @@
+import 'package:exa_gammer_movil/controllers/user_controller.dart';
+import 'package:exa_gammer_movil/ui/course/courseView.dart';
+import 'package:exa_gammer_movil/ui/home/vista/clase/clase_view.dart';
+import 'package:exa_gammer_movil/ui/home/widget/ClaseCard.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:exa_gammer_movil/controllers/clase_controller.dart';
 import 'package:exa_gammer_movil/ui/dialogs/dialogo_ingresar_clase.dart';
 import 'package:exa_gammer_movil/ui/home/buscar.dart';
-import 'package:exa_gammer_movil/ui/home/profesor/detalle_clase.dart';
 
-class HomeEstudiante extends StatelessWidget {
-  final ClaseController pc = Get.find();
+class HomeEstudiante extends StatefulWidget {
   HomeEstudiante({super.key});
+
+  @override
+  State<HomeEstudiante> createState() => _HomeEstudianteState();
+}
+
+class _HomeEstudianteState extends State<HomeEstudiante> {
+  final ClaseController pc = Get.find();
+
+  final UserController usercontroller = Get.find<UserController>();
+  var filteredClase = <dynamic>[].obs;
+
+  @override
+  void initState() {
+    super.initState();
+    CargarClase();
+  }
+
+  void CargarClase() async {
+    final user = usercontroller.getuser;
+    final token = usercontroller.gettoken;
+    filteredClase.value = await pc.filteredList(user.id, token, user.rol);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,17 +63,12 @@ class HomeEstudiante extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: 24),
-
-              // Campo de búsqueda
+              const SizedBox(height: 30),
               BuscarClase(),
               const SizedBox(height: 10),
 
-              // Lista de clases
               Expanded(
                 child: Obx(() {
-                  final filteredClase = pc.filteredList;
-
                   if (filteredClase.isEmpty) {
                     return const Center(
                       child: Text(
@@ -59,21 +78,34 @@ class HomeEstudiante extends StatelessWidget {
                     );
                   }
 
-                  return ListView.builder(
-                    itemCount: filteredClase.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      final clase = filteredClase[index];
+                  return LayoutBuilder(
+                    builder: (context, constraints) {
+                      int crossAxisCount = constraints.maxWidth > 800
+                          ? 4
+                          : constraints.maxWidth > 600
+                          ? 3
+                          : 2;
 
-                      return Card(
-                        margin: const EdgeInsets.symmetric(vertical: 8.0),
-                        child: ListTile(
-                          leading: CircleAvatar(child: Text(clase.nombre[0])),
-                          title: Text(clase.nombre),
-                          subtitle: Text('${clase.tema} - ${clase.autor}'),
-                          onTap: () {
-                            Get.to(() => DetalleClase());
-                          },
+                      return GridView.builder(
+                        padding: const EdgeInsets.all(10),
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: crossAxisCount,
+                          crossAxisSpacing: 10,
+                          mainAxisSpacing: 10,
+                          childAspectRatio: 0.85,
                         ),
+                        itemCount: filteredClase.length,
+                        itemBuilder: (context, index) {
+                          final clase = filteredClase[index];
+                          return ObjetoCard(
+                            titulo: clase.nombre,
+                            imagenUrl: clase.img,
+                            onTap: () {
+                              pc.saveClase(clase);
+                              Get.to(() => ClaseView(vista: "Clase"));
+                            },
+                          );
+                        },
                       );
                     },
                   );
@@ -83,11 +115,28 @@ class HomeEstudiante extends StatelessWidget {
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          IngresarCodigo(context); // ✅ LLAMADA
-        },
-        child: const Icon(Icons.meeting_room),
+
+      floatingActionButton: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          FloatingActionButton(
+            onPressed: () async {
+              final result = await IngresarCodigo(context);
+              print("resultado del dialogo: $result");
+              if (result == true) {
+                CargarClase();
+              }
+            },
+            child: const Icon(Icons.meeting_room),
+          ),
+          const SizedBox(width: 16),
+          FloatingActionButton(
+            onPressed: () {
+              Get.to(() => courseScreen());
+            },
+            child: const Icon(Icons.school),
+          ),
+        ],
       ),
     );
   }
