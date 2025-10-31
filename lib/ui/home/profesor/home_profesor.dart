@@ -1,4 +1,5 @@
 import 'package:exa_gammer_movil/controllers/user_controller.dart';
+import 'package:exa_gammer_movil/ui/home/inicio_sesion/diseologin.dart';
 import 'package:exa_gammer_movil/ui/home/vista/clase/clase_view.dart';
 import 'package:exa_gammer_movil/ui/home/widget/ClaseCard.dart';
 import 'package:flutter/material.dart';
@@ -83,8 +84,37 @@ class _HomeProfesorState extends State<HomeProfesor> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
+Widget build(BuildContext context) {
+  return WillPopScope(
+    onWillPop: () async {
+      final shouldLogout = await showDialog<bool>(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('Cerrar sesión'),
+          content: const Text('¿Desea cerrar sesión y volver al login?'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(false),
+              child: const Text('No'),
+            ),
+            TextButton(
+              onPressed: () async {
+                Navigator.of(context).pop(true); // cerrar el diálogo
+              },
+              child: const Text('Sí'),
+            ),
+          ],
+        ),
+      );
+
+      if (shouldLogout == true) {
+        await userController.logout(); // misma lógica que tu botón
+        Get.offAll(() => Vistalogin()); // navegación limpia
+      }
+
+      return false; // evita que se cierre automáticamente
+    },
+    child: Scaffold(
       backgroundColor: const Color(0xFFC8C1C1),
       appBar: AppBar(
         backgroundColor: const Color(0xFFC8C1C1),
@@ -125,6 +155,7 @@ class _HomeProfesorState extends State<HomeProfesor> {
         },
         child: const Icon(Icons.add),
       ),
-    );
-  }
+    ),
+  );
+}
 }
