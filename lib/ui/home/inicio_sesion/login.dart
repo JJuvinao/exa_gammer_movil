@@ -104,7 +104,7 @@ class _LoginFromState extends State<LoginForm> {
       InputDecoration(labelText: label, border: OutlineInputBorder());
 
   ButtonStyle _buttonStyle() => ElevatedButton.styleFrom(
-    backgroundColor: Color(0xFF0D59A1),
+    backgroundColor: Color(0xFF42A5F5),
     foregroundColor: Colors.white,
     padding: EdgeInsets.symmetric(vertical: 16),
   );
