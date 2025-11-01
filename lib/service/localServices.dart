@@ -12,7 +12,14 @@ class StorageService extends GetxService {
   final String _claseKey = 'clase';
   final String _examenKey = 'examen';
 
-  final user = User(id: 0, username: '', rol: '', email: '', img: '').obs;
+  final user = User(
+    id: 0,
+    username: '',
+    rol: '',
+    email: '',
+    img: '',
+    premium: false,
+  ).obs;
   final token = ''.obs;
   final clase = Clase(
     id: 0,
@@ -45,7 +52,7 @@ class StorageService extends GetxService {
   Future<StorageService> init() async {
     user.value =
         _box.read<User>(_userKey) ??
-        User(id: 0, username: '', rol: '', email: '', img: '');
+        User(id: 0, username: '', rol: '', email: '', img: '', premium: false);
     token.value = _box.read<String>(_tokenKey) ?? '';
     clase.value =
         _box.read<Clase>(_claseKey) ??
@@ -95,16 +102,8 @@ class StorageService extends GetxService {
     await _box.write(_examenKey, newExamen);
   }
 
-  bool get isLoggedIn => _box.read<bool>(_isLoggedInKey) ?? false;
-
-  Future<void> logout() async {
-    await _box.remove(_isLoggedInKey);
-    await _box.remove(_userKey);
-    await _box.remove(_tokenKey);
+  Future<void> logoutClase() async {
     await _box.remove(_claseKey);
-    await _box.remove(_examenKey);
-    token.value = '';
-    user.value = User(id: 0, username: '', rol: '', email: '', img: '');
     clase.value = Clase(
       id: 0,
       nombre: '',
@@ -116,6 +115,10 @@ class StorageService extends GetxService {
       img: '',
       id_profe: 0,
     );
+  }
+
+  Future<void> logoutExamen() async {
+    await _box.remove(_examenKey);
     examen.value = Examen(
       id: 0,
       nombre: '',
@@ -126,6 +129,24 @@ class StorageService extends GetxService {
       fecha: '',
       img: '',
       id_juego: 0,
+    );
+  }
+
+  bool get isLoggedIn => _box.read<bool>(_isLoggedInKey) ?? false;
+
+  Future<void> logout() async {
+    await _box.remove(_isLoggedInKey);
+    await _box.remove(_userKey);
+    await _box.remove(_tokenKey);
+
+    token.value = '';
+    user.value = User(
+      id: 0,
+      username: '',
+      rol: '',
+      email: '',
+      img: '',
+      premium: false,
     );
   }
 }

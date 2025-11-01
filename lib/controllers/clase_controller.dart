@@ -1,4 +1,5 @@
 import 'package:exa_gammer_movil/models/clase_model.dart';
+import 'package:exa_gammer_movil/models/user_model.dart';
 import 'package:exa_gammer_movil/service/localServices.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -15,9 +16,17 @@ class ClaseController extends GetxController {
     await _storageService.saveClase(newClase);
   }
 
+  Future<void> logoutClase() async {
+    await _storageService.logoutClase();
+  }
+
+  void ClearClase() {
+    claseList.clear();
+  }
+
   Future<bool> AddClase(Clasedto newclase, String token) async {
     final url = Uri.parse(
-      'https://apiexagammer.somee.com/api/Clases/ClasePost',
+      'https://www.apiexagammer.somee.com/api/Clases/ClasePost',
     );
     try {
       final res = await http
@@ -57,8 +66,12 @@ class ClaseController extends GetxController {
     searchQuery.value = query;
   }
 
-  List<Clase> filteredList(int id, String token) {
-    CragarClases(id, token);
+  Future<List<Clase>> filteredList(int id, String token, String rol) async {
+    if (rol == 'Profesor') {
+      await CargarClases(id, token);
+    } else {
+      await CargarClases_Estudiante(id, token);
+    }
     if (claseList.isEmpty) {
       return [];
     }
@@ -75,10 +88,10 @@ class ClaseController extends GetxController {
     }
   }
 
-  Future<void> CragarClases(int id, String token) async {
+  Future<void> CargarClases(int id, String token) async {
     try {
       final url = Uri.parse(
-        'https://apiexagammer.somee.com/api/Clases/Profe_Clases/${id}',
+        'https://www.apiexagammer.somee.com/api/Clases/Profe_Clases/${id}',
       );
 
       final res = await http
@@ -103,5 +116,67 @@ class ClaseController extends GetxController {
     } catch (e) {
       print("ERROR DE LA CARGA DE CLASES ${e.toString()}");
     }
+  }
+
+  Future<void> CargarClases_Estudiante(int id, String token) async {
+    try {
+      final url = Uri.parse(
+        'https://www.apiexagammer.somee.com/api/Estudi_Clases/${id}',
+      );
+
+      final res = await http
+          .get(
+            url,
+            headers: {
+              'Authorization': 'Bearer ${token}',
+              'Content-Type': 'application/json',
+            },
+          )
+          .timeout(Duration(seconds: 15));
+
+      if (res.statusCode != 200) {
+        print(res.statusCode);
+      }
+      final data = jsonDecode(res.body);
+      List<Clase> _claseList = [];
+      for (var item in data) {
+        _claseList.add(Clase.fromjson(item));
+      }
+      claseList.value = _claseList;
+    } catch (e) {
+      print("ERROR DE LA CARGA DE CLASES ${e.toString()}");
+    }
+  }
+
+  Future<List<User>> CargarUser_Clase(int id_clase, String token) async {
+    try {
+      final url = Uri.parse(
+        'https://apiexagammer.somee.com/api/Estudi_Clases/usersclase/${id_clase}',
+      );
+
+      final res = await http
+          .get(
+            url,
+            headers: {
+              'Authorization': 'Bearer ${token}',
+              'Content-Type': 'application/json',
+            },
+          )
+          .timeout(Duration(seconds: 15));
+
+      if (res.statusCode != 200) {
+        print(res.statusCode);
+        return [];
+      }
+      final data = jsonDecode(res.body);
+      List<User> _userList = [];
+      for (var item in data) {
+        _userList.add(User.fromjson(item));
+      }
+      return _userList;
+    } catch (e) {
+      print("ERROR DE LA CARGA LOS ESTUDIANTES DE LA CLASES ${e.toString()}");
+    }
+    return [];
   }
 }

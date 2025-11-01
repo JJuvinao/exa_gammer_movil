@@ -1,9 +1,8 @@
+import 'package:exa_gammer_movil/ui/home/profesor/main_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:exa_gammer_movil/controllers/clase_controller.dart';
 import 'package:exa_gammer_movil/controllers/user_controller.dart';
-import 'package:exa_gammer_movil/ui/home/profesor/home_profesor.dart';
-import 'package:exa_gammer_movil/ui/home/estudiante/home_estudiante.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
@@ -71,9 +70,9 @@ class _LoginFromState extends State<LoginForm> {
 
                 // ✅ Redirigir según rol
                 if (rol == 'Profesor') {
-                  Get.to(() => HomeProfesor());
+                  Get.offAll(() => MainView(vista: "Profesor"));
                 } else if (rol == 'Estudiante') {
-                  Get.to(() => HomeEstudiante());
+                  Get.off(() => MainView(vista: "Estudiante"));
                 } else {
                   Get.snackbar(
                     'Error',
@@ -105,7 +104,7 @@ class _LoginFromState extends State<LoginForm> {
       InputDecoration(labelText: label, border: OutlineInputBorder());
 
   ButtonStyle _buttonStyle() => ElevatedButton.styleFrom(
-    backgroundColor: Color(0xFF0D59A1),
+    backgroundColor: Color(0xFF42A5F5),
     foregroundColor: Colors.white,
     padding: EdgeInsets.symmetric(vertical: 16),
   );
