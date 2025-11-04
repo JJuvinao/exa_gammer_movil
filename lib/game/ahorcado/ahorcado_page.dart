@@ -2,22 +2,37 @@ import 'package:flutter/material.dart';
 import 'package:exa_gammer_movil/game/ahorcado/ahorcado_controller.dart';
 import 'package:get/get.dart';
 import 'package:exa_gammer_movil/game/ahorcado/mensaje.dart';
+import 'package:exa_gammer_movil/models/examen_model.dart';
 import 'package:flutter/services.dart';
 
+// ignore: must_be_immutable
 class AhorcadoPage extends StatefulWidget {
-  const AhorcadoPage({super.key});
+  Ahorcado ahorcado = Ahorcado(palabra: "", pista: "");
+  int id_user = 0;
+  String token = "";
+  int id_examen = 0;
+
+  AhorcadoPage({
+    super.key,
+    required this.ahorcado,
+    required this.id_user,
+    required this.token,
+    required this.id_examen,
+  });
 
   @override
   State<AhorcadoPage> createState() => _AhorcadoPageState();
 }
 
 class _AhorcadoPageState extends State<AhorcadoPage> {
-  final AhorcadoController controller = Get.find<AhorcadoController>();
+  late final AhorcadoController controller;
 
   @override
   void initState() {
     super.initState();
-    controller.nuevaPalabra();
+    controller = Get.find();
+    controller.reiniciarJuego();
+    controller.nuevaPalabra(widget.ahorcado);
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.landscapeLeft,
       DeviceOrientation.landscapeRight,
@@ -91,7 +106,15 @@ class _AhorcadoPageState extends State<AhorcadoPage> {
                           ? null
                           : () => {
                               setState(() => controller.manejarLetra(letra)),
-                              if (!controller.juegoActivo) {MostrarMensaje()},
+                              if (!controller.juegoActivo)
+                                {
+                                  controller.saveResultado(
+                                    widget.id_user,
+                                    widget.token,
+                                    widget.id_examen,
+                                  ),
+                                  MostrarMensaje(),
+                                },
                             },
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.all(8),

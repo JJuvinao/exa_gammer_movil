@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:exa_gammer_movil/controllers/clase_controller.dart';
 import 'package:exa_gammer_movil/ui/dialogs/dialogo_ingresar_clase.dart';
-import 'package:exa_gammer_movil/ui/home/widget/buscar.dart';
+import 'package:exa_gammer_movil/ui/home/buscar.dart';
 
 class HomeEstudiante extends StatefulWidget {
   HomeEstudiante({super.key});
@@ -110,15 +110,27 @@ class _HomeEstudianteState extends State<HomeEstudiante> {
         ),
       ),
 
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          final result = await IngresarCodigo(context);
-          print("resultado del dialogo: $result");
-          if (result == true) {
-            CargarClase();
-          }
-        },
-        child: const Icon(Icons.meeting_room),
+      floatingActionButton: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          FloatingActionButton(
+            onPressed: () async {
+              final result = await IngresarCodigo(context);
+              print("resultado del dialogo: $result");
+              if (result == true) {
+                CargarClase();
+              }
+            },
+            child: const Icon(Icons.meeting_room),
+          ),
+          const SizedBox(width: 16),
+          FloatingActionButton(
+            onPressed: () {
+              Get.to(() => courseScreen());
+            },
+            child: const Icon(Icons.school),
+          ),
+        ],
       ),
     );
   }

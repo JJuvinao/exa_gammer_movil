@@ -1,6 +1,10 @@
-import 'package:exa_gammer_movil/ui/home/inicio_sesion/diseologin.dart';
+import 'package:exa_gammer_movil/ui/home/widget/boton_comenzar.dart';
+import 'package:exa_gammer_movil/ui/home/widget/fondo_home.dart';
+import 'package:exa_gammer_movil/ui/home/widget/logo_glow.dart';
+import 'package:exa_gammer_movil/ui/home/widget/titulo_home.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:exa_gammer_movil/ui/home/inicio_sesion/diseologin.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -10,71 +14,53 @@ class HomePage extends StatelessWidget {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
 
-    const Color fondoExa = Color(0xFFC8C1C1);
-
     return Scaffold(
-      backgroundColor: fondoExa,
-      appBar: AppBar(backgroundColor: fondoExa, elevation: 0, toolbarHeight: 0),
-
-      body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.02),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(height: screenHeight * 0.01), // Espacio superior
-              Text(
-                'Exa-Gammer',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: screenWidth * 0.13,
-                  color: Colors.black,
-                  fontFamily: 'TitanOne',
-                ),
-              ),
-              SizedBox(
-                height: screenHeight * 0.05,
-              ), // Espacio entre título y logo
-              Flexible(
-                child: Image.asset(
-                  'assets/imagen/logo_exa.png',
-                  fit: BoxFit.contain,
-                ),
-              ),
-              SizedBox(height: screenHeight * 0.09),
-
-              Center(
-                child: SizedBox(
-                  width: screenWidth * 0.7,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Get.to(() => Vistalogin());
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF0D59A1),
-                      elevation: 0,
-                      foregroundColor: Color(0XFFFAF4F4),
+      backgroundColor: const Color(0xFF0a0a14),
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        toolbarHeight: 0,
+      ),
+      body: Stack(
+        children: [
+          const FondoHome(),
+          SafeArea(
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                return SingleChildScrollView(
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(minHeight: constraints.maxHeight),
+                    child: Padding(
                       padding: EdgeInsets.symmetric(
+                        horizontal: screenWidth * 0.06,
                         vertical: screenHeight * 0.02,
-                        horizontal: screenWidth * 0.05,
                       ),
-
-                      textStyle: TextStyle(
-                        fontSize: screenWidth * 0.08,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: "Inter",
-                      ),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(screenWidth * 0.3),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SizedBox(height: screenHeight * 0.05),
+                          const TituloHome(),
+                          SizedBox(height: screenHeight * 0.06),
+                          LogoGlow(
+                            size: screenWidth * 0.45,
+                            padding: screenWidth * 0.08,
+                          ),
+                          SizedBox(height: screenHeight * 0.08),
+                          BotonComenzar(
+                            width: screenWidth * 0.75,
+                            height: screenHeight * 0.065,
+                            onTap: () => Get.to(() => Vistalogin()),
+                          ),
+                          SizedBox(height: screenHeight * 0.03),
+                        ],
                       ),
                     ),
-                    child: const Text('Comenzar'),
                   ),
-                ),
-              ),
-            ],
+                );
+              },
+            ),
           ),
-        ),
+        ],
       ),
     );
   }
