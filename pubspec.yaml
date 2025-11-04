@@ -24,7 +24,7 @@ dev_dependencies:
 flutter_launcher_icons:
   android: true
   ios: true
-  image_path: "assets/icon/app_icon.png"
+  image_path: "assets/icon/icono2.png"
 
   flutter_test:
     sdk: flutter
@@ -35,7 +35,14 @@ flutter:
   uses-material-design: true
   assets:
     - assets/avatars/
+    - assets/fondo/
     - assets/imagen/logo_exa.png
+    - lib/game/heroes/imagenes/Fondos/
+    - lib/game/heroes/imagenes/Guerrero/
+    - lib/game/heroes/imagenes/Mago/
+    - lib/game/heroes/imagenes/Npcs/
+    - lib/game/heroes/imagenes/Samurai/
+    - lib/game/heroes/imagenes/Varios/
   fonts:
     - family: TitanOne
       fonts:
@@ -44,4 +51,9 @@ flutter:
       fonts:
         - asset: assets/fonts/Inter-Regular.ttf
         - asset: assets/fonts/Inter-Bold.ttf
+          weight: 700
+    - family: poppins
+      fonts:
+        - asset: assets/fonts/Poppins-Regular.ttf
+        - asset: assets/fonts/Poppins-Bold.ttf
           weight: 700

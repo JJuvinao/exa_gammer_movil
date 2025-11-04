@@ -78,34 +78,28 @@ class _HomeEstudianteState extends State<HomeEstudiante> {
                     );
                   }
 
-                  return LayoutBuilder(
-                    builder: (context, constraints) {
-                      int crossAxisCount = constraints.maxWidth > 800
-                          ? 4
-                          : constraints.maxWidth > 600
-                          ? 3
-                          : 2;
-
-                      return GridView.builder(
-                        padding: const EdgeInsets.all(10),
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: crossAxisCount,
-                          crossAxisSpacing: 10,
-                          mainAxisSpacing: 10,
-                          childAspectRatio: 0.85,
-                        ),
-                        itemCount: filteredClase.length,
-                        itemBuilder: (context, index) {
-                          final clase = filteredClase[index];
-                          return ObjetoCard(
+                  return ListView.builder(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 10,
+                      horizontal: 10,
+                    ),
+                    itemCount: filteredClase.length,
+                    itemBuilder: (context, index) {
+                      final clase = filteredClase[index];
+                      return Padding(
+                        padding: const EdgeInsets.only(bottom: 12.0),
+                        child: SizedBox(
+                          height: 120,
+                          width: double.infinity,
+                          child: ObjetoCard(
                             titulo: clase.nombre,
                             imagenUrl: clase.img,
                             onTap: () {
                               pc.saveClase(clase);
                               Get.to(() => ClaseView(vista: "Clase"));
                             },
-                          );
-                        },
+                          ),
+                        ),
                       );
                     },
                   );
@@ -116,15 +110,27 @@ class _HomeEstudianteState extends State<HomeEstudiante> {
         ),
       ),
 
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          final result = await IngresarCodigo(context);
-          print("resultado del dialogo: $result");
-          if (result == true) {
-            CargarClase();
-          }
-        },
-        child: const Icon(Icons.meeting_room),
+      floatingActionButton: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          FloatingActionButton(
+            onPressed: () async {
+              final result = await IngresarCodigo(context);
+              print("resultado del dialogo: $result");
+              if (result == true) {
+                CargarClase();
+              }
+            },
+            child: const Icon(Icons.meeting_room),
+          ),
+          const SizedBox(width: 16),
+          FloatingActionButton(
+            onPressed: () {
+              Get.to(() => courseScreen());
+            },
+            child: const Icon(Icons.school),
+          ),
+        ],
       ),
     );
   }

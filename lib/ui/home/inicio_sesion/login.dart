@@ -20,27 +20,35 @@ class _LoginFromState extends State<LoginForm> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        TextField(controller: usuario, decoration: _input('Usuario')),
-        SizedBox(height: 16),
+        // Campo Usuario
+        TextField(
+          controller: usuario,
+          style: const TextStyle(color: Colors.white), // 🔹 texto blanco
+          decoration: _input('Usuario', Icons.person),
+        ),
+        const SizedBox(height: 16),
+
+        // Campo Contraseña
         TextField(
           controller: clave,
+          style: const TextStyle(color: Colors.white), // 🔹 texto blanco
           obscureText: _obscureText,
-          decoration: InputDecoration(
-            labelText: 'Contraseña',
-            border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+          decoration: _input('Contraseña', Icons.lock).copyWith(
             suffixIcon: IconButton(
               icon: Icon(
                 _obscureText ? Icons.visibility_off : Icons.visibility,
+                color: const Color(0xFF00F0FF), // color neón del tema
               ),
-              onPressed: () {
-                setState(() {
-                  _obscureText = !_obscureText;
-                });
-              },
+              onPressed: () => setState(() {
+                _obscureText = !_obscureText;
+              }),
             ),
           ),
         ),
-        SizedBox(height: 24),
+
+        const SizedBox(height: 24),
+
+        // Botón Iniciar Sesión
         SizedBox(
           width: double.infinity,
           child: ElevatedButton(
@@ -63,12 +71,10 @@ class _LoginFromState extends State<LoginForm> {
                 usuario.clear();
                 clave.clear();
 
-                // Asegurar que ClaseController esté registrado
                 if (!Get.isRegistered<ClaseController>()) {
                   Get.put(ClaseController());
                 }
 
-                // ✅ Redirigir según rol
                 if (rol == 'Profesor') {
                   Get.offAll(() => MainView(vista: "Profesor"));
                 } else if (rol == 'Estudiante') {
@@ -90,7 +96,7 @@ class _LoginFromState extends State<LoginForm> {
                 );
               }
             },
-            child: Text(
+            child: const Text(
               'INICIAR SESIÓN',
               style: TextStyle(fontSize: 16, fontFamily: "Inter"),
             ),
@@ -100,12 +106,40 @@ class _LoginFromState extends State<LoginForm> {
     );
   }
 
-  InputDecoration _input(String label) =>
-      InputDecoration(labelText: label, border: OutlineInputBorder());
+  // 🔹 Estilo de los TextFields
+  InputDecoration _input(String label, IconData icon) {
+    return InputDecoration(
+      labelText: label,
+      labelStyle: const TextStyle(color: Colors.white70),
+      prefixIcon: Icon(icon, color: const Color(0xFF00F0FF)),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: BorderSide(
+          color: const Color(0xFF00F0FF).withOpacity(0.3),
+          width: 1.5,
+        ),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: const BorderSide(
+          color: Color(0xFF00F0FF),
+          width: 2,
+        ),
+      ),
+      filled: true,
+      fillColor: Colors.white.withOpacity(0.05), // sutil glass effect
+    );
+  }
 
+  // 🔹 Estilo del botón
   ButtonStyle _buttonStyle() => ElevatedButton.styleFrom(
-    backgroundColor: Color(0xFF0D59A1),
-    foregroundColor: Colors.white,
-    padding: EdgeInsets.symmetric(vertical: 16),
-  );
+        backgroundColor: const Color(0xFF00F0FF),
+        foregroundColor: Colors.black,
+        padding: const EdgeInsets.symmetric(vertical: 16),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
+        elevation: 8,
+        shadowColor: const Color(0xFF00F0FF).withOpacity(0.5),
+      );
 }

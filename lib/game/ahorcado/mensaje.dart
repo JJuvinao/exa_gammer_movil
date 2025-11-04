@@ -15,7 +15,7 @@ class Mensaje extends StatelessWidget {
           children: [
             Text(
               resultados['estado'] == "Ganó"
-                  ? "🎉 ¡Felicidades, ganaste! 🎉"
+                  ? "🎉 ¡Ganaste! 🎉"
                   : "😢 ¡Perdiste! 😢",
               style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),

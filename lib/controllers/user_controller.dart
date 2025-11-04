@@ -40,14 +40,20 @@ class UserController extends GetxController {
             body: jsonEncode(_userfrom.toJson()),
           )
           .timeout(Duration(seconds: 15));
-      if (res.statusCode != 200) {
-        return false;
+      
+      //añadido....
+      print('Register Status Code: ${res.statusCode}');
+      print('Register Response: ${res.body}');
+      //
+
+      if (res.statusCode == 200) {
+        return true;
       }
-      return true;
+      return false;
     } catch (e) {
-      print("ERROR DEL RESGISTRO ${e.toString()}");
+      print("ERROR DEL REGISTRO: ${e.toString()}");
+      return false; // 👈 Añadido return
     }
-    return false;
   }
 
   Future<String?> iniciarSesionYObtenerRol(
@@ -65,20 +71,28 @@ class UserController extends GetxController {
           )
           .timeout(Duration(seconds: 15));
 
-      if (res.statusCode != 200) {
-        print(res.statusCode);
-        return null;
+      //añadido....
+      print('Login Status Code: ${res.statusCode}');
+      print('Login Response: ${res.body}');
+      //
+
+      if (res.statusCode == 200) {
+        final data = jsonDecode(res.body);
+        User user = User.fromjson(data["user"]);
+        String token = data["token"];
+        await _storageService.login(user, token);
+        return user.rol;
       }
-      final data = jsonDecode(res.body);
-      User user = User.fromjson(data["user"]);
-      String token = data["token"];
-      await _storageService.login(user, token);
-      return user.rol;
+
+      //algunos cambios aqui 
+      print('Login failed with status: ${res.statusCode}');
+      return null;
     } catch (e) {
-      print("ERROR DEL LOGIN ${e.toString()}");
+      print("ERROR DEL LOGIN: ${e.toString()}");
+      return null; // 👈 Ya está bien
     }
-    return null;
   }
+      ///////
 
   Future<bool> UnirseClase(String codigoClase) async {
     final url = Uri.parse(
@@ -110,4 +124,9 @@ class UserController extends GetxController {
     }
     return false;
   }
+
 }
+
+//
+//
+//

@@ -3,14 +3,16 @@ class User {
   final String username;
   final String rol;
   final String email;
-  final String img;
+  final String? img;
+  final bool? premium;
 
   User({
     required this.id,
     required this.username,
     required this.rol,
     required this.email,
-    required this.img,
+    this.img,
+    this.premium,
   });
 
   factory User.fromjson(Map<String, dynamic> json) {
@@ -20,6 +22,7 @@ class User {
       rol: json["rol"],
       email: json["correo"],
       img: json["imagen"],
+      premium: json["premium"],
     );
   }
 }
@@ -58,6 +61,29 @@ class Userfrom {
       'Correo': correo,
       'Imagen': img,
     };
+  }
+}
+
+class Userto {
+  final int id;
+  final String username;
+  final String email;
+  final String? img;
+
+  Userto({
+    required this.id,
+    required this.username,
+    required this.email,
+    this.img,
+  });
+
+  factory Userto.fromjson(Map<String, dynamic> json) {
+    return Userto(
+      id: json["id"],
+      username: json["nombre"],
+      email: json["correo"],
+      img: json["imagen"],
+    );
   }
 }
 

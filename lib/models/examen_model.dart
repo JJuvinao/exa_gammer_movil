@@ -36,75 +36,123 @@ class Examen {
   }
 }
 
-class ExamendtoHeroes {
-  final String nombre;
-  final String tema;
-  final String autor;
-  final String descripcion;
-  final String img;
-  final int id_clase;
-  final int id_juego;
-  final List<Map<String, String>> heroes;
+class Ahorcado {
+  final String palabra;
+  final String pista;
 
-  ExamendtoHeroes({
-    required this.nombre,
-    required this.tema,
-    required this.autor,
-    required this.descripcion,
-    required this.img,
-    required this.id_clase,
-    required this.id_juego,
-    required this.heroes,
+  Ahorcado({required this.palabra, required this.pista});
+
+  factory Ahorcado.fromjson(Map<String, dynamic> json) {
+    return Ahorcado(palabra: json["palabra"], pista: json["pista"]);
+  }
+}
+
+class Heroes {
+  final String nombre;
+  final String imagen;
+
+  Heroes({required this.nombre, required this.imagen});
+
+  factory Heroes.fromjson(Map<String, dynamic> json) {
+    return Heroes(nombre: json["nombre"], imagen: json["imagen"]);
+  }
+}
+
+class Resultados {
+  final int id;
+  final int id_Estudiane;
+  final int id_Examen;
+  final int intentos;
+  final int aciertos;
+  final int fallos;
+  final double? nota;
+  final String? recomendacion;
+
+  Resultados({
+    required this.id,
+    required this.id_Estudiane,
+    required this.id_Examen,
+    required this.intentos,
+    required this.aciertos,
+    required this.fallos,
+    this.nota,
+    this.recomendacion,
   });
+
+  factory Resultados.fromjson(Map<String, dynamic> json) {
+    return Resultados(
+      id: json["id"],
+      id_Estudiane: json["id_Estudiane"],
+      id_Examen: json["id_Examen"],
+      intentos: json["intentos"],
+      aciertos: json["aciertos"],
+      fallos: json["fallos"],
+      nota: json["nota"],
+      recomendacion: json["recomendacion"],
+    );
+  }
 
   Map<String, dynamic> toJson() {
     return {
-      'Nombre': nombre,
-      'Tema': tema,
-      'Autor': autor,
-      'Descripcion': descripcion,
-      'ImagenExamen': img,
-      'Id_Clase': id_clase,
-      'Id_Juego': id_juego,
-      'Heroes': heroes,
+      'Id': id,
+      'Id_Estudiane': id_Estudiane,
+      'Id_Examen': id_Examen,
+      'Intentos': intentos,
+      'Aciertos': aciertos,
+      'Fallos': fallos,
+      'Nota': nota,
+      'Recomendacion': recomendacion,
     };
   }
 }
 
-class ExamendtoAhorcado {
-  final String nombre;
-  final String tema;
-  final String autor;
-  final String descripcion;
+class Estudi_Resultados {
+  final int id;
+  final int id_Estudiante;
+  final String Nombre;
+  final String correo;
   final String img;
-  final int id_clase;
-  final int id_juego;
-  final String palabras;
-  final String pistas;
+  final int id_Examen;
+  final int intentos;
+  final int aciertos;
+  final int fallos;
+  final double? nota;
+  final String? recomendacion;
 
-  ExamendtoAhorcado({
-    required this.nombre,
-    required this.tema,
-    required this.autor,
-    required this.descripcion,
+  Estudi_Resultados({
+    required this.id,
+    required this.id_Estudiante,
+    required this.Nombre,
+    required this.correo,
     required this.img,
-    required this.id_clase,
-    required this.id_juego,
-    required this.palabras,
-    required this.pistas,
+    required this.id_Examen,
+    required this.intentos,
+    required this.aciertos,
+    required this.fallos,
+    this.nota,
+    this.recomendacion,
+  });
+}
+
+class Calificar {
+  final int id_estu_exa;
+  final int id_estu;
+  final double nota;
+  final String reco;
+
+  Calificar({
+    required this.id_estu_exa,
+    required this.id_estu,
+    required this.nota,
+    required this.reco,
   });
 
   Map<String, dynamic> toJson() {
     return {
-      'Nombre': nombre,
-      'Tema': tema,
-      'Autor': autor,
-      'Descripcion': descripcion,
-      'ImagenExamen': img,
-      'Id_Clase': id_clase,
-      'Id_Juego': id_juego,
-      'Palabras': palabras,
-      'Pistas': pistas,
+      'Id_estu_exa': id_estu_exa,
+      'Id_estu': id_estu,
+      'Nota': nota,
+      'Recomendacion': reco,
     };
   }
 }
