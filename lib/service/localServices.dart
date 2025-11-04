@@ -12,7 +12,14 @@ class StorageService extends GetxService {
   final String _claseKey = 'clase';
   final String _examenKey = 'examen';
 
-  final user = User(id: 0, username: '', rol: '', email: '', img: '').obs;
+  final user = User(
+    id: 0,
+    username: '',
+    rol: '',
+    email: '',
+    img: '',
+    premium: false,
+  ).obs;
   final token = ''.obs;
   final clase = Clase(
     id: 0,
@@ -36,16 +43,18 @@ class StorageService extends GetxService {
     img: '',
     id_juego: 0,
   ).obs;
+  final contexaAhorcado = Ahorcado(palabra: '', pista: '').obs;
 
   User get displayUser => user.value;
   String get displayToken => token.value;
   Clase get displayClase => clase.value;
   Examen get displayExamen => examen.value;
+  Ahorcado get displayAhorcado => contexaAhorcado.value;
 
   Future<StorageService> init() async {
     user.value =
         _box.read<User>(_userKey) ??
-        User(id: 0, username: '', rol: '', email: '', img: '');
+        User(id: 0, username: '', rol: '', email: '', img: '', premium: false);
     token.value = _box.read<String>(_tokenKey) ?? '';
     clase.value =
         _box.read<Clase>(_claseKey) ??
@@ -95,6 +104,10 @@ class StorageService extends GetxService {
     await _box.write(_examenKey, newExamen);
   }
 
+  Future<void> saveContExaAhorcado(Ahorcado newCont) async {
+    contexaAhorcado.value = newCont;
+  }
+
   Future<void> logoutClase() async {
     await _box.remove(_claseKey);
     clase.value = Clase(
@@ -133,6 +146,13 @@ class StorageService extends GetxService {
     await _box.remove(_tokenKey);
 
     token.value = '';
-    user.value = User(id: 0, username: '', rol: '', email: '', img: '');
+    user.value = User(
+      id: 0,
+      username: '',
+      rol: '',
+      email: '',
+      img: '',
+      premium: false,
+    );
   }
 }

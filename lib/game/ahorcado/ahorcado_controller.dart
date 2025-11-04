@@ -1,124 +1,26 @@
-import 'dart:math';
+import 'dart:convert';
+
 import 'package:get/get.dart';
-
-class PalabraConPista {
-  final String palabra;
-  final String pista;
-
-  PalabraConPista({required this.palabra, required this.pista});
-}
+import 'package:exa_gammer_movil/models/examen_model.dart';
+import 'package:http/http.dart' as http;
 
 class AhorcadoController extends GetxController {
-  final List<PalabraConPista> palabrasConPista = [
-    PalabraConPista(
-      palabra: "programacion",
-      pista: "Disciplina de crear software y aplicaciones.",
-    ),
-    PalabraConPista(
-      palabra: "javascript",
-      pista: "Lenguaje de programación muy usado en la web.",
-    ),
-    PalabraConPista(
-      palabra: "computadora",
-      pista: "Dispositivo electrónico para procesar datos.",
-    ),
-    PalabraConPista(
-      palabra: "desarrollo",
-      pista: "Proceso de creación y mejora de software.",
-    ),
-    PalabraConPista(
-      palabra: "internet",
-      pista: "Red global que conecta millones de computadoras.",
-    ),
-    PalabraConPista(
-      palabra: "algoritmo",
-      pista: "Conjunto de pasos para resolver un problema.",
-    ),
-    PalabraConPista(
-      palabra: "variable",
-      pista: "Espacio donde se almacena información temporalmente.",
-    ),
-    PalabraConPista(
-      palabra: "funcion",
-      pista: "Bloque de código reutilizable que realiza una tarea.",
-    ),
-    PalabraConPista(
-      palabra: "react",
-      pista: "Librería de JavaScript para construir interfaces de usuario.",
-    ),
-    PalabraConPista(
-      palabra: "frontend",
-      pista: "Parte visual de una aplicación web, vista por el usuario.",
-    ),
-    PalabraConPista(
-      palabra: "constitucion",
-      pista: "Conjunto de leyes fundamentales de un país.",
-    ),
-    PalabraConPista(
-      palabra: "arqueologia",
-      pista:
-          "Ciencia que estudia las civilizaciones antiguas a través de sus restos.",
-    ),
-    PalabraConPista(
-      palabra: "biodiversidad",
-      pista: "Variedad de especies animales y vegetales en un entorno.",
-    ),
-    PalabraConPista(
-      palabra: "democracia",
-      pista: "Sistema político donde el pueblo elige a sus gobernantes.",
-    ),
-    PalabraConPista(
-      palabra: "filosofia",
-      pista:
-          "Disciplina que estudia cuestiones fundamentales sobre la existencia y el conocimiento.",
-    ),
-    PalabraConPista(
-      palabra: "literatura",
-      pista: "Arte de la expresión escrita o hablada.",
-    ),
-    PalabraConPista(
-      palabra: "astronomia",
-      pista: "Ciencia que estudia los astros y el universo.",
-    ),
-    PalabraConPista(
-      palabra: "prehistoria",
-      pista: "Período anterior a la invención de la escritura.",
-    ),
-    PalabraConPista(
-      palabra: "ecosistema",
-      pista: "Conjunto de seres vivos y su entorno natural.",
-    ),
-    PalabraConPista(
-      palabra: "mitologia",
-      pista: "Conjunto de mitos y leyendas de una cultura.",
-    ),
-  ].obs;
-
-  late String palabraActual;
-  late String pistaActual;
+  var palabraActual = "".obs;
+  var pistaActual = "".obs;
   RxList<String> letrasUsadas = <String>[].obs;
   int intentos = 6;
   bool juegoActivo = true;
   String estado = "";
-  final RxList<String> palabrasUsadas = <String>[].obs;
 
-  AhorcadoController() {
-    nuevaPalabra();
+  void nuevaPalabra(Ahorcado ahorcado) {
+    palabraActual.value = ahorcado.palabra;
+    pistaActual.value = ahorcado.pista;
   }
 
-  void nuevaPalabra() {
-    final disponibles = palabrasConPista
-        .where((p) => !palabrasUsadas.contains(p.palabra))
-        .toList();
-
-    final seleccion = disponibles.isEmpty
-        ? palabrasConPista[Random().nextInt(palabrasConPista.length)]
-        : disponibles[Random().nextInt(disponibles.length)];
-
-    palabraActual = seleccion.palabra;
-    pistaActual = seleccion.pista;
-    letrasUsadas = <String>[].obs;
-    palabrasUsadas.add(palabraActual);
+  void reiniciarJuego() {
+    palabraActual.value = "";
+    pistaActual.value = "";
+    letrasUsadas.clear();
     intentos = 6;
     juegoActivo = true;
     estado = "";
@@ -148,7 +50,8 @@ class AhorcadoController extends GetxController {
     if (!palabraRenderizada.contains("_")) {
       juegoActivo = false;
       estado = "Ganó";
-    } else if (intentos <= 0) {
+    }
+    if (intentos <= 0) {
       juegoActivo = false;
       estado = "Perdió";
     }
@@ -163,6 +66,39 @@ class AhorcadoController extends GetxController {
       "fallos": letrasUsadas.where((l) => !palabraActual.contains(l)).length,
       "intentos": intentos,
       "palabra": palabraActual,
+      "estado": estado,
     };
+  }
+
+  Future<void> saveResultado(int id_user, String token, int id_examen) async {
+    var rest = getResultados();
+    var data = {
+      'Id_Estudiane': id_user,
+      'Id_Examen': id_examen,
+      'Intentos': rest['intentos'],
+      'Aciertos': rest['aciertos'],
+      'Fallos': rest['fallos'],
+      'Notas': 0,
+      'Recomendaciones': "",
+    };
+
+    try {
+      final url = Uri.parse(
+        'https://www.apiexagammer.somee.com/api/Estudi_Examen/IngresarExa',
+      );
+      final res = await http.post(
+        url,
+        headers: {
+          'Authorization': 'Bearer ${token}',
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode(data),
+      );
+      if (res.statusCode != 200) {
+        print(res.statusCode);
+      }
+    } catch (e) {
+      print("ERROR AL GUARDAR EL RESULTADO DEL JUEGO ${e.toString()}");
+    }
   }
 }
