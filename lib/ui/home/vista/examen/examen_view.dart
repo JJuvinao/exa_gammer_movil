@@ -1,5 +1,4 @@
 import 'package:exa_gammer_movil/controllers/vista_controles.dart';
-import 'package:exa_gammer_movil/ui/home/vista/clase/clase_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -29,10 +28,6 @@ class _ExamenViewState extends State<ExamenView> {
         type: BottomNavigationBarType.fixed,
         currentIndex: _currentIndex,
         onTap: (index) {
-          if (index == 0) {
-            Get.to(() => ClaseView(vista: "Clase"));
-            return;
-          }
           setState(() {
             _currentIndex = index;
           });

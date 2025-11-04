@@ -43,11 +43,13 @@ class StorageService extends GetxService {
     img: '',
     id_juego: 0,
   ).obs;
+  final contexaAhorcado = Ahorcado(palabra: '', pista: '').obs;
 
   User get displayUser => user.value;
   String get displayToken => token.value;
   Clase get displayClase => clase.value;
   Examen get displayExamen => examen.value;
+  Ahorcado get displayAhorcado => contexaAhorcado.value;
 
   Future<StorageService> init() async {
     user.value =
@@ -100,6 +102,10 @@ class StorageService extends GetxService {
   Future<void> saveExamen(Examen newExamen) async {
     examen.value = newExamen;
     await _box.write(_examenKey, newExamen);
+  }
+
+  Future<void> saveContExaAhorcado(Ahorcado newCont) async {
+    contexaAhorcado.value = newCont;
   }
 
   Future<void> logoutClase() async {

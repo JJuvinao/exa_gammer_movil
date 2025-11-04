@@ -28,3 +28,9 @@ Future<void> main() async {
 
   runApp(MyApp());
 }
+
+
+//codigo para imagen
+// flutter pub get
+//flutter pub run flutter_launcher_icons
+//limpia y corre

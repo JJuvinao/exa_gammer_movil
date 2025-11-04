@@ -27,17 +27,43 @@ class _Estud_ClaseState extends State<Estud_Clase> {
     final clase = pc.getclase;
     final token = user.gettoken;
     users.value = await pc.CargarUser_Clase(clase.id, token);
-    print(users[0].username);
-    print(users[0].email);
   }
 
   Widget build_Clases(BuildContext context) {
     return Obx(() {
       if (users.isEmpty) {
-        return const Center(
-          child: Text(
-            'No hay estudiantes registrados en la clase.',
-            style: TextStyle(fontSize: 16, color: Colors.grey),
+        return Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                padding: const EdgeInsets.all(24),
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  gradient: LinearGradient(
+                    colors: [
+                      Color(0xFF00F0FF).withOpacity(0.2),
+                      Color(0xFF00FF41).withOpacity(0.2),
+                    ],
+                  ),
+                  border: Border.all(
+                    color: Color(0xFF00F0FF).withOpacity(0.5),
+                    width: 2,
+                  ),
+                ),
+                child: Icon(
+                  Icons.people_outline_rounded,
+                  size: 60,
+                  color: Color(0xFF00F0FF),
+                ),
+              ),
+              const SizedBox(height: 20),
+              Text(
+                'No hay estudiantes registrados en la clase.',
+                style: TextStyle(fontSize: 16, color: Colors.grey[400]),
+                textAlign: TextAlign.center,
+              ),
+            ],
           ),
         );
       }
@@ -48,19 +74,56 @@ class _Estud_ClaseState extends State<Estud_Clase> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFC8C1C1),
+      backgroundColor: Color(0xFF0a0a14),
       appBar: AppBar(
-        backgroundColor: const Color(0xFFC8C1C1),
+        backgroundColor: Color(0xFF1a1a2e),
         automaticallyImplyLeading: false,
         elevation: 0,
         centerTitle: true,
-        title: const Text(
-          "Estudiantes de la clase",
-          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black87),
+        title: ShaderMask(
+          shaderCallback: (bounds) => LinearGradient(
+            colors: [Color(0xFF00F0FF), Color(0xFF00FF41)],
+          ).createShader(bounds),
+          child: Text(
+            "Estudiantes de la clase",
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+              shadows: [
+                Shadow(
+                  color: Color(0xFF00F0FF).withOpacity(0.5),
+                  blurRadius: 10,
+                ),
+              ],
+            ),
+          ),
         ),
-        iconTheme: const IconThemeData(color: Colors.black87),
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Color(0xFF1a1a2e), Color(0xFF16213e)],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+            border: Border(
+              bottom: BorderSide(
+                color: Color(0xFF00F0FF).withOpacity(0.3),
+                width: 1.5,
+              ),
+            ),
+          ),
+        ),
       ),
-      body: Expanded(child: build_Clases(context)),
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Color(0xFF0a0a14), Color(0xFF16213e), Color(0xFF0a0a14)],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
+        child: Column(children: [Expanded(child: build_Clases(context))]),
+      ),
     );
   }
 }
