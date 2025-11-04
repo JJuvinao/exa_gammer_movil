@@ -64,6 +64,29 @@ class Userfrom {
   }
 }
 
+class Userto {
+  final int id;
+  final String username;
+  final String email;
+  final String? img;
+
+  Userto({
+    required this.id,
+    required this.username,
+    required this.email,
+    this.img,
+  });
+
+  factory Userto.fromjson(Map<String, dynamic> json) {
+    return Userto(
+      id: json["id"],
+      username: json["nombre"],
+      email: json["correo"],
+      img: json["imagen"],
+    );
+  }
+}
+
 class Userclase {
   final int userid;
   final int claseid;

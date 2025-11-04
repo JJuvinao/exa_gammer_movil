@@ -14,16 +14,13 @@ class BuscarClase extends StatelessWidget {
         filled: true,
         fillColor: Colors.white,
         labelText: 'Buscar clase',
-        prefixIcon: Icon(Icons.search),
-
+        prefixIcon: const Icon(Icons.search),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.0),
-          borderSide: BorderSide(color: Colors.grey),
+          borderSide: const BorderSide(color: Colors.grey),
         ),
       ),
-      onChanged: (value) {
-        pc.setSearchQuery(value);
-      },
+      onChanged: (value) => pc.setSearchQuery(value),
     );
   }
 }
