@@ -1,9 +1,7 @@
 import 'package:exa_gammer_movil/controllers/user_controller.dart';
-import 'package:exa_gammer_movil/ui/course/courseView.dart';
 import 'package:exa_gammer_movil/ui/home/inicio_sesion/diseologin.dart';
 import 'package:exa_gammer_movil/ui/home/profesor/Home_Profesor/widgets_home_profesor/logout_dialog.dart';
 import 'package:exa_gammer_movil/ui/home/vista/clase/clase_view.dart';
-import 'package:exa_gammer_movil/ui/home/widget/ClaseCard.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:exa_gammer_movil/controllers/clase_controller.dart';
@@ -19,7 +17,6 @@ class HomeEstudiante extends StatefulWidget {
 
 class _HomeEstudianteState extends State<HomeEstudiante> {
   final ClaseController pc = Get.find();
-
   final UserController usercontroller = Get.find<UserController>();
   var filteredClase = <dynamic>[].obs;
 
@@ -47,101 +44,433 @@ class _HomeEstudianteState extends State<HomeEstudiante> {
         return false;
       },
       child: Scaffold(
-        backgroundColor: const Color(0xFFC8C1C1),
-        appBar: AppBar(
-          backgroundColor: const Color(0xFFC8C1C1),
-          elevation: 0,
-          toolbarHeight: 0,
-        ),
-        body: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(24.0),
-            child: Column(
-              children: [
-                // Encabezado con logo y texto
-                const SizedBox(height: 24),
-                Row(
-                  children: [
-                    Image.asset('assets/imagen/logo_exa.png', height: 75),
-                    const SizedBox(width: 12),
-                    const Text(
-                      'EXA-GAMMER',
-                      style: TextStyle(
-                        fontSize: 36,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: "TitanOne",
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 30),
-                BuscarClase(),
-                const SizedBox(height: 10),
+        backgroundColor: const Color(0xFF0a0a14),
+        body: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Color(0xFF0a0a14),
+                Color(0xFF16213e),
+                Color(0xFF0a0a14),
+              ],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+            ),
+          ),
+          child: SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _buildHeader(),
+                  const SizedBox(height: 20),
 
-                Expanded(
-                  child: Obx(() {
-                    if (filteredClase.isEmpty) {
-                      return const Center(
-                        child: Text(
-                          'No hay clases registradas.',
-                          style: TextStyle(fontSize: 16, color: Colors.grey),
-                        ),
+                  BuscarClase(),
+                  const SizedBox(height: 20),
+
+                  _buildSectionTitle(),
+                  const SizedBox(height: 16),
+
+                  Expanded(
+                    child: Obx(() {
+                      if (filteredClase.isEmpty) {
+                        return _buildEmptyState();
+                      }
+
+                      return ListView.builder(
+                        padding: const EdgeInsets.only(bottom: 20),
+                        itemCount: filteredClase.length,
+                        itemBuilder: (context, index) {
+                          final clase = filteredClase[index];
+                          return Padding(
+                            padding: const EdgeInsets.only(bottom: 16.0),
+                            child: _buildClaseCard(clase),
+                          );
+                        },
                       );
-                    }
+                    }),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+        floatingActionButton: _buildFloatingButton(),
+      ),
+    );
+  }
 
-                    return ListView.builder(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 10,
-                        horizontal: 10,
-                      ),
-                      itemCount: filteredClase.length,
-                      itemBuilder: (context, index) {
-                        final clase = filteredClase[index];
-                        return Padding(
-                          padding: const EdgeInsets.only(bottom: 12.0),
-                          child: SizedBox(
-                            height: 120,
-                            width: double.infinity,
-                            child: ObjetoCard(
-                              titulo: clase.nombre,
-                              imagenUrl: clase.img,
-                              onTap: () {
-                                pc.saveClase(clase);
-                                Get.to(() => ClaseView(vista: "Clase"));
-                              },
-                            ),
-                          ),
-                        );
-                      },
-                    );
-                  }),
+  Widget _buildHeader() {
+    return Container(
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        gradient: const LinearGradient(
+          colors: [Color(0xFF1a1a2e), Color(0xFF16213e)],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(
+          color: const Color(0xFF00F0FF).withOpacity(0.3),
+          width: 1.5,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFF00F0FF).withOpacity(0.2),
+            blurRadius: 15,
+            spreadRadius: 1,
+          ),
+        ],
+      ),
+      child: Row(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              gradient: const LinearGradient(
+                colors: [Color(0xFF00F0FF), Color(0xFF00FF41)],
+              ),
+              borderRadius: BorderRadius.circular(15),
+              boxShadow: [
+                BoxShadow(
+                  color: const Color(0xFF00F0FF).withOpacity(0.5),
+                  blurRadius: 15,
+                ),
+              ],
+            ),
+            child: Image.asset(
+              'assets/imagen/logo_exa.png',
+              height: 50,
+            ),
+          ),
+          const SizedBox(width: 16),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ShaderMask(
+                  shaderCallback: (bounds) => const LinearGradient(
+                    colors: [Color(0xFF00F0FF), Color(0xFF00FF41)],
+                  ).createShader(bounds),
+                  child: const Text(
+                    'EXA-GAMMER',
+                    style: TextStyle(
+                      fontSize: 28,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: "TitanOne",
+                      color: Colors.white,
+                      shadows: [
+                        Shadow(
+                          color: Color(0xFF00F0FF),
+                          blurRadius: 10,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  'Estudiante',
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: Colors.grey[400],
+                    fontWeight: FontWeight.w600,
+                    letterSpacing: 1,
+                  ),
                 ),
               ],
             ),
           ),
-        ),
+        ],
+      ),
+    );
+  }
 
-        floatingActionButton: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            FloatingActionButton(
-              onPressed: () async {
-                final result = await IngresarCodigo(context);
-                print("resultado del dialogo: $result");
-                if (result == true) {
-                  CargarClase();
-                }
-              },
-              child: const Icon(Icons.meeting_room),
+  Widget _buildSectionTitle() {
+    return Row(
+      children: [
+        Container(
+          width: 4,
+          height: 24,
+          decoration: BoxDecoration(
+            gradient: const LinearGradient(
+              colors: [Color(0xFF00F0FF), Color(0xFF00FF41)],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
             ),
-            const SizedBox(width: 16),
-            FloatingActionButton(
-              onPressed: () {
-                Get.to(() => courseScreen());
-              },
-              child: const Icon(Icons.school),
+            borderRadius: BorderRadius.circular(2),
+          ),
+        ),
+        const SizedBox(width: 12),
+        const Text(
+          'Mis Clases',
+          style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            color: Color(0xFF00F0FF),
+            shadows: [
+              Shadow(
+                color: Color(0xFF00F0FF),
+                blurRadius: 10,
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(width: 8),
+        Obx(
+          () => Container(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  const Color(0xFF00FF41).withOpacity(0.3),
+                  const Color(0xFF00F0FF).withOpacity(0.3),
+                ],
+              ),
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(
+                color: const Color(0xFF00FF41).withOpacity(0.5),
+                width: 1,
+              ),
+            ),
+            child: Text(
+              '${filteredClase.length}',
+              style: const TextStyle(
+                color: Color(0xFF00FF41),
+                fontWeight: FontWeight.bold,
+                fontSize: 14,
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildClaseCard(dynamic clase) {
+    return GestureDetector(
+      onTap: () {
+        pc.saveClase(clase);
+        Get.to(() => ClaseView(vista: "Clase"));
+      },
+      child: Container(
+        height: 120,
+        decoration: BoxDecoration(
+          gradient: const LinearGradient(
+            colors: [Color(0xFF1a1a2e), Color(0xFF16213e)],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(
+            color: const Color(0xFF00F0FF).withOpacity(0.3),
+            width: 1.5,
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: const Color(0xFF00F0FF).withOpacity(0.1),
+              blurRadius: 10,
+              spreadRadius: 1,
             ),
           ],
+        ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(16),
+          child: Stack(
+            children: [
+              if (clase.img != null && clase.img.isNotEmpty)
+                Positioned.fill(
+                  child: Opacity(
+                    opacity: 0.3,
+                    child: Image.network(
+                      clase.img,
+                      fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) {
+                        return Container(color: const Color(0xFF16213e));
+                      },
+                    ),
+                  ),
+                ),
+              Positioned.fill(
+                child: Container(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        const Color(0xFF1a1a2e).withOpacity(0.7),
+                        const Color(0xFF16213e).withOpacity(0.9),
+                      ],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(16),
+                child: Row(
+                  children: [
+                    Container(
+                      width: 60,
+                      height: 60,
+                      decoration: BoxDecoration(
+                        gradient: const LinearGradient(
+                          colors: [Color(0xFF00F0FF), Color(0xFF00FF41)],
+                        ),
+                        borderRadius: BorderRadius.circular(12),
+                        boxShadow: [
+                          BoxShadow(
+                            color: const Color(0xFF00F0FF).withOpacity(0.4),
+                            blurRadius: 10,
+                          ),
+                        ],
+                      ),
+                      child: const Icon(Icons.class_rounded,
+                          color: Colors.black, size: 30),
+                    ),
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            clase.nombre,
+                            style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          const SizedBox(height: 8),
+                          Row(
+                            children: [
+                              const Icon(Icons.person_rounded,
+                                  size: 14, color: Color(0xFF00FF41)),
+                              const SizedBox(width: 4),
+                              Expanded(
+                                child: Text(
+                                  clase.autor ?? 'Sin autor',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: Colors.grey[400],
+                                  ),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF00F0FF).withOpacity(0.2),
+                        borderRadius: BorderRadius.circular(8),
+                        border: Border.all(
+                          color: const Color(0xFF00F0FF).withOpacity(0.5),
+                          width: 1,
+                        ),
+                      ),
+                      child: const Icon(Icons.arrow_forward_rounded,
+                          color: Color(0xFF00F0FF), size: 20),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildEmptyState() {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            padding: const EdgeInsets.all(30),
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  const Color(0xFF00F0FF).withOpacity(0.1),
+                  const Color(0xFF00FF41).withOpacity(0.1),
+                ],
+              ),
+              shape: BoxShape.circle,
+              border: Border.all(
+                color: const Color(0xFF00F0FF).withOpacity(0.3),
+                width: 2,
+              ),
+            ),
+            child: Icon(
+              Icons.school_outlined,
+              size: 80,
+              color: const Color(0xFF00F0FF).withOpacity(0.5),
+            ),
+          ),
+          const SizedBox(height: 24),
+          ShaderMask(
+            shaderCallback: (bounds) => const LinearGradient(
+              colors: [Color(0xFF00F0FF), Color(0xFF00FF41)],
+            ).createShader(bounds),
+            child: const Text(
+              'No hay clases registradas',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+            ),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            'Únete a una clase usando el código',
+            style: TextStyle(fontSize: 14, color: Colors.grey[500]),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildFloatingButton() {
+    return Container(
+      decoration: BoxDecoration(
+        gradient: const LinearGradient(
+          colors: [Color(0xFF00F0FF), Color(0xFF00FF41)],
+        ),
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFF00F0FF).withOpacity(0.4),
+            blurRadius: 15,
+            spreadRadius: 1,
+          ),
+        ],
+      ),
+      child: FloatingActionButton.extended(
+        onPressed: () async {
+          final result = await IngresarCodigo(context);
+          if (result == true) {
+            CargarClase();
+          }
+        },
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        icon: const Icon(Icons.add_rounded, color: Colors.black, size: 24),
+        label: const Text(
+          'Unirse',
+          style: TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+            fontSize: 16,
+          ),
         ),
       ),
     );
