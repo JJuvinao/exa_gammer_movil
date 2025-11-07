@@ -1,4 +1,5 @@
 import 'package:exa_gammer_movil/controllers/user_controller.dart';
+import 'package:exa_gammer_movil/ui/home/profesor/main_view.dart';
 import 'package:exa_gammer_movil/ui/home/vista/examen/examen_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -83,52 +84,56 @@ class _DetalleClase_EstuState extends State<DetalleClase_Estu> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xFFC8C1C1),
-      appBar: AppBar(
+    return WillPopScope(
+      onWillPop: () async =>
+          await Get.to(MainView(vista: usercontroller.getuser.rol)),
+      child: Scaffold(
         backgroundColor: const Color(0xFFC8C1C1),
-        elevation: 0,
-        toolbarHeight: 0,
-      ),
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(24.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Image.asset('assets/imagen/logo_exa.png', height: 75),
-                  const SizedBox(width: 12),
-                  Flexible(
-                    child: AutoSizeText(
-                      "prueba",
-                      style: const TextStyle(
-                        fontSize: 36,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: "TitanOne",
+        appBar: AppBar(
+          backgroundColor: const Color(0xFFC8C1C1),
+          elevation: 0,
+          toolbarHeight: 0,
+        ),
+        body: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(24.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Image.asset('assets/imagen/logo_exa.png', height: 75),
+                    const SizedBox(width: 12),
+                    Flexible(
+                      child: AutoSizeText(
+                        "prueba",
+                        style: const TextStyle(
+                          fontSize: 36,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: "TitanOne",
+                        ),
+                        textAlign: TextAlign.center,
+                        maxLines: 2,
+                        minFontSize: 18,
                       ),
-                      textAlign: TextAlign.center,
-                      maxLines: 2,
-                      minFontSize: 18,
                     ),
-                  ),
-                ],
-              ),
-
-              const SizedBox(height: 24),
-
-              const Text(
-                'Actividades',
-                style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: "Inter",
+                  ],
                 ),
-              ),
-              const SizedBox(height: 12),
-              Expanded(child: build_Examenes(context)),
-            ],
+
+                const SizedBox(height: 24),
+
+                const Text(
+                  'Actividades',
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: "Inter",
+                  ),
+                ),
+                const SizedBox(height: 12),
+                Expanded(child: build_Examenes(context)),
+              ],
+            ),
           ),
         ),
       ),

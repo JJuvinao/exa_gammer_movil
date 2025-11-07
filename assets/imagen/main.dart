@@ -21,7 +21,7 @@ Future<void> main() async {
   Get.put(ClaseController());
   Get.put(VistaControles());
 
-  Get.put(ExamenController());
+  Get.lazyPut(() => ExamenController());
   Get.put(JuegoController());
   Get.lazyPut(() => AhorcadoController());
   Get.lazyPut(() => CursoController());

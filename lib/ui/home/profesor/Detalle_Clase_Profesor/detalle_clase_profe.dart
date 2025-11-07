@@ -1,6 +1,8 @@
 import 'package:exa_gammer_movil/controllers/detalle_clase_controller.dart';
+import 'package:exa_gammer_movil/controllers/user_controller.dart';
 import 'package:exa_gammer_movil/ui/home/profesor/Detalle_Clase_Profesor/Widgets_Detalle_Clase/empty_examenes_widget.dart';
 import 'package:exa_gammer_movil/ui/home/profesor/Detalle_Clase_Profesor/Widgets_Detalle_Clase/examen_card.dart';
+import 'package:exa_gammer_movil/ui/home/profesor/main_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:exa_gammer_movil/ui/home/vista/examen/add_examen.dart';
@@ -15,43 +17,47 @@ class DetalleClase extends StatefulWidget {
 
 class _DetalleClaseState extends State<DetalleClase> {
   final controller = Get.put(DetalleClaseController());
+  late final UserController user = Get.find<UserController>();
 
   @override
   Widget build(BuildContext context) {
     final clasek = controller.claseController.getclase;
 
-    return Scaffold(
-      backgroundColor: const Color(0xFF0a0a14),
-      appBar: AppBar(
-        backgroundColor: const Color(0xFF1a1a2e),
-        elevation: 0,
-        leading: _buildBackButton(context),
-      ),
-      body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Color(0xFF0a0a14), Color(0xFF16213e), Color(0xFF0a0a14)],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-          ),
+    return WillPopScope(
+      onWillPop: () async => await Get.to(MainView(vista: user.getuser.rol)),
+      child: Scaffold(
+        backgroundColor: const Color(0xFF0a0a14),
+        appBar: AppBar(
+          backgroundColor: const Color(0xFF1a1a2e),
+          elevation: 0,
+          leading: _buildBackButton(context),
         ),
-        child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _buildHeader(clasek.nombre),
-                const SizedBox(height: 24),
-                _buildSectionTitle(),
-                const SizedBox(height: 16),
-                Expanded(child: _buildExamenList()),
-              ],
+        body: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Color(0xFF0a0a14), Color(0xFF16213e), Color(0xFF0a0a14)],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+            ),
+          ),
+          child: SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _buildHeader(clasek.nombre),
+                  const SizedBox(height: 24),
+                  _buildSectionTitle(),
+                  const SizedBox(height: 16),
+                  Expanded(child: _buildExamenList()),
+                ],
+              ),
             ),
           ),
         ),
+        floatingActionButton: _buildFAB(),
       ),
-      floatingActionButton: _buildFAB(),
     );
   }
 

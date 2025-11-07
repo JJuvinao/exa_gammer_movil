@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class PersonajeCard extends StatelessWidget {
+class MundoCard extends StatelessWidget {
   final String name;
   final String image;
   final VoidCallback onTap;
 
-  const PersonajeCard({
+  const MundoCard({
     super.key,
     required this.name,
     required this.image,

@@ -87,7 +87,7 @@ class Resultados {
       intentos: json["intentos"],
       aciertos: json["aciertos"],
       fallos: json["fallos"],
-      nota: json["nota"],
+      nota: (json['nota'] as num?)?.toDouble(),
       recomendacion: json["recomendacion"],
     );
   }
