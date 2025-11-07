@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 class ClaseView extends StatefulWidget {
   final String vista;
   const ClaseView({super.key, required this.vista});
-  
+
   @override
   State<ClaseView> createState() => _ClaseViewState();
 }
@@ -29,10 +29,7 @@ class _ClaseViewState extends State<ClaseView> {
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [
-              Color(0xFF1a1a2e),
-              Color(0xFF0f0f1e),
-            ],
+            colors: [Color(0xFF1a1a2e), Color(0xFF0f0f1e)],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),
@@ -63,29 +60,31 @@ class _ClaseViewState extends State<ClaseView> {
             onTap: (index) {
               // Validar si es el botón de estadísticas (último índice después de estudiantes)
               // Asumiendo que el orden es: Detalle Clase, Actividades, Estudiantes, Estadísticas
-              final estadisticasIndex = _navBarItems.length - 1;
-              
-              if (index == estadisticasIndex) {
-                // Mostrar snackbar indicando que está en desarrollo
-                Get.snackbar(
-                  '📊 Estadísticas',
-                  'Esta función estará disponible próximamente',
-                  snackPosition: SnackPosition.BOTTOM,
-                  backgroundColor: Color(0xFF1a1a2e),
-                  colorText: Color(0xFF00F0FF),
-                  borderColor: Color(0xFF00F0FF).withOpacity(0.5),
-                  borderWidth: 1.5,
-                  icon: Icon(
-                    Icons.bar_chart_rounded,
-                    color: Color(0xFF00F0FF),
-                  ),
-                  duration: Duration(seconds: 2),
-                  margin: EdgeInsets.all(16),
-                  borderRadius: 12,
-                );
-                return;
+              if (user.getuser.rol == "Profesor") {
+                final estadisticasIndex = _navBarItems.length - 1;
+
+                if (index == estadisticasIndex) {
+                  // Mostrar snackbar indicando que está en desarrollo
+                  Get.snackbar(
+                    '📊 Estadísticas',
+                    'Esta función estará disponible próximamente',
+                    snackPosition: SnackPosition.BOTTOM,
+                    backgroundColor: Color(0xFF1a1a2e),
+                    colorText: Color(0xFF00F0FF),
+                    borderColor: Color(0xFF00F0FF).withOpacity(0.5),
+                    borderWidth: 1.5,
+                    icon: Icon(
+                      Icons.bar_chart_rounded,
+                      color: Color(0xFF00F0FF),
+                    ),
+                    duration: Duration(seconds: 2),
+                    margin: EdgeInsets.all(16),
+                    borderRadius: 12,
+                  );
+                  return;
+                }
               }
-              
+
               setState(() {
                 _currentIndex = index;
               });
@@ -117,9 +116,7 @@ class _ClaseViewState extends State<ClaseView> {
                 ),
               ],
             ),
-            unselectedIconTheme: IconThemeData(
-              size: 24,
-            ),
+            unselectedIconTheme: IconThemeData(size: 24),
             items: _navBarItems.map((item) {
               final isSelected = _navBarItems.indexOf(item) == _currentIndex;
               return BottomNavigationBarItem(
@@ -154,10 +151,7 @@ class _ClaseViewState extends State<ClaseView> {
                       ],
                     ),
                     borderRadius: BorderRadius.circular(12),
-                    border: Border.all(
-                      color: Color(0xFF00F0FF),
-                      width: 2,
-                    ),
+                    border: Border.all(color: Color(0xFF00F0FF), width: 2),
                     boxShadow: [
                       BoxShadow(
                         color: Color(0xFF00F0FF).withOpacity(0.4),

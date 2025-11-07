@@ -40,11 +40,6 @@ class UserController extends GetxController {
             body: jsonEncode(_userfrom.toJson()),
           )
           .timeout(Duration(seconds: 15));
-      
-      //añadido....
-      print('Register Status Code: ${res.statusCode}');
-      print('Register Response: ${res.body}');
-      //
 
       if (res.statusCode == 200) {
         return true;
@@ -52,7 +47,7 @@ class UserController extends GetxController {
       return false;
     } catch (e) {
       print("ERROR DEL REGISTRO: ${e.toString()}");
-      return false; // 👈 Añadido return
+      return false;
     }
   }
 
@@ -70,12 +65,6 @@ class UserController extends GetxController {
             body: jsonEncode(_userdto.toJson()),
           )
           .timeout(Duration(seconds: 15));
-
-      //añadido....
-      print('Login Status Code: ${res.statusCode}');
-      print('Login Response: ${res.body}');
-      //
-
       if (res.statusCode == 200) {
         final data = jsonDecode(res.body);
         User user = User.fromjson(data["user"]);
@@ -83,16 +72,12 @@ class UserController extends GetxController {
         await _storageService.login(user, token);
         return user.rol;
       }
-
-      //algunos cambios aqui 
-      print('Login failed with status: ${res.statusCode}');
       return null;
     } catch (e) {
       print("ERROR DEL LOGIN: ${e.toString()}");
-      return null; // 👈 Ya está bien
+      return null;
     }
   }
-      ///////
 
   Future<bool> UnirseClase(String codigoClase) async {
     final url = Uri.parse(
@@ -124,9 +109,4 @@ class UserController extends GetxController {
     }
     return false;
   }
-
 }
-
-//
-//
-//

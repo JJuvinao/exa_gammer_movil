@@ -1,6 +1,7 @@
 import 'package:exa_gammer_movil/controllers/clase_controller.dart';
 import 'package:exa_gammer_movil/controllers/user_controller.dart';
 import 'package:exa_gammer_movil/models/user_model.dart';
+import 'package:exa_gammer_movil/ui/home/profesor/main_view.dart';
 import 'package:exa_gammer_movil/ui/home/widget/listaperso.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -73,56 +74,59 @@ class _Estud_ClaseState extends State<Estud_Clase> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Color(0xFF0a0a14),
-      appBar: AppBar(
-        backgroundColor: Color(0xFF1a1a2e),
-        automaticallyImplyLeading: false,
-        elevation: 0,
-        centerTitle: true,
-        title: ShaderMask(
-          shaderCallback: (bounds) => LinearGradient(
-            colors: [Color(0xFF00F0FF), Color(0xFF00FF41)],
-          ).createShader(bounds),
-          child: Text(
-            "Estudiantes de la clase",
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-              shadows: [
-                Shadow(
-                  color: Color(0xFF00F0FF).withOpacity(0.5),
-                  blurRadius: 10,
-                ),
-              ],
+    return WillPopScope(
+      onWillPop: () async => await Get.to(MainView(vista: user.getuser.rol)),
+      child: Scaffold(
+        backgroundColor: Color(0xFF0a0a14),
+        appBar: AppBar(
+          backgroundColor: Color(0xFF1a1a2e),
+          automaticallyImplyLeading: false,
+          elevation: 0,
+          centerTitle: true,
+          title: ShaderMask(
+            shaderCallback: (bounds) => LinearGradient(
+              colors: [Color(0xFF00F0FF), Color(0xFF00FF41)],
+            ).createShader(bounds),
+            child: Text(
+              "Estudiantes de la clase",
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+                shadows: [
+                  Shadow(
+                    color: Color(0xFF00F0FF).withOpacity(0.5),
+                    blurRadius: 10,
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
-        flexibleSpace: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [Color(0xFF1a1a2e), Color(0xFF16213e)],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
-            border: Border(
-              bottom: BorderSide(
-                color: Color(0xFF00F0FF).withOpacity(0.3),
-                width: 1.5,
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [Color(0xFF1a1a2e), Color(0xFF16213e)],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+              border: Border(
+                bottom: BorderSide(
+                  color: Color(0xFF00F0FF).withOpacity(0.3),
+                  width: 1.5,
+                ),
               ),
             ),
           ),
         ),
-      ),
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Color(0xFF0a0a14), Color(0xFF16213e), Color(0xFF0a0a14)],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
+        body: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Color(0xFF0a0a14), Color(0xFF16213e), Color(0xFF0a0a14)],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+            ),
           ),
+          child: Column(children: [Expanded(child: build_Clases(context))]),
         ),
-        child: Column(children: [Expanded(child: build_Clases(context))]),
       ),
     );
   }

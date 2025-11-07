@@ -9,7 +9,6 @@ import 'package:exa_gammer_movil/ui/home/vista/perfil/profile_view.dart';
 import 'package:exa_gammer_movil/ui/home/estudiante/home_estudiante.dart';
 import 'package:exa_gammer_movil/ui/home/vista/clase/info_clase.dart';
 import 'package:exa_gammer_movil/ui/home/vista/clase/estud_clase.dart';
-import 'package:exa_gammer_movil/ui/home/profesor/main_view.dart';
 import 'package:exa_gammer_movil/ui/home/vista/examen/resultados.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -20,27 +19,11 @@ class VistaControles extends GetxController {
   final UserController user = Get.find<UserController>();
 
   List<Widget> getScreens(String vista) {
-    switch (vista) {
-      case 'Estudiante':
-        screens.clear();
-        screens.addAll([HomeEstudiante(), courseScreen(), ProfileView()]);
-        return screens;
-      case 'Profesor':
-        screens.clear();
-        screens.addAll([HomeProfesor(), courseScreen(), ProfileView()]);
-        return screens;
-      case 'Clase':
-        screens.clear();
-        screens.addAll([
-          DetalleClase(),
-          MainView(vista: user.getuser.rol),
-          Info_Clase(),
-          Estud_Clase(),
-        ]);
-        return screens;
-      default:
-        screens.clear();
-        break;
+    screens.clear();
+    if (vista == "Profesor") {
+      screens.addAll([HomeProfesor(), courseScreen(), ProfileView()]);
+    } else {
+      screens.addAll([HomeEstudiante(), courseScreen(), ProfileView()]);
     }
     return screens;
   }
@@ -48,26 +31,20 @@ class VistaControles extends GetxController {
   List<Widget> getScreens_Clase(String vista) {
     screens.clear();
     if (vista == "Profesor") {
-      // 👇 CORRECCIÓN: Orden correcto de pantallas
-      // 0: Detalle Clase, 1: Info Clase, 2: Estudiantes
-      screens.addAll([
-        DetalleClase(), // Índice 0: Detalle Clase (antes "Inicio")
-        Info_Clase(), // Índice 1: Info Clase
-        Estud_Clase(), // Índice 2: Estudiantes
-      ]);
+      screens.addAll([DetalleClase(), Info_Clase(), Estud_Clase()]);
     } else {
-      screens.addAll([
-        DetalleClase_Estu(), // Índice 0: Detalle Clase
-        Info_Clase(), // Índice 1: Info Clase
-        Estud_Clase(), // Índice 2: Estudiantes
-      ]);
+      screens.addAll([DetalleClase_Estu(), Info_Clase(), Estud_Clase()]);
     }
     return screens;
   }
 
   List<Widget> getScreens_Examen() {
     screens.clear();
-    screens.addAll([DetalleExamenPage(), Info_Examen(), Resultados()]);
+    if (user.getuser.rol == "Profesor") {
+      screens.addAll([DetalleExamenPage(), Info_Examen(), Resultados()]);
+    } else {
+      screens.addAll([DetalleExamenPage(), Info_Examen()]);
+    }
     return screens;
   }
 
@@ -91,40 +68,73 @@ class VistaControles extends GetxController {
         return _navBarItems;
       case 'Clase':
         _navBarItems.clear();
-        // 👇 CORRECCIÓN: Nuevos botones
-        // 0: Detalle Clase, 1: Info Clase, 2: Estudiantes, 3: Estadísticas
-        _navBarItems.addAll(const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.school_rounded),
-            label: 'Detalle Clase',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.info_rounded),
-            label: 'Info Clase',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.group_rounded),
-            label: 'Estudiantes',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.bar_chart_rounded),
-            label: 'Estadísticas',
-          ),
-        ]);
+        if (user.getuser.rol == "Profesor") {
+          _navBarItems.addAll(const [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.school_rounded),
+              label: 'Detalle Clase',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.info_rounded),
+              label: 'Info Clase',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.group_rounded),
+              label: 'Estudiantes',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.bar_chart_rounded),
+              label: 'Estadísticas',
+            ),
+          ]);
+        } else {
+          _navBarItems.addAll(const [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.school_rounded),
+              label: 'Detalle Clase',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.info_rounded),
+              label: 'Info Clase',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.group_rounded),
+              label: 'Estudiantes',
+            ),
+          ]);
+        }
+
         return _navBarItems;
       case 'Examen':
         _navBarItems.clear();
-        _navBarItems.addAll(const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.assignment),
-            label: 'Detalle Examen',
-          ),
-          BottomNavigationBarItem(icon: Icon(Icons.info), label: 'Info Examen'),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.grade),
-            label: 'Calificaciones',
-          ),
-        ]);
+        if (user.getuser.rol == "Profesor") {
+          _navBarItems.addAll(const [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.assignment),
+              label: 'Detalle Examen',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.info),
+              label: 'Info Examen',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.grade),
+              label: 'Calificaciones',
+            ),
+          ]);
+        } else {
+          _navBarItems.addAll(const [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.assignment),
+              label: 'Detalle Examen',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.info),
+              label: 'Info Examen',
+            ),
+          ]);
+        }
+
         return _navBarItems;
       default:
         _navBarItems.clear();

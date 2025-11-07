@@ -130,8 +130,8 @@ class ExamenController extends GetxController {
         'ImagenExamen': examen['ImagenExamen'],
         'Id_Clase': examen['Id_Clase'],
         'Id_Juego': examen['Id_Juego'],
-        'Palabras': datos['palabras'],
-        'Pistas': datos['pistas'],
+        'Palabra': datos['palabra'],
+        'Pista': datos['pista'],
       };
     }
     if (data['tipo'] == 'heroes') {
@@ -230,7 +230,7 @@ class ExamenController extends GetxController {
       }
       ResultadosList.value = resulList;
     } catch (e) {
-      print('Error al guardar el examen: ${e.toString()}');
+      print('Error al cargar el contenido del examen: ${e.toString()}');
     }
   }
 
