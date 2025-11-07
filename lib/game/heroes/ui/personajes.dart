@@ -1,6 +1,9 @@
+import 'package:exa_gammer_movil/game/heroes/ui/mundos.dart';
 import 'package:exa_gammer_movil/game/heroes/widget/personajecard.dart';
+import 'package:exa_gammer_movil/ui/home/vista/examen/examen_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 
 class PersonajesPage extends StatefulWidget {
   const PersonajesPage({super.key});
@@ -13,8 +16,6 @@ class _PersonajesPageState extends State<PersonajesPage> {
   @override
   void initState() {
     super.initState();
-
-    // Forzar horizontal
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.landscapeLeft,
       DeviceOrientation.landscapeRight,
@@ -23,7 +24,6 @@ class _PersonajesPageState extends State<PersonajesPage> {
 
   @override
   void dispose() {
-    // Restaurar orientación al salir
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
@@ -34,54 +34,68 @@ class _PersonajesPageState extends State<PersonajesPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("assets/fondo/cieloazul.jpg"),
-            fit: BoxFit.cover,
+    return WillPopScope(
+      onWillPop: () async => await Get.to(ExamenView(vista: "Examen")),
+      child: Scaffold(
+        body: Container(
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/fondo/cieloazul.jpg"),
+              fit: BoxFit.cover,
+            ),
           ),
-        ),
-        child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  "Seleccionar personajes",
-                  style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(height: 20),
-                Expanded(
-                  child: GridView.count(
-                    crossAxisCount: MediaQuery.of(context).size.width > 900
-                        ? 3
-                        : 1,
-                    crossAxisSpacing: 20,
-                    mainAxisSpacing: 20,
-                    children: [
-                      PersonajeCard(
-                        name: "Mago",
-                        image: "lib/game/heroes/imagenes/Mago/MagoIdle.gif",
-                        onTap: () {},
-                      ),
-                      PersonajeCard(
-                        name: "Guerrero",
-                        image:
-                            "lib/game/heroes/imagenes/Guerrero/GuerreroIdle.gif",
-                        onTap: () {},
-                      ),
-                      PersonajeCard(
-                        name: "Samurai",
-                        image:
-                            "lib/game/heroes/imagenes/Samurai/SamuraiIdle.gif",
-                        onTap: () {},
-                      ),
-                    ],
+          child: SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    "Seleccionar personajes",
+                    style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
                   ),
-                ),
-              ],
+                  const SizedBox(height: 20),
+                  Expanded(
+                    child: ListView(
+                      scrollDirection: Axis.horizontal,
+                      children: [
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.33,
+                          child: MundoCard(
+                            name: "Mago",
+                            image: "lib/game/heroes/imagenes/Mago/MagoIdle.gif",
+                            onTap: () {
+                              Get.to(MundosPage(personaje: "Mago"));
+                            },
+                          ),
+                        ),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.33,
+                          child: MundoCard(
+                            name: "Guerrero",
+                            image:
+                                "lib/game/heroes/imagenes/Guerrero/GuerreroIdle.gif",
+                            onTap: () {
+                              Get.to(MundosPage(personaje: "Guerrero"));
+                            },
+                          ),
+                        ),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.33,
+                          child: MundoCard(
+                            name: "Samurai",
+                            image:
+                                "lib/game/heroes/imagenes/Samurai/SamuraiIdle.gif",
+                            onTap: () {
+                              Get.to(MundosPage(personaje: "Samurai"));
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),

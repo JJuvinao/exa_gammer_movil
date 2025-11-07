@@ -1,5 +1,6 @@
 import 'package:exa_gammer_movil/controllers/clase_controller.dart';
 import 'package:exa_gammer_movil/controllers/user_controller.dart';
+import 'package:exa_gammer_movil/ui/home/profesor/main_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -79,10 +80,7 @@ class _Info_ClaseState extends State<Info_Clase> {
         backgroundColor: Color(0xFF1a1a2e),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
-          side: BorderSide(
-            color: Colors.red.withOpacity(0.5),
-            width: 2,
-          ),
+          side: BorderSide(color: Colors.red.withOpacity(0.5), width: 2),
         ),
         title: Row(
           children: [
@@ -113,9 +111,7 @@ class _Info_ClaseState extends State<Info_Clase> {
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(false),
-            style: TextButton.styleFrom(
-              foregroundColor: Colors.grey[400],
-            ),
+            style: TextButton.styleFrom(foregroundColor: Colors.grey[400]),
             child: const Text('Cancelar'),
           ),
           Container(
@@ -167,250 +163,237 @@ class _Info_ClaseState extends State<Info_Clase> {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
 
-    return Scaffold(
-      backgroundColor: Color(0xFF0a0a14),
-      appBar: AppBar(
-        backgroundColor: Color(0xFF1a1a2e),
-        elevation: 0,
-        automaticallyImplyLeading: false,
-        centerTitle: true,
-        title: ShaderMask(
-          shaderCallback: (bounds) => LinearGradient(
-            colors: [Color(0xFF00F0FF), Color(0xFF00FF41)],
-          ).createShader(bounds),
-          child: Text(
-            "Información de la Clase",
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-              fontSize: 20,
-              shadows: [
-                Shadow(
-                  color: Color(0xFF00F0FF).withOpacity(0.5),
-                  blurRadius: 10,
-                ),
-              ],
+    return WillPopScope(
+      onWillPop: () async => await Get.to(MainView(vista: user.getuser.rol)),
+      child: Scaffold(
+        backgroundColor: Color(0xFF0a0a14),
+        appBar: AppBar(
+          backgroundColor: Color(0xFF1a1a2e),
+          elevation: 0,
+          automaticallyImplyLeading: false,
+          centerTitle: true,
+          title: ShaderMask(
+            shaderCallback: (bounds) => LinearGradient(
+              colors: [Color(0xFF00F0FF), Color(0xFF00FF41)],
+            ).createShader(bounds),
+            child: Text(
+              "Información de la Clase",
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+                fontSize: 20,
+                shadows: [
+                  Shadow(
+                    color: Color(0xFF00F0FF).withOpacity(0.5),
+                    blurRadius: 10,
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
-        flexibleSpace: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                Color(0xFF1a1a2e),
-                Color(0xFF16213e),
-              ],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
-            border: Border(
-              bottom: BorderSide(
-                color: Color(0xFF00F0FF).withOpacity(0.3),
-                width: 1.5,
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [Color(0xFF1a1a2e), Color(0xFF16213e)],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+              border: Border(
+                bottom: BorderSide(
+                  color: Color(0xFF00F0FF).withOpacity(0.3),
+                  width: 1.5,
+                ),
               ),
             ),
           ),
         ),
-      ),
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              Color(0xFF0a0a14),
-              Color(0xFF16213e),
-              Color(0xFF0a0a14),
-            ],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
+        body: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Color(0xFF0a0a14), Color(0xFF16213e), Color(0xFF0a0a14)],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+            ),
           ),
-        ),
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            children: [
-              // Card principal de información
-              Container(
-                width: double.infinity,
-                padding: const EdgeInsets.all(24),
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [
-                      Color(0xFF1a1a2e),
-                      Color(0xFF16213e),
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              children: [
+                // Card principal de información
+                Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.all(24),
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [Color(0xFF1a1a2e), Color(0xFF16213e)],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                    ),
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(
+                      color: Color(0xFF00F0FF).withOpacity(0.3),
+                      width: 1.5,
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Color(0xFF00F0FF).withOpacity(0.2),
+                        blurRadius: 20,
+                        spreadRadius: 1,
+                      ),
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.5),
+                        blurRadius: 30,
+                        offset: const Offset(0, 10),
+                      ),
                     ],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
                   ),
-                  borderRadius: BorderRadius.circular(20),
-                  border: Border.all(
-                    color: Color(0xFF00F0FF).withOpacity(0.3),
-                    width: 1.5,
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Color(0xFF00F0FF).withOpacity(0.2),
-                      blurRadius: 20,
-                      spreadRadius: 1,
-                    ),
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.5),
-                      blurRadius: 30,
-                      offset: const Offset(0, 10),
-                    ),
-                  ],
-                ),
-                child: Column(
-                  children: [
-                    // Logo
-                    Container(
-                      padding: const EdgeInsets.all(16),
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [Color(0xFF00F0FF), Color(0xFF00FF41)],
-                        ),
-                        borderRadius: BorderRadius.circular(20),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Color(0xFF00F0FF).withOpacity(0.5),
-                            blurRadius: 20,
+                  child: Column(
+                    children: [
+                      // Logo
+                      Container(
+                        padding: const EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: [Color(0xFF00F0FF), Color(0xFF00FF41)],
                           ),
-                        ],
-                      ),
-                      child: Image.asset(
-                        'assets/imagen/logo_exa.png',
-                        height: 70,
-                      ),
-                    ),
-
-                    const SizedBox(height: 24),
-
-                    // Nombre de la clase
-                    ShaderMask(
-                      shaderCallback: (bounds) => LinearGradient(
-                        colors: [Color(0xFF00F0FF), Color(0xFF00FF41)],
-                      ).createShader(bounds),
-                      child: Text(
-                        clase.nombre,
-                        style: const TextStyle(
-                          fontSize: 26,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: "TitanOne",
-                          color: Colors.white,
-                          shadows: [
-                            Shadow(
-                              color: Color(0xFF00F0FF),
-                              blurRadius: 15,
+                          borderRadius: BorderRadius.circular(20),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Color(0xFF00F0FF).withOpacity(0.5),
+                              blurRadius: 20,
                             ),
                           ],
                         ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-
-                    const SizedBox(height: 24),
-
-                    // Divider decorativo
-                    Container(
-                      height: 2,
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [
-                            Colors.transparent,
-                            Color(0xFF00F0FF).withOpacity(0.5),
-                            Color(0xFF00FF41).withOpacity(0.5),
-                            Colors.transparent,
-                          ],
+                        child: Image.asset(
+                          'assets/imagen/logo_exa.png',
+                          height: 70,
                         ),
                       ),
-                    ),
 
-                    const SizedBox(height: 24),
+                      const SizedBox(height: 24),
 
-                    // Tema
-                    _buildInfoRow(
-                      Icons.book_rounded,
-                      "Tema",
-                      clase.tema,
-                      Color(0xFF00F0FF),
-                    ),
+                      // Nombre de la clase
+                      ShaderMask(
+                        shaderCallback: (bounds) => LinearGradient(
+                          colors: [Color(0xFF00F0FF), Color(0xFF00FF41)],
+                        ).createShader(bounds),
+                        child: Text(
+                          clase.nombre,
+                          style: const TextStyle(
+                            fontSize: 26,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: "TitanOne",
+                            color: Colors.white,
+                            shadows: [
+                              Shadow(color: Color(0xFF00F0FF), blurRadius: 15),
+                            ],
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
 
-                    const SizedBox(height: 16),
+                      const SizedBox(height: 24),
 
-                    // Autor
-                    _buildInfoRow(
-                      Icons.person_rounded,
-                      "Autor",
-                      clase.autor,
-                      Color(0xFF00FF41),
-                    ),
+                      // Divider decorativo
+                      Container(
+                        height: 2,
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: [
+                              Colors.transparent,
+                              Color(0xFF00F0FF).withOpacity(0.5),
+                              Color(0xFF00FF41).withOpacity(0.5),
+                              Colors.transparent,
+                            ],
+                          ),
+                        ),
+                      ),
 
-                    // Código (solo para profesores)
-                    if (user.getuser.rol == "Profesor") ...[
+                      const SizedBox(height: 24),
+
+                      // Tema
+                      _buildInfoRow(
+                        Icons.book_rounded,
+                        "Tema",
+                        clase.tema,
+                        Color(0xFF00F0FF),
+                      ),
+
                       const SizedBox(height: 16),
-                      _buildCodigoRow(),
+
+                      // Autor
+                      _buildInfoRow(
+                        Icons.person_rounded,
+                        "Autor",
+                        clase.autor,
+                        Color(0xFF00FF41),
+                      ),
+
+                      // Código (solo para profesores)
+                      if (user.getuser.rol == "Profesor") ...[
+                        const SizedBox(height: 16),
+                        _buildCodigoRow(),
+                      ],
                     ],
-                  ],
-                ),
-              ),
-
-              // Botones de acción (solo para profesores)
-              if (user.getuser.rol == "Profesor") ...[
-                const SizedBox(height: 24),
-
-                // Botón generar código
-                _buildActionButton(
-                  icon: Icons.refresh_rounded,
-                  label: "Generar Nuevo Código",
-                  gradient: LinearGradient(
-                    colors: [Color(0xFF00F0FF), Color(0xFF00FF41)],
                   ),
-                  glowColor: Color(0xFF00F0FF),
-                  onPressed: _generarNuevoCodigo,
                 ),
 
-                const SizedBox(height: 16),
+                // Botones de acción (solo para profesores)
+                if (user.getuser.rol == "Profesor") ...[
+                  const SizedBox(height: 24),
 
-                // Botones Editar y Eliminar
-                Row(
-                  children: [
-                    // Botón Editar
-                    Expanded(
-                      child: _buildActionButton(
-                        icon: Icons.edit_rounded,
-                        label: "Editar",
-                        gradient: LinearGradient(
-                          colors: [
-                            Color(0xFF00F0FF).withOpacity(0.8),
-                            Color(0xFF00FF41).withOpacity(0.8),
-                          ],
-                        ),
-                        glowColor: Color(0xFF00F0FF),
-                        onPressed: _editarClase,
-                      ),
+                  // Botón generar código
+                  _buildActionButton(
+                    icon: Icons.refresh_rounded,
+                    label: "Generar Nuevo Código",
+                    gradient: LinearGradient(
+                      colors: [Color(0xFF00F0FF), Color(0xFF00FF41)],
                     ),
-                    const SizedBox(width: 16),
-                    
-                    // Botón Eliminar
-                    Expanded(
-                      child: _buildActionButton(
-                        icon: Icons.delete_rounded,
-                        label: "Eliminar",
-                        gradient: LinearGradient(
-                          colors: [
-                            Colors.red.shade400,
-                            Colors.red.shade600,
-                          ],
+                    glowColor: Color(0xFF00F0FF),
+                    onPressed: _generarNuevoCodigo,
+                  ),
+
+                  const SizedBox(height: 16),
+
+                  // Botones Editar y Eliminar
+                  Row(
+                    children: [
+                      // Botón Editar
+                      Expanded(
+                        child: _buildActionButton(
+                          icon: Icons.edit_rounded,
+                          label: "Editar",
+                          gradient: LinearGradient(
+                            colors: [
+                              Color(0xFF00F0FF).withOpacity(0.8),
+                              Color(0xFF00FF41).withOpacity(0.8),
+                            ],
+                          ),
+                          glowColor: Color(0xFF00F0FF),
+                          onPressed: _editarClase,
                         ),
-                        glowColor: Colors.red,
-                        onPressed: _eliminarClase,
                       ),
-                    ),
-                  ],
-                ),
+                      const SizedBox(width: 16),
+
+                      // Botón Eliminar
+                      Expanded(
+                        child: _buildActionButton(
+                          icon: Icons.delete_rounded,
+                          label: "Eliminar",
+                          gradient: LinearGradient(
+                            colors: [Colors.red.shade400, Colors.red.shade600],
+                          ),
+                          glowColor: Colors.red,
+                          onPressed: _eliminarClase,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+
+                const SizedBox(height: 20),
               ],
-
-              const SizedBox(height: 20),
-            ],
+            ),
           ),
         ),
       ),
@@ -426,10 +409,7 @@ class _Info_ClaseState extends State<Info_Clase> {
           decoration: BoxDecoration(
             color: color.withOpacity(0.2),
             borderRadius: BorderRadius.circular(10),
-            border: Border.all(
-              color: color.withOpacity(0.5),
-              width: 1.5,
-            ),
+            border: Border.all(color: color.withOpacity(0.5), width: 1.5),
           ),
           child: Icon(icon, color: color, size: 20),
         ),
