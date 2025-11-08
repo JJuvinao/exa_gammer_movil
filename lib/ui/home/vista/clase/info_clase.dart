@@ -141,28 +141,42 @@ class _Info_ClaseState extends State<Info_Clase> {
     );
 
     if (confirmar == true) {
-      // TODO: Implementar lógica para eliminar clase del servidor
-      Get.snackbar(
-        '🗑️ Clase Eliminada',
-        'La clase ha sido eliminada exitosamente',
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Color(0xFF1a1a2e),
-        colorText: Colors.red.shade300,
-        borderColor: Colors.red.withOpacity(0.5),
-        borderWidth: 1.5,
-        icon: Icon(Icons.delete, color: Colors.red.shade300),
-        duration: Duration(seconds: 2),
-        margin: EdgeInsets.all(16),
-        borderRadius: 12,
-      );
-      // Get.back(); // Volver a la pantalla anterior
+      final resultado = await pc.DeleteClase(clase.id, user.gettoken);
+      if (resultado) {
+        Get.snackbar(
+          '🗑️ Clase Eliminada',
+          'La clase ha sido eliminada exitosamente',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Color(0xFF1a1a2e),
+          colorText: Colors.green.shade300,
+          borderColor: Colors.green.withOpacity(0.5),
+          borderWidth: 1.5,
+          icon: Icon(Icons.delete, color: Colors.red.shade300),
+          duration: Duration(seconds: 2),
+          margin: EdgeInsets.all(16),
+          borderRadius: 12,
+        );
+        Get.to(MainView(vista: user.getuser.rol));
+      } else {
+        Get.snackbar(
+          '🗑️ Fallo en la eliminacion',
+          'La clase no se pudo eliminar',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Color(0xFF1a1a2e),
+          colorText: Colors.red.shade300,
+          borderColor: Colors.red.withOpacity(0.5),
+          borderWidth: 1.5,
+          icon: Icon(Icons.delete, color: Colors.red.shade300),
+          duration: Duration(seconds: 2),
+          margin: EdgeInsets.all(16),
+          borderRadius: 12,
+        );
+      }
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-
     return WillPopScope(
       onWillPop: () async => await Get.to(MainView(vista: user.getuser.rol)),
       child: Scaffold(

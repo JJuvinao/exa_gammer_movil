@@ -14,7 +14,7 @@ class UserController extends GetxController {
   User get getuser => _storageService.displayUser;
   String get gettoken => _storageService.displayToken;
 
-  Future<bool> registerUser(
+  Future<String> registerUser(
     String username,
     String password,
     String role,
@@ -42,12 +42,15 @@ class UserController extends GetxController {
           .timeout(Duration(seconds: 15));
 
       if (res.statusCode == 200) {
-        return true;
+        return "ok";
       }
-      return false;
+      if (res.statusCode == 409) {
+        return "existe";
+      }
+      return "false";
     } catch (e) {
       print("ERROR DEL REGISTRO: ${e.toString()}");
-      return false;
+      return "false";
     }
   }
 

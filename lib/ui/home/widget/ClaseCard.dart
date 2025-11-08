@@ -32,13 +32,8 @@ class ObjetoCard extends StatelessWidget {
           child: Stack(
             fit: StackFit.expand,
             children: [
-              // 🖼 Imagen de fondo que rellena todo el contenedor
-              Image.asset(
-                imagenUrl,
-                fit: BoxFit.cover, // <-- Hace que la imagen rellene el contenedor
-              ),
+              Image.asset(imagenUrl, fit: BoxFit.cover),
 
-              // 🌓 Capa de color para que el texto resalte
               Container(
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
@@ -51,14 +46,12 @@ class ObjetoCard extends StatelessWidget {
                   ),
                 ),
               ),
-
-              // 📝 Texto encima del fondo
               Align(
                 alignment: Alignment.bottomCenter,
                 child: Container(
                   width: double.infinity,
                   padding: const EdgeInsets.all(8),
-                  color: Colors.black54, // Fondo semitransparente
+                  color: Colors.black54,
                   child: Text(
                     titulo,
                     textAlign: TextAlign.center,

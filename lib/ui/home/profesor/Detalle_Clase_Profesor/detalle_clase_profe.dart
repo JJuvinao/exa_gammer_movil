@@ -1,4 +1,5 @@
-import 'package:exa_gammer_movil/controllers/detalle_clase_controller.dart';
+import 'package:exa_gammer_movil/controllers/clase_controller.dart';
+import 'package:exa_gammer_movil/controllers/examen_controller.dart';
 import 'package:exa_gammer_movil/controllers/user_controller.dart';
 import 'package:exa_gammer_movil/ui/home/profesor/Detalle_Clase_Profesor/Widgets_Detalle_Clase/empty_examenes_widget.dart';
 import 'package:exa_gammer_movil/ui/home/profesor/Detalle_Clase_Profesor/Widgets_Detalle_Clase/examen_card.dart';
@@ -16,13 +17,36 @@ class DetalleClase extends StatefulWidget {
 }
 
 class _DetalleClaseState extends State<DetalleClase> {
-  final controller = Get.put(DetalleClaseController());
-  late final UserController user = Get.find<UserController>();
+  late final examenController;
+  late final claseController;
+  late final UserController user;
+  var clase;
+  var listexamen = <dynamic>[].obs;
+
+  @override
+  void initState() {
+    super.initState();
+    examenController = Get.find<ExamenController>();
+    claseController = Get.find<ClaseController>();
+    user = Get.find<UserController>();
+    _cargarExamenes();
+  }
+
+  @override
+  void dispose() {
+    listexamen.clear();
+    super.dispose();
+  }
+
+  void _cargarExamenes() async {
+    clase = claseController.getclase;
+    final token = user.gettoken;
+    listexamen.value = await examenController.filteredList(clase.id, token);
+    ;
+  }
 
   @override
   Widget build(BuildContext context) {
-    final clasek = controller.claseController.getclase;
-
     return WillPopScope(
       onWillPop: () async => await Get.to(MainView(vista: user.getuser.rol)),
       child: Scaffold(
@@ -46,7 +70,7 @@ class _DetalleClaseState extends State<DetalleClase> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _buildHeader(clasek.nombre),
+                  _buildHeader(clase.nombre),
                   const SizedBox(height: 24),
                   _buildSectionTitle(),
                   const SizedBox(height: 16),
@@ -84,7 +108,7 @@ class _DetalleClaseState extends State<DetalleClase> {
           size: 20,
         ),
       ),
-      onPressed: () => Navigator.pop(context),
+      onPressed: () => Get.to(MainView(vista: user.getuser.rol)),
     );
   }
 
@@ -165,7 +189,7 @@ class _DetalleClaseState extends State<DetalleClase> {
         const SizedBox(width: 8),
         Obx(
           () => Text(
-            '(${controller.examenesList.length})',
+            '(${listexamen.length})',
             style: const TextStyle(
               color: Color(0xFF00FF41),
               fontWeight: FontWeight.bold,
@@ -178,14 +202,13 @@ class _DetalleClaseState extends State<DetalleClase> {
 
   Widget _buildExamenList() {
     return Obx(() {
-      final list = controller.examenesList;
-      if (list.isEmpty) return const EmptyExamenesWidget();
+      if (listexamen.isEmpty) return const EmptyExamenesWidget();
 
       return ListView.separated(
         padding: const EdgeInsets.only(bottom: 80),
-        itemCount: list.length,
+        itemCount: listexamen.length,
         separatorBuilder: (_, __) => const SizedBox(height: 16),
-        itemBuilder: (_, i) => ExamenCard(actividad: list[i]),
+        itemBuilder: (_, i) => ExamenCard(actividad: listexamen[i]),
       );
     });
   }

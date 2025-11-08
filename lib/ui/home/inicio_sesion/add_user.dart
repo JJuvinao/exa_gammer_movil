@@ -48,7 +48,10 @@ class _AgregarUsuarioState extends State<AgregarUsuario> {
               .map(
                 (role) => DropdownMenuItem(
                   value: role,
-                  child: Text(role, style: const TextStyle(color: Colors.white)),
+                  child: Text(
+                    role,
+                    style: const TextStyle(color: Colors.white),
+                  ),
                 ),
               )
               .toList(),
@@ -78,7 +81,7 @@ class _AgregarUsuarioState extends State<AgregarUsuario> {
                   email.text,
                 );
 
-                if (!res) {
+                if (res == "false") {
                   Get.snackbar(
                     'Registro fallido',
                     'El usuario no se pudo registrar correctamente',
@@ -87,18 +90,28 @@ class _AgregarUsuarioState extends State<AgregarUsuario> {
                     snackPosition: SnackPosition.BOTTOM,
                     duration: const Duration(seconds: 3),
                   );
-                  return;
                 }
 
-                Get.snackbar(
-                  'Registro exitoso',
-                  'El usuario ha sido registrado correctamente',
-                  backgroundColor: Colors.green,
-                  colorText: Colors.white,
-                  snackPosition: SnackPosition.BOTTOM,
-                  duration: const Duration(seconds: 3),
-                );
-
+                if (res == "ok") {
+                  Get.snackbar(
+                    'Registro exitoso',
+                    'El usuario ha sido registrado correctamente',
+                    backgroundColor: Colors.green,
+                    colorText: Colors.white,
+                    snackPosition: SnackPosition.BOTTOM,
+                    duration: const Duration(seconds: 3),
+                  );
+                }
+                if (res == "existe") {
+                  Get.snackbar(
+                    'Nombre de usuario ya registrado',
+                    'El usuario ya se ha sido registrado',
+                    backgroundColor: Colors.red,
+                    colorText: Colors.white,
+                    snackPosition: SnackPosition.BOTTOM,
+                    duration: const Duration(seconds: 3),
+                  );
+                }
                 usuario.clear();
                 clave.clear();
                 email.clear();
@@ -141,10 +154,7 @@ class _AgregarUsuarioState extends State<AgregarUsuario> {
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
-        borderSide: const BorderSide(
-          color: Color(0xFF00F0FF),
-          width: 2,
-        ),
+        borderSide: const BorderSide(color: Color(0xFF00F0FF), width: 2),
       ),
       filled: true,
       fillColor: Colors.white.withOpacity(0.05), // efecto glass
@@ -153,13 +163,11 @@ class _AgregarUsuarioState extends State<AgregarUsuario> {
 
   // 🔹 Botón con sombra neón
   ButtonStyle _buttonStyle() => ElevatedButton.styleFrom(
-        backgroundColor: const Color(0xFF00F0FF),
-        foregroundColor: Colors.black,
-        padding: const EdgeInsets.symmetric(vertical: 16),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-        ),
-        elevation: 8,
-        shadowColor: const Color(0xFF00F0FF).withOpacity(0.5),
-      );
+    backgroundColor: const Color(0xFF00F0FF),
+    foregroundColor: Colors.black,
+    padding: const EdgeInsets.symmetric(vertical: 16),
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+    elevation: 8,
+    shadowColor: const Color(0xFF00F0FF).withOpacity(0.5),
+  );
 }
