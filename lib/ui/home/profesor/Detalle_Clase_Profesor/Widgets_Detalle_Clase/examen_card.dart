@@ -60,12 +60,6 @@ class _ExamenCardState extends State<ExamenCard> {
                 _divider(),
                 const SizedBox(height: 16),
                 _infoRow(Icons.topic_rounded, 'Tema', widget.actividad.tema),
-                const SizedBox(height: 12),
-                _infoRow(
-                  Icons.description_rounded,
-                  'Descripción',
-                  widget.actividad.descripcion,
-                ),
               ],
             ),
           ),

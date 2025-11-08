@@ -33,7 +33,6 @@ class _HomeProfesorState extends State<HomeProfesor> {
   @override
   void dispose() {
     filteredClase.clear();
-    claseController.logoutClase();
     super.dispose();
   }
 
@@ -64,11 +63,7 @@ class _HomeProfesorState extends State<HomeProfesor> {
         body: Container(
           decoration: const BoxDecoration(
             gradient: LinearGradient(
-              colors: [
-                Color(0xFF0a0a14),
-                Color(0xFF16213e),
-                Color(0xFF0a0a14),
-              ],
+              colors: [Color(0xFF0a0a14), Color(0xFF16213e), Color(0xFF0a0a14)],
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
             ),
@@ -125,12 +120,7 @@ class _HomeProfesorState extends State<HomeProfesor> {
             fontSize: 20,
             fontWeight: FontWeight.bold,
             color: Color(0xFF00F0FF),
-            shadows: [
-              Shadow(
-                color: Color(0xFF00F0FF),
-                blurRadius: 10,
-              ),
-            ],
+            shadows: [Shadow(color: Color(0xFF00F0FF), blurRadius: 10)],
           ),
         ),
         const SizedBox(width: 8),

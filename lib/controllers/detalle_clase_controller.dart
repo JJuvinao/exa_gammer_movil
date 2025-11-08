@@ -6,21 +6,27 @@ import 'package:exa_gammer_movil/controllers/examen_controller.dart';
 import 'package:exa_gammer_movil/controllers/clase_controller.dart';
 
 class DetalleClaseController extends GetxController {
-  final examenController = Get.put(ExamenController());
-  final claseController = Get.find<ClaseController>();
-  final userController = Get.find<UserController>();
+  late final examenController;
+  late final claseController;
+  late final userController;
 
   var examenesList = <dynamic>[].obs;
 
   @override
   void onInit() {
     super.onInit();
+    examenController = Get.put(ExamenController());
+    claseController = Get.find<ClaseController>();
+    userController = Get.find<UserController>();
     cargarExamenes();
   }
 
-  Future<void> cargarExamenes() async {
+  Future<dynamic> cargarExamenes() async {
     final clase = claseController.getclase;
     final token = userController.gettoken;
-    examenesList.value = await examenController.filteredList(clase.id, token);
+    return examenesList.value = await examenController.filteredList(
+      clase.id,
+      token,
+    );
   }
 }
