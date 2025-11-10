@@ -1,12 +1,14 @@
 import 'package:exa_gammer_movil/controllers/user_controller.dart';
-import 'package:exa_gammer_movil/ui/home/inicio_sesion/diseologin.dart';
-import 'package:exa_gammer_movil/ui/home/profesor/Home_Profesor/widgets_home_profesor/logout_dialog.dart';
+import 'package:exa_gammer_movil/ui/course/courseView.dart';
 import 'package:exa_gammer_movil/ui/home/vista/clase/clase_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:exa_gammer_movil/controllers/clase_controller.dart';
 import 'package:exa_gammer_movil/ui/dialogs/dialogo_ingresar_clase.dart';
 import 'package:exa_gammer_movil/ui/home/buscar.dart';
+import 'package:exa_gammer_movil/ui/home/inicio_sesion/diseologin.dart';
+import 'package:exa_gammer_movil/ui/home/profesor/Home_Profesor/widgets_home_profesor/logout_dialog.dart';
+
 
 class HomeEstudiante extends StatefulWidget {
   HomeEstudiante({super.key});
@@ -24,6 +26,12 @@ class _HomeEstudianteState extends State<HomeEstudiante> {
   void initState() {
     super.initState();
     CargarClase();
+  }
+
+  @override
+  void dispose() {
+    filteredClase.clear();
+    super.dispose();
   }
 
   void CargarClase() async {
@@ -63,15 +71,19 @@ class _HomeEstudianteState extends State<HomeEstudiante> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  // Header mejorado
                   _buildHeader(),
                   const SizedBox(height: 20),
 
+                  // Buscador
                   BuscarClase(),
                   const SizedBox(height: 20),
 
+                  // Título de sección con contador
                   _buildSectionTitle(),
                   const SizedBox(height: 16),
 
+                  // Lista de clases
                   Expanded(
                     child: Obx(() {
                       if (filteredClase.isEmpty) {
@@ -105,19 +117,22 @@ class _HomeEstudianteState extends State<HomeEstudiante> {
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          colors: [Color(0xFF1a1a2e), Color(0xFF16213e)],
+        gradient: LinearGradient(
+          colors: [
+            Color(0xFF1a1a2e),
+            Color(0xFF16213e),
+          ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
         borderRadius: BorderRadius.circular(20),
         border: Border.all(
-          color: const Color(0xFF00F0FF).withOpacity(0.3),
+          color: Color(0xFF00F0FF).withOpacity(0.3),
           width: 1.5,
         ),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFF00F0FF).withOpacity(0.2),
+            color: Color(0xFF00F0FF).withOpacity(0.2),
             blurRadius: 15,
             spreadRadius: 1,
           ),
@@ -125,16 +140,17 @@ class _HomeEstudianteState extends State<HomeEstudiante> {
       ),
       child: Row(
         children: [
+          // Logo con efecto
           Container(
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              gradient: const LinearGradient(
+              gradient: LinearGradient(
                 colors: [Color(0xFF00F0FF), Color(0xFF00FF41)],
               ),
               borderRadius: BorderRadius.circular(15),
               boxShadow: [
                 BoxShadow(
-                  color: const Color(0xFF00F0FF).withOpacity(0.5),
+                  color: Color(0xFF00F0FF).withOpacity(0.5),
                   blurRadius: 15,
                 ),
               ],
@@ -145,15 +161,17 @@ class _HomeEstudianteState extends State<HomeEstudiante> {
             ),
           ),
           const SizedBox(width: 16),
+
+          // Texto del título
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 ShaderMask(
-                  shaderCallback: (bounds) => const LinearGradient(
+                  shaderCallback: (bounds) => LinearGradient(
                     colors: [Color(0xFF00F0FF), Color(0xFF00FF41)],
                   ).createShader(bounds),
-                  child: const Text(
+                  child: Text(
                     'EXA-GAMMER',
                     style: TextStyle(
                       fontSize: 28,
@@ -162,7 +180,7 @@ class _HomeEstudianteState extends State<HomeEstudiante> {
                       color: Colors.white,
                       shadows: [
                         Shadow(
-                          color: Color(0xFF00F0FF),
+                          color: Color(0xFF00F0FF).withOpacity(0.5),
                           blurRadius: 10,
                         ),
                       ],
@@ -224,13 +242,13 @@ class _HomeEstudianteState extends State<HomeEstudiante> {
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [
-                  const Color(0xFF00FF41).withOpacity(0.3),
-                  const Color(0xFF00F0FF).withOpacity(0.3),
+                  Color(0xFF00FF41).withOpacity(0.3),
+                  Color(0xFF00F0FF).withOpacity(0.3),
                 ],
               ),
               borderRadius: BorderRadius.circular(12),
               border: Border.all(
-                color: const Color(0xFF00FF41).withOpacity(0.5),
+                color: Color(0xFF00FF41).withOpacity(0.5),
                 width: 1,
               ),
             ),
@@ -257,19 +275,22 @@ class _HomeEstudianteState extends State<HomeEstudiante> {
       child: Container(
         height: 120,
         decoration: BoxDecoration(
-          gradient: const LinearGradient(
-            colors: [Color(0xFF1a1a2e), Color(0xFF16213e)],
+          gradient: LinearGradient(
+            colors: [
+              Color(0xFF1a1a2e),
+              Color(0xFF16213e),
+            ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
           borderRadius: BorderRadius.circular(16),
           border: Border.all(
-            color: const Color(0xFF00F0FF).withOpacity(0.3),
+            color: Color(0xFF00F0FF).withOpacity(0.3),
             width: 1.5,
           ),
           boxShadow: [
             BoxShadow(
-              color: const Color(0xFF00F0FF).withOpacity(0.1),
+              color: Color(0xFF00F0FF).withOpacity(0.1),
               blurRadius: 10,
               spreadRadius: 1,
             ),
@@ -279,26 +300,31 @@ class _HomeEstudianteState extends State<HomeEstudiante> {
           borderRadius: BorderRadius.circular(16),
           child: Stack(
             children: [
+              // Imagen de fondo
               if (clase.img != null && clase.img.isNotEmpty)
                 Positioned.fill(
                   child: Opacity(
-                    opacity: 0.3,
+                    opacity: 0.7,
                     child: Image.network(
                       clase.img,
                       fit: BoxFit.cover,
                       errorBuilder: (context, error, stackTrace) {
-                        return Container(color: const Color(0xFF16213e));
+                        return Container(
+                          color: Color(0xFF16213e),
+                        );
                       },
                     ),
                   ),
                 ),
+
+              // Overlay con gradiente
               Positioned.fill(
                 child: Container(
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
                       colors: [
-                        const Color(0xFF1a1a2e).withOpacity(0.7),
-                        const Color(0xFF16213e).withOpacity(0.9),
+                        Color(0xFF1a1a2e).withOpacity(0.7),
+                        Color(0xFF16213e).withOpacity(0.9),
                       ],
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
@@ -306,29 +332,37 @@ class _HomeEstudianteState extends State<HomeEstudiante> {
                   ),
                 ),
               ),
+
+              // Contenido
               Padding(
                 padding: const EdgeInsets.all(16),
                 child: Row(
                   children: [
+                    // Icono decorativo
                     Container(
                       width: 60,
                       height: 60,
                       decoration: BoxDecoration(
-                        gradient: const LinearGradient(
+                        gradient: LinearGradient(
                           colors: [Color(0xFF00F0FF), Color(0xFF00FF41)],
                         ),
                         borderRadius: BorderRadius.circular(12),
                         boxShadow: [
                           BoxShadow(
-                            color: const Color(0xFF00F0FF).withOpacity(0.4),
+                            color: Color(0xFF00F0FF).withOpacity(0.4),
                             blurRadius: 10,
                           ),
                         ],
                       ),
-                      child: const Icon(Icons.class_rounded,
-                          color: Colors.black, size: 30),
+                      child: Icon(
+                        Icons.class_rounded,
+                        color: Colors.black,
+                        size: 30,
+                      ),
                     ),
                     const SizedBox(width: 16),
+
+                    // Información
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -336,10 +370,16 @@ class _HomeEstudianteState extends State<HomeEstudiante> {
                         children: [
                           Text(
                             clase.nombre,
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
                               color: Colors.white,
+                              shadows: [
+                                Shadow(
+                                  color: Color(0xFF00F0FF).withOpacity(0.5),
+                                  blurRadius: 5,
+                                ),
+                              ],
                             ),
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
@@ -347,8 +387,11 @@ class _HomeEstudianteState extends State<HomeEstudiante> {
                           const SizedBox(height: 8),
                           Row(
                             children: [
-                              const Icon(Icons.person_rounded,
-                                  size: 14, color: Color(0xFF00FF41)),
+                              Icon(
+                                Icons.person_rounded,
+                                size: 14,
+                                color: Color(0xFF00FF41),
+                              ),
                               const SizedBox(width: 4),
                               Expanded(
                                 child: Text(
@@ -366,18 +409,23 @@ class _HomeEstudianteState extends State<HomeEstudiante> {
                         ],
                       ),
                     ),
+
+                    // Flecha
                     Container(
                       padding: const EdgeInsets.all(8),
                       decoration: BoxDecoration(
-                        color: const Color(0xFF00F0FF).withOpacity(0.2),
+                        color: Color(0xFF00F0FF).withOpacity(0.2),
                         borderRadius: BorderRadius.circular(8),
                         border: Border.all(
-                          color: const Color(0xFF00F0FF).withOpacity(0.5),
+                          color: Color(0xFF00F0FF).withOpacity(0.5),
                           width: 1,
                         ),
                       ),
-                      child: const Icon(Icons.arrow_forward_rounded,
-                          color: Color(0xFF00F0FF), size: 20),
+                      child: Icon(
+                        Icons.arrow_forward_rounded,
+                        color: Color(0xFF00F0FF),
+                        size: 20,
+                      ),
                     ),
                   ],
                 ),
@@ -399,28 +447,28 @@ class _HomeEstudianteState extends State<HomeEstudiante> {
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [
-                  const Color(0xFF00F0FF).withOpacity(0.1),
-                  const Color(0xFF00FF41).withOpacity(0.1),
+                  Color(0xFF00F0FF).withOpacity(0.1),
+                  Color(0xFF00FF41).withOpacity(0.1),
                 ],
               ),
               shape: BoxShape.circle,
               border: Border.all(
-                color: const Color(0xFF00F0FF).withOpacity(0.3),
+                color: Color(0xFF00F0FF).withOpacity(0.3),
                 width: 2,
               ),
             ),
             child: Icon(
               Icons.school_outlined,
               size: 80,
-              color: const Color(0xFF00F0FF).withOpacity(0.5),
+              color: Color(0xFF00F0FF).withOpacity(0.5),
             ),
           ),
           const SizedBox(height: 24),
           ShaderMask(
-            shaderCallback: (bounds) => const LinearGradient(
+            shaderCallback: (bounds) => LinearGradient(
               colors: [Color(0xFF00F0FF), Color(0xFF00FF41)],
             ).createShader(bounds),
-            child: const Text(
+            child: Text(
               'No hay clases registradas',
               style: TextStyle(
                 fontSize: 18,
@@ -432,7 +480,10 @@ class _HomeEstudianteState extends State<HomeEstudiante> {
           const SizedBox(height: 8),
           Text(
             'Únete a una clase usando el código',
-            style: TextStyle(fontSize: 14, color: Colors.grey[500]),
+            style: TextStyle(
+              fontSize: 14,
+              color: Colors.grey[500],
+            ),
           ),
         ],
       ),
@@ -442,13 +493,13 @@ class _HomeEstudianteState extends State<HomeEstudiante> {
   Widget _buildFloatingButton() {
     return Container(
       decoration: BoxDecoration(
-        gradient: const LinearGradient(
+        gradient: LinearGradient(
           colors: [Color(0xFF00F0FF), Color(0xFF00FF41)],
         ),
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFF00F0FF).withOpacity(0.4),
+            color: Color(0xFF00F0FF).withOpacity(0.4),
             blurRadius: 15,
             spreadRadius: 1,
           ),
@@ -457,14 +508,15 @@ class _HomeEstudianteState extends State<HomeEstudiante> {
       child: FloatingActionButton.extended(
         onPressed: () async {
           final result = await IngresarCodigo(context);
+          print("resultado del dialogo: $result");
           if (result == true) {
             CargarClase();
           }
         },
         backgroundColor: Colors.transparent,
         elevation: 0,
-        icon: const Icon(Icons.add_rounded, color: Colors.black, size: 24),
-        label: const Text(
+        icon: Icon(Icons.add_rounded, color: Colors.black, size: 24),
+        label: Text(
           'Unirse',
           style: TextStyle(
             color: Colors.black,
