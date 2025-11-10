@@ -1,5 +1,8 @@
+import 'package:exa_gammer_movil/game/heroes/animation/recibirdanio.dart';
+import 'package:exa_gammer_movil/game/heroes/controller/heroe_controller.dart';
 import 'package:exa_gammer_movil/game/heroes/widget/ataques.dart';
 import 'package:exa_gammer_movil/game/heroes/widget/barras_vida.dart';
+import 'package:exa_gammer_movil/game/heroes/widget/pregunta.dart';
 import 'package:exa_gammer_movil/game/heroes/widget/rendirse.dart';
 import 'package:exa_gammer_movil/ui/home/vista/examen/examen_view.dart';
 import 'package:flutter/material.dart';
@@ -17,9 +20,17 @@ class Escenario extends StatefulWidget {
 }
 
 class _EscenarioState extends State<Escenario> {
+  final HeroeController controller = Get.find<HeroeController>();
   final String enemyImage = "lib/game/heroes/imagenes/Npcs/LoboIdle.gif";
   var heroeImage = "";
   bool showAttackMenu = false;
+  bool npcRecibioDanio = false;
+  bool personajeRecibioDanio = false;
+  var leftataquepj = 450;
+  var leftinicialpj = 100;
+  var leftataquenpc = 450;
+  var leftinicialnpc = 50;
+  double atacar = 50;
 
   @override
   void initState() {
@@ -28,10 +39,10 @@ class _EscenarioState extends State<Escenario> {
       DeviceOrientation.landscapeLeft,
       DeviceOrientation.landscapeRight,
     ]);
-    cargarheroe();
+    ideHeroe();
   }
 
-  void cargarheroe() {
+  void ideHeroe() {
     switch (widget.heroe) {
       case "Mago":
         heroeImage = "lib/game/heroes/imagenes/Mago/MagoIdle.gif";
@@ -46,6 +57,36 @@ class _EscenarioState extends State<Escenario> {
         heroeImage = "";
         break;
     }
+  }
+
+  void ataqueHeroe() {
+    switch (widget.heroe) {
+      case "Mago":
+        heroeImage = "lib/game/heroes/imagenes/Mago/magoATK1.gif";
+        break;
+      case "Guerrero":
+        heroeImage = "lib/game/heroes/imagenes/Guerrero/guerrATK1.gif";
+        break;
+      case "Samurai":
+        heroeImage = "lib/game/heroes/imagenes/Samurai/samuATK1.gif";
+        break;
+      default:
+        heroeImage = "";
+        break;
+    }
+  }
+
+  void accionatacar() {
+    setState(() {
+      atacar += 400;
+      ataqueHeroe();
+    });
+    Future.delayed(const Duration(milliseconds: 1000), () {
+      setState(() {
+        atacar -= 400;
+        ideHeroe();
+      });
+    });
   }
 
   @override
@@ -75,20 +116,13 @@ class _EscenarioState extends State<Escenario> {
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: AttackMenu(
-                          onBasicAttack: () {
-                            print("Ataque básico");
-                            setState(() => showAttackMenu = false);
-                          },
-                          onSkill1: () {
-                            print("Habilidad 1");
-                            setState(() => showAttackMenu = false);
-                          },
-                          onSkill2: () {
-                            print("Habilidad 2");
-                            setState(() => showAttackMenu = false);
-                          },
+                          onBasicAttack: () => showResponder(),
+                          onSkill1: () => showResponder(),
+                          onSkill2: () => showResponder(),
                           onCancel: () {
-                            setState(() => showAttackMenu = false);
+                            setState(() {
+                              showAttackMenu = false;
+                            });
                           },
                         ),
                       ),
@@ -100,6 +134,62 @@ class _EscenarioState extends State<Escenario> {
         ),
       ),
     );
+  }
+
+  void showResponder() async {
+    setState(() => showAttackMenu = false);
+
+    await Get.to(
+      PreguntaDialog(
+        questionText:
+            '¿Cuál de las siguientes estructuras de control en Python se utiliza para ejecutar un bloque de código repetidamente mientras una condición sea verdadera?',
+      ),
+    );
+    if (controller.aplicarDano()) {
+      accionatacar();
+      Future.delayed(const Duration(milliseconds: 2000), () {});
+      setState(() => npcRecibioDanio = true);
+      Future.delayed(const Duration(milliseconds: 500), () {
+        setState(() {
+          npcRecibioDanio = false;
+        });
+      });
+    } else {
+      setState(() => personajeRecibioDanio = true);
+      Future.delayed(const Duration(milliseconds: 500), () {
+        setState(() {
+          personajeRecibioDanio = false;
+        });
+      });
+    }
+    if (controller.npc.value.vida! <= 0) {
+      Get.defaultDialog(
+        title: "¡Victoria! 🎉",
+        middleText: "Has derrotado al enemigo",
+        confirm: ElevatedButton(
+          onPressed: () {
+            Get.back();
+            controller.restablecer();
+            setState(() {});
+          },
+          child: Text("Reiniciar combate"),
+        ),
+      );
+    }
+    if (controller.pj.value.vida! <= 0) {
+      Get.defaultDialog(
+        title: "Derrota 💀",
+        middleText: "Tu personaje ha sido derrotado",
+        confirm: ElevatedButton(
+          onPressed: () {
+            Get.back();
+            controller.restablecer();
+            setState(() {});
+          },
+          child: Text("Reiniciar combate"),
+        ),
+      );
+    }
   }
 
   void showSurrenderDialog() {
@@ -116,9 +206,7 @@ class _EscenarioState extends State<Escenario> {
             Navigator.pop(context);
             Get.off(() => ExamenView(vista: "Examen"));
           },
-          onCancel: () {
-            Navigator.pop(context);
-          },
+          onCancel: () => Navigator.pop(context),
         );
       },
     );
@@ -148,49 +236,60 @@ class _EscenarioState extends State<Escenario> {
                   width: double.infinity,
                   fit: BoxFit.cover,
                 ),
-                //enemigo
+                //Barra de vida del enemigo
                 Positioned(
                   top: 10,
                   right: 30,
-                  child: LifeBar(
-                    currentHp: 100,
-                    maxHp: 300,
-                    width: 250,
-                    height: 25,
+                  child: Obx(
+                    () => LifeBar(
+                      currentHp: controller.npc.value.vida!.toDouble(),
+                      maxHp: 300,
+                      width: 250,
+                      height: 25,
+                    ),
                   ),
                 ),
-                //heroe
+                //Barra de vida del jugador
                 Positioned(
                   top: 10,
-                  right: 500,
-                  child: LifeBar(
-                    currentHp: 50,
-                    maxHp: 300,
-                    width: 250,
-                    height: 25,
+                  left: 30,
+                  child: Obx(
+                    () => LifeBar(
+                      currentHp: controller.pj.value.vida!.toDouble(),
+                      maxHp: 300,
+                      width: 250,
+                      height: 25,
+                    ),
                   ),
                 ),
 
-                /// Personaje
+                //Personaje
                 Positioned(
-                  left: 50,
+                  left: atacar,
                   bottom: 20,
-                  child: Image.asset(heroeImage, height: 200),
+                  child: AnimatedBattleCharacter(
+                    imagePath: heroeImage,
+                    recibioDanio: personajeRecibioDanio,
+                    estaMuerto: controller.displayPj.vida! <= 0,
+                  ),
                 ),
 
-                /// Enemigo
+                //Enemigo
                 Positioned(
                   right: 50,
                   bottom: 20,
-                  child: Image.asset(enemyImage, height: 200),
+                  child: AnimatedBattleCharacter(
+                    imagePath: enemyImage,
+                    recibioDanio: npcRecibioDanio,
+                    estaMuerto: controller.displayNpc.vida! <= 0,
+                  ),
                 ),
               ],
             ),
           ),
-
           Container(
             padding: const EdgeInsets.all(12),
-            color: Colors.black26, // opcional
+            color: Colors.black26,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -198,9 +297,7 @@ class _EscenarioState extends State<Escenario> {
                   setState(() => showAttackMenu = true);
                 }),
                 botonAccion("Defender", () {}),
-                botonAccion("Rendirse", () {
-                  showSurrenderDialog();
-                }),
+                botonAccion("Rendirse", showSurrenderDialog),
               ],
             ),
           ),
