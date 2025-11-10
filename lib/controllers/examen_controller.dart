@@ -150,14 +150,16 @@ class ExamenController extends GetxController {
     try {
       final url = Uri.parse(urls);
 
-      final res = await http.post(
-        url,
-        headers: {
-          'Authorization': 'Bearer ${token}',
-          'Content-Type': 'application/json',
-        },
-        body: jsonEncode(datosExamen),
-      );
+      final res = await http
+          .post(
+            url,
+            headers: {
+              'Authorization': 'Bearer ${token}',
+              'Content-Type': 'application/json',
+            },
+            body: jsonEncode(datosExamen),
+          )
+          .timeout(const Duration(seconds: 15));
 
       if (res.statusCode == 200) {
         return true;
