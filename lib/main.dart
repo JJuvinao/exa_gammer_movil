@@ -1,4 +1,5 @@
 import 'package:exa_gammer_movil/controllers/curso_controller.dart';
+import 'package:exa_gammer_movil/game/heroes/controller/animation_controller.dart';
 import 'package:exa_gammer_movil/game/heroes/controller/heroe_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -21,6 +22,7 @@ Future<void> main() async {
   Get.put(UserController());
   Get.put(ClaseController());
   Get.put(VistaControles());
+  Get.put(AnimacionController());
   Get.put(HeroeController());
   Get.put(ExamenController());
   Get.put(JuegoController());

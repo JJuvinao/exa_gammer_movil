@@ -5,6 +5,7 @@ import 'package:exa_gammer_movil/game/ahorcado/ahorcado_page.dart';
 import 'package:exa_gammer_movil/game/heroes/ui/personajes.dart';
 import 'package:exa_gammer_movil/models/examen_model.dart';
 import 'package:exa_gammer_movil/ui/home/vista/clase/clase_view.dart';
+import 'package:exa_gammer_movil/ui/home/vista/examen/listHeroes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -21,6 +22,7 @@ class _DetalleExamenPageState extends State<DetalleExamenPage> {
 
   var examen;
   Ahorcado ahorcado = Ahorcado(palabra: "", pista: "");
+  List<Heroes> listher = [];
 
   @override
   void initState() {
@@ -28,7 +30,12 @@ class _DetalleExamenPageState extends State<DetalleExamenPage> {
     pc = Get.find();
     user = Get.find();
     examen = pc.getexamen;
-    cargarContenido();
+
+    if (examen.id_juego == 2) {
+      cargarListaHeroes();
+    } else {
+      cargarContenido();
+    }
   }
 
   void cargarContenido() async {
@@ -41,15 +48,24 @@ class _DetalleExamenPageState extends State<DetalleExamenPage> {
       if (examen.id_juego == 1) {
         pc.saveContExaAhorcado(Ahorcado.fromjson(contenido));
         ahorcado = Ahorcado.fromjson(contenido);
-      } else {
-        print(contenido);
       }
     });
   }
 
+  void cargarListaHeroes() async {
+    var list = await pc.listaHeroes(examen.codigo, user.gettoken);
+    setState(() {
+      listher = list;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: () async => await Get.to(ClaseView(vista: "Clase")),
+      onWillPop: () async {
+        Get.to(() => ClaseView(vista: "Clase"));
+        return false;
+      },
       child: Scaffold(
         backgroundColor: const Color(0xFFC8C1C1),
         appBar: AppBar(
@@ -67,121 +83,133 @@ class _DetalleExamenPageState extends State<DetalleExamenPage> {
               ),
               child: Padding(
                 padding: const EdgeInsets.all(24),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Row(
-                      children: [
-                        Image.asset('assets/imagen/logo_exa.png', height: 75),
-                        const SizedBox(width: 12),
-                        Flexible(
-                          child: AutoSizeText(
-                            "Examen",
-                            style: const TextStyle(
-                              fontSize: 36,
-                              fontWeight: FontWeight.bold,
-                              fontFamily: "TitanOne",
-                            ),
-                            textAlign: TextAlign.center,
-                            maxLines: 2,
-                            minFontSize: 18,
-                          ),
-                        ),
-                      ],
-                    ),
-
-                    const SizedBox(height: 24),
-
-                    ConstrainedBox(
-                      constraints: const BoxConstraints(maxWidth: 900),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Row(
                         children: [
-                          // === SECCIÓN DE INFORMACIÓN GENERAL ===
-                          Card(
-                            elevation: 3,
-                            child: Padding(
-                              padding: const EdgeInsets.all(16),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "${examen.nombre}",
-                                    style: const TextStyle(
-                                      fontSize: 24,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  const SizedBox(height: 16),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      ElevatedButton(
-                                        onPressed: () {
-                                          Get.to(
-                                            () => PersonajesPage(),
-
-                                            /*AhorcadoPage(
-                                            ahorcado: ahorcado,
-                                            id_user: user.getuser.id,
-                                            token: user.gettoken,
-                                            id_examen: examen.id,
-                                          ),*/
-                                          );
-                                        },
-                                        style: ElevatedButton.styleFrom(
-                                          backgroundColor: Colors.green,
-                                          padding: const EdgeInsets.symmetric(
-                                            vertical: 12,
-                                            horizontal: 30,
-                                          ),
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(
-                                              10,
-                                            ),
-                                          ),
-                                        ),
-                                        child: const Text(
-                                          "Ingresar al Examen",
-                                          style: TextStyle(color: Colors.black),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
+                          Image.asset('assets/imagen/logo_exa.png', height: 75),
+                          const SizedBox(width: 12),
+                          Flexible(
+                            child: AutoSizeText(
+                              "Examen",
+                              style: const TextStyle(
+                                fontSize: 36,
+                                fontWeight: FontWeight.bold,
+                                fontFamily: "TitanOne",
                               ),
-                            ),
-                          ),
-
-                          const SizedBox(height: 16),
-
-                          // === CONTENIDO DEL EXAMEN ===
-                          Card(
-                            elevation: 3,
-                            child: Padding(
-                              padding: const EdgeInsets.all(16),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const Text(
-                                    "Contenido del Examen",
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  const SizedBox(height: 8),
-                                  Text("Palabra: ${ahorcado.palabra}"),
-                                  const SizedBox(height: 8),
-                                  Text("Pista: ${ahorcado.pista}"),
-                                ],
-                              ),
+                              textAlign: TextAlign.center,
+                              maxLines: 2,
+                              minFontSize: 18,
                             ),
                           ),
                         ],
                       ),
-                    ),
-                  ],
+
+                      const SizedBox(height: 24),
+
+                      ConstrainedBox(
+                        constraints: const BoxConstraints(maxWidth: 900),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            // === SECCIÓN DE INFORMACIÓN GENERAL ===
+                            Card(
+                              elevation: 3,
+                              child: Padding(
+                                padding: const EdgeInsets.all(16),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "${examen.nombre}",
+                                      style: const TextStyle(
+                                        fontSize: 24,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 16),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        ElevatedButton(
+                                          onPressed: () {
+                                            Get.to(() => PersonajesPage());
+                                          },
+                                          style: ElevatedButton.styleFrom(
+                                            backgroundColor: Colors.green,
+                                            padding: const EdgeInsets.symmetric(
+                                              vertical: 12,
+                                              horizontal: 30,
+                                            ),
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                            ),
+                                          ),
+                                          child: const Text(
+                                            "Ingresar al Examen",
+                                            style: TextStyle(
+                                              color: Colors.black,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+
+                            const SizedBox(height: 16),
+                            const Text(
+                              "Contenido del Examen",
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const SizedBox(height: 16),
+                            // === CONTENIDO DEL EXAMEN ===
+                            examen.id_juego != 1
+                                ? (listher.isEmpty
+                                      ? const Center(
+                                          child: Padding(
+                                            padding: EdgeInsets.all(20),
+                                            child: CircularProgressIndicator(),
+                                          ),
+                                        )
+                                      : ListaHeroesView(heroesList: listher))
+                                : Card(
+                                    elevation: 3,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(16),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          const Text(
+                                            "Contenido del Examen",
+                                            style: TextStyle(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                          const SizedBox(height: 8),
+                                          Text("Palabra: ${ahorcado.palabra}"),
+                                          const SizedBox(height: 8),
+                                          Text("Pista: ${ahorcado.pista}"),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

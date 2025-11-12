@@ -293,7 +293,6 @@ class _AddExamenState extends State<AddExamen> {
                               'Id_Clase': claseController.getclase.id,
                               'Id_Juego': JuegoSeleccionado.value?.id,
                             };
-
                             var res = await actividadController.guardarExamen(
                               examen,
                               datosExamen,
