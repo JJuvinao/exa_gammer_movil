@@ -86,7 +86,7 @@ class _ClaseViewState extends State<ClaseView> {
               }
 
               setState(() {
-                _currentIndex = index;
+                _currentIndex = index - 1;
               });
             },
             selectedLabelStyle: TextStyle(

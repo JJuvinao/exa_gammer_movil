@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 
 class HeroeController extends GetxController {
   var respuesta = "".obs;
+  var ataqueNum = 0.obs;
 
   // Estado reactivo
   var pj = Personaje(nombre: "Same", vida: 300, defensa: 20).obs;
@@ -14,7 +15,10 @@ class HeroeController extends GetxController {
 
   void saveRespuesta(String res) {
     respuesta.value = res;
-    print("Respuesta guardada: $res");
+  }
+
+  void saveAtaqueNum(int num) {
+    ataqueNum.value = num;
   }
 
   void cleanRespuesta() {
@@ -27,12 +31,25 @@ class HeroeController extends GetxController {
 
   bool aplicarDano() {
     if (validarRespuesta()) {
+      var danoCalculado = 50;
+      switch (ataqueNum.value) {
+        case 1:
+          danoCalculado = 50;
+          break;
+        case 2:
+          danoCalculado = (danoCalculado * 1.5).toInt();
+          break;
+        case 3:
+          danoCalculado = (danoCalculado * 2).toInt();
+          break;
+      }
       npc.value = Npc(
         nombre: npc.value.nombre,
-        vida: (npc.value.vida! - 100).clamp(0, 300),
+        vida: (npc.value.vida! - danoCalculado).clamp(0, 300),
         defensa: npc.value.defensa,
       );
       cleanRespuesta();
+      ataqueNum.value = 0;
       return true;
     } else {
       pj.value = Personaje(

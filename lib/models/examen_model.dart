@@ -48,13 +48,34 @@ class Ahorcado {
 }
 
 class Heroes {
-  final String nombre;
-  final String imagen;
+  final int id;
+  final String pregunta;
+  final String respuesta;
+  final String respuestaf1;
+  final String respuestaf2;
+  final String respuestaf3;
+  final String codigo_exa;
 
-  Heroes({required this.nombre, required this.imagen});
+  Heroes({
+    required this.id,
+    required this.pregunta,
+    required this.respuesta,
+    required this.respuestaf1,
+    required this.respuestaf2,
+    required this.respuestaf3,
+    required this.codigo_exa,
+  });
 
   factory Heroes.fromjson(Map<String, dynamic> json) {
-    return Heroes(nombre: json["nombre"], imagen: json["imagen"]);
+    return Heroes(
+      id: json["id"],
+      pregunta: json["pregunta"],
+      respuesta: json["respuestaV"],
+      respuestaf1: json["respuestaF1"],
+      respuestaf2: json["respuestaF2"],
+      respuestaf3: json["respuestaF3"],
+      codigo_exa: json["codigo_Exa"],
+    );
   }
 }
 

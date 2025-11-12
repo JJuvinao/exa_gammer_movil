@@ -9,6 +9,7 @@ class ExamenController extends GetxController {
   var ExamenList = <Examen>[].obs;
   var ResultadosList = <Resultados>[].obs;
   var UserResult = <Userto>[].obs;
+  var HeroesList = <Heroes>[].obs;
   final _storageService = Get.find<StorageService>();
 
   Examen get getexamen => _storageService.displayExamen;
@@ -44,6 +45,14 @@ class ExamenController extends GetxController {
       return [];
     }
     return ExamenList;
+  }
+
+  Future<List<Heroes>> listaHeroes(String codigo, String token) async {
+    await CargarHeroes(codigo, token);
+    if (HeroesList.isEmpty) {
+      return [];
+    }
+    return HeroesList;
   }
 
   Future<List<Estudi_Resultados>> listresult(
@@ -160,17 +169,44 @@ class ExamenController extends GetxController {
             body: jsonEncode(datosExamen),
           )
           .timeout(const Duration(seconds: 15));
-
       if (res.statusCode == 200) {
         return true;
       } else {
-        print('Error al guardar el examen: ${res.statusCode}');
         return false;
       }
     } catch (e) {
       print('Error al guardar el examen: $e');
     }
     return false;
+  }
+
+  Future<void> CargarHeroes(String codigo, String token) async {
+    try {
+      final url = Uri.parse(
+        "https://www.apiexagammer.somee.com/api/Examenes/GetConte_Heroe/${codigo}",
+      );
+
+      final res = await http.get(
+        url,
+        headers: {
+          'Authorization': 'Bearer ${token}',
+          'Content-Type': 'application/json',
+        },
+      );
+
+      if (res.statusCode != 200) {
+        print(res.statusCode);
+        print(res.body);
+      }
+      final data = jsonDecode(res.body);
+      List<Heroes> heroeList = [];
+      for (var item in data) {
+        heroeList.add(Heroes.fromjson(item));
+      }
+      HeroesList.value = heroeList;
+    } catch (e) {
+      print("ERROR EN CARGAR HEROES ${e.toString()}");
+    }
   }
 
   Future<dynamic> CargarContenido(
