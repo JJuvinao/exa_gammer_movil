@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:exa_gammer_movil/ui/home/home_page.dart';
+import 'package:flutter/gestures.dart';
 
 class MyApp extends StatelessWidget {
   @override
@@ -8,6 +9,9 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'EXA-GAMMER',
       debugShowCheckedModeBanner: false,
+      scrollBehavior: const MaterialScrollBehavior().copyWith(
+        dragDevices: {PointerDeviceKind.touch, PointerDeviceKind.mouse},
+      ),
       home: HomePage(),
     );
   }

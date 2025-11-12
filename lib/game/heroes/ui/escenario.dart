@@ -1,4 +1,5 @@
 import 'package:exa_gammer_movil/game/heroes/animation/recibirdanio.dart';
+import 'package:exa_gammer_movil/game/heroes/controller/animation_controller.dart';
 import 'package:exa_gammer_movil/game/heroes/controller/heroe_controller.dart';
 import 'package:exa_gammer_movil/game/heroes/widget/ataques.dart';
 import 'package:exa_gammer_movil/game/heroes/widget/barras_vida.dart';
@@ -21,16 +22,18 @@ class Escenario extends StatefulWidget {
 
 class _EscenarioState extends State<Escenario> {
   final HeroeController controller = Get.find<HeroeController>();
-  final String enemyImage = "lib/game/heroes/imagenes/Npcs/LoboIdle.gif";
+  final AnimacionController animController = Get.find<AnimacionController>();
+  var enemyImage = "";
   var heroeImage = "";
   bool showAttackMenu = false;
   bool npcRecibioDanio = false;
   bool personajeRecibioDanio = false;
-  var leftataquepj = 450;
-  var leftinicialpj = 100;
-  var leftataquenpc = 450;
-  var leftinicialnpc = 50;
+  bool mostrarMensaje = false;
+  bool respuesta = false;
+  bool accionEnProgreso = false;
   double atacar = 50;
+  double atacarNpc = 50;
+  int ataqueNum = 1;
 
   @override
   void initState() {
@@ -39,52 +42,33 @@ class _EscenarioState extends State<Escenario> {
       DeviceOrientation.landscapeLeft,
       DeviceOrientation.landscapeRight,
     ]);
-    ideHeroe();
-  }
-
-  void ideHeroe() {
-    switch (widget.heroe) {
-      case "Mago":
-        heroeImage = "lib/game/heroes/imagenes/Mago/MagoIdle.gif";
-        break;
-      case "Guerrero":
-        heroeImage = "lib/game/heroes/imagenes/Guerrero/GuerreroIdle.gif";
-        break;
-      case "Samurai":
-        heroeImage = "lib/game/heroes/imagenes/Samurai/SamuraiIdle.gif";
-        break;
-      default:
-        heroeImage = "";
-        break;
-    }
-  }
-
-  void ataqueHeroe() {
-    switch (widget.heroe) {
-      case "Mago":
-        heroeImage = "lib/game/heroes/imagenes/Mago/magoATK1.gif";
-        break;
-      case "Guerrero":
-        heroeImage = "lib/game/heroes/imagenes/Guerrero/guerrATK1.gif";
-        break;
-      case "Samurai":
-        heroeImage = "lib/game/heroes/imagenes/Samurai/samuATK1.gif";
-        break;
-      default:
-        heroeImage = "";
-        break;
-    }
+    animController.savepj(widget.heroe);
+    heroeImage = animController.posicionInicial();
+    enemyImage = animController.posicionNpcInicial();
   }
 
   void accionatacar() {
     setState(() {
-      atacar += 400;
-      ataqueHeroe();
+      atacar += 350;
+      heroeImage = animController.posicionAtaque(ataqueNum);
     });
-    Future.delayed(const Duration(milliseconds: 1000), () {
+    Future.delayed(const Duration(milliseconds: 2000), () {
       setState(() {
-        atacar -= 400;
-        ideHeroe();
+        atacar -= 350;
+        heroeImage = animController.posicionInicial();
+      });
+    });
+  }
+
+  void accionatacarnpc() {
+    setState(() {
+      atacarNpc += 380;
+      enemyImage = animController.posicionNpcAtaque();
+    });
+    Future.delayed(const Duration(milliseconds: 2000), () {
+      setState(() {
+        atacarNpc -= 380;
+        enemyImage = animController.posicionNpcInicial();
       });
     });
   }
@@ -116,9 +100,18 @@ class _EscenarioState extends State<Escenario> {
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: AttackMenu(
-                          onBasicAttack: () => showResponder(),
-                          onSkill1: () => showResponder(),
-                          onSkill2: () => showResponder(),
+                          onBasicAttack: () => {
+                            showResponder(),
+                            setState(() => ataqueNum = 1),
+                          },
+                          onSkill1: () => {
+                            showResponder(),
+                            setState(() => ataqueNum = 2),
+                          },
+                          onSkill2: () => {
+                            showResponder(),
+                            setState(() => ataqueNum = 3),
+                          },
                           onCancel: () {
                             setState(() {
                               showAttackMenu = false;
@@ -145,23 +138,44 @@ class _EscenarioState extends State<Escenario> {
             '¿Cuál de las siguientes estructuras de control en Python se utiliza para ejecutar un bloque de código repetidamente mientras una condición sea verdadera?',
       ),
     );
+    setState(() {
+      mostrarMensaje = true;
+      accionEnProgreso = true;
+    });
+    controller.saveAtaqueNum(ataqueNum);
     if (controller.aplicarDano()) {
+      setState(() => respuesta = true);
       accionatacar();
-      Future.delayed(const Duration(milliseconds: 2000), () {});
-      setState(() => npcRecibioDanio = true);
-      Future.delayed(const Duration(milliseconds: 500), () {
+      Future.delayed(const Duration(milliseconds: 500), () {});
+      setState(() {
+        npcRecibioDanio = true;
+      });
+      Future.delayed(const Duration(milliseconds: 2000), () {
         setState(() {
           npcRecibioDanio = false;
+          mostrarMensaje = false;
+          accionEnProgreso = false;
         });
       });
     } else {
-      setState(() => personajeRecibioDanio = true);
+      setState(() => respuesta = false);
+      accionatacarnpc();
       Future.delayed(const Duration(milliseconds: 500), () {
         setState(() {
-          personajeRecibioDanio = false;
+          personajeRecibioDanio = true;
         });
       });
+      Future.delayed(const Duration(milliseconds: 2000), () {
+        if (mounted) {
+          setState(() {
+            personajeRecibioDanio = false;
+            mostrarMensaje = false;
+            accionEnProgreso = false;
+          });
+        }
+      });
     }
+    //setState(() => respuesta = false);
     if (controller.npc.value.vida! <= 0) {
       Get.defaultDialog(
         title: "¡Victoria! 🎉",
@@ -214,7 +228,7 @@ class _EscenarioState extends State<Escenario> {
 
   Widget botonAccion(String titulo, VoidCallback onTap) {
     return ElevatedButton(
-      onPressed: onTap,
+      onPressed: accionEnProgreso ? null : onTap,
       style: ElevatedButton.styleFrom(
         padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
         textStyle: const TextStyle(fontSize: 20),
@@ -276,12 +290,37 @@ class _EscenarioState extends State<Escenario> {
 
                 //Enemigo
                 Positioned(
-                  right: 50,
+                  right: atacarNpc,
                   bottom: 20,
                   child: AnimatedBattleCharacter(
                     imagePath: enemyImage,
                     recibioDanio: npcRecibioDanio,
                     estaMuerto: controller.displayNpc.vida! <= 0,
+                  ),
+                ),
+                //mensaje de respuesta
+                Positioned.fill(
+                  child: Align(
+                    alignment: const Alignment(0, -0.5),
+                    child: AnimatedOpacity(
+                      opacity: mostrarMensaje ? 1.0 : 0.0,
+                      duration: const Duration(milliseconds: 400),
+                      child: Text(
+                        respuesta ? "¡Correcto!" : "¡Incorrecto!",
+                        style: const TextStyle(
+                          fontSize: 40,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                          shadows: [
+                            Shadow(
+                              blurRadius: 5,
+                              color: Colors.black,
+                              offset: Offset(2, 2),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
                   ),
                 ),
               ],
