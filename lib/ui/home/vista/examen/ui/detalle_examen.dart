@@ -27,6 +27,15 @@ class _DetalleExamenPageState extends State<DetalleExamenPage> {
   List<Ahorcado> listaahorcado = [];
   List<Heroes> listher = [];
 
+  Resultados resultados = Resultados(
+    id: 0,
+    id_Estudiane: 0,
+    id_Examen: 0,
+    resultados: [],
+  );
+
+  bool hayresultados = false;
+
   @override
   void initState() {
     super.initState();
@@ -40,6 +49,7 @@ class _DetalleExamenPageState extends State<DetalleExamenPage> {
     } else {
       cargarListaAhorcado();
     }
+    cargarContenido();
   }
 
   void cargarListaAhorcado() async {
@@ -54,6 +64,34 @@ class _DetalleExamenPageState extends State<DetalleExamenPage> {
     setState(() {
       listher = list;
     });
+  }
+
+  void cargarContenido() async {
+    try {
+      final r = await pc.ResultadoEstudiante(
+        user.getuser.id,
+        examen.id,
+        user.gettoken,
+      );
+      setState(() {
+        resultados = Resultados(
+          id: r.id,
+          id_Estudiane: r.id_Estudiane,
+          id_Examen: r.id_Examen,
+          resultados: r.resultados,
+          nota: r.nota,
+          recomendacion: r.recomendacion,
+        );
+      });
+      if (resultados.id == 0) {
+        hayresultados = true;
+      } else {
+        hayresultados = false;
+      }
+    } catch (e) {
+      print("Error cargando resultados: $e");
+      setState(() => {});
+    }
   }
 
   @override
@@ -132,30 +170,38 @@ class _DetalleExamenPageState extends State<DetalleExamenPage> {
                                           MainAxisAlignment.center,
                                       children: [
                                         ElevatedButton(
-                                          onPressed: () {
-                                            if (examen.id_juego != 2) {
-                                              Get.to(
-                                                () => AhorcadoPage(
-                                                  ahorcados: listaahorcado,
-                                                  id_user: user.getuser.id,
-                                                  token: user.gettoken,
-                                                  id_examen: examen.id,
-                                                ),
-                                              );
-                                              return;
-                                            } else {
-                                              preguntaController
-                                                  .cargarPreguntas(
-                                                    listher,
-                                                    user.getuser.id,
-                                                    user.gettoken,
-                                                    examen.id,
-                                                  );
-                                              Get.to(() => PersonajesPage());
-                                            }
-                                          },
+                                          onPressed: hayresultados == false
+                                              ? null
+                                              : () {
+                                                  if (examen.id_juego != 2) {
+                                                    Get.to(
+                                                      () => AhorcadoPage(
+                                                        ahorcados:
+                                                            listaahorcado,
+                                                        id_user:
+                                                            user.getuser.id,
+                                                        token: user.gettoken,
+                                                        id_examen: examen.id,
+                                                      ),
+                                                    );
+                                                    return;
+                                                  } else {
+                                                    preguntaController
+                                                        .cargarPreguntas(
+                                                          listher,
+                                                          user.getuser.id,
+                                                          user.gettoken,
+                                                          examen.id,
+                                                        );
+                                                    Get.to(
+                                                      () => PersonajesPage(),
+                                                    );
+                                                  }
+                                                },
                                           style: ElevatedButton.styleFrom(
-                                            backgroundColor: Colors.green,
+                                            backgroundColor: hayresultados
+                                                ? Colors.green
+                                                : Colors.grey,
                                             padding: const EdgeInsets.symmetric(
                                               vertical: 12,
                                               horizontal: 30,
@@ -192,6 +238,7 @@ class _DetalleExamenPageState extends State<DetalleExamenPage> {
                                     examen: examen,
                                     listher: listher,
                                     listaAhorcado: listaahorcado,
+                                    resultados: resultados,
                                   ),
                           ],
                         ),
