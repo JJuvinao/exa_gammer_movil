@@ -35,10 +35,6 @@ class ExamenController extends GetxController {
     examenList.add(actividad);
   }
 
-  void deleteExamen(int index) {
-    examenList.removeAt(index);
-  }
-
   void clearExamen() {
     examenList.clear();
   }
@@ -365,5 +361,30 @@ class ExamenController extends GetxController {
       print('Error al cargar los resultados del estudiante: ${e.toString()}');
     }
     return Resultados(id: 0, id_Estudiane: 0, id_Examen: 0, resultados: []);
+  }
+
+  Future<bool> DeleteExamen(int id_Examen, String token) async {
+    try {
+      final url = Uri.parse(
+        'https://www.apiexagammer.somee.com/api/Examenes/$id_Examen',
+      );
+
+      final res = await http.delete(
+        url,
+        headers: {
+          'Authorization': 'Bearer $token',
+          'Content-Type': 'application/json',
+        },
+      );
+      print(res.statusCode);
+      if (res.statusCode != 204 && res.statusCode != 200) {
+        return false;
+      }
+
+      return true;
+    } catch (e) {
+      print("ERROR AL ELIMINAR EXAMEN ${e.toString()}");
+    }
+    return false;
   }
 }

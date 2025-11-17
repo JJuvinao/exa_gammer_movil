@@ -1,5 +1,6 @@
 import 'package:exa_gammer_movil/controllers/examen_controller.dart';
 import 'package:exa_gammer_movil/controllers/user_controller.dart';
+import 'package:exa_gammer_movil/ui/home/vista/clase/clase_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -40,7 +41,6 @@ class _Info_ExamenState extends State<Info_Examen> {
   }
 
   void _editarExamen() {
-    // TODO: Implementar lógica para editar examen
     Get.snackbar(
       '✏️ Editar Examen',
       'Función en desarrollo',
@@ -123,21 +123,37 @@ class _Info_ExamenState extends State<Info_Examen> {
     );
 
     if (confirmar == true) {
-      // TODO: Implementar lógica para eliminar examen del servidor
-      Get.snackbar(
-        '🗑️ Examen Eliminado',
-        'El examen ha sido eliminado exitosamente',
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Color(0xFF1a1a2e),
-        colorText: Colors.red.shade300,
-        borderColor: Colors.red.withOpacity(0.5),
-        borderWidth: 1.5,
-        icon: Icon(Icons.delete, color: Colors.red.shade300),
-        duration: Duration(seconds: 2),
-        margin: EdgeInsets.all(16),
-        borderRadius: 12,
-      );
-      // Get.back(); // Volver a la pantalla anterior
+      var res = await pc.DeleteExamen(examen.id, user.gettoken);
+      if (res) {
+        Get.snackbar(
+          '🗑️ Examen Eliminado',
+          'El examen ha sido eliminado exitosamente',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Color(0xFF1a1a2e),
+          colorText: Colors.black,
+          borderColor: Colors.green.withOpacity(0.5),
+          borderWidth: 1.5,
+          icon: Icon(Icons.delete, color: Colors.red.shade300),
+          duration: Duration(seconds: 2),
+          margin: EdgeInsets.all(16),
+          borderRadius: 12,
+        );
+        Get.off(() => ClaseView(vista: "Clase"));
+      } else {
+        Get.snackbar(
+          '🗑️ Error al eliminar Examen',
+          'No se pudo eliminar el examen',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Color(0xFF1a1a2e),
+          colorText: Colors.red.shade300,
+          borderColor: Colors.red.withOpacity(0.5),
+          borderWidth: 1.5,
+          icon: Icon(Icons.delete, color: Colors.red.shade300),
+          duration: Duration(seconds: 2),
+          margin: EdgeInsets.all(16),
+          borderRadius: 12,
+        );
+      }
     }
   }
 
