@@ -3,8 +3,8 @@ import 'package:exa_gammer_movil/controllers/user_controller.dart';
 import 'package:exa_gammer_movil/models/juego_model.dart';
 import 'package:exa_gammer_movil/ui/home/widget/avatares.dart';
 
-import 'formahorcado.dart';
-import 'package:exa_gammer_movil/ui/home/vista/examen/formheroes.dart';
+import '../widget/formahorcado.dart';
+import 'package:exa_gammer_movil/ui/home/vista/examen/widget/formheroes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:exa_gammer_movil/controllers/examen_controller.dart';
@@ -252,7 +252,18 @@ class _AddExamenState extends State<AddExamen> {
 
                             if (JuegoSeleccionado.value?.id == 1) {
                               datos = ahorcadoFormKey.currentState?.getData();
-                              if (datos == null) return;
+                              if (datos == null ||
+                                  datos['listaAhorcado'].length < 5) {
+                                Get.snackbar(
+                                  'Error',
+                                  'Debe agregar al menos 5 palabras.',
+                                  snackPosition: SnackPosition.BOTTOM,
+                                  backgroundColor: Colors.red[100],
+                                  colorText: Colors.black,
+                                );
+
+                                return;
+                              }
                             }
                             if (JuegoSeleccionado.value?.id == 2) {
                               datos = heroesFormKey.currentState?.getData();

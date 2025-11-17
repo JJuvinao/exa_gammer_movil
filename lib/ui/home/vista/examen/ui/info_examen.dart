@@ -62,10 +62,7 @@ class _Info_ExamenState extends State<Info_Examen> {
         backgroundColor: Color(0xFF1a1a2e),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
-          side: BorderSide(
-            color: Colors.red.withOpacity(0.5),
-            width: 2,
-          ),
+          side: BorderSide(color: Colors.red.withOpacity(0.5), width: 2),
         ),
         title: Row(
           children: [
@@ -96,9 +93,7 @@ class _Info_ExamenState extends State<Info_Examen> {
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(false),
-            style: TextButton.styleFrom(
-              foregroundColor: Colors.grey[400],
-            ),
+            style: TextButton.styleFrom(foregroundColor: Colors.grey[400]),
             child: const Text('Cancelar'),
           ),
           Container(
@@ -177,10 +172,7 @@ class _Info_ExamenState extends State<Info_Examen> {
         flexibleSpace: Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [
-                Color(0xFF1a1a2e),
-                Color(0xFF16213e),
-              ],
+              colors: [Color(0xFF1a1a2e), Color(0xFF16213e)],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
@@ -196,11 +188,7 @@ class _Info_ExamenState extends State<Info_Examen> {
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [
-              Color(0xFF0a0a14),
-              Color(0xFF16213e),
-              Color(0xFF0a0a14),
-            ],
+            colors: [Color(0xFF0a0a14), Color(0xFF16213e), Color(0xFF0a0a14)],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),
@@ -215,10 +203,7 @@ class _Info_ExamenState extends State<Info_Examen> {
                 padding: const EdgeInsets.all(24),
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
-                    colors: [
-                      Color(0xFF1a1a2e),
-                      Color(0xFF16213e),
-                    ],
+                    colors: [Color(0xFF1a1a2e), Color(0xFF16213e)],
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                   ),
@@ -278,10 +263,7 @@ class _Info_ExamenState extends State<Info_Examen> {
                           fontFamily: "TitanOne",
                           color: Colors.white,
                           shadows: [
-                            Shadow(
-                              color: Color(0xFF00F0FF),
-                              blurRadius: 15,
-                            ),
+                            Shadow(color: Color(0xFF00F0FF), blurRadius: 15),
                           ],
                         ),
                         textAlign: TextAlign.center,
@@ -351,10 +333,7 @@ class _Info_ExamenState extends State<Info_Examen> {
                         icon: Icons.edit_rounded,
                         label: "Editar",
                         gradient: LinearGradient(
-                          colors: [
-                            Color(0xFF00F0FF),
-                            Color(0xFF00FF41),
-                          ],
+                          colors: [Color(0xFF00F0FF), Color(0xFF00FF41)],
                         ),
                         glowColor: Color(0xFF00F0FF),
                         onPressed: _editarExamen,
@@ -368,10 +347,7 @@ class _Info_ExamenState extends State<Info_Examen> {
                         icon: Icons.delete_rounded,
                         label: "Eliminar",
                         gradient: LinearGradient(
-                          colors: [
-                            Colors.red.shade400,
-                            Colors.red.shade600,
-                          ],
+                          colors: [Colors.red.shade400, Colors.red.shade600],
                         ),
                         glowColor: Colors.red,
                         onPressed: _eliminarExamen,
@@ -389,8 +365,7 @@ class _Info_ExamenState extends State<Info_Examen> {
     );
   }
 
-  Widget _buildInfoRow(
-      IconData icon, String label, String value, Color color) {
+  Widget _buildInfoRow(IconData icon, String label, String value, Color color) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -399,10 +374,7 @@ class _Info_ExamenState extends State<Info_Examen> {
           decoration: BoxDecoration(
             color: color.withOpacity(0.2),
             borderRadius: BorderRadius.circular(10),
-            border: Border.all(
-              color: color.withOpacity(0.5),
-              width: 1.5,
-            ),
+            border: Border.all(color: color.withOpacity(0.5), width: 1.5),
           ),
           child: Icon(icon, color: color, size: 20),
         ),
@@ -547,8 +519,11 @@ class _Info_ExamenState extends State<Info_Examen> {
                     ),
                   ],
                 ),
-                child:
-                    Icon(Icons.description_rounded, color: Colors.black, size: 20),
+                child: Icon(
+                  Icons.description_rounded,
+                  color: Colors.black,
+                  size: 20,
+                ),
               ),
               const SizedBox(width: 12),
               Text(

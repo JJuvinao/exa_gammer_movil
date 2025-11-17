@@ -1,5 +1,4 @@
 import 'package:exa_gammer_movil/controllers/user_controller.dart';
-import 'package:exa_gammer_movil/ui/course/courseView.dart';
 import 'package:exa_gammer_movil/ui/home/vista/clase/clase_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -8,7 +7,6 @@ import 'package:exa_gammer_movil/ui/dialogs/dialogo_ingresar_clase.dart';
 import 'package:exa_gammer_movil/ui/home/buscar.dart';
 import 'package:exa_gammer_movil/ui/home/inicio_sesion/diseologin.dart';
 import 'package:exa_gammer_movil/ui/home/profesor/Home_Profesor/widgets_home_profesor/logout_dialog.dart';
-
 
 class HomeEstudiante extends StatefulWidget {
   HomeEstudiante({super.key});
@@ -56,11 +54,7 @@ class _HomeEstudianteState extends State<HomeEstudiante> {
         body: Container(
           decoration: const BoxDecoration(
             gradient: LinearGradient(
-              colors: [
-                Color(0xFF0a0a14),
-                Color(0xFF16213e),
-                Color(0xFF0a0a14),
-              ],
+              colors: [Color(0xFF0a0a14), Color(0xFF16213e), Color(0xFF0a0a14)],
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
             ),
@@ -118,10 +112,7 @@ class _HomeEstudianteState extends State<HomeEstudiante> {
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [
-            Color(0xFF1a1a2e),
-            Color(0xFF16213e),
-          ],
+          colors: [Color(0xFF1a1a2e), Color(0xFF16213e)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -155,10 +146,7 @@ class _HomeEstudianteState extends State<HomeEstudiante> {
                 ),
               ],
             ),
-            child: Image.asset(
-              'assets/imagen/logo_exa.png',
-              height: 50,
-            ),
+            child: Image.asset('assets/imagen/logo_exa.png', height: 50),
           ),
           const SizedBox(width: 16),
 
@@ -227,12 +215,7 @@ class _HomeEstudianteState extends State<HomeEstudiante> {
             fontSize: 20,
             fontWeight: FontWeight.bold,
             color: Color(0xFF00F0FF),
-            shadows: [
-              Shadow(
-                color: Color(0xFF00F0FF),
-                blurRadius: 10,
-              ),
-            ],
+            shadows: [Shadow(color: Color(0xFF00F0FF), blurRadius: 10)],
           ),
         ),
         const SizedBox(width: 8),
@@ -276,10 +259,7 @@ class _HomeEstudianteState extends State<HomeEstudiante> {
         height: 120,
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [
-              Color(0xFF1a1a2e),
-              Color(0xFF16213e),
-            ],
+            colors: [Color(0xFF1a1a2e), Color(0xFF16213e)],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -309,9 +289,7 @@ class _HomeEstudianteState extends State<HomeEstudiante> {
                       clase.img,
                       fit: BoxFit.cover,
                       errorBuilder: (context, error, stackTrace) {
-                        return Container(
-                          color: Color(0xFF16213e),
-                        );
+                        return Container(color: Color(0xFF16213e));
                       },
                     ),
                   ),
@@ -480,10 +458,7 @@ class _HomeEstudianteState extends State<HomeEstudiante> {
           const SizedBox(height: 8),
           Text(
             'Únete a una clase usando el código',
-            style: TextStyle(
-              fontSize: 14,
-              color: Colors.grey[500],
-            ),
+            style: TextStyle(fontSize: 14, color: Colors.grey[500]),
           ),
         ],
       ),

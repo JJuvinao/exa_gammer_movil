@@ -64,7 +64,10 @@ class _DetalleClase_EstuState extends State<DetalleClase_Estu> {
                   fontSize: 18,
                 ),
               ),
-              onTap: () => Get.to(() => ExamenView(vista: "Examen")),
+              onTap: () => {
+                examenController.saveExamen(actividad),
+                Get.to(() => ExamenView(vista: "Examen")),
+              },
               subtitle: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

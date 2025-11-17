@@ -2,12 +2,14 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:exa_gammer_movil/controllers/examen_controller.dart';
 import 'package:exa_gammer_movil/controllers/user_controller.dart';
 import 'package:exa_gammer_movil/models/examen_model.dart';
+import 'package:exa_gammer_movil/ui/home/vista/examen/widget/listPalab_Res.dart';
+import 'package:exa_gammer_movil/ui/home/vista/examen/widget/listPregun_Res.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 class CalificarExam extends StatefulWidget {
-  final dynamic resultado;
+  final Estudi_Resultados resultado;
 
   const CalificarExam({super.key, required this.resultado});
 
@@ -21,13 +23,26 @@ class _CalificarExamState extends State<CalificarExam> {
   final _formKey = GlobalKey<FormState>();
   final ExamenController exacontroller = Get.find();
   final UserController user = Get.find();
-  var examen = Ahorcado(palabra: "", pista: "");
+  List<Heroes> listher = [];
+  List<Ahorcado> listahorcado = [];
 
   bool editar = false;
   @override
   void initState() {
     super.initState();
-    examen = exacontroller.getcontextahorcado;
+    if (exacontroller.getexamen.id_juego == 2) {
+      cargarListaHeroes();
+    } else {
+      cargarListaAhorcado();
+    }
+  }
+
+  void cargarListaHeroes() {
+    listher = exacontroller.getcontextheroes;
+  }
+
+  void cargarListaAhorcado() {
+    listahorcado = exacontroller.getcontextahorcadoList;
   }
 
   @override
@@ -96,25 +111,32 @@ class _CalificarExamState extends State<CalificarExam> {
                           ),
 
                           const SizedBox(height: 16),
-
-                          _buildInfoCard(
-                            title: "Resultados:",
-                            body: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text("Palabra: ${examen.palabra}"),
-                                SizedBox(height: 6),
-                                Text("Pista: ${examen.pista}"),
-                                SizedBox(height: 6),
-                                Text(
-                                  "Aciertos: ${widget.resultado.aciertos}   |   Intentos: ${widget.resultado.intentos}",
+                          exacontroller.getexamen.id_juego == 2
+                              ? ListPregunta_Respuesta(
+                                  respuestas: widget.resultado.resultados
+                                      .map(
+                                        (resp) => Respuestas_Heroes(
+                                          id_pregunta: resp['Id_Pregunta'],
+                                          respuesta: resp['Respuesta'],
+                                        ),
+                                      )
+                                      .toList(),
+                                  heroes: listher,
+                                )
+                              : ListPalabra_Respuesta(
+                                  respuestas: widget.resultado.resultados
+                                      .map(
+                                        (resp) => Respuestas_Ahorcado(
+                                          id_palabra: resp['Id_Palabra'],
+                                          intentos: resp['Intentos'],
+                                          fallos: resp['Fallos'],
+                                          aciertos: resp['Aciertos'],
+                                          acerto: resp['Acerto'],
+                                        ),
+                                      )
+                                      .toList(),
+                                  ahorcado: listahorcado,
                                 ),
-                                SizedBox(height: 6),
-                                Text("Fallos: ${widget.resultado.fallos}"),
-                              ],
-                            ),
-                          ),
-
                           const SizedBox(height: 16),
 
                           _buildInfoCard(
@@ -167,8 +189,12 @@ class _CalificarExamState extends State<CalificarExam> {
                             body: TextFormField(
                               controller: recomendacionController,
                               enabled: editar,
-                              decoration: const InputDecoration(
-                                hintText: "Escribe tu recomendación...",
+                              decoration: InputDecoration(
+                                hintText:
+                                    (widget.resultado.recomendacion == null ||
+                                        widget.resultado.recomendacion!.isEmpty)
+                                    ? "Escribe tu recomendación..."
+                                    : widget.resultado.recomendacion,
                                 border: OutlineInputBorder(),
                               ),
                               minLines: 4,

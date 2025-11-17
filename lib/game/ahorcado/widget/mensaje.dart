@@ -1,4 +1,6 @@
+import 'package:exa_gammer_movil/ui/home/vista/examen/examen_view.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class Mensaje extends StatelessWidget {
   final Map<String, dynamic> resultados;
@@ -45,7 +47,7 @@ class Mensaje extends StatelessWidget {
       actions: [
         const SizedBox(width: 10),
         TextButton(
-          onPressed: () => Navigator.pop(context),
+          onPressed: () => Get.off(() => ExamenView(vista: "Examen")),
           child: const Text("Aceptar"),
         ),
       ],

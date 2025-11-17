@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 class MainView extends StatefulWidget {
   final String vista;
   const MainView({super.key, required this.vista});
-  
+
   @override
   State<MainView> createState() => _MainViewState();
 }
@@ -26,10 +26,7 @@ class _MainViewState extends State<MainView> {
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [
-              Color(0xFF1a1a2e),
-              Color(0xFF0f0f1e),
-            ],
+            colors: [Color(0xFF1a1a2e), Color(0xFF0f0f1e)],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),
@@ -89,9 +86,7 @@ class _MainViewState extends State<MainView> {
                 ),
               ],
             ),
-            unselectedIconTheme: IconThemeData(
-              size: 24,
-            ),
+            unselectedIconTheme: IconThemeData(size: 24),
             items: _navBarItems.map((item) {
               final isSelected = _navBarItems.indexOf(item) == _currentIndex;
               return BottomNavigationBarItem(
@@ -126,10 +121,7 @@ class _MainViewState extends State<MainView> {
                       ],
                     ),
                     borderRadius: BorderRadius.circular(12),
-                    border: Border.all(
-                      color: Color(0xFF00F0FF),
-                      width: 2,
-                    ),
+                    border: Border.all(color: Color(0xFF00F0FF), width: 2),
                     boxShadow: [
                       BoxShadow(
                         color: Color(0xFF00F0FF).withOpacity(0.4),
@@ -138,7 +130,7 @@ class _MainViewState extends State<MainView> {
                       ),
                     ],
                   ),
-                  child: item.activeIcon ?? item.icon,
+                  child: item.activeIcon,
                 ),
                 label: item.label,
               );
