@@ -16,20 +16,20 @@ class ListaHeroesView extends StatelessWidget {
       itemBuilder: (context, index) {
         final hero = heroesList[index];
         return Card(
-          margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+          margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),
           child: ListTile(
-            title: Text('Pregunta ${index + 1}: ${hero.pregunta}'),
+            title: Text('Pregunta: ${hero.pregunta}'),
             subtitle: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text('Respuesta correcta: ${hero.respuesta}'),
                 const SizedBox(height: 8),
-                Text('Opción A: ${hero.respuestaf1}'),
-                Text('Opción B: ${hero.respuestaf2}'),
-                Text('Opción C: ${hero.respuestaf3}'),
+                Text('Respuesta Incorrecta 1: ${hero.respuestaf1}'),
+                Text('Respuesta Incorrecta 2: ${hero.respuestaf2}'),
+                Text('Respuesta Incorrecta 3: ${hero.respuestaf3}'),
               ],
             ),
           ),

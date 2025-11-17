@@ -1,8 +1,10 @@
+import 'package:exa_gammer_movil/controllers/user_controller.dart';
 import 'package:exa_gammer_movil/game/heroes/animation/recibirdanio.dart';
 import 'package:exa_gammer_movil/game/heroes/controller/animation_controller.dart';
 import 'package:exa_gammer_movil/game/heroes/controller/heroe_controller.dart';
 import 'package:exa_gammer_movil/game/heroes/widget/ataques.dart';
 import 'package:exa_gammer_movil/game/heroes/widget/barras_vida.dart';
+import 'package:exa_gammer_movil/game/heroes/widget/mensaje.dart';
 import 'package:exa_gammer_movil/game/heroes/widget/pregunta.dart';
 import 'package:exa_gammer_movil/game/heroes/widget/rendirse.dart';
 import 'package:exa_gammer_movil/ui/home/vista/examen/examen_view.dart';
@@ -23,6 +25,7 @@ class Escenario extends StatefulWidget {
 class _EscenarioState extends State<Escenario> {
   final HeroeController controller = Get.find<HeroeController>();
   final AnimacionController animController = Get.find<AnimacionController>();
+  final UserController userController = Get.find<UserController>();
   var enemyImage = "";
   var heroeImage = "";
   bool showAttackMenu = false;
@@ -132,12 +135,7 @@ class _EscenarioState extends State<Escenario> {
   void showResponder() async {
     setState(() => showAttackMenu = false);
 
-    await Get.to(
-      PreguntaDialog(
-        questionText:
-            '¿Cuál de las siguientes estructuras de control en Python se utiliza para ejecutar un bloque de código repetidamente mientras una condición sea verdadera?',
-      ),
-    );
+    await Get.to(() => PreguntaDialog());
     setState(() {
       mostrarMensaje = true;
       accionEnProgreso = true;
@@ -175,35 +173,24 @@ class _EscenarioState extends State<Escenario> {
         }
       });
     }
-    //setState(() => respuesta = false);
-    if (controller.npc.value.vida! <= 0) {
-      Get.defaultDialog(
-        title: "¡Victoria! 🎉",
-        middleText: "Has derrotado al enemigo",
-        confirm: ElevatedButton(
-          onPressed: () {
-            Get.back();
-            controller.restablecer();
-            setState(() {});
-          },
-          child: Text("Reiniciar combate"),
-        ),
+    Future.delayed(const Duration(milliseconds: 1000), () {
+      var mensaje = calcularMensaje(
+        vidapj: controller.pj.value.vida,
+        vidanpc: controller.npc.value.vida,
+        vacia: controller.preguntasVacias(),
       );
-    }
-    if (controller.pj.value.vida! <= 0) {
-      Get.defaultDialog(
-        title: "Derrota 💀",
-        middleText: "Tu personaje ha sido derrotado",
-        confirm: ElevatedButton(
-          onPressed: () {
-            Get.back();
-            controller.restablecer();
-            setState(() {});
-          },
-          child: Text("Reiniciar combate"),
-        ),
+      mostarmensaje(
+        titulo: mensaje["titulo"],
+        mensaje: mensaje["mensaje"],
+        onConfirm: () {
+          controller.restablecer();
+        },
       );
-    }
+
+      if (controller.preguntasVacias()) {
+        controller.saveResultado();
+      }
+    });
   }
 
   void showSurrenderDialog() {
@@ -256,8 +243,8 @@ class _EscenarioState extends State<Escenario> {
                   right: 30,
                   child: Obx(
                     () => LifeBar(
-                      currentHp: controller.npc.value.vida!.toDouble(),
-                      maxHp: 300,
+                      currentHp: controller.npc.value.vida.toDouble(),
+                      maxHp: controller.vidaNpc.toDouble(),
                       width: 250,
                       height: 25,
                     ),
@@ -269,8 +256,8 @@ class _EscenarioState extends State<Escenario> {
                   left: 30,
                   child: Obx(
                     () => LifeBar(
-                      currentHp: controller.pj.value.vida!.toDouble(),
-                      maxHp: 300,
+                      currentHp: controller.pj.value.vida.toDouble(),
+                      maxHp: controller.vidaPj.toDouble(),
                       width: 250,
                       height: 25,
                     ),
@@ -284,7 +271,7 @@ class _EscenarioState extends State<Escenario> {
                   child: AnimatedBattleCharacter(
                     imagePath: heroeImage,
                     recibioDanio: personajeRecibioDanio,
-                    estaMuerto: controller.displayPj.vida! <= 0,
+                    estaMuerto: controller.displayPj.vida <= 0,
                   ),
                 ),
 
@@ -295,7 +282,7 @@ class _EscenarioState extends State<Escenario> {
                   child: AnimatedBattleCharacter(
                     imagePath: enemyImage,
                     recibioDanio: npcRecibioDanio,
-                    estaMuerto: controller.displayNpc.vida! <= 0,
+                    estaMuerto: controller.displayNpc.vida <= 0,
                   ),
                 ),
                 //mensaje de respuesta

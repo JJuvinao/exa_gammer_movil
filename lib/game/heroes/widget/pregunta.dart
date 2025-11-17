@@ -1,21 +1,35 @@
 import 'package:exa_gammer_movil/game/heroes/controller/heroe_controller.dart';
+import 'package:exa_gammer_movil/game/heroes/controller/pregunta_controller.dart';
+import 'package:exa_gammer_movil/models/examen_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class PreguntaDialog extends StatefulWidget {
-  final String questionText;
-
-  const PreguntaDialog({Key? key, required this.questionText})
-    : super(key: key);
+  const PreguntaDialog({Key? key});
 
   @override
   State<PreguntaDialog> createState() => _PreguntaDialogState();
 }
 
 class _PreguntaDialogState extends State<PreguntaDialog> {
+  late final PreguntaController preguntaController;
   final String backgroundImage = "assets/fondo/cieloazul.jpg";
-  final options = ["if", "while", "for", "switch"];
+  late final Heroes hero;
+  List<String> get options =>
+      [hero.respuesta, hero.respuestaf1, hero.respuestaf2, hero.respuestaf3]
+        ..shuffle();
   final HeroeController controller = Get.find<HeroeController>();
+
+  @override
+  void initState() {
+    super.initState();
+    preguntaController = Get.find<PreguntaController>();
+    cargarPreguntas();
+  }
+
+  void cargarPreguntas() {
+    hero = preguntaController.obtenerPregunta();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -75,18 +89,35 @@ class _PreguntaDialogState extends State<PreguntaDialog> {
                     ),
                     const SizedBox(height: 12),
 
-                    Flexible(
-                      child: Text(
-                        widget.questionText,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          decoration: TextDecoration.none,
-                          fontSize: questionTextSize,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.black87,
-                        ),
-                      ),
-                    ),
+                    hero.codigo_exa == '0'
+                        ? Container(
+                            padding: const EdgeInsets.all(6),
+                            decoration: BoxDecoration(
+                              color: Colors.orangeAccent,
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Text(
+                              "No hay más preguntas disponibles",
+                              style: const TextStyle(
+                                decoration: TextDecoration.none,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.white,
+                              ),
+                            ),
+                          )
+                        : Flexible(
+                            child: Text(
+                              hero.pregunta,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                decoration: TextDecoration.none,
+                                fontSize: questionTextSize,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.black87,
+                              ),
+                            ),
+                          ),
                     const SizedBox(height: 12),
 
                     Expanded(

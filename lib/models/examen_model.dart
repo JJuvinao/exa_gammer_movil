@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class Examen {
   final int id;
   final String nombre;
@@ -37,13 +39,25 @@ class Examen {
 }
 
 class Ahorcado {
+  final int id;
   final String palabra;
   final String pista;
+  final String codigo_exa;
 
-  Ahorcado({required this.palabra, required this.pista});
+  Ahorcado({
+    required this.id,
+    required this.palabra,
+    required this.pista,
+    required this.codigo_exa,
+  });
 
   factory Ahorcado.fromjson(Map<String, dynamic> json) {
-    return Ahorcado(palabra: json["palabra"], pista: json["pista"]);
+    return Ahorcado(
+      id: json["id"],
+      palabra: json["palabra"],
+      pista: json["pista"],
+      codigo_exa: json["codigo_Exa"],
+    );
   }
 }
 
@@ -79,13 +93,92 @@ class Heroes {
   }
 }
 
+class Respuestas_Heroes {
+  final int id_pregunta;
+  final String respuesta;
+  Respuestas_Heroes({required this.id_pregunta, required this.respuesta});
+  Map<String, dynamic> toJson() {
+    return {'Id_Pregunta': id_pregunta, 'Respuesta': respuesta};
+  }
+
+  factory Respuestas_Heroes.fromjson(Map<String, dynamic> json) {
+    return Respuestas_Heroes(
+      id_pregunta: json["Id_Pregunta"],
+      respuesta: json["Respuesta"],
+    );
+  }
+}
+
+class Preguntas_Respuestas {
+  final String pregunta;
+  final String respuestaV;
+  final String respuesta;
+
+  Preguntas_Respuestas({
+    required this.pregunta,
+    required this.respuestaV,
+    required this.respuesta,
+  });
+}
+
+class Resultado_Ahorcado {
+  final String palabra;
+  final String pista;
+  final int intentos;
+  final int fallos;
+  final int aciertos;
+  final bool acerto;
+
+  Resultado_Ahorcado({
+    required this.palabra,
+    required this.pista,
+    required this.intentos,
+    required this.fallos,
+    required this.aciertos,
+    required this.acerto,
+  });
+}
+
+class Respuestas_Ahorcado {
+  final int id_palabra;
+  final int intentos;
+  final int fallos;
+  final int aciertos;
+  final bool acerto;
+
+  Respuestas_Ahorcado({
+    required this.id_palabra,
+    required this.intentos,
+    required this.fallos,
+    required this.aciertos,
+    required this.acerto,
+  });
+  Map<String, dynamic> toJson() {
+    return {
+      'Id_Palabra': id_palabra,
+      'Intentos': intentos,
+      'Fallos': fallos,
+      'Aciertos': aciertos,
+      'Acerto': acerto,
+    };
+  }
+
+  factory Respuestas_Ahorcado.fromjson(Map<String, dynamic> json) {
+    return Respuestas_Ahorcado(
+      id_palabra: json["Id_Palabra"],
+      intentos: json["Intentos"],
+      fallos: json["Fallos"],
+      aciertos: json["Aciertos"],
+      acerto: json["Acerto"],
+    );
+  }
+}
+
 class Resultados {
   final int id;
   final int id_Estudiane;
   final int id_Examen;
-  final int intentos;
-  final int aciertos;
-  final int fallos;
+  final List<dynamic> resultados;
   final double? nota;
   final String? recomendacion;
 
@@ -93,9 +186,7 @@ class Resultados {
     required this.id,
     required this.id_Estudiane,
     required this.id_Examen,
-    required this.intentos,
-    required this.aciertos,
-    required this.fallos,
+    required this.resultados,
     this.nota,
     this.recomendacion,
   });
@@ -105,9 +196,7 @@ class Resultados {
       id: json["id"],
       id_Estudiane: json["id_Estudiane"],
       id_Examen: json["id_Examen"],
-      intentos: json["intentos"],
-      aciertos: json["aciertos"],
-      fallos: json["fallos"],
+      resultados: jsonDecode(json["resultado"]),
       nota: (json['nota'] as num?)?.toDouble(),
       recomendacion: json["recomendacion"],
     );
@@ -118,9 +207,7 @@ class Resultados {
       'Id': id,
       'Id_Estudiane': id_Estudiane,
       'Id_Examen': id_Examen,
-      'Intentos': intentos,
-      'Aciertos': aciertos,
-      'Fallos': fallos,
+      'Resultados': resultados,
       'Nota': nota,
       'Recomendacion': recomendacion,
     };
@@ -134,9 +221,7 @@ class Estudi_Resultados {
   final String correo;
   final String img;
   final int id_Examen;
-  final int intentos;
-  final int aciertos;
-  final int fallos;
+  final List<dynamic> resultados;
   final double? nota;
   final String? recomendacion;
 
@@ -147,9 +232,7 @@ class Estudi_Resultados {
     required this.correo,
     required this.img,
     required this.id_Examen,
-    required this.intentos,
-    required this.aciertos,
-    required this.fallos,
+    required this.resultados,
     this.nota,
     this.recomendacion,
   });
