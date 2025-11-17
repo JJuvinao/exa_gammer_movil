@@ -1,17 +1,17 @@
-import 'package:exa_gammer_movil/controllers/examen_controller.dart';
 import 'package:exa_gammer_movil/models/user_model.dart';
 import 'package:exa_gammer_movil/ui/home/vista/examen/widget/listPalab_Res.dart';
 import 'package:exa_gammer_movil/ui/home/vista/examen/widget/listPregun_Res.dart';
+import 'package:exa_gammer_movil/ui/home/vista/examen/widget/validarresultados.dart';
 import 'package:flutter/material.dart';
 import 'package:exa_gammer_movil/models/examen_model.dart';
-import 'package:get/get.dart';
 
 class ConteEstu extends StatefulWidget {
   final User user;
   final String token;
   final Examen examen;
-  final List<Heroes> listher; // Lista de héroes
-  final List<Ahorcado> listaAhorcado; // Lista de palabras del ahorcado
+  final List<Heroes> listher;
+  final List<Ahorcado> listaAhorcado;
+  final Resultados resultados;
 
   const ConteEstu({
     super.key,
@@ -20,6 +20,7 @@ class ConteEstu extends StatefulWidget {
     required this.examen,
     required this.listher,
     required this.listaAhorcado,
+    required this.resultados,
   });
 
   @override
@@ -27,41 +28,17 @@ class ConteEstu extends StatefulWidget {
 }
 
 class _ConteEstuState extends State<ConteEstu> {
-  late final ExamenController exacontroller;
-  Resultados resultados = Resultados(
-    id: 0,
-    id_Estudiane: 0,
-    id_Examen: 0,
-    resultados: [],
-  );
+  late Future<bool> _loadingFuture;
+
   @override
   void initState() {
     super.initState();
-    exacontroller = Get.find<ExamenController>();
-    cargarContenido();
+    _loadingFuture = _loadData();
   }
 
-  void cargarContenido() async {
-    try {
-      final r = await exacontroller.ResultadoEstudiante(
-        widget.user.id,
-        widget.examen.id,
-        widget.token,
-      );
-      setState(() {
-        resultados = Resultados(
-          id: r.id,
-          id_Estudiane: r.id_Estudiane,
-          id_Examen: r.id_Examen,
-          resultados: r.resultados,
-        );
-      });
-
-      print("resultados cargado: ${resultados.toJson()}");
-    } catch (e) {
-      print("Error cargando resultados: $e");
-      setState(() => {});
-    }
+  Future<bool> _loadData() async {
+    await Future.delayed(const Duration(seconds: 3));
+    return true;
   }
 
   @override
@@ -94,7 +71,7 @@ class _ConteEstuState extends State<ConteEstu> {
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
                 Text(
-                  resultados.nota?.toString() ?? "Sin nota",
+                  widget.resultados.nota?.toString() ?? "Sin nota",
                   style: const TextStyle(fontSize: 18),
                 ),
               ],
@@ -120,8 +97,8 @@ class _ConteEstuState extends State<ConteEstu> {
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  (resultados.recomendacion?.isNotEmpty ?? false)
-                      ? resultados.recomendacion!
+                  (widget.resultados.recomendacion?.isNotEmpty ?? false)
+                      ? widget.resultados.recomendacion!
                       : "No hay recomendación.",
                   style: const TextStyle(fontSize: 16),
                 ),
@@ -141,48 +118,46 @@ class _ConteEstuState extends State<ConteEstu> {
 
   // ================================
   Widget _buildHeroesSection() {
-    return widget.listher.isEmpty
-        ? const Center(
-            child: Padding(
-              padding: EdgeInsets.all(20),
-              child: CircularProgressIndicator(),
-            ),
-          )
-        : ListPregunta_Respuesta(
-            respuestas: resultados.resultados
-                .map(
-                  (resp) => Respuestas_Heroes(
-                    id_pregunta: resp['Id_Pregunta'],
-                    respuesta: resp['Respuesta'],
-                  ),
-                )
-                .toList(),
-            heroes: widget.listher,
-          );
+    return ContentValidator(
+      future: _loadingFuture,
+      data: widget.resultados.resultados,
+      builder: () {
+        return ListPregunta_Respuesta(
+          respuestas: widget.resultados.resultados
+              .map(
+                (resp) => Respuestas_Heroes(
+                  id_pregunta: resp['Id_Pregunta'],
+                  respuesta: resp['Respuesta'],
+                ),
+              )
+              .toList(),
+          heroes: widget.listher,
+        );
+      },
+    );
   }
 
   // ================================
   Widget _buildAhorcadoSection() {
-    return widget.listaAhorcado.isEmpty
-        ? const Center(
-            child: Padding(
-              padding: EdgeInsets.all(20),
-              child: CircularProgressIndicator(),
-            ),
-          )
-        : ListPalabra_Respuesta(
-            respuestas: resultados.resultados
-                .map(
-                  (resp) => Respuestas_Ahorcado(
-                    id_palabra: resp['Id_Palabra'],
-                    intentos: resp['Intentos'],
-                    fallos: resp['Fallos'],
-                    aciertos: resp['Aciertos'],
-                    acerto: resp['Acerto'],
-                  ),
-                )
-                .toList(),
-            ahorcado: widget.listaAhorcado,
-          );
+    return ContentValidator(
+      future: _loadingFuture,
+      data: widget.resultados.resultados,
+      builder: () {
+        return ListPalabra_Respuesta(
+          respuestas: widget.resultados.resultados
+              .map(
+                (resp) => Respuestas_Ahorcado(
+                  id_palabra: resp['Id_Palabra'],
+                  intentos: resp['Intentos'],
+                  fallos: resp['Fallos'],
+                  aciertos: resp['Aciertos'],
+                  acerto: resp['Acerto'],
+                ),
+              )
+              .toList(),
+          ahorcado: widget.listaAhorcado,
+        );
+      },
+    );
   }
 }

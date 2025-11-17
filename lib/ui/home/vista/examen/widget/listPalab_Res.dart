@@ -25,9 +25,6 @@ class _ListPalabra_RespuestaState extends State<ListPalabra_Respuesta> {
   }
 
   void cargarRespuestas() {
-    print("Cargando respuestas...");
-    print("Respuestas recibidas: ${widget.respuestas.length}");
-    print("Ahorcado recibido: ${widget.ahorcado.length}");
     for (var resp in widget.respuestas) {
       for (var ahor in widget.ahorcado) {
         if (resp.id_palabra == ahor.id) {

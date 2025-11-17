@@ -356,7 +356,11 @@ class ExamenController extends GetxController {
         print(res.statusCode);
       }
       final data = jsonDecode(res.body);
-      return Resultados.fromjson(data[0]);
+      if (data is List && data.isNotEmpty) {
+        return Resultados.fromjson(data[0]);
+      } else {
+        return Resultados(id: 0, id_Estudiane: 0, id_Examen: 0, resultados: []);
+      }
     } catch (e) {
       print('Error al cargar los resultados del estudiante: ${e.toString()}');
     }
