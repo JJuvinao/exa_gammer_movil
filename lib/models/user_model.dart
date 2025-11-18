@@ -22,8 +22,19 @@ class User {
       rol: json["rol"],
       email: json["correo"],
       img: json["imagen"],
-      premium: json["premium"],
+      premium: json["premium"] ?? false,
     );
+  }
+
+   Map<String, dynamic> toJson() {
+    return {
+      "id": id,
+      "nombre": username,
+      "rol": rol,
+      "correo": email,
+      "imagen": img ?? "",
+      "premium": premium ?? false,
+    };
   }
 }
 

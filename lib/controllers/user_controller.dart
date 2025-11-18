@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+
 class UserController extends GetxController {
   final _storageService = Get.find<StorageService>();
 
@@ -112,4 +113,37 @@ class UserController extends GetxController {
     }
     return false;
   }
+
+Future<bool> actualizarUsuario(User usuario) async {
+  const url = 'https://www.apiexagammer.somee.com/api/Usuarios/UpdateUser';
+
+  try {
+    print('📤 Enviando datos: ${usuario.toJson()}');
+    print('🔐 Token: $gettoken');
+
+    final res = await http.put(
+      Uri.parse(url),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $gettoken',
+      },
+      body: jsonEncode(usuario.toJson()),
+    );
+
+    print('📥 Código de respuesta: ${res.statusCode}');
+    print('📥 Respuesta del servidor: ${res.body}');
+
+    if (res.statusCode == 200) {
+      await _storageService.login(usuario, gettoken);
+      update();
+      return true;
+    } else {
+      print("❌ Error al actualizar: ${res.body}");
+      return false;
+    }
+  } catch (e) {
+    print("❗ Excepción al actualizar perfil: $e");
+    return false;
+  }
+}
 }
