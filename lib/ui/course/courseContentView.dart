@@ -127,7 +127,7 @@ class _QuestionsTab extends StatelessWidget {
                 ...pregunta.options.asMap().entries.map((entry) {
                   int idx = entry.key;
                   String option = entry.value;
-                  return RadioListTile<int>(title: Text(option), value: idx);
+                  return RadioListTile<int>(title: Text(option), value: idx, groupValue: null, onChanged: (int? value) {  },);
                 }),
               ],
             ),
