@@ -1,11 +1,13 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:exa_gammer_movil/controllers/examen_controller.dart';
 import 'package:exa_gammer_movil/controllers/user_controller.dart';
-import 'package:exa_gammer_movil/game/ahorcado/ahorcado_page.dart';
+import 'package:exa_gammer_movil/game/ahorcado/ui/ahorcado_page.dart';
+import 'package:exa_gammer_movil/game/heroes/controller/pregunta_controller.dart';
 import 'package:exa_gammer_movil/game/heroes/ui/personajes.dart';
 import 'package:exa_gammer_movil/models/examen_model.dart';
 import 'package:exa_gammer_movil/ui/home/vista/clase/clase_view.dart';
-import 'package:exa_gammer_movil/ui/home/vista/examen/listHeroes.dart';
+import 'package:exa_gammer_movil/ui/home/vista/examen/widget/conte_Estud.dart';
+import 'package:exa_gammer_movil/ui/home/vista/examen/widget/conte_Profe.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -19,36 +21,41 @@ class DetalleExamenPage extends StatefulWidget {
 class _DetalleExamenPageState extends State<DetalleExamenPage> {
   late final ExamenController pc;
   late final UserController user;
+  late final PreguntaController preguntaController;
 
   var examen;
-  Ahorcado ahorcado = Ahorcado(palabra: "", pista: "");
+  List<Ahorcado> listaahorcado = [];
   List<Heroes> listher = [];
+
+  Resultados resultados = Resultados(
+    id: 0,
+    id_Estudiane: 0,
+    id_Examen: 0,
+    resultados: [],
+  );
+
+  bool hayresultados = false;
 
   @override
   void initState() {
     super.initState();
     pc = Get.find();
     user = Get.find();
+    preguntaController = Get.find();
     examen = pc.getexamen;
 
     if (examen.id_juego == 2) {
       cargarListaHeroes();
     } else {
-      cargarContenido();
+      cargarListaAhorcado();
     }
+    cargarContenido();
   }
 
-  void cargarContenido() async {
-    var contenido = await pc.CargarContenido(
-      examen.id_juego,
-      user.gettoken,
-      examen.codigo,
-    );
+  void cargarListaAhorcado() async {
+    var list = await pc.listaAhorcados(examen.codigo, user.gettoken);
     setState(() {
-      if (examen.id_juego == 1) {
-        pc.saveContExaAhorcado(Ahorcado.fromjson(contenido));
-        ahorcado = Ahorcado.fromjson(contenido);
-      }
+      listaahorcado = list;
     });
   }
 
@@ -57,6 +64,34 @@ class _DetalleExamenPageState extends State<DetalleExamenPage> {
     setState(() {
       listher = list;
     });
+  }
+
+  void cargarContenido() async {
+    try {
+      final r = await pc.ResultadoEstudiante(
+        user.getuser.id,
+        examen.id,
+        user.gettoken,
+      );
+      setState(() {
+        resultados = Resultados(
+          id: r.id,
+          id_Estudiane: r.id_Estudiane,
+          id_Examen: r.id_Examen,
+          resultados: r.resultados,
+          nota: r.nota,
+          recomendacion: r.recomendacion,
+        );
+      });
+      if (resultados.id == 0) {
+        hayresultados = true;
+      } else {
+        hayresultados = false;
+      }
+    } catch (e) {
+      print("Error cargando resultados: $e");
+      setState(() => {});
+    }
   }
 
   @override
@@ -135,11 +170,38 @@ class _DetalleExamenPageState extends State<DetalleExamenPage> {
                                           MainAxisAlignment.center,
                                       children: [
                                         ElevatedButton(
-                                          onPressed: () {
-                                            Get.to(() => PersonajesPage());
-                                          },
+                                          onPressed: hayresultados == false
+                                              ? null
+                                              : () {
+                                                  if (examen.id_juego != 2) {
+                                                    Get.to(
+                                                      () => AhorcadoPage(
+                                                        ahorcados:
+                                                            listaahorcado,
+                                                        id_user:
+                                                            user.getuser.id,
+                                                        token: user.gettoken,
+                                                        id_examen: examen.id,
+                                                      ),
+                                                    );
+                                                    return;
+                                                  } else {
+                                                    preguntaController
+                                                        .cargarPreguntas(
+                                                          listher,
+                                                          user.getuser.id,
+                                                          user.gettoken,
+                                                          examen.id,
+                                                        );
+                                                    Get.to(
+                                                      () => PersonajesPage(),
+                                                    );
+                                                  }
+                                                },
                                           style: ElevatedButton.styleFrom(
-                                            backgroundColor: Colors.green,
+                                            backgroundColor: hayresultados
+                                                ? Colors.green
+                                                : Colors.grey,
                                             padding: const EdgeInsets.symmetric(
                                               vertical: 12,
                                               horizontal: 30,
@@ -163,47 +225,20 @@ class _DetalleExamenPageState extends State<DetalleExamenPage> {
                               ),
                             ),
 
-                            const SizedBox(height: 16),
-                            const Text(
-                              "Contenido del Examen",
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            const SizedBox(height: 16),
-                            // === CONTENIDO DEL EXAMEN ===
-                            examen.id_juego != 1
-                                ? (listher.isEmpty
-                                      ? const Center(
-                                          child: Padding(
-                                            padding: EdgeInsets.all(20),
-                                            child: CircularProgressIndicator(),
-                                          ),
-                                        )
-                                      : ListaHeroesView(heroesList: listher))
-                                : Card(
-                                    elevation: 3,
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(16),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          const Text(
-                                            "Contenido del Examen",
-                                            style: TextStyle(
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                          const SizedBox(height: 8),
-                                          Text("Palabra: ${ahorcado.palabra}"),
-                                          const SizedBox(height: 8),
-                                          Text("Pista: ${ahorcado.pista}"),
-                                        ],
-                                      ),
-                                    ),
+                            const SizedBox(height: 24),
+                            user.getuser.rol == "Profesor"
+                                ? ConteProfe(
+                                    examen: examen,
+                                    listher: listher,
+                                    listaAhorcado: listaahorcado,
+                                  )
+                                : ConteEstu(
+                                    user: user.getuser,
+                                    token: user.gettoken,
+                                    examen: examen,
+                                    listher: listher,
+                                    listaAhorcado: listaahorcado,
+                                    resultados: resultados,
                                   ),
                           ],
                         ),

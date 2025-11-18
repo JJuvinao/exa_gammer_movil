@@ -1,3 +1,5 @@
+import 'package:exa_gammer_movil/models/examen_model.dart';
+import 'package:exa_gammer_movil/ui/home/vista/examen/widget/listHeroes.dart';
 import 'package:flutter/material.dart';
 
 class HeroesForm extends StatefulWidget {
@@ -44,6 +46,20 @@ class HeroesFormState extends State<HeroesForm> {
 
   Map<String, dynamic>? getData() {
     return {'lispreheroe': _preguntas};
+  }
+
+  List<Heroes> getHeroesList() {
+    return _preguntas.map((pregunta) {
+      return Heroes(
+        id: 0,
+        pregunta: pregunta["Pregunta"]!,
+        respuesta: pregunta["RespuestaV"]!,
+        respuestaf1: pregunta["RespuestaF1"]!,
+        respuestaf2: pregunta["RespuestaF2"]!,
+        respuestaf3: pregunta["RespuestaF3"]!,
+        codigo_exa: '',
+      );
+    }).toList();
   }
 
   @override
@@ -177,32 +193,8 @@ class HeroesFormState extends State<HeroesForm> {
                     "No hay preguntas agregadas.",
                     style: TextStyle(color: Colors.grey),
                   ),
-                ..._preguntas.asMap().entries.map((entry) {
-                  final index = entry.key;
-                  final pregunta = entry.value;
-                  return Card(
-                    margin: const EdgeInsets.symmetric(vertical: 8),
-                    child: ListTile(
-                      title: Text("Pregunta #${index + 1}"),
-                      subtitle: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text("Pregunta: ${pregunta["Pregunta"]}"),
-                          Text("Respuesta Correcta: ${pregunta["RespuestaV"]}"),
-                          Text(
-                            "Respuesta Incorrecta 1: ${pregunta["RespuestaF1"]}",
-                          ),
-                          Text(
-                            "Respuesta Incorrecta 2: ${pregunta["RespuestaF2"]}",
-                          ),
-                          Text(
-                            "Respuesta Incorrecta 3: ${pregunta["RespuestaF3"]}",
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
-                }),
+                if (_preguntas.isNotEmpty)
+                  ListaHeroesView(heroesList: getHeroesList()),
               ],
             ),
           ),

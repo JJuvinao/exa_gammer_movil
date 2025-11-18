@@ -1,6 +1,7 @@
 import 'package:exa_gammer_movil/controllers/examen_controller.dart';
 import 'package:exa_gammer_movil/controllers/user_controller.dart';
-import 'package:exa_gammer_movil/ui/home/vista/examen/calificacion.dart';
+import 'package:exa_gammer_movil/models/examen_model.dart';
+import 'package:exa_gammer_movil/ui/home/vista/examen/ui/calificacion.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -14,7 +15,7 @@ class Resultados extends StatefulWidget {
 class _ResultadosState extends State<Resultados> {
   late final UserController user;
   late final ExamenController exam;
-  var resultados = <dynamic>[].obs;
+  var resultados = <Estudi_Resultados>[].obs;
 
   @override
   void initState() {

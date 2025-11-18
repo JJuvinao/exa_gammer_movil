@@ -1,9 +1,9 @@
 class Personaje {
-  final String? nombre;
-  final int? vida;
-  final int? defensa;
+  final String nombre;
+  final int vida;
+  final int danio;
 
-  Personaje({this.nombre, this.vida, this.defensa});
+  Personaje({this.nombre = "Same", this.vida = 300, this.danio = 50});
 
   set value(Personaje value) {}
 }

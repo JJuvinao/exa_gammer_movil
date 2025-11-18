@@ -6,14 +6,18 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class ExamenController extends GetxController {
-  var ExamenList = <Examen>[].obs;
-  var ResultadosList = <Resultados>[].obs;
-  var UserResult = <Userto>[].obs;
-  var HeroesList = <Heroes>[].obs;
+  var examenList = <Examen>[].obs;
+  var resultadosList = <Resultados>[].obs;
+  var userResult = <Userto>[].obs;
+  var heroesList = <Heroes>[].obs;
+  var ahorcadoList = <Ahorcado>[].obs;
+  var resultados;
   final _storageService = Get.find<StorageService>();
 
   Examen get getexamen => _storageService.displayExamen;
   Ahorcado get getcontextahorcado => _storageService.displayAhorcado;
+  List<Ahorcado> get getcontextahorcadoList => ahorcadoList.toList();
+  List<Heroes> get getcontextheroes => heroesList.toList();
 
   Future<void> saveExamen(Examen examen) async {
     await _storageService.saveExamen(examen);
@@ -28,31 +32,40 @@ class ExamenController extends GetxController {
   }
 
   void addExamen(Examen actividad) {
-    ExamenList.add(actividad);
-  }
-
-  void deleteExamen(int index) {
-    ExamenList.removeAt(index);
+    examenList.add(actividad);
   }
 
   void clearExamen() {
-    ExamenList.clear();
+    examenList.clear();
+  }
+
+  Future<dynamic> getResultado(int id_user, int id_examen, String token) async {
+    await ResultadoEstudiante(id_user, id_examen, token);
+    return resultados;
   }
 
   Future<List<Examen>> filteredList(int id, String token) async {
     await CargarExamenes(id, token);
-    if (ExamenList.isEmpty) {
+    if (examenList.isEmpty) {
       return [];
     }
-    return ExamenList;
+    return examenList;
   }
 
   Future<List<Heroes>> listaHeroes(String codigo, String token) async {
     await CargarHeroes(codigo, token);
-    if (HeroesList.isEmpty) {
+    if (heroesList.isEmpty) {
       return [];
     }
-    return HeroesList;
+    return heroesList;
+  }
+
+  Future<List<Ahorcado>> listaAhorcados(String codigo, String token) async {
+    await CargarAhorcados(token, codigo);
+    if (ahorcadoList.isEmpty) {
+      return [];
+    }
+    return ahorcadoList;
   }
 
   Future<List<Estudi_Resultados>> listresult(
@@ -62,31 +75,29 @@ class ExamenController extends GetxController {
   ) async {
     await Resultados_Estu(id_examen, token);
     await Estudiantes_Result(id_examen, token);
-    if (ResultadosList.isEmpty || UserResult.isEmpty) {
+    if (resultadosList.isEmpty || userResult.isEmpty) {
       return [];
     }
 
-    var Estu_Result = <Estudi_Resultados>[];
-    for (int i = 0; i < ResultadosList.length; i++) {
-      if (ResultadosList[i].id_Estudiane == UserResult[i].id) {
+    var estu_Result = <Estudi_Resultados>[];
+    for (int i = 0; i < resultadosList.length; i++) {
+      if (resultadosList[i].id_Estudiane == userResult[i].id) {
         var estu = Estudi_Resultados(
-          id: ResultadosList[i].id,
-          id_Estudiante: UserResult[i].id,
-          Nombre: UserResult[i].username,
-          correo: UserResult[i].email,
-          img: UserResult[i].img!,
-          id_Examen: ResultadosList[i].id_Examen,
-          intentos: ResultadosList[i].intentos,
-          aciertos: ResultadosList[i].aciertos,
-          fallos: ResultadosList[i].fallos,
-          nota: ResultadosList[i].nota,
-          recomendacion: ResultadosList[i].recomendacion,
+          id: resultadosList[i].id,
+          id_Estudiante: userResult[i].id,
+          Nombre: userResult[i].username,
+          correo: userResult[i].email,
+          img: userResult[i].img!,
+          id_Examen: resultadosList[i].id_Examen,
+          resultados: resultadosList[i].resultados,
+          nota: resultadosList[i].nota,
+          recomendacion: resultadosList[i].recomendacion,
         );
-        Estu_Result.add(estu);
+        estu_Result.add(estu);
       }
       ;
     }
-    return Estu_Result;
+    return estu_Result;
   }
 
   Future<void> CargarExamenes(int id, String token) async {
@@ -111,7 +122,7 @@ class ExamenController extends GetxController {
       for (var item in data) {
         _ExamenList.add(Examen.fromjson(item));
       }
-      ExamenList.value = _ExamenList;
+      examenList.value = _ExamenList;
     } catch (e) {
       print("ERROR DE LA CARGA DE EXAMENES ${e.toString()}");
     }
@@ -124,8 +135,7 @@ class ExamenController extends GetxController {
   ) async {
     String urls = '';
     var datos = {
-      'palabra': data['datos']['palabra'],
-      'pista': data['datos']['pista'],
+      'listaAhorcado': data['datos']['listaAhorcado'],
       'lispreheroe': data['datos']['lispreheroe'],
     };
     var datosExamen = {};
@@ -139,8 +149,7 @@ class ExamenController extends GetxController {
         'ImagenExamen': examen['ImagenExamen'],
         'Id_Clase': examen['Id_Clase'],
         'Id_Juego': examen['Id_Juego'],
-        'Palabra': datos['palabra'],
-        'Pista': datos['pista'],
+        'Palabras_Ahorcados': datos['listaAhorcado'],
       };
     }
     if (data['tipo'] == 'heroes') {
@@ -156,6 +165,7 @@ class ExamenController extends GetxController {
         'Heroes': datos['lispreheroe'],
       };
     }
+    print("los datos del examen son: $datosExamen");
     try {
       final url = Uri.parse(urls);
 
@@ -203,45 +213,36 @@ class ExamenController extends GetxController {
       for (var item in data) {
         heroeList.add(Heroes.fromjson(item));
       }
-      HeroesList.value = heroeList;
+      heroesList.value = heroeList;
     } catch (e) {
       print("ERROR EN CARGAR HEROES ${e.toString()}");
     }
   }
 
-  Future<dynamic> CargarContenido(
-    int id_juego,
-    String token,
-    String codigo,
-  ) async {
-    String urls = '';
-    if (id_juego == 1) {
-      urls =
-          "https://www.apiexagammer.somee.com/api/Examenes/GetAhorcado/${codigo}";
-    } else {
-      urls =
-          "https://www.apiexagammer.somee.com/api/Examenes/GetHeroes/${codigo}";
-    }
-
+  Future<void> CargarAhorcados(String token, String codigo) async {
     try {
-      final url = Uri.parse(urls);
+      final url = Uri.parse(
+        "https://www.apiexagammer.somee.com/api/Examenes/GetConte_Ahorcado/${codigo}",
+      );
 
       final res = await http.get(
         url,
-        headers: {
-          'Authorization': 'Bearer ${token}',
-          'Content-Type': 'application/json',
-        },
+        headers: {'Authorization': 'Bearer ${token}'},
       );
 
       if (res.statusCode != 200) {
         print(res.statusCode);
         print(res.body);
+        return;
       }
       final data = jsonDecode(res.body);
-      return data;
+      List<Ahorcado> ahorcados = [];
+      for (var item in data) {
+        ahorcados.add(Ahorcado.fromjson(item));
+      }
+      ahorcadoList.value = ahorcados;
     } catch (e) {
-      print("ERROR EN CARGAR CONTENIDO ${e.toString()}");
+      print("ERROR EN CARGAR AHORCADOS ${e.toString()}");
     }
   }
 
@@ -266,9 +267,11 @@ class ExamenController extends GetxController {
       for (var item in data) {
         resulList.add(Resultados.fromjson(item));
       }
-      ResultadosList.value = resulList;
+      resultadosList.value = resulList;
     } catch (e) {
-      print('Error al cargar el contenido del examen: ${e.toString()}');
+      print(
+        'Error al cargar los resultados de los estudiantes: ${e.toString()}',
+      );
     }
   }
 
@@ -293,9 +296,9 @@ class ExamenController extends GetxController {
       for (var item in data) {
         resulList.add(Userto.fromjson(item));
       }
-      UserResult.value = resulList;
+      userResult.value = resulList;
     } catch (e) {
-      print('Error al guardar el examen: ${e.toString()}');
+      print('Error al cargar los estudiantes del examen: ${e.toString()}');
     }
   }
 
@@ -322,6 +325,65 @@ class ExamenController extends GetxController {
       }
     } catch (e) {
       print('Error al calificar el examen: ${e.toString()}');
+    }
+    return false;
+  }
+
+  Future<Resultados> ResultadoEstudiante(
+    int id_user,
+    int id_examen,
+    String token,
+  ) async {
+    try {
+      var datos = {"id_Estudiane": id_user, "id_Examen": id_examen};
+      final url = Uri.parse(
+        'https://www.apiexagammer.somee.com/api/Estudi_Examen/get_estu_exa',
+      );
+
+      final res = await http.post(
+        url,
+        headers: {
+          'Authorization': 'Bearer ${token}',
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode(datos),
+      );
+      if (res.statusCode != 200) {
+        print(res.statusCode);
+      }
+      final data = jsonDecode(res.body);
+      if (data is List && data.isNotEmpty) {
+        return Resultados.fromjson(data[0]);
+      } else {
+        return Resultados(id: 0, id_Estudiane: 0, id_Examen: 0, resultados: []);
+      }
+    } catch (e) {
+      print('Error al cargar los resultados del estudiante: ${e.toString()}');
+    }
+    return Resultados(id: 0, id_Estudiane: 0, id_Examen: 0, resultados: []);
+  }
+
+  Future<bool> DeleteExamen(int id_Examen, String token) async {
+    try {
+      final url = Uri.parse(
+        'https://www.apiexagammer.somee.com/api/Examenes/$id_Examen',
+      );
+
+      final res = await http.delete(
+        url,
+        headers: {
+          'Authorization': 'Bearer $token',
+          'Content-Type': 'application/json',
+        },
+      );
+      print(res.statusCode);
+      if (res.statusCode != 204 && res.statusCode != 200) {
+        return false;
+      }
+
+      return true;
+    } catch (e) {
+      print("ERROR AL ELIMINAR EXAMEN ${e.toString()}");
     }
     return false;
   }

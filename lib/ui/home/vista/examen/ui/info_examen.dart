@@ -1,5 +1,6 @@
 import 'package:exa_gammer_movil/controllers/examen_controller.dart';
 import 'package:exa_gammer_movil/controllers/user_controller.dart';
+import 'package:exa_gammer_movil/ui/home/vista/clase/clase_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -40,7 +41,6 @@ class _Info_ExamenState extends State<Info_Examen> {
   }
 
   void _editarExamen() {
-    // TODO: Implementar lógica para editar examen
     Get.snackbar(
       '✏️ Editar Examen',
       'Función en desarrollo',
@@ -62,10 +62,7 @@ class _Info_ExamenState extends State<Info_Examen> {
         backgroundColor: Color(0xFF1a1a2e),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
-          side: BorderSide(
-            color: Colors.red.withOpacity(0.5),
-            width: 2,
-          ),
+          side: BorderSide(color: Colors.red.withOpacity(0.5), width: 2),
         ),
         title: Row(
           children: [
@@ -96,9 +93,7 @@ class _Info_ExamenState extends State<Info_Examen> {
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(false),
-            style: TextButton.styleFrom(
-              foregroundColor: Colors.grey[400],
-            ),
+            style: TextButton.styleFrom(foregroundColor: Colors.grey[400]),
             child: const Text('Cancelar'),
           ),
           Container(
@@ -128,21 +123,37 @@ class _Info_ExamenState extends State<Info_Examen> {
     );
 
     if (confirmar == true) {
-      // TODO: Implementar lógica para eliminar examen del servidor
-      Get.snackbar(
-        '🗑️ Examen Eliminado',
-        'El examen ha sido eliminado exitosamente',
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Color(0xFF1a1a2e),
-        colorText: Colors.red.shade300,
-        borderColor: Colors.red.withOpacity(0.5),
-        borderWidth: 1.5,
-        icon: Icon(Icons.delete, color: Colors.red.shade300),
-        duration: Duration(seconds: 2),
-        margin: EdgeInsets.all(16),
-        borderRadius: 12,
-      );
-      // Get.back(); // Volver a la pantalla anterior
+      var res = await pc.DeleteExamen(examen.id, user.gettoken);
+      if (res) {
+        Get.snackbar(
+          '🗑️ Examen Eliminado',
+          'El examen ha sido eliminado exitosamente',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Color(0xFF1a1a2e),
+          colorText: Colors.black,
+          borderColor: Colors.green.withOpacity(0.5),
+          borderWidth: 1.5,
+          icon: Icon(Icons.delete, color: Colors.red.shade300),
+          duration: Duration(seconds: 2),
+          margin: EdgeInsets.all(16),
+          borderRadius: 12,
+        );
+        Get.off(() => ClaseView(vista: "Clase"));
+      } else {
+        Get.snackbar(
+          '🗑️ Error al eliminar Examen',
+          'No se pudo eliminar el examen',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Color(0xFF1a1a2e),
+          colorText: Colors.red.shade300,
+          borderColor: Colors.red.withOpacity(0.5),
+          borderWidth: 1.5,
+          icon: Icon(Icons.delete, color: Colors.red.shade300),
+          duration: Duration(seconds: 2),
+          margin: EdgeInsets.all(16),
+          borderRadius: 12,
+        );
+      }
     }
   }
 
@@ -177,10 +188,7 @@ class _Info_ExamenState extends State<Info_Examen> {
         flexibleSpace: Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [
-                Color(0xFF1a1a2e),
-                Color(0xFF16213e),
-              ],
+              colors: [Color(0xFF1a1a2e), Color(0xFF16213e)],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
@@ -196,11 +204,7 @@ class _Info_ExamenState extends State<Info_Examen> {
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [
-              Color(0xFF0a0a14),
-              Color(0xFF16213e),
-              Color(0xFF0a0a14),
-            ],
+            colors: [Color(0xFF0a0a14), Color(0xFF16213e), Color(0xFF0a0a14)],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),
@@ -215,10 +219,7 @@ class _Info_ExamenState extends State<Info_Examen> {
                 padding: const EdgeInsets.all(24),
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
-                    colors: [
-                      Color(0xFF1a1a2e),
-                      Color(0xFF16213e),
-                    ],
+                    colors: [Color(0xFF1a1a2e), Color(0xFF16213e)],
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                   ),
@@ -278,10 +279,7 @@ class _Info_ExamenState extends State<Info_Examen> {
                           fontFamily: "TitanOne",
                           color: Colors.white,
                           shadows: [
-                            Shadow(
-                              color: Color(0xFF00F0FF),
-                              blurRadius: 15,
-                            ),
+                            Shadow(color: Color(0xFF00F0FF), blurRadius: 15),
                           ],
                         ),
                         textAlign: TextAlign.center,
@@ -351,10 +349,7 @@ class _Info_ExamenState extends State<Info_Examen> {
                         icon: Icons.edit_rounded,
                         label: "Editar",
                         gradient: LinearGradient(
-                          colors: [
-                            Color(0xFF00F0FF),
-                            Color(0xFF00FF41),
-                          ],
+                          colors: [Color(0xFF00F0FF), Color(0xFF00FF41)],
                         ),
                         glowColor: Color(0xFF00F0FF),
                         onPressed: _editarExamen,
@@ -368,10 +363,7 @@ class _Info_ExamenState extends State<Info_Examen> {
                         icon: Icons.delete_rounded,
                         label: "Eliminar",
                         gradient: LinearGradient(
-                          colors: [
-                            Colors.red.shade400,
-                            Colors.red.shade600,
-                          ],
+                          colors: [Colors.red.shade400, Colors.red.shade600],
                         ),
                         glowColor: Colors.red,
                         onPressed: _eliminarExamen,
@@ -389,8 +381,7 @@ class _Info_ExamenState extends State<Info_Examen> {
     );
   }
 
-  Widget _buildInfoRow(
-      IconData icon, String label, String value, Color color) {
+  Widget _buildInfoRow(IconData icon, String label, String value, Color color) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -399,10 +390,7 @@ class _Info_ExamenState extends State<Info_Examen> {
           decoration: BoxDecoration(
             color: color.withOpacity(0.2),
             borderRadius: BorderRadius.circular(10),
-            border: Border.all(
-              color: color.withOpacity(0.5),
-              width: 1.5,
-            ),
+            border: Border.all(color: color.withOpacity(0.5), width: 1.5),
           ),
           child: Icon(icon, color: color, size: 20),
         ),
@@ -547,8 +535,11 @@ class _Info_ExamenState extends State<Info_Examen> {
                     ),
                   ],
                 ),
-                child:
-                    Icon(Icons.description_rounded, color: Colors.black, size: 20),
+                child: Icon(
+                  Icons.description_rounded,
+                  color: Colors.black,
+                  size: 20,
+                ),
               ),
               const SizedBox(width: 12),
               Text(

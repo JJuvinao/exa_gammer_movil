@@ -3,13 +3,13 @@ import 'package:exa_gammer_movil/ui/home/estudiante/detalle_clase_estu.dart';
 import 'package:exa_gammer_movil/ui/home/profesor/Detalle_Clase_Profesor/detalle_clase_profe.dart';
 import 'package:exa_gammer_movil/ui/home/profesor/Home_Profesor/home_profesor.dart';
 import 'package:exa_gammer_movil/ui/course/courseView.dart';
-import 'package:exa_gammer_movil/ui/home/vista/examen/detalle_examen.dart';
-import 'package:exa_gammer_movil/ui/home/vista/examen/info_examen.dart';
+import 'package:exa_gammer_movil/ui/home/vista/examen/ui/detalle_examen.dart';
+import 'package:exa_gammer_movil/ui/home/vista/examen/ui/info_examen.dart';
 import 'package:exa_gammer_movil/ui/home/vista/perfil/profile_view.dart';
 import 'package:exa_gammer_movil/ui/home/estudiante/home_estudiante.dart';
 import 'package:exa_gammer_movil/ui/home/vista/clase/info_clase.dart';
 import 'package:exa_gammer_movil/ui/home/vista/clase/estud_clase.dart';
-import 'package:exa_gammer_movil/ui/home/vista/examen/resultados.dart';
+import 'package:exa_gammer_movil/ui/home/vista/examen/ui/resultados.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
