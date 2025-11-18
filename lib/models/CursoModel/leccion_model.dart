@@ -2,7 +2,7 @@ class LeccionModel {
   final int id;
   final String title;
   final String content;
-  final bool Completed;
+  bool Completed;
 
   LeccionModel({
     required this.id,

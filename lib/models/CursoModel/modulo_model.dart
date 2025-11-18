@@ -5,7 +5,7 @@ class ModuloModel {
   final String title;
   final String description;
   final List<LeccionModel> lessons;
-  final bool Completed;
+  bool Completed;
 
   ModuloModel({
     required this.id,
