@@ -72,10 +72,10 @@ class LessonDialog extends StatelessWidget {
                 IconButton(
                   icon: Icon(Icons.close),
                   onPressed: () {
-                    if (!lesson.Completed) {
-                      lesson.Completed = true;
-                      controller.CompleteModule(module);
-                    }
+                    //if (!lesson.Completed) {
+                    //  lesson.Completed = true;
+                    //  controller.CompleteModule(module);
+                    //}
                     Get.back();
                   },
                 ),

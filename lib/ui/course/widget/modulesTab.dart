@@ -36,7 +36,7 @@ class ModulesTab extends StatelessWidget {
                   final int index = entry.key;
                   return ListTile(
                     tileColor: leccion.Completed
-                        ? const Color.fromARGB(255, 144, 241, 147)
+                        ? const Color.fromARGB(255, 201, 255, 190)
                         : Colors.white,
                     leading: Icon(Icons.article),
                     title: Text(leccion.title),

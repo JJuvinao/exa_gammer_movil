@@ -16,6 +16,9 @@ class _QuestionsTabState extends State<QuestionsTab> {
   Map<int, int> selectedAnswers = {};
 
   void _CheckAnswer(int? answer, PreguntaModel question) {
+    if (question.Completed) {
+      return;
+    }
     final int answerIndex = question.answerIndex;
     if (answer == null) {
       Get.snackbar(

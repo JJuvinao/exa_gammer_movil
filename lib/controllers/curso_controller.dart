@@ -73,6 +73,7 @@ class CursoController extends GetxController {
       (lesson) => lesson.Completed == true,
     );
     update(["Modules"]);
+    UpdatePercentage();
   }
 
   void CompleteCourse() {
@@ -86,7 +87,25 @@ class CursoController extends GetxController {
 
     if (isModulesCompleted && isQuestionsCompleted) {
       curso.Completed = true;
-      cursoList.refresh();
     }
+
+    UpdatePercentage();
+  }
+
+  void UpdatePercentage() {
+    final completedParts =
+        selectedCurso!.value.modules.where((m) => m.Completed).length +
+        selectedCurso!.value.questions.where((q) => q.Completed).length;
+
+    final totalParts =
+        selectedCurso!.value.modules.length +
+        selectedCurso!.value.questions.length;
+
+    print(completedParts);
+    print(selectedCurso!.value.Num_sections);
+
+    final double percentage = (completedParts / totalParts) * 100;
+    selectedCurso!.value.Percentage = percentage.toInt();
+    cursoList.refresh();
   }
 }
