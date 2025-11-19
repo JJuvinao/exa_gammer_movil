@@ -95,7 +95,7 @@ class _PagosPremiumViewState extends State<PagosPremiumView> {
       premium: true,
     );
 
-    final exito = await userController.actualizarUsuario(actualizado);
+    final exito = await userController.actualizarPremium(user.id, true);
 
     if (exito) {
       Get.back();

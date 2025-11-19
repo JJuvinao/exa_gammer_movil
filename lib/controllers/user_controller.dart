@@ -138,11 +138,41 @@ Future<bool> actualizarUsuario(User usuario) async {
       update();
       return true;
     } else {
-      print("❌ Error al actualizar: ${res.body}");
+      print(" Error al actualizar: ${res.body}");
       return false;
     }
   } catch (e) {
-    print("❗ Excepción al actualizar perfil: $e");
+    print(" Excepción al actualizar perfil: $e");
+    return false;
+  }
+}
+Future<bool> actualizarPremium(int userId, bool premium) async {
+  const url = 'https://www.apiexagammer.somee.com/api/Usuarios/UpdatePremium';
+
+  try {
+    final res = await http.put(
+      Uri.parse(url),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $gettoken',
+      },
+      body: jsonEncode({
+        "id_user": userId,
+        "premium": premium,
+      }),
+    );
+
+    if (res.statusCode == 200) {
+      final userActualizado = getuser.copyWith(premium: premium);
+      await _storageService.login(userActualizado, gettoken);
+      update();
+      return true;
+    } else {
+      print(" Error al actualizar premium: ${res.body}");
+      return false;
+    }
+  } catch (e) {
+    print(" Excepción al actualizar premium: $e");
     return false;
   }
 }
