@@ -118,9 +118,7 @@ Future<bool> actualizarUsuario(User usuario) async {
   const url = 'https://www.apiexagammer.somee.com/api/Usuarios/UpdateUser';
 
   try {
-    print('📤 Enviando datos: ${usuario.toJson()}');
-    print('🔐 Token: $gettoken');
-
+  
     final res = await http.put(
       Uri.parse(url),
       headers: {
@@ -129,9 +127,6 @@ Future<bool> actualizarUsuario(User usuario) async {
       },
       body: jsonEncode(usuario.toJson()),
     );
-
-    print('📥 Código de respuesta: ${res.statusCode}');
-    print('📥 Respuesta del servidor: ${res.body}');
 
     if (res.statusCode == 200) {
       await _storageService.login(usuario, gettoken);

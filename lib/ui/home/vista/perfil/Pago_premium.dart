@@ -86,15 +86,6 @@ class _PagosPremiumViewState extends State<PagosPremiumView> {
     final userController = Get.find<UserController>();
     final user = userController.getuser;
 
-    final actualizado = User(
-      id: user.id,
-      username: user.username,
-      rol: user.rol,
-      email: user.email,
-      img: user.img,
-      premium: true,
-    );
-
     final exito = await userController.actualizarPremium(user.id, true);
 
     if (exito) {
