@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+
 class UserController extends GetxController {
   final _storageService = Get.find<StorageService>();
 
@@ -14,7 +15,7 @@ class UserController extends GetxController {
   User get getuser => _storageService.displayUser;
   String get gettoken => _storageService.displayToken;
 
-  Future<bool> registerUser(
+  Future<String> registerUser(
     String username,
     String password,
     String role,
@@ -40,19 +41,17 @@ class UserController extends GetxController {
             body: jsonEncode(_userfrom.toJson()),
           )
           .timeout(Duration(seconds: 15));
-      
-      //añadido....
-      print('Register Status Code: ${res.statusCode}');
-      print('Register Response: ${res.body}');
-      //
 
       if (res.statusCode == 200) {
-        return true;
+        return "ok";
       }
-      return false;
+      if (res.statusCode == 409) {
+        return "existe";
+      }
+      return "false";
     } catch (e) {
       print("ERROR DEL REGISTRO: ${e.toString()}");
-      return false; // 👈 Añadido return
+      return "false";
     }
   }
 
@@ -70,12 +69,6 @@ class UserController extends GetxController {
             body: jsonEncode(_userdto.toJson()),
           )
           .timeout(Duration(seconds: 15));
-
-      //añadido....
-      print('Login Status Code: ${res.statusCode}');
-      print('Login Response: ${res.body}');
-      //
-
       if (res.statusCode == 200) {
         final data = jsonDecode(res.body);
         User user = User.fromjson(data["user"]);
@@ -83,16 +76,12 @@ class UserController extends GetxController {
         await _storageService.login(user, token);
         return user.rol;
       }
-
-      //algunos cambios aqui 
-      print('Login failed with status: ${res.statusCode}');
       return null;
     } catch (e) {
       print("ERROR DEL LOGIN: ${e.toString()}");
-      return null; // 👈 Ya está bien
+      return null;
     }
   }
-      ///////
 
   Future<bool> UnirseClase(String codigoClase) async {
     final url = Uri.parse(
@@ -125,8 +114,61 @@ class UserController extends GetxController {
     return false;
   }
 
+Future<bool> actualizarUsuario(User usuario) async {
+  const url = 'https://www.apiexagammer.somee.com/api/Usuarios/UpdateUser';
+
+  try {
+    final res = await http.put(
+      Uri.parse(url),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $gettoken',
+      },
+      body: jsonEncode(usuario.toJson()),
+    );
+
+    if (res.statusCode == 200) {
+      await _storageService.login(usuario, gettoken);
+      update();
+      return true;
+    } else {
+      print(" Error al actualizar: ${res.body}");
+      return false;
+    }
+  } catch (e) {
+    print(" Excepción al actualizar perfil: $e");
+    return false;
+  }
+}
+Future<bool> actualizarPremium(int userId, bool premium) async {
+  const url = 'https://www.apiexagammer.somee.com/api/Usuarios/UpdatePremium';
+
+  try {
+    final res = await http.put(
+      Uri.parse(url),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $gettoken',
+      },
+      body: jsonEncode({
+        "id_user": userId,
+        "premium": premium,
+      }),
+    );
+
+    if (res.statusCode == 200) {
+      final userActualizado = getuser.copyWith(premium: premium);
+      await _storageService.login(userActualizado, gettoken);
+      update();
+      return true;
+    } else {
+      print(" Error al actualizar premium: ${res.body}");
+      return false;
+    }
+  } catch (e) {
+    print(" Excepción al actualizar premium: $e");
+    return false;
+  }
 }
 
-//
-//
-//
+}

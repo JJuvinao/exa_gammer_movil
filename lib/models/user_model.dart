@@ -22,10 +22,34 @@ class User {
       rol: json["rol"],
       email: json["correo"],
       img: json["imagen"],
-      premium: json["premium"],
+      premium: json["premium"] ?? false,
     );
   }
+
+   Map<String, dynamic> toJson() {
+    return {
+      "id": id,
+      "nombre": username,
+      "rol": rol,
+      "correo": email,
+      "imagen": img ?? "",
+      "premium": premium ?? false,
+    };
+    
+  }
+  
+  User copyWith({bool? premium}) {
+    return User(
+      id: id,
+      username: username,
+      rol: rol,
+      email: email,
+      img: img,
+      premium: premium ?? this.premium,
+    );
 }
+}
+
 
 class Userdto {
   final String username;
