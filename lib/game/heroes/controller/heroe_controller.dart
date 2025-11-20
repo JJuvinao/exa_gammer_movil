@@ -147,7 +147,7 @@ class HeroeController extends GetxController {
         preguntaController.respondidasList.map((r) => r.toJson()).toList(),
       ),
       "notas": 0,
-      "recomendaciones": "string",
+      "recomendaciones": "",
     };
     print("Datos a enviar: $data");
     try {
