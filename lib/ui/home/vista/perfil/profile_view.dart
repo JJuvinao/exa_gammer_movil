@@ -71,7 +71,6 @@ class ProfileView extends StatelessWidget {
                   child: Column(
                     children: [
                       if (esPremium)
-                        const Icon(Icons.emoji_events, color: Colors.amber, size: 40),
                       CircleAvatar(
                         radius: 55,
                         backgroundImage: NetworkImage(user.img ?? ''),
@@ -98,7 +97,16 @@ class ProfileView extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
-                          color: esPremium ? Colors.amber : Colors.lightBlueAccent,
+                          color: Colors.lightBlueAccent,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        esPremium ? "Cuenta Premium Activa" : "Cuenta Estándar",
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                          color: esPremium ? Colors.amber : Colors.white70,
                         ),
                       ),
                       const SizedBox(height: 25),

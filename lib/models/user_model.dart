@@ -36,6 +36,18 @@ class User {
       "premium": premium ?? false,
     };
   }
+  
+ User copyWith({bool? premium}) {
+    return User(
+      id: id,
+      username: username,
+      rol: rol,
+      email: email,
+      img: img,
+      premium: premium ?? this.premium,
+    );
+  }
+
 }
 
 class Userdto {
