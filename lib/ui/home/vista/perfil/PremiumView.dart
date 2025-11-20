@@ -9,18 +9,32 @@ class PremiumView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFC8C1C1),
+      backgroundColor: const Color(0xFF0a0a14),
       appBar: AppBar(
         title: const Text(
           'Planes Premium',
-          style: TextStyle(fontFamily: 'Inter', fontWeight: FontWeight.bold),
+          style: TextStyle(
+            fontFamily: 'Inter',
+            fontWeight: FontWeight.bold,
+            color: Color(0xFF00F0FF),
+            fontSize: 22,
+            shadows: [Shadow(color: Colors.cyan, blurRadius: 8)],
+          ),
         ),
-        backgroundColor: const Color(0xFFC8C1C1),
+        backgroundColor: const Color(0xFF16213e),
         centerTitle: true,
+        elevation: 0,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Color(0xFF0a0a14), Color(0xFF16213e), Color(0xFF0a0a14)],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
         child: ListView(
+          padding: const EdgeInsets.all(20),
           children: [
             const SizedBox(height: 16),
 
@@ -31,7 +45,7 @@ class PremiumView extends StatelessWidget {
                 'Acceso completo durante 7 días',
               ],
               price: 'GRATIS',
-              color: Colors.grey.shade800,
+              color: Colors.grey.shade900,
               textColor: Colors.white,
               onPressed: () {
                 Get.snackbar(
@@ -52,15 +66,13 @@ class PremiumView extends StatelessWidget {
                 'Crea hasta 25 cursos con IA',
               ],
               price: '\$39.900 / mes',
-              color: const Color(0xFF0D59A1),
+              color:Colors.grey.shade900,
               textColor: Colors.white,
               onPressed: () {
-                Get.to(
-                  () => PagosPremiumView(
-                    plan: 'Paquete Mensual',
-                    precio: '\$39.900 / mes',
-                  ),
-                );
+                Get.to(() => PagosPremiumView(
+                      plan: 'Paquete Mensual',
+                      precio: '\$39.900 / mes',
+                    ));
               },
             ),
 
@@ -74,15 +86,13 @@ class PremiumView extends StatelessWidget {
                 'Ahorra 2 meses con este plan',
               ],
               price: '\$359.000 / año',
-              color: Colors.amber.shade400,
-              textColor: Colors.black,
+              color:Colors.grey.shade900,
+              textColor: Colors.white,
               onPressed: () {
-                Get.to(
-                  () => PagosPremiumView(
-                    plan: 'Paquete Anual',
-                    precio: '\$359.000 / año',
-                  ),
-                );
+                Get.to(() => PagosPremiumView(
+                      plan: 'Paquete Anual',
+                      precio: '\$359.000 / año',
+                    ));
               },
             ),
           ],
