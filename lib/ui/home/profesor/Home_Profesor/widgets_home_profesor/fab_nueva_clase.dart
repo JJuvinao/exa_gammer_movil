@@ -3,10 +3,7 @@ import 'package:flutter/material.dart';
 class FabNuevaClase extends StatelessWidget {
   final VoidCallback onPressed;
 
-  const FabNuevaClase({
-    super.key,
-    required this.onPressed,
-  });
+  const FabNuevaClase({super.key, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +27,7 @@ class FabNuevaClase extends StatelessWidget {
         ],
       ),
       child: FloatingActionButton.extended(
+        key: const Key('fabCrearClase'),
         onPressed: onPressed,
         icon: Container(
           padding: const EdgeInsets.all(6),
