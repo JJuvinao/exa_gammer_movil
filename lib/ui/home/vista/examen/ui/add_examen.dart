@@ -11,7 +11,7 @@ import 'package:exa_gammer_movil/controllers/examen_controller.dart';
 import 'package:exa_gammer_movil/controllers/juego_controller.dart';
 
 class AddExamen extends StatefulWidget {
-  AddExamen({super.key});
+  const AddExamen({super.key});
 
   @override
   State<AddExamen> createState() => _AddExamenState();
@@ -123,6 +123,7 @@ class _AddExamenState extends State<AddExamen> {
                       const SizedBox(height: 20),
 
                       TextFormField(
+                        key: const Key('campo_nombre'),
                         controller: nombreController,
                         decoration: const InputDecoration(
                           labelText: 'Nombre',
@@ -132,9 +133,9 @@ class _AddExamenState extends State<AddExamen> {
                             ? 'Ingrese un nombre'
                             : null,
                       ),
-                      const SizedBox(height: 16),
 
                       TextFormField(
+                        key: const Key('campo_tema'),
                         controller: temaController,
                         decoration: const InputDecoration(
                           labelText: 'Tema',
@@ -144,9 +145,9 @@ class _AddExamenState extends State<AddExamen> {
                             ? 'Ingrese un tema'
                             : null,
                       ),
-                      const SizedBox(height: 16),
 
                       TextFormField(
+                        key: const Key('campo_descripcion'),
                         controller: descripcionController,
                         decoration: const InputDecoration(
                           labelText: 'Descripción',
@@ -206,9 +207,7 @@ class _AddExamenState extends State<AddExamen> {
                       // Dropdown: Tipo
                       Obx(() {
                         return DropdownButtonFormField<dynamic>(
-                          value: JuegoSeleccionado.value == null
-                              ? null
-                              : JuegoSeleccionado.value,
+                          value: JuegoSeleccionado.value,
                           items: tiposJuego.map((tipo) {
                             return DropdownMenuItem(
                               value: tipo,
@@ -247,6 +246,58 @@ class _AddExamenState extends State<AddExamen> {
                         child: ElevatedButton.icon(
                           onPressed: () async {
                             if (!_formKey.currentState!.validate()) return;
+
+                            final nombre = nombreController.text.trim();
+                            final caracteresProhibidos = RegExp(
+                              r'[!@#\$%&/=\?¿¡\*]',
+                            );
+
+                            if (nombre.length < 5) {
+                              Get.snackbar(
+                                'Error en Nombre',
+                                'El nombre debe tener mínimo 5 caracteres.',
+                                snackPosition: SnackPosition.BOTTOM,
+                                backgroundColor: Colors.red[100],
+                                colorText: Colors.black,
+                              );
+                              return;
+                            }
+
+                            if (caracteresProhibidos.hasMatch(nombre)) {
+                              Get.snackbar(
+                                'Error en Nombre',
+                                'El nombre contiene caracteres especiales no permitidos.',
+                                snackPosition: SnackPosition.BOTTOM,
+                                backgroundColor: Colors.red[100],
+                                colorText: Colors.black,
+                              );
+                              return;
+                            }
+
+                            final tema = temaController.text.trim();
+                            if (tema.length < 5) {
+                              Get.snackbar(
+                                'Error en Tema',
+                                'El tema debe tener mínimo 5 caracteres.',
+                                snackPosition: SnackPosition.BOTTOM,
+                                backgroundColor: Colors.red[100],
+                                colorText: Colors.black,
+                              );
+                              return;
+                            }
+
+                            final descripcion = descripcionController.text
+                                .trim();
+                            if (descripcion.length < 10) {
+                              Get.snackbar(
+                                'Error en Descripción',
+                                'La descripción debe tener mínimo 10 caracteres.',
+                                snackPosition: SnackPosition.BOTTOM,
+                                backgroundColor: Colors.red[100],
+                                colorText: Colors.black,
+                              );
+                              return;
+                            }
 
                             Map<String, dynamic>? datos;
 

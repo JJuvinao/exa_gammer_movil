@@ -7,10 +7,41 @@ import 'package:exa_gammer_movil/ui/home/profesor/agregar_clase/widgets_add_clas
 import 'package:exa_gammer_movil/ui/home/profesor/agregar_clase/widgets_add_clase/header_logo.dart';
 import 'package:exa_gammer_movil/controllers/user_controller.dart';
 
-class AgregarClase extends StatelessWidget {
-  AgregarClase({super.key});
+class AgregarClase extends StatefulWidget {
+  const AgregarClase({super.key});
 
+  @override
+  State<AgregarClase> createState() => _AgregarClaseState();
+}
+
+class _AgregarClaseState extends State<AgregarClase> {
   final _formKey = GlobalKey<FormState>();
+  bool _isInitialized = false;
+
+  @override
+  void initState() {
+    super.initState();
+    // Usar addPostFrameCallback para ejecutar DESPUÉS del primer frame
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _initializeForm();
+    });
+  }
+
+  void _initializeForm() {
+    if (!_isInitialized) {
+      final controller = Get.find<ClaseController>();
+      final userController = Get.find<UserController>();
+      final user = userController.getuser;
+
+      // AHORA es seguro modificar los controladores
+      controller.limpiarFormulario();
+      controller.txtAutor.text = user.username;
+
+      setState(() {
+        _isInitialized = true;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,9 +49,6 @@ class AgregarClase extends StatelessWidget {
     final userController = Get.find<UserController>();
     final user = userController.getuser;
     final token = userController.gettoken;
-    
-    // Limpiar formulario al entrar
-    controller.limpiarFormulario();
     controller.txtAutor.text = user.username;
 
     return Scaffold(
@@ -60,12 +88,7 @@ class AgregarClase extends StatelessWidget {
               color: Colors.white,
               fontWeight: FontWeight.bold,
               fontSize: 20,
-              shadows: [
-                Shadow(
-                  color: Color(0xFF00F0FF),
-                  blurRadius: 10,
-                ),
-              ],
+              shadows: [Shadow(color: Color(0xFF00F0FF), blurRadius: 10)],
             ),
           ),
         ),
@@ -74,11 +97,7 @@ class AgregarClase extends StatelessWidget {
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [
-              Color(0xFF0a0a14),
-              Color(0xFF16213e),
-              Color(0xFF0a0a14),
-            ],
+            colors: [Color(0xFF0a0a14), Color(0xFF16213e), Color(0xFF0a0a14)],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),
@@ -92,41 +111,46 @@ class AgregarClase extends StatelessWidget {
               children: [
                 const HeaderLogo(),
                 const SizedBox(height: 32),
-                
+
                 // Línea decorativa superior
                 _buildDecorativeLine(),
                 const SizedBox(height: 24),
-                
+
                 ClaseFormCard(
                   txtNombre: controller.txtNombre,
                   txtTema: controller.txtTema,
                   txtAutor: controller.txtAutor,
                 ),
                 const SizedBox(height: 24),
-                
-                Obx(() => AvatarSelectorCard(
-                      avatarList: controller.avatarList,
-                      avatarSeleccionado: controller.avatarSeleccionado.value,
-                      mostrarAvatar: controller.mostrarAvatar.value,
-                      onAvatarSelected: controller.seleccionarAvatar,
-                    )),
-                
+
+                Obx(
+                  () => AvatarSelectorCard(
+                    avatarList: controller.avatarList,
+                    avatarSeleccionado: controller.avatarSeleccionado.value,
+                    mostrarAvatar: controller.mostrarAvatar.value,
+                    onAvatarSelected: controller.seleccionarAvatar,
+                  ),
+                ),
+
                 const SizedBox(height: 24),
-                
+
                 // Línea decorativa inferior
                 _buildDecorativeLine(),
                 const SizedBox(height: 32),
-                
-                Obx(() => CreateButton(
-                      isLoading: controller.isLoading.value,
-                      onPressed: () =>
-                          controller.crearClase(user, token, _formKey),
-                    )),
-                    
+
+                Obx(
+                  () => CreateButton(
+                    key: Key('btnCrearClase'),
+                    isLoading: controller.isLoading.value,
+                    onPressed: () =>
+                        controller.crearClase(user, token, _formKey),
+                  ),
+                ),
+
                 const SizedBox(height: 20),
-                
+
                 // Texto informativo
-/*                Text(
+                /*                Text(
                   'Crea una experiencia educativa épica',
                   style: TextStyle(
                     color: Colors.grey[600],
@@ -134,7 +158,7 @@ class AgregarClase extends StatelessWidget {
                     fontStyle: FontStyle.italic,
                   ),
                 ),
-*/               
+*/
               ],
             ),
           ),
