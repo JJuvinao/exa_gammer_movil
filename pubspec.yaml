@@ -45,6 +45,7 @@ flutter:
     - lib/game/heroes/imagenes/Npcs/
     - lib/game/heroes/imagenes/Samurai/
     - lib/game/heroes/imagenes/Varios/
+    - integration_test/
   fonts:
     - family: TitanOne
       fonts:
