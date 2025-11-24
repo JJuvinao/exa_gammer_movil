@@ -103,8 +103,7 @@ class _ExamenViewState extends State<ExamenView> {
             unselectedIconTheme: const IconThemeData(size: 24),
 
             items: _navBarItems.map((item) {
-              final isSelected =
-                  _navBarItems.indexOf(item) == _currentIndex;
+              final isSelected = _navBarItems.indexOf(item) == _currentIndex;
 
               return BottomNavigationBarItem(
                 icon: Container(
@@ -139,7 +138,9 @@ class _ExamenViewState extends State<ExamenView> {
                     ),
                     borderRadius: BorderRadius.circular(12),
                     border: Border.all(
-                        color: const Color(0xFF00F0FF), width: 2),
+                      color: const Color(0xFF00F0FF),
+                      width: 2,
+                    ),
                     boxShadow: [
                       BoxShadow(
                         color: const Color(0xFF00F0FF).withOpacity(0.4),
@@ -148,7 +149,7 @@ class _ExamenViewState extends State<ExamenView> {
                       ),
                     ],
                   ),
-                  child: item.activeIcon ?? item.icon,
+                  child: item.activeIcon,
                 ),
                 label: item.label,
               );

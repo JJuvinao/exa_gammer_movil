@@ -3,11 +3,13 @@ import 'package:get/get.dart';
 import 'package:exa_gammer_movil/controllers/user_controller.dart';
 
 class AgregarUsuario extends StatefulWidget {
+  const AgregarUsuario({super.key});
+
   @override
-  _AgregarUsuarioState createState() => _AgregarUsuarioState();
+  AgregarUsuarioState createState() => AgregarUsuarioState();
 }
 
-class _AgregarUsuarioState extends State<AgregarUsuario> {
+class AgregarUsuarioState extends State<AgregarUsuario> {
   final usuario = TextEditingController();
   final clave = TextEditingController();
   final email = TextEditingController();

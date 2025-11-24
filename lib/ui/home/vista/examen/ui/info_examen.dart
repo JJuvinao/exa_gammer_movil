@@ -6,7 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 class Info_Examen extends StatefulWidget {
-  Info_Examen({super.key});
+  const Info_Examen({super.key});
 
   @override
   State<Info_Examen> createState() => _Info_ExamenState();

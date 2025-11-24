@@ -7,12 +7,12 @@ class AttackMenu extends StatelessWidget {
   final VoidCallback onCancel;
 
   const AttackMenu({
-    Key? key,
+    super.key,
     required this.onBasicAttack,
     required this.onSkill1,
     required this.onSkill2,
     required this.onCancel,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

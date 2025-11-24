@@ -1,4 +1,3 @@
-//// para mostrar pregunta y respuesta en detalle exa profesor
 import 'package:exa_gammer_movil/models/examen_model.dart';
 import 'package:flutter/material.dart';
 

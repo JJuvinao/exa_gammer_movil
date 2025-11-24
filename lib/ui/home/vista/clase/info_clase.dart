@@ -6,7 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 class Info_Clase extends StatefulWidget {
-  Info_Clase({super.key});
+  const Info_Clase({super.key});
 
   @override
   State<Info_Clase> createState() => _Info_ClaseState();
@@ -41,7 +41,6 @@ class _Info_ClaseState extends State<Info_Clase> {
   }
 
   void _generarNuevoCodigo() {
-    // TODO: Implementar lógica para generar nuevo código
     Get.snackbar(
       '🔄 Generar Código',
       'Función en desarrollo',
@@ -58,7 +57,6 @@ class _Info_ClaseState extends State<Info_Clase> {
   }
 
   void _editarClase() {
-    // TODO: Implementar lógica para editar clase
     Get.snackbar(
       '✏️ Editar Clase',
       'Función en desarrollo',

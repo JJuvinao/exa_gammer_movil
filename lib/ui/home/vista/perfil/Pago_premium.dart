@@ -1,7 +1,8 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:exa_gammer_movil/controllers/user_controller.dart';
-import 'package:exa_gammer_movil/models/user_model.dart';
 
 class PagosPremiumView extends StatefulWidget {
   final String plan;
@@ -30,10 +31,7 @@ class _PagosPremiumViewState extends State<PagosPremiumView> {
     'Banco Agrario',
   ];
 
-  final List<String> _tiposTarjeta = [
-    'Débito',
-    'Crédito',
-  ];
+  final List<String> _tiposTarjeta = ['Débito', 'Crédito'];
 
   String? _bancoSeleccionado;
   String? _tipoTarjetaSeleccionado;
@@ -55,7 +53,10 @@ class _PagosPremiumViewState extends State<PagosPremiumView> {
       context: context,
       builder: (_) => AlertDialog(
         backgroundColor: const Color(0xFF1f1f2e),
-        title: const Text('¿Confirmar pago?', style: TextStyle(color: Colors.white)),
+        title: const Text(
+          '¿Confirmar pago?',
+          style: TextStyle(color: Colors.white),
+        ),
         content: Text(
           '¿Deseas activar el plan "${widget.plan}" por ${widget.precio}?',
           style: const TextStyle(color: Colors.white70),
@@ -67,7 +68,10 @@ class _PagosPremiumViewState extends State<PagosPremiumView> {
           ),
           TextButton(
             onPressed: () => Navigator.pop(context, true),
-            child: const Text('Confirmar', style: TextStyle(color: Colors.greenAccent)),
+            child: const Text(
+              'Confirmar',
+              style: TextStyle(color: Colors.greenAccent),
+            ),
           ),
         ],
       ),
@@ -149,66 +153,112 @@ class _PagosPremiumViewState extends State<PagosPremiumView> {
                     Center(
                       child: Column(
                         children: [
-                          Text(widget.plan,
-                              style: const TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white)),
+                          Text(
+                            widget.plan,
+                            style: const TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                          ),
                           const SizedBox(height: 4),
-                          Text(widget.precio,
-                              style: const TextStyle(
-                                  fontSize: 16, color: Colors.white70)),
+                          Text(
+                            widget.precio,
+                            style: const TextStyle(
+                              fontSize: 16,
+                              color: Colors.white70,
+                            ),
+                          ),
                         ],
                       ),
                     ),
                     const SizedBox(height: 20),
-                    _buildField('Nombre completo', _buyerNameController, cardStyle),
+                    _buildField(
+                      'Nombre completo',
+                      _buyerNameController,
+                      cardStyle,
+                    ),
                     const SizedBox(height: 14),
                     _buildDropdown('Banco', _bancos, _bancoSeleccionado, (v) {
                       setState(() => _bancoSeleccionado = v);
                     }, cardStyle),
                     const SizedBox(height: 14),
-                    _buildDropdown('Tipo de tarjeta', _tiposTarjeta, _tipoTarjetaSeleccionado, (v) {
-                      setState(() => _tipoTarjetaSeleccionado = v);
-                    }, cardStyle),
+                    _buildDropdown(
+                      'Tipo de tarjeta',
+                      _tiposTarjeta,
+                      _tipoTarjetaSeleccionado,
+                      (v) {
+                        setState(() => _tipoTarjetaSeleccionado = v);
+                      },
+                      cardStyle,
+                    ),
                     const SizedBox(height: 14),
-                    _buildField('Número de tarjeta', _cardNumberController, cardStyle,
-                        keyboardType: TextInputType.number),
+                    _buildField(
+                      'Número de tarjeta',
+                      _cardNumberController,
+                      cardStyle,
+                      keyboardType: TextInputType.number,
+                    ),
                     const SizedBox(height: 14),
                     Row(
                       children: [
                         Expanded(
-                          child: _buildField('Mes (MM)', _expMonthController, cardStyle,
-                              keyboardType: TextInputType.number),
+                          child: _buildField(
+                            'Mes (MM)',
+                            _expMonthController,
+                            cardStyle,
+                            keyboardType: TextInputType.number,
+                          ),
                         ),
                         const SizedBox(width: 12),
                         Expanded(
-                          child: _buildField('Año (AA)', _expYearController, cardStyle,
-                              keyboardType: TextInputType.number),
+                          child: _buildField(
+                            'Año (AA)',
+                            _expYearController,
+                            cardStyle,
+                            keyboardType: TextInputType.number,
+                          ),
                         ),
                       ],
                     ),
                     const SizedBox(height: 14),
-                    _buildField('CVV', _cvvController, cardStyle,
-                        keyboardType: TextInputType.number),
+                    _buildField(
+                      'CVV',
+                      _cvvController,
+                      cardStyle,
+                      keyboardType: TextInputType.number,
+                    ),
                     const SizedBox(height: 14),
-                    _buildField('Correo electrónico', _buyerEmailController, cardStyle,
-                        keyboardType: TextInputType.emailAddress),
+                    _buildField(
+                      'Correo electrónico',
+                      _buyerEmailController,
+                      cardStyle,
+                      keyboardType: TextInputType.emailAddress,
+                    ),
                     const SizedBox(height: 28),
                     _isProcessing
-                        ? const Center(child: CircularProgressIndicator(color: Colors.white))
+                        ? const Center(
+                            child: CircularProgressIndicator(
+                              color: Colors.white,
+                            ),
+                          )
                         : SizedBox(
                             width: double.infinity,
                             child: ElevatedButton.icon(
                               icon: const Icon(Icons.lock, size: 20),
-                              label: const Text('Realizar pago',
-                                  style: TextStyle(fontSize: 16)),
+                              label: const Text(
+                                'Realizar pago',
+                                style: TextStyle(fontSize: 16),
+                              ),
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.green[600],
                                 foregroundColor: Colors.white,
-                                padding: const EdgeInsets.symmetric(vertical: 14),
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 14,
+                                ),
                                 shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(12)),
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
                               ),
                               onPressed: _onRealizarPagoPressed,
                             ),
@@ -223,8 +273,12 @@ class _PagosPremiumViewState extends State<PagosPremiumView> {
     );
   }
 
-  Widget _buildField(String label, TextEditingController controller, OutlineInputBorder style,
-      {TextInputType keyboardType = TextInputType.text}) {
+  Widget _buildField(
+    String label,
+    TextEditingController controller,
+    OutlineInputBorder style, {
+    TextInputType keyboardType = TextInputType.text,
+  }) {
     return TextFormField(
       controller: controller,
       keyboardType: keyboardType,
@@ -236,13 +290,20 @@ class _PagosPremiumViewState extends State<PagosPremiumView> {
         fillColor: Colors.black,
         border: style,
         enabledBorder: style,
-        focusedBorder: style.copyWith(borderSide: const BorderSide(color: Colors.white)),
+        focusedBorder: style.copyWith(
+          borderSide: const BorderSide(color: Colors.white),
+        ),
       ),
     );
   }
 
-  Widget _buildDropdown(String label, List<String> items, String? selected, Function(String?) onChanged,
-      OutlineInputBorder style) {
+  Widget _buildDropdown(
+    String label,
+    List<String> items,
+    String? selected,
+    Function(String?) onChanged,
+    OutlineInputBorder style,
+  ) {
     return DropdownButtonFormField<String>(
       value: selected,
       decoration: InputDecoration(
@@ -252,12 +313,18 @@ class _PagosPremiumViewState extends State<PagosPremiumView> {
         fillColor: Colors.black,
         border: style,
         enabledBorder: style,
-        focusedBorder: style.copyWith(borderSide: const BorderSide(color: Colors.white)),
+        focusedBorder: style.copyWith(
+          borderSide: const BorderSide(color: Colors.white),
+        ),
       ),
       dropdownColor: Colors.black,
       items: items
-          .map((item) => DropdownMenuItem(
-              value: item, child: Text(item, style: const TextStyle(color: Colors.white))))
+          .map(
+            (item) => DropdownMenuItem(
+              value: item,
+              child: Text(item, style: const TextStyle(color: Colors.white)),
+            ),
+          )
           .toList(),
       onChanged: onChanged,
     );

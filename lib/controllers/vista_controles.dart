@@ -15,7 +15,7 @@ import 'package:get/get.dart';
 
 class VistaControles extends GetxController {
   var screens = <Widget>[].obs;
-  var _navBarItems = <BottomNavigationBarItem>[].obs;
+  final _navBarItems = <BottomNavigationBarItem>[].obs;
   final UserController user = Get.find<UserController>();
 
   List<Widget> getScreens(String vista) {

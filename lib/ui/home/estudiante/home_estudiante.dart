@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:exa_gammer_movil/controllers/clase_controller.dart';
 import 'package:exa_gammer_movil/ui/dialogs/dialogo_ingresar_clase.dart';
-import 'package:exa_gammer_movil/ui/home/buscar.dart';
+import 'package:exa_gammer_movil/ui/home/widget/buscar.dart';
 import 'package:exa_gammer_movil/ui/home/inicio_sesion/diseologin.dart';
 import 'package:exa_gammer_movil/ui/home/profesor/Home_Profesor/widgets_home_profesor/logout_dialog.dart';
 
 class HomeEstudiante extends StatefulWidget {
-  HomeEstudiante({super.key});
+  const HomeEstudiante({super.key});
 
   @override
   State<HomeEstudiante> createState() => _HomeEstudianteState();

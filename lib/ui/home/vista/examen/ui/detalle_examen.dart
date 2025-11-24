@@ -1,4 +1,3 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:exa_gammer_movil/controllers/examen_controller.dart';
 import 'package:exa_gammer_movil/controllers/user_controller.dart';
 import 'package:exa_gammer_movil/game/ahorcado/ui/ahorcado_page.dart';
@@ -23,7 +22,7 @@ class _DetalleExamenPageState extends State<DetalleExamenPage> {
   late final UserController user;
   late final PreguntaController preguntaController;
 
-  var examen;
+  late dynamic examen;
   List<Ahorcado> listaahorcado = [];
   List<Heroes> listher = [];
 
@@ -97,7 +96,6 @@ class _DetalleExamenPageState extends State<DetalleExamenPage> {
         hayresultados = false;
       }
     } catch (e) {
-      print("Error cargando resultados: $e");
       setState(() {
         hayresultados = true;
       });
@@ -141,10 +139,7 @@ class _DetalleExamenPageState extends State<DetalleExamenPage> {
           flexibleSpace: Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [
-                  Color(0xFF1a1a2e),
-                  Color(0xFF16213e),
-                ],
+                colors: [Color(0xFF1a1a2e), Color(0xFF16213e)],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               ),
@@ -160,11 +155,7 @@ class _DetalleExamenPageState extends State<DetalleExamenPage> {
         body: Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [
-                Color(0xFF0a0a14),
-                Color(0xFF16213e),
-                Color(0xFF0a0a14),
-              ],
+              colors: [Color(0xFF0a0a14), Color(0xFF16213e), Color(0xFF0a0a14)],
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
             ),
@@ -206,10 +197,7 @@ class _DetalleExamenPageState extends State<DetalleExamenPage> {
                         padding: const EdgeInsets.all(24),
                         decoration: BoxDecoration(
                           gradient: LinearGradient(
-                            colors: [
-                              Color(0xFF1a1a2e),
-                              Color(0xFF16213e),
-                            ],
+                            colors: [Color(0xFF1a1a2e), Color(0xFF16213e)],
                             begin: Alignment.topLeft,
                             end: Alignment.bottomRight,
                           ),
@@ -238,7 +226,10 @@ class _DetalleExamenPageState extends State<DetalleExamenPage> {
                               padding: const EdgeInsets.all(16),
                               decoration: BoxDecoration(
                                 gradient: LinearGradient(
-                                  colors: [Color(0xFF00F0FF), Color(0xFF00FF41)],
+                                  colors: [
+                                    Color(0xFF00F0FF),
+                                    Color(0xFF00FF41),
+                                  ],
                                 ),
                                 borderRadius: BorderRadius.circular(20),
                                 boxShadow: [
@@ -302,7 +293,11 @@ class _DetalleExamenPageState extends State<DetalleExamenPage> {
                             _buildInfoRow(
                               Icons.gamepad_rounded,
                               "Tipo de Juego",
-                              examen.id_juego == 1 ? "Ahorcado" : examen.id_juego == 2 ? "Héroes" : "Desconocido",
+                              examen.id_juego == 1
+                                  ? "Ahorcado"
+                                  : examen.id_juego == 2
+                                  ? "Héroes"
+                                  : "Desconocido",
                               Color(0xFF00F0FF),
                             ),
 
@@ -346,8 +341,7 @@ class _DetalleExamenPageState extends State<DetalleExamenPage> {
     );
   }
 
-  Widget _buildInfoRow(
-      IconData icon, String label, String value, Color color) {
+  Widget _buildInfoRow(IconData icon, String label, String value, Color color) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -356,10 +350,7 @@ class _DetalleExamenPageState extends State<DetalleExamenPage> {
           decoration: BoxDecoration(
             color: color.withOpacity(0.2),
             borderRadius: BorderRadius.circular(10),
-            border: Border.all(
-              color: color.withOpacity(0.5),
-              width: 1.5,
-            ),
+            border: Border.all(color: color.withOpacity(0.5), width: 1.5),
           ),
           child: Icon(icon, color: color, size: 20),
         ),
@@ -402,10 +393,7 @@ class _DetalleExamenPageState extends State<DetalleExamenPage> {
                   Color(0xFF00FF41).withOpacity(0.1),
                   Color(0xFF00F0FF).withOpacity(0.1),
                 ]
-              : [
-                  Colors.orange.withOpacity(0.1),
-                  Colors.red.withOpacity(0.1),
-                ],
+              : [Colors.orange.withOpacity(0.1), Colors.red.withOpacity(0.1)],
         ),
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
@@ -479,12 +467,8 @@ class _DetalleExamenPageState extends State<DetalleExamenPage> {
       height: 55,
       decoration: BoxDecoration(
         gradient: hayresultados
-            ? LinearGradient(
-                colors: [Color(0xFF00F0FF), Color(0xFF00FF41)],
-              )
-            : LinearGradient(
-                colors: [Colors.grey[700]!, Colors.grey[800]!],
-              ),
+            ? LinearGradient(colors: [Color(0xFF00F0FF), Color(0xFF00FF41)])
+            : LinearGradient(colors: [Colors.grey[700]!, Colors.grey[800]!]),
         borderRadius: BorderRadius.circular(12),
         boxShadow: hayresultados
             ? [

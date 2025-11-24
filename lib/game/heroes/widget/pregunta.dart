@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class PreguntaDialog extends StatefulWidget {
-  const PreguntaDialog({Key? key});
+  const PreguntaDialog({super.key});
 
   @override
   State<PreguntaDialog> createState() => _PreguntaDialogState();

@@ -10,7 +10,7 @@ import 'package:exa_gammer_movil/controllers/examen_controller.dart';
 import 'package:exa_gammer_movil/controllers/juego_controller.dart';
 
 class AddExamen extends StatefulWidget {
-  AddExamen({super.key});
+  const AddExamen({super.key});
 
   @override
   State<AddExamen> createState() => _AddExamenState();
@@ -18,7 +18,8 @@ class AddExamen extends StatefulWidget {
 
 class _AddExamenState extends State<AddExamen> {
   final ExamenController actividadController = Get.find();
-  final GlobalKey<AhorcadoFormState> ahorcadoFormKey = GlobalKey<AhorcadoFormState>();
+  final GlobalKey<AhorcadoFormState> ahorcadoFormKey =
+      GlobalKey<AhorcadoFormState>();
   final GlobalKey<HeroesFormState> heroesFormKey = GlobalKey<HeroesFormState>();
   final UserController userController = Get.find();
   final ClaseController claseController = Get.find();
@@ -27,7 +28,7 @@ class _AddExamenState extends State<AddExamen> {
   final TextEditingController temaController = TextEditingController();
   final TextEditingController descripcionController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  
+
   var tiposJuego = <dynamic>[].obs;
   bool mostaravatar = false;
   String? selecionAvatar;
@@ -84,10 +85,7 @@ class _AddExamenState extends State<AddExamen> {
         flexibleSpace: Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [
-                Color(0xFF1a1a2e),
-                Color(0xFF16213e),
-              ],
+              colors: [Color(0xFF1a1a2e), Color(0xFF16213e)],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
@@ -103,11 +101,7 @@ class _AddExamenState extends State<AddExamen> {
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [
-              Color(0xFF0a0a14),
-              Color(0xFF16213e),
-              Color(0xFF0a0a14),
-            ],
+            colors: [Color(0xFF0a0a14), Color(0xFF16213e), Color(0xFF0a0a14)],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),
@@ -128,10 +122,7 @@ class _AddExamenState extends State<AddExamen> {
                   padding: const EdgeInsets.all(24),
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
-                      colors: [
-                        Color(0xFF1a1a2e),
-                        Color(0xFF16213e),
-                      ],
+                      colors: [Color(0xFF1a1a2e), Color(0xFF16213e)],
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
                     ),
@@ -165,7 +156,10 @@ class _AddExamenState extends State<AddExamen> {
                               padding: const EdgeInsets.all(10),
                               decoration: BoxDecoration(
                                 gradient: LinearGradient(
-                                  colors: [Color(0xFF00F0FF), Color(0xFF00FF41)],
+                                  colors: [
+                                    Color(0xFF00F0FF),
+                                    Color(0xFF00FF41),
+                                  ],
                                 ),
                                 borderRadius: BorderRadius.circular(12),
                                 boxShadow: [
@@ -175,7 +169,11 @@ class _AddExamenState extends State<AddExamen> {
                                   ),
                                 ],
                               ),
-                              child: Icon(Icons.assignment_rounded, color: Colors.black, size: 24),
+                              child: Icon(
+                                Icons.assignment_rounded,
+                                color: Colors.black,
+                                size: 24,
+                              ),
                             ),
                             const SizedBox(width: 12),
                             ShaderMask(
@@ -302,10 +300,7 @@ class _AddExamenState extends State<AddExamen> {
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [
-            Color(0xFF1a1a2e),
-            Color(0xFF16213e),
-          ],
+          colors: [Color(0xFF1a1a2e), Color(0xFF16213e)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -338,10 +333,7 @@ class _AddExamenState extends State<AddExamen> {
                 ),
               ],
             ),
-            child: Image.asset(
-              'assets/imagen/logo_exa.png',
-              height: 50,
-            ),
+            child: Image.asset('assets/imagen/logo_exa.png', height: 50),
           ),
           const SizedBox(width: 16),
           ShaderMask(
@@ -417,17 +409,11 @@ class _AddExamenState extends State<AddExamen> {
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
-              borderSide: BorderSide(
-                color: Color(0xFF00F0FF),
-                width: 2,
-              ),
+              borderSide: BorderSide(color: Color(0xFF00F0FF), width: 2),
             ),
             errorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
-              borderSide: BorderSide(
-                color: Colors.red.shade400,
-                width: 1.5,
-              ),
+              borderSide: BorderSide(color: Colors.red.shade400, width: 1.5),
             ),
             contentPadding: const EdgeInsets.symmetric(
               horizontal: 16,
@@ -566,10 +552,7 @@ class _AddExamenState extends State<AddExamen> {
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
-                borderSide: BorderSide(
-                  color: Color(0xFF00FF41),
-                  width: 2,
-                ),
+                borderSide: BorderSide(color: Color(0xFF00FF41), width: 2),
               ),
               contentPadding: const EdgeInsets.symmetric(
                 horizontal: 16,
@@ -577,16 +560,12 @@ class _AddExamenState extends State<AddExamen> {
               ),
             ),
             items: tiposJuego.map((tipo) {
-              return DropdownMenuItem(
-                value: tipo,
-                child: Text(tipo.nombre),
-              );
+              return DropdownMenuItem(value: tipo, child: Text(tipo.nombre));
             }).toList(),
             onChanged: (value) {
               JuegoSeleccionado.value = value;
             },
-            validator: (value) =>
-                value == null ? 'Seleccione un tipo' : null,
+            validator: (value) => value == null ? 'Seleccione un tipo' : null,
           );
         }),
       ],
@@ -599,10 +578,7 @@ class _AddExamenState extends State<AddExamen> {
       decoration: BoxDecoration(
         color: Color(0xFF0a0a14).withOpacity(0.3),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: Color(0xFF00F0FF).withOpacity(0.2),
-          width: 1,
-        ),
+        border: Border.all(color: Color(0xFF00F0FF).withOpacity(0.2), width: 1),
       ),
       child: Row(
         children: [
@@ -615,10 +591,7 @@ class _AddExamenState extends State<AddExamen> {
           Expanded(
             child: Text(
               'Seleccione un tipo de juego para continuar',
-              style: TextStyle(
-                fontSize: 15,
-                color: Colors.grey[500],
-              ),
+              style: TextStyle(fontSize: 15, color: Colors.grey[500]),
             ),
           ),
         ],
@@ -769,4 +742,3 @@ class _AddExamenState extends State<AddExamen> {
 }
 
 //arreglar color de las letras al entrar en menu desplegable de elegir juego
-
