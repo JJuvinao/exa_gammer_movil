@@ -6,17 +6,17 @@ import 'package:exa_gammer_movil/ui/home/profesor/Detalle_Clase_Profesor/Widgets
 import 'package:exa_gammer_movil/ui/home/profesor/main_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:exa_gammer_movil/ui/home/vista/examen/add_examen.dart';
+import 'package:exa_gammer_movil/ui/home/vista/examen/ui/add_examen.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
 class DetalleClase extends StatefulWidget {
-  DetalleClase({super.key});
+  const DetalleClase({super.key});
 
   @override
-  State<DetalleClase> createState() => _DetalleClaseState();
+  State<DetalleClase> createState() => DetalleClaseState();
 }
 
-class _DetalleClaseState extends State<DetalleClase> {
+class DetalleClaseState extends State<DetalleClase> {
   late final examenController;
   late final claseController;
   late final UserController user;
@@ -42,7 +42,6 @@ class _DetalleClaseState extends State<DetalleClase> {
     clase = claseController.getclase;
     final token = user.gettoken;
     listexamen.value = await examenController.filteredList(clase.id, token);
-    ;
   }
 
   @override

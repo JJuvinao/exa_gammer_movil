@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:exa_gammer_movil/controllers/clase_controller.dart';
 import 'package:exa_gammer_movil/controllers/user_controller.dart';
 import 'package:exa_gammer_movil/controllers/examen_controller.dart';
-import 'package:exa_gammer_movil/game/ahorcado/ahorcado_controller.dart';
+import 'package:exa_gammer_movil/game/ahorcado/controller/ahorcado_controller.dart';
 import 'package:exa_gammer_movil/service/localServices.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:exa_gammer_movil/ui/app.dart';

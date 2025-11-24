@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class Estud_Clase extends StatefulWidget {
-  Estud_Clase({super.key});
+  const Estud_Clase({super.key});
 
   @override
   State<Estud_Clase> createState() => _Estud_ClaseState();

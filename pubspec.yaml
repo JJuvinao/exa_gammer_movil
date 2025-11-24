@@ -17,19 +17,21 @@ dependencies:
   get: ^4.7.2
   get_storage: ^2.1.1
   auto_size_text: ^3.0.0
+  mockito: ^5.6.1
+  build_runner: ^2.10.4
 
 dev_dependencies:
   flutter_launcher_icons: ^0.13.1
+  integration_test:
+    sdk: flutter
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
 
 flutter_launcher_icons:
   android: true
   ios: true
   image_path: "assets/icon/icono2.png"
-
-  flutter_test:
-    sdk: flutter
-
-  flutter_lints: ^5.0.0
 
 flutter:
   uses-material-design: true

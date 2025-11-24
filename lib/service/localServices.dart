@@ -43,7 +43,12 @@ class StorageService extends GetxService {
     img: '',
     id_juego: 0,
   ).obs;
-  final contexaAhorcado = Ahorcado(palabra: '', pista: '').obs;
+  final contexaAhorcado = Ahorcado(
+    id: 0,
+    palabra: '',
+    pista: '',
+    codigo_exa: '',
+  ).obs;
 
   User get displayUser => user.value;
   String get displayToken => token.value;

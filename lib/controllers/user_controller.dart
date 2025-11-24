@@ -20,7 +20,7 @@ class UserController extends GetxController {
     String role,
     String email,
   ) async {
-    Userfrom _userfrom = Userfrom(
+    Userfrom userfrom = Userfrom(
       username: username,
       password: password,
       rol: role,
@@ -37,7 +37,7 @@ class UserController extends GetxController {
             headers: <String, String>{
               'Content-Type': 'application/json; charset=UTF-8',
             },
-            body: jsonEncode(_userfrom.toJson()),
+            body: jsonEncode(userfrom.toJson()),
           )
           .timeout(Duration(seconds: 15));
 
@@ -58,14 +58,14 @@ class UserController extends GetxController {
     String username,
     String password,
   ) async {
-    Userdto _userdto = Userdto(username: username, password: password);
+    Userdto userdto = Userdto(username: username, password: password);
     final url = Uri.parse('https://apiexagammer.somee.com/api/Login');
     try {
       final res = await http
           .post(
             url,
             headers: {'Content-Type': 'application/json'},
-            body: jsonEncode(_userdto.toJson()),
+            body: jsonEncode(userdto.toJson()),
           )
           .timeout(Duration(seconds: 15));
       if (res.statusCode == 200) {
@@ -92,14 +92,10 @@ class UserController extends GetxController {
             url,
             headers: <String, String>{
               'Content-Type': 'application/json; charset=UTF-8',
-              'Authorization': 'Bearer ${gettoken}',
+              'Authorization': 'Bearer $gettoken',
             },
             body: jsonEncode(
-              new Userclase(
-                userid: getuser.id,
-                claseid: 0,
-                codigo: codigoClase,
-              ),
+              Userclase(userid: getuser.id, claseid: 0, codigo: codigoClase),
             ),
           )
           .timeout(Duration(seconds: 15));
@@ -111,5 +107,58 @@ class UserController extends GetxController {
       print("ERROR AL UNIRSE A LA CLASE");
     }
     return false;
+  }
+
+  Future<bool> actualizarUsuario(User usuario) async {
+    const url = 'https://www.apiexagammer.somee.com/api/Usuarios/UpdateUser';
+
+    try {
+      final res = await http.put(
+        Uri.parse(url),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $gettoken',
+        },
+        body: jsonEncode(usuario.toJson()),
+      );
+
+      if (res.statusCode == 200) {
+        await _storageService.login(usuario, gettoken);
+        update();
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      print(" Excepción al actualizar perfil: $e");
+      return false;
+    }
+  }
+
+  Future<bool> actualizarPremium(int userId, bool premium) async {
+    const url = 'https://www.apiexagammer.somee.com/api/Usuarios/UpdatePremium';
+
+    try {
+      final res = await http.put(
+        Uri.parse(url),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $gettoken',
+        },
+        body: jsonEncode({"id_user": userId, "premium": premium}),
+      );
+
+      if (res.statusCode == 200) {
+        final userActualizado = getuser.copyWith(premium: premium);
+        await _storageService.login(userActualizado, gettoken);
+        update();
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      print(" Excepción al actualizar premium: $e");
+      return false;
+    }
   }
 }

@@ -27,11 +27,11 @@ class JuegoController extends GetxController {
         print(res.body);
       }
       final data = jsonDecode(res.body);
-      List<Juego> _JuegoList = [];
+      List<Juego> juegoListe = [];
       for (var item in data) {
-        _JuegoList.add(Juego.fromJson(item));
+        juegoListe.add(Juego.fromJson(item));
       }
-      juegoList.value = _JuegoList;
+      juegoList.value = juegoListe;
     } catch (e) {
       print("ERROR DE LA CARGA DE JUEGOS ${e.toString()}");
     }

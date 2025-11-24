@@ -3,11 +3,13 @@ import 'package:get/get.dart';
 import 'package:exa_gammer_movil/controllers/user_controller.dart';
 
 class AgregarUsuario extends StatefulWidget {
+  const AgregarUsuario({super.key});
+
   @override
-  _AgregarUsuarioState createState() => _AgregarUsuarioState();
+  AgregarUsuarioState createState() => AgregarUsuarioState();
 }
 
-class _AgregarUsuarioState extends State<AgregarUsuario> {
+class AgregarUsuarioState extends State<AgregarUsuario> {
   final usuario = TextEditingController();
   final clave = TextEditingController();
   final email = TextEditingController();
@@ -74,6 +76,8 @@ class _AgregarUsuarioState extends State<AgregarUsuario> {
             style: _buttonStyle(),
             onPressed: () async {
               if (selectedRole != null) {
+                //aqui tiene que hacer las validaciones que impusiste en las clases
+                // de equivalencias
                 var res = await userController.registerUser(
                   usuario.text,
                   clave.text,

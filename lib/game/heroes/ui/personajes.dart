@@ -28,14 +28,13 @@ class _PersonajesPageState extends State<PersonajesPage> {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
-
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: () async => await Get.to(ExamenView(vista: "Examen")),
+      onWillPop: () async => await Get.to(() => ExamenView(vista: "Examen")),
       child: Scaffold(
         body: Container(
           decoration: const BoxDecoration(
@@ -65,7 +64,7 @@ class _PersonajesPageState extends State<PersonajesPage> {
                             name: "Mago",
                             image: "lib/game/heroes/imagenes/Mago/MagoIdle.gif",
                             onTap: () {
-                              Get.to(MundosPage(personaje: "Mago"));
+                              Get.to(() => MundosPage(personaje: "Mago"));
                             },
                           ),
                         ),
@@ -76,7 +75,7 @@ class _PersonajesPageState extends State<PersonajesPage> {
                             image:
                                 "lib/game/heroes/imagenes/Guerrero/GuerreroIdle.gif",
                             onTap: () {
-                              Get.to(MundosPage(personaje: "Guerrero"));
+                              Get.to(() => MundosPage(personaje: "Guerrero"));
                             },
                           ),
                         ),
@@ -87,7 +86,7 @@ class _PersonajesPageState extends State<PersonajesPage> {
                             image:
                                 "lib/game/heroes/imagenes/Samurai/SamuraiIdle.gif",
                             onTap: () {
-                              Get.to(MundosPage(personaje: "Samurai"));
+                              Get.to(() => MundosPage(personaje: "Samurai"));
                             },
                           ),
                         ),

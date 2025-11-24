@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print, non_constant_identifier_names
+
 import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
@@ -102,13 +104,13 @@ class ClaseController extends GetxController {
       }
 
       final data = jsonDecode(res.body);
-      List<Clase> _claseList = [];
+      List<Clase> claseListe = [];
 
       for (var item in data) {
-        _claseList.add(Clase.fromjson(item));
+        claseListe.add(Clase.fromjson(item));
       }
 
-      claseList.value = _claseList;
+      claseList.value = claseListe;
     } catch (e) {
       print("ERROR DE LA CARGA DE CLASES ${e.toString()}");
     }
@@ -131,18 +133,16 @@ class ClaseController extends GetxController {
           )
           .timeout(const Duration(seconds: 15));
 
-      if (res.statusCode != 200) {
-        print(res.statusCode);
-      }
+      if (res.statusCode != 200) {}
 
       final data = jsonDecode(res.body);
-      List<Clase> _claseList = [];
+      List<Clase> claseListe = [];
 
       for (var item in data) {
-        _claseList.add(Clase.fromjson(item));
+        claseListe.add(Clase.fromjson(item));
       }
 
-      claseList.value = _claseList;
+      claseList.value = claseListe;
     } catch (e) {
       print("ERROR DE LA CARGA DE CLASES ${e.toString()}");
     }
@@ -166,18 +166,17 @@ class ClaseController extends GetxController {
           .timeout(const Duration(seconds: 15));
 
       if (res.statusCode != 200) {
-        print(res.statusCode);
         return [];
       }
 
       final data = jsonDecode(res.body);
-      List<User> _userList = [];
+      List<User> userList = [];
 
       for (var item in data) {
-        _userList.add(User.fromjson(item));
+        userList.add(User.fromjson(item));
       }
 
-      return _userList;
+      return userList;
     } catch (e) {
       print("ERROR DE LA CARGA LOS ESTUDIANTES DE LA CLASES ${e.toString()}");
     }
@@ -197,7 +196,6 @@ class ClaseController extends GetxController {
           'Content-Type': 'application/json',
         },
       );
-      print(res.statusCode);
       if (res.statusCode != 204 && res.statusCode != 200) {
         return false;
       }
