@@ -90,6 +90,7 @@ class AhorcadoFormState extends State<AhorcadoForm> {
 
                 TextFormField(
                   controller: _pistaController,
+                  style: const TextStyle(color: Colors.white),
                   decoration: const InputDecoration(
                     labelText: "Pista",
                     border: OutlineInputBorder(),
