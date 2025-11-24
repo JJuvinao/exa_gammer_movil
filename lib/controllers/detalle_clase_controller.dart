@@ -1,4 +1,3 @@
-//totalmente nuevo..... no se que tan necesisario sea
 
 // ignore_for_file: prefer_typing_uninitialized_variables
 
