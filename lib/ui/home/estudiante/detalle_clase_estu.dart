@@ -1,14 +1,15 @@
+// ignore_for_file: non_constant_identifier_names, camel_case_types
+
 import 'package:exa_gammer_movil/controllers/user_controller.dart';
 import 'package:exa_gammer_movil/ui/home/profesor/main_view.dart';
 import 'package:exa_gammer_movil/ui/home/vista/examen/examen_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:exa_gammer_movil/controllers/examen_controller.dart';
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:exa_gammer_movil/controllers/clase_controller.dart';
 
 class DetalleClase_Estu extends StatefulWidget {
-  DetalleClase_Estu({super.key});
+  const DetalleClase_Estu({super.key});
 
   @override
   State<DetalleClase_Estu> createState() => _DetalleClase_EstuState();
@@ -256,9 +257,7 @@ class _DetalleClase_EstuState extends State<DetalleClase_Estu> {
           ),
           const SizedBox(width: 16),
 
-
-
-/// muestra el nombre de la clase y el autor
+          /// muestra el nombre de la clase y el autor
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -283,7 +282,7 @@ class _DetalleClase_EstuState extends State<DetalleClase_Estu> {
                     ),
                     const SizedBox(width: 6),
                     Text(
-                      clase.autor ?? "Sin autor",
+                      clase.autor,
                       style: TextStyle(color: Colors.grey[400], fontSize: 13),
                     ),
                   ],
@@ -292,11 +291,7 @@ class _DetalleClase_EstuState extends State<DetalleClase_Estu> {
             ),
           ),
 
-
-
-
-////////////////////////////muestra el numero de actividades asignadas a la clase
-
+          ////////////////////////////muestra el numero de actividades asignadas a la clase
           Obx(
             () => Container(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),

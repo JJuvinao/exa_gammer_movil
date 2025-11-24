@@ -1,4 +1,4 @@
-// ignore_for_file: override_on_non_overriding_member, non_constant_identifier_names, avoid_print
+// ignore_for_file: override_on_non_overriding_member, non_constant_identifier_names, avoid_print, file_names
 
 import 'package:exa_gammer_movil/ui/home/profesor/Home_Profesor/home_profesor.dart';
 import 'package:exa_gammer_movil/ui/home/vista/examen/ui/add_examen.dart';

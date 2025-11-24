@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_typing_uninitialized_variables, non_constant_identifier_names
+
 import 'package:exa_gammer_movil/models/examen_model.dart';
 import 'package:exa_gammer_movil/models/user_model.dart';
 import 'package:exa_gammer_movil/service/localServices.dart';
@@ -39,8 +41,8 @@ class ExamenController extends GetxController {
     examenList.clear();
   }
 
-  Future<dynamic> getResultado(int id_user, int id_examen, String token) async {
-    await ResultadoEstudiante(id_user, id_examen, token);
+  Future<dynamic> getResultado(int idUser, int idExamen, String token) async {
+    await ResultadoEstudiante(idUser, idExamen, token);
     return resultados;
   }
 
@@ -69,17 +71,17 @@ class ExamenController extends GetxController {
   }
 
   Future<List<Estudi_Resultados>> listresult(
-    int id_user,
-    int id_examen,
+    int idUser,
+    int idExamen,
     String token,
   ) async {
-    await Resultados_Estu(id_examen, token);
-    await Estudiantes_Result(id_examen, token);
+    await Resultados_Estu(idExamen, token);
+    await Estudiantes_Result(idExamen, token);
     if (resultadosList.isEmpty || userResult.isEmpty) {
       return [];
     }
 
-    var estu_Result = <Estudi_Resultados>[];
+    var estuResult = <Estudi_Resultados>[];
     for (int i = 0; i < resultadosList.length; i++) {
       if (resultadosList[i].id_Estudiane == userResult[i].id) {
         var estu = Estudi_Resultados(
@@ -93,23 +95,22 @@ class ExamenController extends GetxController {
           nota: resultadosList[i].nota,
           recomendacion: resultadosList[i].recomendacion,
         );
-        estu_Result.add(estu);
+        estuResult.add(estu);
       }
-      ;
     }
-    return estu_Result;
+    return estuResult;
   }
 
   Future<void> CargarExamenes(int id, String token) async {
     try {
       final url = Uri.parse(
-        'https://www.apiexagammer.somee.com/api/Examenes/ExamenesClase/${id}',
+        'https://www.apiexagammer.somee.com/api/Examenes/ExamenesClase/$id',
       );
 
       final res = await http.get(
         url,
         headers: {
-          'Authorization': 'Bearer ${token}',
+          'Authorization': 'Bearer $token',
           'Content-Type': 'application/json',
         },
       );
@@ -118,11 +119,11 @@ class ExamenController extends GetxController {
         print(res.body);
       }
       final data = jsonDecode(res.body);
-      List<Examen> _ExamenList = [];
+      List<Examen> examenListe = [];
       for (var item in data) {
-        _ExamenList.add(Examen.fromjson(item));
+        examenListe.add(Examen.fromjson(item));
       }
-      examenList.value = _ExamenList;
+      examenList.value = examenListe;
     } catch (e) {
       print("ERROR DE LA CARGA DE EXAMENES ${e.toString()}");
     }
@@ -165,7 +166,6 @@ class ExamenController extends GetxController {
         'Heroes': datos['lispreheroe'],
       };
     }
-    print("los datos del examen son: $datosExamen");
     try {
       final url = Uri.parse(urls);
 
@@ -173,7 +173,7 @@ class ExamenController extends GetxController {
           .post(
             url,
             headers: {
-              'Authorization': 'Bearer ${token}',
+              'Authorization': 'Bearer $token',
               'Content-Type': 'application/json',
             },
             body: jsonEncode(datosExamen),
@@ -193,20 +193,19 @@ class ExamenController extends GetxController {
   Future<void> CargarHeroes(String codigo, String token) async {
     try {
       final url = Uri.parse(
-        "https://www.apiexagammer.somee.com/api/Examenes/GetConte_Heroe/${codigo}",
+        "https://www.apiexagammer.somee.com/api/Examenes/GetConte_Heroe/$codigo",
       );
 
       final res = await http.get(
         url,
         headers: {
-          'Authorization': 'Bearer ${token}',
+          'Authorization': 'Bearer $token',
           'Content-Type': 'application/json',
         },
       );
 
       if (res.statusCode != 200) {
         print(res.statusCode);
-        print(res.body);
       }
       final data = jsonDecode(res.body);
       List<Heroes> heroeList = [];
@@ -222,17 +221,15 @@ class ExamenController extends GetxController {
   Future<void> CargarAhorcados(String token, String codigo) async {
     try {
       final url = Uri.parse(
-        "https://www.apiexagammer.somee.com/api/Examenes/GetConte_Ahorcado/${codigo}",
+        "https://www.apiexagammer.somee.com/api/Examenes/GetConte_Ahorcado/$codigo",
       );
 
       final res = await http.get(
         url,
-        headers: {'Authorization': 'Bearer ${token}'},
+        headers: {'Authorization': 'Bearer $token'},
       );
 
       if (res.statusCode != 200) {
-        print(res.statusCode);
-        print(res.body);
         return;
       }
       final data = jsonDecode(res.body);
@@ -249,13 +246,13 @@ class ExamenController extends GetxController {
   Future<void> Resultados_Estu(int id_examen, String token) async {
     try {
       final url = Uri.parse(
-        'https://www.apiexagammer.somee.com/api/Estudi_Examen/UsersResultados/${id_examen}',
+        'https://www.apiexagammer.somee.com/api/Estudi_Examen/UsersResultados/$id_examen',
       );
 
       final res = await http.get(
         url,
         headers: {
-          'Authorization': 'Bearer ${token}',
+          'Authorization': 'Bearer $token',
           'Content-Type': 'application/json',
         },
       );
@@ -278,13 +275,13 @@ class ExamenController extends GetxController {
   Future<void> Estudiantes_Result(int id_examen, String token) async {
     try {
       final url = Uri.parse(
-        'https://www.apiexagammer.somee.com/api/Estudi_Examen/Estudiantes_exa/${id_examen}',
+        'https://www.apiexagammer.somee.com/api/Estudi_Examen/Estudiantes_exa/$id_examen',
       );
 
       final res = await http.get(
         url,
         headers: {
-          'Authorization': 'Bearer ${token}',
+          'Authorization': 'Bearer $token',
           'Content-Type': 'application/json',
         },
       );
@@ -311,7 +308,7 @@ class ExamenController extends GetxController {
       final res = await http.put(
         url,
         headers: {
-          'Authorization': 'Bearer ${token}',
+          'Authorization': 'Bearer $token',
           'Content-Type': 'application/json',
         },
         body: jsonEncode(calificar.toJson()),
@@ -320,7 +317,6 @@ class ExamenController extends GetxController {
       if (res.statusCode == 200) {
         return true;
       } else {
-        print('Error al guardar el examen: ${res.statusCode}');
         return false;
       }
     } catch (e) {
@@ -343,7 +339,7 @@ class ExamenController extends GetxController {
       final res = await http.post(
         url,
         headers: {
-          'Authorization': 'Bearer ${token}',
+          'Authorization': 'Bearer $token',
           'Content-Type': 'application/json',
         },
         body: jsonEncode(datos),
@@ -376,7 +372,6 @@ class ExamenController extends GetxController {
           'Content-Type': 'application/json',
         },
       );
-      print(res.statusCode);
       if (res.statusCode != 204 && res.statusCode != 200) {
         return false;
       }

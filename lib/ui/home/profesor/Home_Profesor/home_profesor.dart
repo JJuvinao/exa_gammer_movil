@@ -8,10 +8,10 @@ import 'package:exa_gammer_movil/ui/home/profesor/Home_Profesor/widgets_home_pro
 import 'package:exa_gammer_movil/ui/home/profesor/Home_Profesor/widgets_home_profesor/fab_nueva_clase.dart';
 import 'package:exa_gammer_movil/ui/home/profesor/Home_Profesor/widgets_home_profesor/header_home.dart';
 import 'package:exa_gammer_movil/ui/home/profesor/Home_Profesor/widgets_home_profesor/logout_dialog.dart';
-import 'package:exa_gammer_movil/ui/home/buscar.dart';
+import 'package:exa_gammer_movil/ui/home/widget/buscar.dart';
 
 class HomeProfesor extends StatefulWidget {
-  HomeProfesor({super.key});
+  const HomeProfesor({super.key});
 
   @override
   State<HomeProfesor> createState() => _HomeProfesorState();

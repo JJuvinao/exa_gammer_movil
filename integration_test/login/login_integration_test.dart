@@ -1,4 +1,4 @@
-// ignore_for_file: override_on_non_overriding_member, avoid_print
+// ignore_for_file: override_on_non_overriding_member, avoid_print, non_constant_identifier_names
 import 'package:exa_gammer_movil/models/user_model.dart';
 import 'package:exa_gammer_movil/service/localServices.dart';
 import 'package:exa_gammer_movil/ui/home/inicio_sesion/login.dart';

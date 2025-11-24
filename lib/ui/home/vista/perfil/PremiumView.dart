@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:exa_gammer_movil/ui/home/widget/Plan_card.dart';
+import 'package:exa_gammer_movil/ui/home/vista/perfil/Plan_card.dart';
 import 'package:exa_gammer_movil/ui/home/vista/perfil/Pago_premium.dart';
 
 class PremiumView extends StatelessWidget {
@@ -66,13 +66,15 @@ class PremiumView extends StatelessWidget {
                 'Crea hasta 25 cursos con IA',
               ],
               price: '\$39.900 / mes',
-              color:Colors.grey.shade900,
+              color: Colors.grey.shade900,
               textColor: Colors.white,
               onPressed: () {
-                Get.to(() => PagosPremiumView(
-                      plan: 'Paquete Mensual',
-                      precio: '\$39.900 / mes',
-                    ));
+                Get.to(
+                  () => PagosPremiumView(
+                    plan: 'Paquete Mensual',
+                    precio: '\$39.900 / mes',
+                  ),
+                );
               },
             ),
 
@@ -86,13 +88,15 @@ class PremiumView extends StatelessWidget {
                 'Ahorra 2 meses con este plan',
               ],
               price: '\$359.000 / año',
-              color:Colors.grey.shade900,
+              color: Colors.grey.shade900,
               textColor: Colors.white,
               onPressed: () {
-                Get.to(() => PagosPremiumView(
-                      plan: 'Paquete Anual',
-                      precio: '\$359.000 / año',
-                    ));
+                Get.to(
+                  () => PagosPremiumView(
+                    plan: 'Paquete Anual',
+                    precio: '\$359.000 / año',
+                  ),
+                );
               },
             ),
           ],

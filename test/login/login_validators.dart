@@ -12,7 +12,6 @@ class LoginValidators {
       return 'El usuario no puede superar los 40 caracteres';
     }
 
-    // Solo imprime si TODO está correcto
     print("✔️ Usuario válido: '$user'");
     return null;
   }
@@ -26,7 +25,6 @@ class LoginValidators {
       return 'La contraseña debe tener mínimo 8 caracteres';
     }
 
-    // Solo imprime si TODO está correcto
     print("✔️ Contraseña válida (oculta por seguridad)");
     return null;
   }

@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:exa_gammer_movil/controllers/clase_controller.dart';
 import 'package:exa_gammer_movil/ui/home/vista/clase/clase_view.dart';
-import 'package:exa_gammer_movil/ui/home/widget/ClaseCard.dart';
-
+import 'package:exa_gammer_movil/ui/home/vista/clase/ClaseCard.dart';
 
 class ClasesListView extends StatelessWidget {
   final RxList<dynamic> filteredClase;
@@ -38,10 +37,7 @@ class ClasesListView extends StatelessWidget {
               height: 120,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [
-                    Color(0xFF1a1a2e),
-                    Color(0xFF16213e),
-                  ],
+                  colors: [Color(0xFF1a1a2e), Color(0xFF16213e)],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                 ),

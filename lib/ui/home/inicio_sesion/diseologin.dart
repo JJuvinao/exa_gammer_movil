@@ -7,11 +7,13 @@ import 'package:exa_gammer_movil/ui/home/inicio_sesion/add_user.dart';
 import 'package:exa_gammer_movil/ui/home/inicio_sesion/login.dart';
 
 class Vistalogin extends StatefulWidget {
+  const Vistalogin({super.key});
+
   @override
-  _VistaloginState createState() => _VistaloginState();
+  VistaloginState createState() => VistaloginState();
 }
 
-class _VistaloginState extends State<Vistalogin> {
+class VistaloginState extends State<Vistalogin> {
   int selectedTabIndex = 0;
 
   @override
@@ -39,7 +41,8 @@ class _VistaloginState extends State<Vistalogin> {
                                 icon: Icons.login_rounded,
                                 label: 'Iniciar sesión',
                                 isSelected: selectedTabIndex == 0,
-                                onTap: () => setState(() => selectedTabIndex = 0),
+                                onTap: () =>
+                                    setState(() => selectedTabIndex = 0),
                               ),
                             ),
                             const SizedBox(width: 12),
@@ -48,7 +51,8 @@ class _VistaloginState extends State<Vistalogin> {
                                 icon: Icons.person_add_rounded,
                                 label: 'Registrarse',
                                 isSelected: selectedTabIndex == 1,
-                                onTap: () => setState(() => selectedTabIndex = 1),
+                                onTap: () =>
+                                    setState(() => selectedTabIndex = 1),
                               ),
                             ),
                           ],

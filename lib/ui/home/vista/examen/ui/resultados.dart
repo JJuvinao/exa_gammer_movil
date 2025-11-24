@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class Resultados extends StatefulWidget {
-  Resultados({super.key});
+  const Resultados({super.key});
 
   @override
   State<Resultados> createState() => _ResultadosState();
@@ -71,7 +71,10 @@ class _ResultadosState extends State<Resultados> {
               ],
             ),
             child: ListTile(
-              contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
+              contentPadding: const EdgeInsets.symmetric(
+                horizontal: 20,
+                vertical: 14,
+              ),
               title: ShaderMask(
                 shaderCallback: (bounds) => LinearGradient(
                   colors: [Color(0xFF00F0FF), Color(0xFF00FF41)],
