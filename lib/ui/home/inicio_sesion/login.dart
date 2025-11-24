@@ -57,6 +57,7 @@ class _LoginFromState extends State<LoginForm> {
             key: Key('btnLogin'),
             style: _buttonStyle(),
             onPressed: () async {
+              /*
               String nombre = usuario.text.trim();
               String password = clave.text.trim();
 
@@ -89,6 +90,7 @@ class _LoginFromState extends State<LoginForm> {
                 );
                 return;
               }
+              */
               final rol = await userController.iniciarSesionYObtenerRol(
                 usuario.text,
                 clave.text,
@@ -110,6 +112,19 @@ class _LoginFromState extends State<LoginForm> {
                   Get.put(ClaseController());
                 }
 
+                if (rol == 'Profesor') {
+                  Get.offAll(() => MainView(vista: "Profesor"));
+                } else if (rol == 'Estudiante') {
+                  Get.off(() => MainView(vista: "Estudiante"));
+                } else {
+                  Get.snackbar(
+                    'Error',
+                    'Rol no reconocido: $rol',
+                    backgroundColor: Colors.red,
+                    colorText: Colors.white,
+                  );
+                }
+                /*
                 if (GetPlatform.isWeb || Get.testMode) {
                 } else {
                   if (rol == 'Profesor') {
@@ -124,7 +139,7 @@ class _LoginFromState extends State<LoginForm> {
                       colorText: Colors.white,
                     );
                   }
-                }
+                }*/
               } else {
                 Get.snackbar(
                   'Error',
