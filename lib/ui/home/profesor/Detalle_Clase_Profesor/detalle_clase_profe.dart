@@ -1,8 +1,7 @@
 import 'package:exa_gammer_movil/controllers/clase_controller.dart';
 import 'package:exa_gammer_movil/controllers/examen_controller.dart';
 import 'package:exa_gammer_movil/controllers/user_controller.dart';
-import 'package:exa_gammer_movil/ui/home/profesor/Detalle_Clase_Profesor/Widgets_Detalle_Clase/empty_examenes_widget.dart';
-import 'package:exa_gammer_movil/ui/home/profesor/Detalle_Clase_Profesor/Widgets_Detalle_Clase/examen_card.dart';
+import 'package:exa_gammer_movil/ui/home/profesor/Detalle_Clase_Profesor/Widgets_Detalle_Clase/examenesListView.dart';
 import 'package:exa_gammer_movil/ui/home/profesor/main_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -73,7 +72,12 @@ class DetalleClaseState extends State<DetalleClase> {
                   const SizedBox(height: 24),
                   _buildSectionTitle(),
                   const SizedBox(height: 16),
-                  Expanded(child: _buildExamenList()),
+                  Expanded(
+                    child: ExamenesListView(
+                      filteredExamenes: listexamen,
+                      examenController: examenController,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -197,19 +201,6 @@ class DetalleClaseState extends State<DetalleClase> {
         ),
       ],
     );
-  }
-
-  Widget _buildExamenList() {
-    return Obx(() {
-      if (listexamen.isEmpty) return const EmptyExamenesWidget();
-
-      return ListView.separated(
-        padding: const EdgeInsets.only(bottom: 80),
-        itemCount: listexamen.length,
-        separatorBuilder: (_, __) => const SizedBox(height: 16),
-        itemBuilder: (_, i) => ExamenCard(actividad: listexamen[i]),
-      );
-    });
   }
 
   Widget _buildFAB() {

@@ -1,0 +1,308 @@
+Date : 2025-11-24 14:32:16
+Directory : c:\programas\exa_gammer_movil
+Total : 174 files,  16274 codes, 1074 comments, 1682 blanks, all 19030 lines
+
+Languages
++------------+------------+------------+------------+------------+------------+
+| language   | files      | code       | comment    | blank      | total      |
++------------+------------+------------+------------+------------+------------+
+| Dart       |        117 |     14,251 |        812 |      1,303 |     16,366 |
+| C++        |         16 |        547 |        131 |        189 |        867 |
+| XML        |         11 |        477 |         53 |         12 |        542 |
+| CMake      |          8 |        463 |          0 |         92 |        555 |
+| JSON       |          4 |        248 |          0 |          4 |        252 |
+| JavaScript |          5 |        123 |         34 |         34 |        191 |
+| YAML       |          2 |         68 |         22 |         11 |        101 |
+| Swift      |          6 |         57 |          7 |         21 |         85 |
+| HTML       |          1 |         19 |         15 |          5 |         39 |
+| Markdown   |          2 |         13 |          0 |          9 |         22 |
+| Properties |          2 |          8 |          0 |          2 |         10 |
++------------+------------+------------+------------+------------+------------+
+
+Directories
++----------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                                       | files      | code       | comment    | blank      | total      |
++----------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                                          |        174 |     16,274 |      1,074 |      1,682 |     19,030 |
+| . (Files)                                                                                                                  |          4 |         78 |         22 |         19 |        119 |
+| .run                                                                                                                       |          1 |          6 |          0 |          0 |          6 |
+| android                                                                                                                    |          9 |         75 |         51 |         11 |        137 |
+| android (Files)                                                                                                            |          1 |          3 |          0 |          1 |          4 |
+| android\app                                                                                                                |          7 |         67 |         51 |          9 |        127 |
+| android\app\src                                                                                                            |          7 |         67 |         51 |          9 |        127 |
+| android\app\src\debug                                                                                                      |          1 |          3 |          4 |          1 |          8 |
+| android\app\src\main                                                                                                       |          5 |         61 |         43 |          7 |        111 |
+| android\app\src\main (Files)                                                                                               |          1 |         35 |         11 |          1 |         47 |
+| android\app\src\main\res                                                                                                   |          4 |         26 |         32 |          6 |         64 |
+| android\app\src\main\res\drawable                                                                                          |          1 |          4 |          7 |          2 |         13 |
+| android\app\src\main\res\drawable-v21                                                                                      |          1 |          4 |          7 |          2 |         13 |
+| android\app\src\main\res\values                                                                                            |          1 |          9 |          9 |          1 |         19 |
+| android\app\src\main\res\values-night                                                                                      |          1 |          9 |          9 |          1 |         19 |
+| android\app\src\profile                                                                                                    |          1 |          3 |          4 |          1 |          8 |
+| android\gradle                                                                                                             |          1 |          5 |          0 |          1 |          6 |
+| android\gradle\wrapper                                                                                                     |          1 |          5 |          0 |          1 |          6 |
+| assets                                                                                                                     |          1 |         25 |          5 |          6 |         36 |
+| assets\imagen                                                                                                              |          1 |         25 |          5 |          6 |         36 |
+| integration_test                                                                                                           |          3 |        776 |        102 |        214 |      1,092 |
+| integration_test\clase                                                                                                     |          1 |        190 |         30 |         57 |        277 |
+| integration_test\examen                                                                                                    |          1 |        440 |         57 |        112 |        609 |
+| integration_test\login                                                                                                     |          1 |        146 |         15 |         45 |        206 |
+| ios                                                                                                                        |          8 |        229 |          4 |         13 |        246 |
+| ios\Runner                                                                                                                 |          7 |        222 |          2 |          9 |        233 |
+| ios\Runner (Files)                                                                                                         |          2 |         13 |          0 |          3 |         16 |
+| ios\RunnerTests                                                                                                            |          1 |          7 |          2 |          4 |         13 |
+| ios\Runner\Assets.xcassets                                                                                                 |          3 |        148 |          0 |          4 |        152 |
+| ios\Runner\Assets.xcassets\AppIcon.appiconset                                                                              |          1 |        122 |          0 |          1 |        123 |
+| ios\Runner\Assets.xcassets\LaunchImage.imageset                                                                            |          2 |         26 |          0 |          3 |         29 |
+| ios\Runner\Base.lproj                                                                                                      |          2 |         61 |          2 |          2 |         65 |
+| lib                                                                                                                        |        105 |     13,159 |        691 |      1,017 |     14,867 |
+| lib (Files)                                                                                                                |          1 |         31 |          5 |          5 |         41 |
+| lib\controllers                                                                                                            |          7 |      1,020 |         12 |        134 |      1,166 |
+| lib\game                                                                                                                   |         21 |      1,926 |         16 |        195 |      2,137 |
+| lib\game\ahorcado                                                                                                          |          3 |        316 |          3 |         45 |        364 |
+| lib\game\ahorcado\controller                                                                                               |          1 |        118 |          2 |         29 |        149 |
+| lib\game\ahorcado\ui                                                                                                       |          1 |        145 |          1 |         12 |        158 |
+| lib\game\ahorcado\widget                                                                                                   |          1 |         53 |          0 |          4 |         57 |
+| lib\game\heroes                                                                                                            |         18 |      1,610 |         13 |        150 |      1,773 |
+| lib\game\heroes\animation                                                                                                  |          2 |        129 |          5 |         22 |        156 |
+| lib\game\heroes\controller                                                                                                 |          3 |        337 |          1 |         38 |        376 |
+| lib\game\heroes\models                                                                                                     |          2 |         14 |          0 |          6 |         20 |
+| lib\game\heroes\ui                                                                                                         |          3 |        528 |          5 |         28 |        561 |
+| lib\game\heroes\widget                                                                                                     |          8 |        602 |          2 |         56 |        660 |
+| lib\models                                                                                                                 |          8 |        577 |          0 |         74 |        651 |
+| lib\models (Files)                                                                                                         |          4 |        416 |          0 |         55 |        471 |
+| lib\models\CursoModel                                                                                                      |          4 |        161 |          0 |         19 |        180 |
+| lib\service                                                                                                                |          1 |        149 |          0 |         15 |        164 |
+| lib\ui                                                                                                                     |         67 |      9,456 |        658 |        594 |     10,708 |
+| lib\ui (Files)                                                                                                             |          1 |         18 |          0 |          3 |         21 |
+| lib\ui\course                                                                                                              |          2 |        210 |          0 |         17 |        227 |
+| lib\ui\dialogs                                                                                                             |          1 |         78 |          0 |          3 |         81 |
+| lib\ui\home                                                                                                                |         63 |      9,150 |        658 |        571 |     10,379 |
+| lib\ui\home\estudiante                                                                                                     |          2 |        789 |         15 |         41 |        845 |
+| lib\ui\home\inicio_sesion                                                                                                  |          8 |        587 |         64 |         45 |        696 |
+| lib\ui\home\inicio_sesion (Files)                                                                                          |          3 |        366 |         64 |         33 |        463 |
+| lib\ui\home\inicio_sesion\Widgets_Inicio_Sesion                                                                            |          5 |        221 |          0 |         12 |        233 |
+| lib\ui\home\profesor                                                                                                       |         18 |      1,829 |        497 |        110 |      2,436 |
+| lib\ui\home\profesor (Files)                                                                                               |          2 |        137 |        479 |          7 |        623 |
+| lib\ui\home\profesor\Detalle_Clase_Profesor                                                                                |          4 |        445 |          1 |         28 |        474 |
+| lib\ui\home\profesor\Detalle_Clase_Profesor (Files)                                                                        |          1 |        202 |          0 |         12 |        214 |
+| lib\ui\home\profesor\Detalle_Clase_Profesor\Widgets_Detalle_Clase                                                          |          3 |        243 |          1 |         16 |        260 |
+| lib\ui\home\profesor\Home_Profesor                                                                                         |          6 |        471 |          0 |         26 |        497 |
+| lib\ui\home\profesor\Home_Profesor (Files)                                                                                 |          1 |        147 |          0 |         10 |        157 |
+| lib\ui\home\profesor\Home_Profesor\widgets_home_profesor                                                                   |          5 |        324 |          0 |         16 |        340 |
+| lib\ui\home\profesor\agregar_clase                                                                                         |          6 |        776 |         17 |         49 |        842 |
+| lib\ui\home\profesor\agregar_clase (Files)                                                                                 |          1 |        153 |         14 |         19 |        186 |
+| lib\ui\home\profesor\agregar_clase\widgets_add_clase                                                                       |          5 |        623 |          3 |         30 |        656 |
+| lib\ui\home\vista                                                                                                          |         24 |      5,235 |         76 |        329 |      5,640 |
+| lib\ui\home\vista\clase                                                                                                    |          4 |        896 |         15 |         51 |        962 |
+| lib\ui\home\vista\examen                                                                                                   |         15 |      3,537 |         60 |        229 |      3,826 |
+| lib\ui\home\vista\examen (Files)                                                                                           |          1 |        147 |          2 |         14 |        163 |
+| lib\ui\home\vista\examen\ui                                                                                                |          5 |      2,617 |         38 |        123 |      2,778 |
+| lib\ui\home\vista\examen\widget                                                                                            |          9 |        773 |         20 |         92 |        885 |
+| lib\ui\home\vista\perfil                                                                                                   |          5 |        802 |          1 |         49 |        852 |
+| lib\ui\home\widget                                                                                                         |         11 |        710 |          6 |         46 |        762 |
+| linux                                                                                                                      |          9 |        330 |         37 |         92 |        459 |
+| linux (Files)                                                                                                              |          1 |        104 |          0 |         25 |        129 |
+| linux\flutter                                                                                                              |          4 |        110 |          9 |         27 |        146 |
+| linux\runner                                                                                                               |          4 |        116 |         28 |         40 |        184 |
+| macos                                                                                                                      |          6 |        449 |          5 |         17 |        471 |
+| macos\Flutter                                                                                                              |          1 |          8 |          3 |          4 |         15 |
+| macos\Runner                                                                                                               |          4 |        434 |          0 |          9 |        443 |
+| macos\Runner (Files)                                                                                                       |          2 |         23 |          0 |          7 |         30 |
+| macos\RunnerTests                                                                                                          |          1 |          7 |          2 |          4 |         13 |
+| macos\Runner\Assets.xcassets                                                                                               |          1 |         68 |          0 |          1 |         69 |
+| macos\Runner\Assets.xcassets\AppIcon.appiconset                                                                            |          1 |         68 |          0 |          1 |         69 |
+| macos\Runner\Base.lproj                                                                                                    |          1 |        343 |          0 |          1 |        344 |
+| scripts_k6                                                                                                                 |          5 |        123 |         34 |         34 |        191 |
+| test                                                                                                                       |          7 |        291 |         14 |         65 |        370 |
+| test (Files)                                                                                                               |          1 |          0 |          0 |          2 |          2 |
+| test\clase                                                                                                                 |          2 |        148 |          2 |         19 |        169 |
+| test\examen                                                                                                                |          2 |         82 |         12 |         28 |        122 |
+| test\login                                                                                                                 |          2 |         61 |          0 |         16 |         77 |
+| web                                                                                                                        |          2 |         54 |         15 |          6 |         75 |
+| windows                                                                                                                    |         14 |        679 |         94 |        188 |        961 |
+| windows (Files)                                                                                                            |          1 |         89 |          0 |         20 |        109 |
+| windows\flutter                                                                                                            |          4 |        128 |          9 |         29 |        166 |
+| windows\runner                                                                                                             |          9 |        462 |         85 |        139 |        686 |
++----------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++----------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| filename                                                                                                                   | language   | code       | comment    | blank      | total      |
++----------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| c:\programas\exa_gammer_movil\.run\main.dart.run.xml                                                                       | XML        |          6 |          0 |          0 |          6 |
+| c:\programas\exa_gammer_movil\README.md                                                                                    | Markdown   |         10 |          0 |          7 |         17 |
+| c:\programas\exa_gammer_movil\analysis_options.yaml                                                                        | YAML       |         13 |         22 |          3 |         38 |
+| c:\programas\exa_gammer_movil\android\app\src\debug\AndroidManifest.xml                                                    | XML        |          3 |          4 |          1 |          8 |
+| c:\programas\exa_gammer_movil\android\app\src\main\AndroidManifest.xml                                                     | XML        |         35 |         11 |          1 |         47 |
+| c:\programas\exa_gammer_movil\android\app\src\main\res\drawable-v21\launch_background.xml                                  | XML        |          4 |          7 |          2 |         13 |
+| c:\programas\exa_gammer_movil\android\app\src\main\res\drawable\launch_background.xml                                      | XML        |          4 |          7 |          2 |         13 |
+| c:\programas\exa_gammer_movil\android\app\src\main\res\values-night\styles.xml                                             | XML        |          9 |          9 |          1 |         19 |
+| c:\programas\exa_gammer_movil\android\app\src\main\res\values\styles.xml                                                   | XML        |          9 |          9 |          1 |         19 |
+| c:\programas\exa_gammer_movil\android\app\src\profile\AndroidManifest.xml                                                  | XML        |          3 |          4 |          1 |          8 |
+| c:\programas\exa_gammer_movil\android\gradle.properties                                                                    | Properties |          3 |          0 |          1 |          4 |
+| c:\programas\exa_gammer_movil\android\gradle\wrapper\gradle-wrapper.properties                                             | Properties |          5 |          0 |          1 |          6 |
+| c:\programas\exa_gammer_movil\assets\imagen\main.dart                                                                      | Dart       |         25 |          5 |          6 |         36 |
+| c:\programas\exa_gammer_movil\integration_test\clase\addClase_integration_test.dart                                        | Dart       |        190 |         30 |         57 |        277 |
+| c:\programas\exa_gammer_movil\integration_test\examen\addExamen_integration_test.dart                                      | Dart       |        440 |         57 |        112 |        609 |
+| c:\programas\exa_gammer_movil\integration_test\login\login_integration_test.dart                                           | Dart       |        146 |         15 |         45 |        206 |
+| c:\programas\exa_gammer_movil\ios\RunnerTests\RunnerTests.swift                                                            | Swift      |          7 |          2 |          4 |         13 |
+| c:\programas\exa_gammer_movil\ios\Runner\AppDelegate.swift                                                                 | Swift      |         12 |          0 |          2 |         14 |
+| c:\programas\exa_gammer_movil\ios\Runner\Assets.xcassets\AppIcon.appiconset\Contents.json                                  | JSON       |        122 |          0 |          1 |        123 |
+| c:\programas\exa_gammer_movil\ios\Runner\Assets.xcassets\LaunchImage.imageset\Contents.json                                | JSON       |         23 |          0 |          1 |         24 |
+| c:\programas\exa_gammer_movil\ios\Runner\Assets.xcassets\LaunchImage.imageset\README.md                                    | Markdown   |          3 |          0 |          2 |          5 |
+| c:\programas\exa_gammer_movil\ios\Runner\Base.lproj\LaunchScreen.storyboard                                                | XML        |         36 |          1 |          1 |         38 |
+| c:\programas\exa_gammer_movil\ios\Runner\Base.lproj\Main.storyboard                                                        | XML        |         25 |          1 |          1 |         27 |
+| c:\programas\exa_gammer_movil\ios\Runner\Runner-Bridging-Header.h                                                          | C++        |          1 |          0 |          1 |          2 |
+| c:\programas\exa_gammer_movil\lib\controllers\clase_controller.dart                                                        | Dart       |        267 |          9 |         52 |        328 |
+| c:\programas\exa_gammer_movil\lib\controllers\curso_controller.dart                                                        | Dart       |         57 |          1 |          9 |         67 |
+| c:\programas\exa_gammer_movil\lib\controllers\detalle_clase_controller.dart                                                | Dart       |         26 |          1 |          7 |         34 |
+| c:\programas\exa_gammer_movil\lib\controllers\examen_controller.dart                                                       | Dart       |        347 |          1 |         38 |        386 |
+| c:\programas\exa_gammer_movil\lib\controllers\juego_controller.dart                                                        | Dart       |         34 |          0 |          6 |         40 |
+| c:\programas\exa_gammer_movil\lib\controllers\user_controller.dart                                                         | Dart       |        151 |          0 |         14 |        165 |
+| c:\programas\exa_gammer_movil\lib\controllers\vista_controles.dart                                                         | Dart       |        138 |          0 |          8 |        146 |
+| c:\programas\exa_gammer_movil\lib\game\ahorcado\controller\ahorcado_controller.dart                                        | Dart       |        118 |          2 |         29 |        149 |
+| c:\programas\exa_gammer_movil\lib\game\ahorcado\ui\ahorcado_page.dart                                                      | Dart       |        145 |          1 |         12 |        158 |
+| c:\programas\exa_gammer_movil\lib\game\ahorcado\widget\mensaje.dart                                                        | Dart       |         53 |          0 |          4 |         57 |
+| c:\programas\exa_gammer_movil\lib\game\heroes\animation\atacarpj.dart                                                      | Dart       |         64 |          3 |         12 |         79 |
+| c:\programas\exa_gammer_movil\lib\game\heroes\animation\recibirdanio.dart                                                  | Dart       |         65 |          2 |         10 |         77 |
+| c:\programas\exa_gammer_movil\lib\game\heroes\controller\animation_controller.dart                                         | Dart       |         99 |          0 |         12 |        111 |
+| c:\programas\exa_gammer_movil\lib\game\heroes\controller\heroe_controller.dart                                             | Dart       |        157 |          1 |         18 |        176 |
+| c:\programas\exa_gammer_movil\lib\game\heroes\controller\pregunta_controller.dart                                          | Dart       |         81 |          0 |          8 |         89 |
+| c:\programas\exa_gammer_movil\lib\game\heroes\models\npc.dart                                                              | Dart       |          7 |          0 |          3 |         10 |
+| c:\programas\exa_gammer_movil\lib\game\heroes\models\personaje.dart                                                        | Dart       |          7 |          0 |          3 |         10 |
+| c:\programas\exa_gammer_movil\lib\game\heroes\ui\escenario.dart                                                            | Dart       |        313 |          5 |         17 |        335 |
+| c:\programas\exa_gammer_movil\lib\game\heroes\ui\mundos.dart                                                               | Dart       |        116 |          0 |          5 |        121 |
+| c:\programas\exa_gammer_movil\lib\game\heroes\ui\personajes.dart                                                           | Dart       |         99 |          0 |          6 |        105 |
+| c:\programas\exa_gammer_movil\lib\game\heroes\widget\ataques.dart                                                          | Dart       |         99 |          0 |         11 |        110 |
+| c:\programas\exa_gammer_movil\lib\game\heroes\widget\barras_vida.dart                                                      | Dart       |         59 |          0 |          6 |         65 |
+| c:\programas\exa_gammer_movil\lib\game\heroes\widget\mensaje.dart                                                          | Dart       |         49 |          0 |          3 |         52 |
+| c:\programas\exa_gammer_movil\lib\game\heroes\widget\mundocard.dart                                                        | Dart       |         47 |          0 |          5 |         52 |
+| c:\programas\exa_gammer_movil\lib\game\heroes\widget\personajecard.dart                                                    | Dart       |         45 |          0 |          5 |         50 |
+| c:\programas\exa_gammer_movil\lib\game\heroes\widget\pregunta.dart                                                         | Dart       |        150 |          0 |         15 |        165 |
+| c:\programas\exa_gammer_movil\lib\game\heroes\widget\preyres.dart                                                          | Dart       |          0 |          0 |          1 |          1 |
+| c:\programas\exa_gammer_movil\lib\game\heroes\widget\rendirse.dart                                                         | Dart       |        153 |          2 |         10 |        165 |
+| c:\programas\exa_gammer_movil\lib\main.dart                                                                                | Dart       |         31 |          5 |          5 |         41 |
+| c:\programas\exa_gammer_movil\lib\models\CursoModel\curso_model.dart                                                       | Dart       |         66 |          0 |          6 |         72 |
+| c:\programas\exa_gammer_movil\lib\models\CursoModel\leccion_model.dart                                                     | Dart       |         26 |          0 |          4 |         30 |
+| c:\programas\exa_gammer_movil\lib\models\CursoModel\modulo_model.dart                                                      | Dart       |         35 |          0 |          5 |         40 |
+| c:\programas\exa_gammer_movil\lib\models\CursoModel\pregunta_model.dart                                                    | Dart       |         34 |          0 |          4 |         38 |
+| c:\programas\exa_gammer_movil\lib\models\clase_model.dart                                                                  | Dart       |         58 |          0 |          6 |         64 |
+| c:\programas\exa_gammer_movil\lib\models\examen_model.dart                                                                 | Dart       |        235 |          0 |         28 |        263 |
+| c:\programas\exa_gammer_movil\lib\models\juego_model.dart                                                                  | Dart       |         13 |          0 |          3 |         16 |
+| c:\programas\exa_gammer_movil\lib\models\user_model.dart                                                                   | Dart       |        110 |          0 |         18 |        128 |
+| c:\programas\exa_gammer_movil\lib\service\localServices.dart                                                               | Dart       |        149 |          0 |         15 |        164 |
+| c:\programas\exa_gammer_movil\lib\ui\app.dart                                                                              | Dart       |         18 |          0 |          3 |         21 |
+| c:\programas\exa_gammer_movil\lib\ui\course\courseContentView.dart                                                         | Dart       |        135 |          0 |         10 |        145 |
+| c:\programas\exa_gammer_movil\lib\ui\course\courseView.dart                                                                | Dart       |         75 |          0 |          7 |         82 |
+| c:\programas\exa_gammer_movil\lib\ui\dialogs\dialogo_ingresar_clase.dart                                                   | Dart       |         78 |          0 |          3 |         81 |
+| c:\programas\exa_gammer_movil\lib\ui\home\estudiante\detalle_clase_estu.dart                                               | Dart       |        317 |          3 |         19 |        339 |
+| c:\programas\exa_gammer_movil\lib\ui\home\estudiante\home_estudiante.dart                                                  | Dart       |        472 |         12 |         22 |        506 |
+| c:\programas\exa_gammer_movil\lib\ui\home\inicio_sesion\Widgets_Inicio_Sesion\custom_tab.dart                              | Dart       |         70 |          0 |          3 |         73 |
+| c:\programas\exa_gammer_movil\lib\ui\home\inicio_sesion\Widgets_Inicio_Sesion\fondo_login.dart                             | Dart       |         43 |          0 |          3 |         46 |
+| c:\programas\exa_gammer_movil\lib\ui\home\inicio_sesion\Widgets_Inicio_Sesion\footer_dot.dart                              | Dart       |          0 |          0 |          1 |          1 |
+| c:\programas\exa_gammer_movil\lib\ui\home\inicio_sesion\Widgets_Inicio_Sesion\glass_card.dart                              | Dart       |         32 |          0 |          3 |         35 |
+| c:\programas\exa_gammer_movil\lib\ui\home\inicio_sesion\Widgets_Inicio_Sesion\logo_header.dart                             | Dart       |         76 |          0 |          2 |         78 |
+| c:\programas\exa_gammer_movil\lib\ui\home\inicio_sesion\add_user.dart                                                      | Dart       |        154 |          9 |         15 |        178 |
+| c:\programas\exa_gammer_movil\lib\ui\home\inicio_sesion\diseologin.dart                                                    | Dart       |         86 |          0 |          5 |         91 |
+| c:\programas\exa_gammer_movil\lib\ui\home\inicio_sesion\login.dart                                                         | Dart       |        126 |         55 |         13 |        194 |
+| c:\programas\exa_gammer_movil\lib\ui\home\profesor\Detalle_Clase_Profesor\Widgets_Detalle_Clase\empty_examenes_widget.dart | Dart       |         30 |          0 |          2 |         32 |
+| c:\programas\exa_gammer_movil\lib\ui\home\profesor\Detalle_Clase_Profesor\Widgets_Detalle_Clase\examen_card.dart           | Dart       |        145 |          0 |          9 |        154 |
+| c:\programas\exa_gammer_movil\lib\ui\home\profesor\Detalle_Clase_Profesor\Widgets_Detalle_Clase\examenesListView.dart      | Dart       |         68 |          1 |          5 |         74 |
+| c:\programas\exa_gammer_movil\lib\ui\home\profesor\Detalle_Clase_Profesor\detalle_clase_profe.dart                         | Dart       |        202 |          0 |         12 |        214 |
+| c:\programas\exa_gammer_movil\lib\ui\home\profesor\Home_Profesor\home_profesor.dart                                        | Dart       |        147 |          0 |         10 |        157 |
+| c:\programas\exa_gammer_movil\lib\ui\home\profesor\Home_Profesor\widgets_home_profesor\clases_list_view.dart               | Dart       |         72 |          0 |          5 |         77 |
+| c:\programas\exa_gammer_movil\lib\ui\home\profesor\Home_Profesor\widgets_home_profesor\empty_state.dart                    | Dart       |         52 |          0 |          3 |         55 |
+| c:\programas\exa_gammer_movil\lib\ui\home\profesor\Home_Profesor\widgets_home_profesor\fab_nueva_clase.dart                | Dart       |         50 |          0 |          4 |         54 |
+| c:\programas\exa_gammer_movil\lib\ui\home\profesor\Home_Profesor\widgets_home_profesor\header_home.dart                    | Dart       |         77 |          0 |          2 |         79 |
+| c:\programas\exa_gammer_movil\lib\ui\home\profesor\Home_Profesor\widgets_home_profesor\logout_dialog.dart                  | Dart       |         73 |          0 |          2 |         75 |
+| c:\programas\exa_gammer_movil\lib\ui\home\profesor\add_clase.dart                                                          | Dart       |          0 |        479 |          0 |        479 |
+| c:\programas\exa_gammer_movil\lib\ui\home\profesor\agregar_clase\add_class.dart                                            | Dart       |        153 |         14 |         19 |        186 |
+| c:\programas\exa_gammer_movil\lib\ui\home\profesor\agregar_clase\widgets_add_clase\avatar_selector_card.dart               | Dart       |        189 |          1 |          4 |        194 |
+| c:\programas\exa_gammer_movil\lib\ui\home\profesor\agregar_clase\widgets_add_clase\clase_form_card.dart                    | Dart       |        159 |          0 |         18 |        177 |
+| c:\programas\exa_gammer_movil\lib\ui\home\profesor\agregar_clase\widgets_add_clase\create_button.dart                      | Dart       |         93 |          0 |          3 |         96 |
+| c:\programas\exa_gammer_movil\lib\ui\home\profesor\agregar_clase\widgets_add_clase\custom_text_field.dart                  | Dart       |        105 |          0 |          3 |        108 |
+| c:\programas\exa_gammer_movil\lib\ui\home\profesor\agregar_clase\widgets_add_clase\header_logo.dart                        | Dart       |         77 |          2 |          2 |         81 |
+| c:\programas\exa_gammer_movil\lib\ui\home\profesor\main_view.dart                                                          | Dart       |        137 |          0 |          7 |        144 |
+| c:\programas\exa_gammer_movil\lib\ui\home\vista\clase\ClaseCard.dart                                                       | Dart       |         75 |          0 |          5 |         80 |
+| c:\programas\exa_gammer_movil\lib\ui\home\vista\clase\clase_view.dart                                                      | Dart       |        161 |          3 |          9 |        173 |
+| c:\programas\exa_gammer_movil\lib\ui\home\vista\clase\estud_clase.dart                                                     | Dart       |        126 |          0 |          8 |        134 |
+| c:\programas\exa_gammer_movil\lib\ui\home\vista\clase\info_clase.dart                                                      | Dart       |        534 |         12 |         29 |        575 |
+| c:\programas\exa_gammer_movil\lib\ui\home\vista\examen\examen_view.dart                                                    | Dart       |        147 |          2 |         14 |        163 |
+| c:\programas\exa_gammer_movil\lib\ui\home\vista\examen\ui\add_examen.dart                                                  | Dart       |        701 |         11 |         31 |        743 |
+| c:\programas\exa_gammer_movil\lib\ui\home\vista\examen\ui\calificacion.dart                                                | Dart       |        707 |          7 |         22 |        736 |
+| c:\programas\exa_gammer_movil\lib\ui\home\vista\examen\ui\detalle_examen.dart                                              | Dart       |        494 |          8 |         30 |        532 |
+| c:\programas\exa_gammer_movil\lib\ui\home\vista\examen\ui\info_examen.dart                                                 | Dart       |        570 |         12 |         30 |        612 |
+| c:\programas\exa_gammer_movil\lib\ui\home\vista\examen\ui\resultados.dart                                                  | Dart       |        145 |          0 |         10 |        155 |
+| c:\programas\exa_gammer_movil\lib\ui\home\vista\examen\widget\conte_Estud.dart                                             | Dart       |        145 |          5 |         14 |        164 |
+| c:\programas\exa_gammer_movil\lib\ui\home\vista\examen\widget\conte_Profe.dart                                             | Dart       |         50 |          7 |          9 |         66 |
+| c:\programas\exa_gammer_movil\lib\ui\home\vista\examen\widget\formahorcado.dart                                            | Dart       |        127 |          0 |         19 |        146 |
+| c:\programas\exa_gammer_movil\lib\ui\home\vista\examen\widget\formheroes.dart                                              | Dart       |        185 |          2 |         19 |        206 |
+| c:\programas\exa_gammer_movil\lib\ui\home\vista\examen\widget\listAhorcados.dart                                           | Dart       |         28 |          0 |          4 |         32 |
+| c:\programas\exa_gammer_movil\lib\ui\home\vista\examen\widget\listHeroes.dart                                              | Dart       |         37 |          1 |          4 |         42 |
+| c:\programas\exa_gammer_movil\lib\ui\home\vista\examen\widget\listPalab_Res.dart                                           | Dart       |         83 |          1 |          8 |         92 |
+| c:\programas\exa_gammer_movil\lib\ui\home\vista\examen\widget\listPregun_Res.dart                                          | Dart       |         72 |          1 |          8 |         81 |
+| c:\programas\exa_gammer_movil\lib\ui\home\vista\examen\widget\validarresultados.dart                                       | Dart       |         46 |          3 |          7 |         56 |
+| c:\programas\exa_gammer_movil\lib\ui\home\vista\perfil\EditarPerfil.dart                                                   | Dart       |        110 |          0 |         11 |        121 |
+| c:\programas\exa_gammer_movil\lib\ui\home\vista\perfil\Pago_premium.dart                                                   | Dart       |        312 |          1 |         20 |        333 |
+| c:\programas\exa_gammer_movil\lib\ui\home\vista\perfil\Plan_card.dart                                                      | Dart       |        110 |          0 |          3 |        113 |
+| c:\programas\exa_gammer_movil\lib\ui\home\vista\perfil\PremiumView.dart                                                    | Dart       |        100 |          0 |          8 |        108 |
+| c:\programas\exa_gammer_movil\lib\ui\home\vista\perfil\profile_view.dart                                                   | Dart       |        170 |          0 |          7 |        177 |
+| c:\programas\exa_gammer_movil\lib\ui\home\widget\avatares.dart                                                             | Dart       |         65 |          2 |          3 |         70 |
+| c:\programas\exa_gammer_movil\lib\ui\home\widget\boton_comenzar.dart                                                       | Dart       |         84 |          0 |          4 |         88 |
+| c:\programas\exa_gammer_movil\lib\ui\home\widget\buscar.dart                                                               | Dart       |         23 |          0 |          3 |         26 |
+| c:\programas\exa_gammer_movil\lib\ui\home\widget\datos.dart                                                                | Dart       |         13 |          0 |          3 |         16 |
+| c:\programas\exa_gammer_movil\lib\ui\home\widget\editar.dart                                                               | Dart       |        138 |          1 |          8 |        147 |
+| c:\programas\exa_gammer_movil\lib\ui\home\widget\eliminar.dart                                                             | Dart       |         26 |          0 |          4 |         30 |
+| c:\programas\exa_gammer_movil\lib\ui\home\widget\fondo_home.dart                                                           | Dart       |         44 |          0 |          4 |         48 |
+| c:\programas\exa_gammer_movil\lib\ui\home\widget\home_page.dart                                                            | Dart       |         64 |          0 |          3 |         67 |
+| c:\programas\exa_gammer_movil\lib\ui\home\widget\listaperso.dart                                                           | Dart       |        145 |          3 |          8 |        156 |
+| c:\programas\exa_gammer_movil\lib\ui\home\widget\logo_glow.dart                                                            | Dart       |         44 |          0 |          3 |         47 |
+| c:\programas\exa_gammer_movil\lib\ui\home\widget\titulo_home.dart                                                          | Dart       |         64 |          0 |          3 |         67 |
+| c:\programas\exa_gammer_movil\linux\CMakeLists.txt                                                                         | CMake      |        104 |          0 |         25 |        129 |
+| c:\programas\exa_gammer_movil\linux\flutter\CMakeLists.txt                                                                 | CMake      |         79 |          0 |         10 |         89 |
+| c:\programas\exa_gammer_movil\linux\flutter\generated_plugin_registrant.cc                                                 | C++        |          7 |          4 |          5 |         16 |
+| c:\programas\exa_gammer_movil\linux\flutter\generated_plugin_registrant.h                                                  | C++        |          5 |          5 |          6 |         16 |
+| c:\programas\exa_gammer_movil\linux\flutter\generated_plugins.cmake                                                        | CMake      |         19 |          0 |          6 |         25 |
+| c:\programas\exa_gammer_movil\linux\runner\CMakeLists.txt                                                                  | CMake      |         21 |          0 |          6 |         27 |
+| c:\programas\exa_gammer_movil\linux\runner\main.cc                                                                         | C++        |          5 |          0 |          2 |          7 |
+| c:\programas\exa_gammer_movil\linux\runner\my_application.cc                                                               | C++        |         83 |         21 |         27 |        131 |
+| c:\programas\exa_gammer_movil\linux\runner\my_application.h                                                                | C++        |          7 |          7 |          5 |         19 |
+| c:\programas\exa_gammer_movil\macos\Flutter\GeneratedPluginRegistrant.swift                                                | Swift      |          8 |          3 |          4 |         15 |
+| c:\programas\exa_gammer_movil\macos\RunnerTests\RunnerTests.swift                                                          | Swift      |          7 |          2 |          4 |         13 |
+| c:\programas\exa_gammer_movil\macos\Runner\AppDelegate.swift                                                               | Swift      |         11 |          0 |          3 |         14 |
+| c:\programas\exa_gammer_movil\macos\Runner\Assets.xcassets\AppIcon.appiconset\Contents.json                                | JSON       |         68 |          0 |          1 |         69 |
+| c:\programas\exa_gammer_movil\macos\Runner\Base.lproj\MainMenu.xib                                                         | XML        |        343 |          0 |          1 |        344 |
+| c:\programas\exa_gammer_movil\macos\Runner\MainFlutterWindow.swift                                                         | Swift      |         12 |          0 |          4 |         16 |
+| c:\programas\exa_gammer_movil\pubspec.yaml                                                                                 | YAML       |         55 |          0 |          8 |         63 |
+| c:\programas\exa_gammer_movil\scripts_k6\cargar_examen.js                                                                  | JavaScript |         22 |          8 |          9 |         39 |
+| c:\programas\exa_gammer_movil\scripts_k6\login_rol.js                                                                      | JavaScript |         23 |          7 |          7 |         37 |
+| c:\programas\exa_gammer_movil\scripts_k6\prueba_clase.js                                                                   | JavaScript |         27 |          5 |          6 |         38 |
+| c:\programas\exa_gammer_movil\scripts_k6\registrar_usuario.js                                                              | JavaScript |         26 |          7 |          6 |         39 |
+| c:\programas\exa_gammer_movil\scripts_k6\unirse_clase.js                                                                   | JavaScript |         25 |          7 |          6 |         38 |
+| c:\programas\exa_gammer_movil\test\clase\agregar_clase_test.dart                                                           | Dart       |        128 |          0 |         15 |        143 |
+| c:\programas\exa_gammer_movil\test\clase\validaciones_clase.dart                                                           | Dart       |         20 |          2 |          4 |         26 |
+| c:\programas\exa_gammer_movil\test\examen\examen_validation_test.dart                                                      | Dart       |         54 |          0 |         14 |         68 |
+| c:\programas\exa_gammer_movil\test\examen\examen_validator.dart                                                            | Dart       |         28 |         12 |         14 |         54 |
+| c:\programas\exa_gammer_movil\test\login\login_validation_test.dart                                                        | Dart       |         36 |          0 |          9 |         45 |
+| c:\programas\exa_gammer_movil\test\login\login_validators.dart                                                             | Dart       |         25 |          0 |          7 |         32 |
+| c:\programas\exa_gammer_movil\test\widget_test.dart                                                                        | Dart       |          0 |          0 |          2 |          2 |
+| c:\programas\exa_gammer_movil\web\index.html                                                                               | HTML       |         19 |         15 |          5 |         39 |
+| c:\programas\exa_gammer_movil\web\manifest.json                                                                            | JSON       |         35 |          0 |          1 |         36 |
+| c:\programas\exa_gammer_movil\web_entrypoint.dart                                                                          | Dart       |          0 |          0 |          1 |          1 |
+| c:\programas\exa_gammer_movil\windows\CMakeLists.txt                                                                       | CMake      |         89 |          0 |         20 |        109 |
+| c:\programas\exa_gammer_movil\windows\flutter\CMakeLists.txt                                                               | CMake      |         98 |          0 |         12 |        110 |
+| c:\programas\exa_gammer_movil\windows\flutter\generated_plugin_registrant.cc                                               | C++        |          6 |          4 |          5 |         15 |
+| c:\programas\exa_gammer_movil\windows\flutter\generated_plugin_registrant.h                                                | C++        |          5 |          5 |          6 |         16 |
+| c:\programas\exa_gammer_movil\windows\flutter\generated_plugins.cmake                                                      | CMake      |         19 |          0 |          6 |         25 |
+| c:\programas\exa_gammer_movil\windows\runner\CMakeLists.txt                                                                | CMake      |         34 |          0 |          7 |         41 |
+| c:\programas\exa_gammer_movil\windows\runner\flutter_window.cpp                                                            | C++        |         49 |          7 |         16 |         72 |
+| c:\programas\exa_gammer_movil\windows\runner\flutter_window.h                                                              | C++        |         20 |          5 |          9 |         34 |
+| c:\programas\exa_gammer_movil\windows\runner\main.cpp                                                                      | C++        |         30 |          4 |         10 |         44 |
+| c:\programas\exa_gammer_movil\windows\runner\resource.h                                                                    | C++        |          9 |          6 |          2 |         17 |
+| c:\programas\exa_gammer_movil\windows\runner\utils.cpp                                                                     | C++        |         54 |          2 |         10 |         66 |
+| c:\programas\exa_gammer_movil\windows\runner\utils.h                                                                       | C++        |          8 |          6 |          6 |         20 |
+| c:\programas\exa_gammer_movil\windows\runner\win32_window.cpp                                                              | C++        |        210 |         24 |         55 |        289 |
+| c:\programas\exa_gammer_movil\windows\runner\win32_window.h                                                                | C++        |         48 |         31 |         24 |        103 |
+| Total                                                                                                                      |            |     16,274 |      1,074 |      1,682 |     19,030 |
++----------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+

@@ -1,6 +1,7 @@
 import 'package:exa_gammer_movil/controllers/clase_controller.dart';
 import 'package:exa_gammer_movil/controllers/user_controller.dart';
 import 'package:exa_gammer_movil/models/juego_model.dart';
+import 'package:exa_gammer_movil/ui/home/vista/clase/clase_view.dart';
 import 'package:exa_gammer_movil/ui/home/widget/avatares.dart';
 import '../widget/formahorcado.dart';
 import 'package:exa_gammer_movil/ui/home/vista/examen/widget/formheroes.dart';
@@ -694,8 +695,6 @@ class _AddExamenState extends State<AddExamen> {
               userController.gettoken,
             );
 
-            Get.back();
-
             if (res) {
               Get.snackbar(
                 '✅ Examen Agregado',
@@ -710,6 +709,7 @@ class _AddExamenState extends State<AddExamen> {
                 margin: EdgeInsets.all(16),
                 borderRadius: 12,
               );
+              Get.to(() => ClaseView(vista: "Clase"));
             } else {
               Get.snackbar(
                 '❌ Error',
@@ -740,5 +740,3 @@ class _AddExamenState extends State<AddExamen> {
     );
   }
 }
-
-//arreglar color de las letras al entrar en menu desplegable de elegir juego
