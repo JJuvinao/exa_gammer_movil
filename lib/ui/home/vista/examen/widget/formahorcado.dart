@@ -76,6 +76,7 @@ class AhorcadoFormState extends State<AhorcadoForm> {
 
                 TextFormField(
                   controller: _palabraController,
+                  style: const TextStyle(color: Colors.white),
                   decoration: const InputDecoration(
                     labelText: "Palabra",
                     border: OutlineInputBorder(),
@@ -107,7 +108,8 @@ class AhorcadoFormState extends State<AhorcadoForm> {
                         onPressed: _agregarPalabra,
                         icon: const Icon(Icons.add),
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.blue,
+                          backgroundColor: Color(0xFF00FF41),
+                          foregroundColor: Colors.black,
                           minimumSize: const Size(double.infinity, 50),
                         ),
                         label: const Text("Agregar Palabra"),
@@ -127,7 +129,7 @@ class AhorcadoFormState extends State<AhorcadoForm> {
                 if (_palabras.isEmpty)
                   const Text(
                     "No hay palabras agregadas.",
-                    style: TextStyle(color: Colors.grey),
+                    style: TextStyle(color: Colors.white),
                   ),
 
                 if (_palabras.isNotEmpty)

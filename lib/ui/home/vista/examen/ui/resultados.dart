@@ -49,15 +49,40 @@ class _ResultadosState extends State<Resultados> {
         itemBuilder: (context, index) {
           final result = resultados[index];
 
-          return Card(
+          return Container(
             margin: const EdgeInsets.symmetric(vertical: 8.0),
-            elevation: 2,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [Color(0xFF1a1a2e), Color(0xFF16213e)],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(
+                color: Color(0xFF00F0FF).withOpacity(0.3),
+                width: 1.5,
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: Color(0xFF00F0FF).withOpacity(0.15),
+                  blurRadius: 10,
+                  spreadRadius: 1,
+                ),
+              ],
+            ),
             child: ListTile(
-              title: Text(
-                "Estudiante: ${result.Nombre}",
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18,
+              contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
+              title: ShaderMask(
+                shaderCallback: (bounds) => LinearGradient(
+                  colors: [Color(0xFF00F0FF), Color(0xFF00FF41)],
+                ).createShader(bounds),
+                child: Text(
+                  "Estudiante: ${result.Nombre}",
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                    color: Colors.white,
+                  ),
                 ),
               ),
               onTap: () => {Get.to(() => CalificarExam(resultado: result))},
@@ -65,9 +90,15 @@ class _ResultadosState extends State<Resultados> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(height: 4),
-                  Text('Correo: ${result.correo}'),
+                  Text(
+                    'Correo: ${result.correo}',
+                    style: TextStyle(color: Colors.grey[300]),
+                  ),
                   const SizedBox(height: 4),
-                  Text('Notas: ${result.nota ?? '0.0'} / 5.0'),
+                  Text(
+                    'Notas: ${result.nota ?? '0.0'} / 5.0',
+                    style: TextStyle(color: Colors.grey[300]),
+                  ),
                   const SizedBox(height: 4),
                 ],
               ),
@@ -82,17 +113,34 @@ class _ResultadosState extends State<Resultados> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFC8C1C1),
+      backgroundColor: const Color(0xFF0a0a14), // Fondo oscuro
       appBar: AppBar(
-        backgroundColor: const Color(0xFFC8C1C1),
-        automaticallyImplyLeading: false,
+        backgroundColor: const Color(0xFF1a1a2e), // Color oscuro para la AppBar
         elevation: 0,
-        title: const Text(
-          "Resultados del examen",
-          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black87),
+        iconTheme: IconThemeData(color: const Color(0xFF00F0FF)),
+        title: ShaderMask(
+          shaderCallback: (bounds) => LinearGradient(
+            colors: [Color(0xFF00F0FF), Color(0xFF00FF41)],
+          ).createShader(bounds),
+          child: const Text(
+            "Resultados del examen",
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
+              color: Colors.white,
+            ),
+          ),
         ),
+        centerTitle: true,
       ),
-      body: Center(
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Color(0xFF0a0a14), Color(0xFF16213e), Color(0xFF0a0a14)],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
         child: Padding(
           padding: const EdgeInsets.all(24.0),
           child: build_Resultados(context),

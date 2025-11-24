@@ -474,7 +474,7 @@ void main() {
     print("✔️ Navegando directamente a AddExamen...");
 
     // Navegar directamente para evitar problemas de navegación compleja
-    await tester.pumpWidget(const GetMaterialApp(home: AddExamen()));
+    await tester.pumpWidget(GetMaterialApp(home: AddExamen()));
     await tester.pumpAndSettle(const Duration(seconds: 3));
 
     expect(find.byType(AddExamen), findsOneWidget);
@@ -531,7 +531,7 @@ void main() {
       Get.put<UserController>(FakeUserController());
     }
 
-    await tester.pumpWidget(const GetMaterialApp(home: AddExamen()));
+    await tester.pumpWidget(GetMaterialApp(home: AddExamen()));
     await tester.pumpAndSettle(const Duration(seconds: 2));
 
     print("✔️ Pantalla AddExamen cargada");
@@ -597,7 +597,7 @@ void main() {
     }
 
     // Simular navegación a AddExamen
-    await tester.pumpWidget(const GetMaterialApp(home: AddExamen()));
+    await tester.pumpWidget(GetMaterialApp(home: AddExamen()));
     await tester.pumpAndSettle(const Duration(seconds: 2));
 
     expect(find.byType(AddExamen), findsOneWidget);

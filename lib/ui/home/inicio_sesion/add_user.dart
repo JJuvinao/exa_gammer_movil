@@ -74,6 +74,8 @@ class _AgregarUsuarioState extends State<AgregarUsuario> {
             style: _buttonStyle(),
             onPressed: () async {
               if (selectedRole != null) {
+                //aqui tiene que hacer las validaciones que impusiste en las clases
+                // de equivalencias
                 var res = await userController.registerUser(
                   usuario.text,
                   clave.text,
