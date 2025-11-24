@@ -229,11 +229,11 @@ class _AddExamenState extends State<AddExamen> {
 
                         // Avatar selector
                         _buildAvatarSelector(),
-                        const SizedBox(height: 24),
+                        const SizedBox(height: 10),
 
                         // Tipo de Juego
                         _buildGameTypeDropdown(JuegoSeleccionado),
-                        const SizedBox(height: 24),
+                        const SizedBox(height: 10),
 
                         // Formulario dinámico según el juego
                         Obx(() {
@@ -556,7 +556,7 @@ class _AddExamenState extends State<AddExamen> {
               ),
               contentPadding: const EdgeInsets.symmetric(
                 horizontal: 16,
-                vertical: 12,
+                vertical: 10,
               ),
             ),
             items: tiposJuego.map((tipo) {
