@@ -1,6 +1,7 @@
 import 'package:exa_gammer_movil/controllers/clase_controller.dart';
 import 'package:exa_gammer_movil/controllers/examen_controller.dart';
 import 'package:exa_gammer_movil/controllers/user_controller.dart';
+import 'package:exa_gammer_movil/models/clase_model.dart';
 import 'package:exa_gammer_movil/ui/home/profesor/Detalle_Clase_Profesor/Widgets_Detalle_Clase/examenesListView.dart';
 import 'package:exa_gammer_movil/ui/home/profesor/main_view.dart';
 import 'package:flutter/material.dart';
@@ -16,18 +17,25 @@ class DetalleClase extends StatefulWidget {
 }
 
 class DetalleClaseState extends State<DetalleClase> {
-  late final examenController;
-  late final claseController;
-  late final UserController user;
-  var clase;
+  late final examenController = Get.find<ExamenController>();
+  late final claseController = Get.find<ClaseController>();
+  late final UserController user = Get.find<UserController>();
+  var clase = Clase(
+    id: 0,
+    nombre: "nombre",
+    tema: "tema",
+    autor: "autor",
+    codigo: "codigo",
+    estado: true,
+    fecha: "fecha",
+    img: "img",
+    id_profe: 0,
+  );
   var listexamen = <dynamic>[].obs;
 
   @override
   void initState() {
     super.initState();
-    examenController = Get.find<ExamenController>();
-    claseController = Get.find<ClaseController>();
-    user = Get.find<UserController>();
     _cargarExamenes();
   }
 

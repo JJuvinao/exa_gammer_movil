@@ -13,7 +13,7 @@ class ExamenController extends GetxController {
   var userResult = <Userto>[].obs;
   var heroesList = <Heroes>[].obs;
   var ahorcadoList = <Ahorcado>[].obs;
-  var resultados;
+  dynamic resultados = [];
   final _storageService = Get.find<StorageService>();
 
   Examen get getexamen => _storageService.displayExamen;

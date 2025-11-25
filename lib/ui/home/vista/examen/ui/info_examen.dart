@@ -1,5 +1,6 @@
 import 'package:exa_gammer_movil/controllers/examen_controller.dart';
 import 'package:exa_gammer_movil/controllers/user_controller.dart';
+import 'package:exa_gammer_movil/models/examen_model.dart';
 import 'package:exa_gammer_movil/ui/home/vista/clase/clase_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -15,7 +16,17 @@ class Info_Examen extends StatefulWidget {
 class _Info_ExamenState extends State<Info_Examen> {
   final ExamenController pc = Get.find();
   late final UserController user = Get.find<UserController>();
-  var examen;
+  var examen = Examen(
+    id: 0,
+    nombre: "nombre",
+    tema: "tema",
+    autor: "autor",
+    descripcion: "descripcion",
+    codigo: "codigo",
+    fecha: "fecha",
+    img: "img",
+    id_juego: 0,
+  );
 
   @override
   void initState() {

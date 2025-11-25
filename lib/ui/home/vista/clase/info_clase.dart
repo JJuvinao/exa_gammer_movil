@@ -1,5 +1,6 @@
 import 'package:exa_gammer_movil/controllers/clase_controller.dart';
 import 'package:exa_gammer_movil/controllers/user_controller.dart';
+import 'package:exa_gammer_movil/models/clase_model.dart';
 import 'package:exa_gammer_movil/ui/home/profesor/main_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -15,7 +16,17 @@ class Info_Clase extends StatefulWidget {
 class _Info_ClaseState extends State<Info_Clase> {
   final ClaseController pc = Get.find();
   late final UserController user = Get.find<UserController>();
-  var clase;
+  var clase = Clase(
+    id: 0,
+    nombre: "nombre",
+    tema: "tema",
+    autor: "autor",
+    codigo: "codigo",
+    estado: true,
+    fecha: "fecha",
+    img: "img",
+    id_profe: 0,
+  );
 
   @override
   void initState() {
