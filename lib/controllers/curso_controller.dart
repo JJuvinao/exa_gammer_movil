@@ -3,6 +3,7 @@
 import 'dart:convert';
 import 'package:exa_gammer_movil/controllers/user_controller.dart';
 import 'package:exa_gammer_movil/models/CursoModel/curso_model.dart';
+import 'package:exa_gammer_movil/models/CursoModel/modulo_model.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
@@ -10,6 +11,7 @@ class CursoController extends GetxController {
   final type = "Content-Type";
   final app = "application/json";
   var cursoList = <Curso>[].obs;
+  Rx<Curso>? selectedCurso;
   UserController user = Get.find<UserController>();
   var isLoading = false.obs;
 
@@ -64,5 +66,50 @@ class CursoController extends GetxController {
       return response.body;
     }
     throw Exception('Error al generar curso');
+  }
+
+  void CourseSelect(Curso curso) {
+    selectedCurso = curso.obs;
+  }
+
+  void CompleteModule(ModuloModel module) {
+    module.Completed = module.lessons.every(
+      (lesson) => lesson.Completed == true,
+    );
+    update(["Modules"]);
+    UpdatePercentage();
+  }
+
+  void CompleteCourse() {
+    final Curso curso = selectedCurso!.value;
+    final bool isModulesCompleted = curso.modules.every(
+      (module) => module.Completed == true,
+    );
+    final bool isQuestionsCompleted = curso.questions.every(
+      (question) => question.Completed == true,
+    );
+
+    if (isModulesCompleted && isQuestionsCompleted) {
+      curso.Completed = true;
+    }
+
+    UpdatePercentage();
+  }
+
+  void UpdatePercentage() {
+    final completedParts =
+        selectedCurso!.value.modules.where((m) => m.Completed).length +
+        selectedCurso!.value.questions.where((q) => q.Completed).length;
+
+    final totalParts =
+        selectedCurso!.value.modules.length +
+        selectedCurso!.value.questions.length;
+
+    print(completedParts);
+    print(selectedCurso!.value.Num_sections);
+
+    final double percentage = (completedParts / totalParts) * 100;
+    selectedCurso!.value.Percentage = percentage.toInt();
+    cursoList.refresh();
   }
 }

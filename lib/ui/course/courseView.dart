@@ -18,7 +18,7 @@ class courseScreen extends StatelessWidget {
         actions: [
           IconButton(
             icon: Icon(Icons.refresh),
-            onPressed: controller.fetchCursos, // ← 1 línea!
+            onPressed: controller.fetchCursos,
           ),
         ],
       ),
@@ -76,6 +76,7 @@ class courseScreen extends StatelessWidget {
   }
 
   void _mostrarDetalle(Curso curso) {
-    Get.to(() => Coursecontentview(curso: curso));
+    controller.CourseSelect(curso);
+    Get.to(() => Coursecontentview());
   }
 }

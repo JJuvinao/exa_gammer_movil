@@ -7,9 +7,9 @@ class Curso {
   final String description;
   final List<ModuloModel> modules;
   final List<PreguntaModel> questions;
-  final bool Completed;
+  bool Completed;
   final int Num_sections;
-  final int Percentage;
+  int Percentage;
   final int Id_user;
 
   Curso({
