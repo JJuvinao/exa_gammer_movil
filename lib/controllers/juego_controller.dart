@@ -9,14 +9,14 @@ class JuegoController extends GetxController {
   var juegoList = <Juego>[].obs;
 
   Future<List<Juego>> getjuegoList() async {
-    await CargarJuegos();
+    await cargarJuegos();
     if (juegoList.isEmpty) {
       return [];
     }
     return juegoList;
   }
 
-  Future<void> CargarJuegos() async {
+  Future<void> cargarJuegos() async {
     try {
       final url = Uri.parse('https://www.apiexagammer.somee.com/api/juego');
 

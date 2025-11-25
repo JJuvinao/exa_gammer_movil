@@ -8,16 +8,16 @@ import 'package:flutter/services.dart';
 // ignore: must_be_immutable
 class AhorcadoPage extends StatefulWidget {
   final List<Ahorcado> ahorcados;
-  int id_user = 0;
+  int iduser = 0;
   String token = "";
-  int id_examen = 0;
+  int idExamen = 0;
 
   AhorcadoPage({
     super.key,
     required this.ahorcados,
-    required this.id_user,
+    required this.iduser,
     required this.token,
-    required this.id_examen,
+    required this.idExamen,
   });
 
   @override
@@ -46,8 +46,6 @@ class _AhorcadoPageState extends State<AhorcadoPage> {
     ]);
     super.dispose();
   }
-
-  void MostrarMensaje() {}
 
   @override
   Widget build(BuildContext context) {
@@ -108,11 +106,10 @@ class _AhorcadoPageState extends State<AhorcadoPage> {
                                       controller.siguientePalabra();
                                     } else {
                                       controller.saveResultado(
-                                        widget.id_user,
+                                        widget.iduser,
                                         widget.token,
-                                        widget.id_examen,
+                                        widget.idExamen,
                                       );
-                                      MostrarMensaje();
                                       Get.off(
                                         () => ExamenView(vista: "Examen"),
                                       );

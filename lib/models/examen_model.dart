@@ -176,16 +176,16 @@ class Respuestas_Ahorcado {
 
 class Resultados {
   final int id;
-  final int id_Estudiane;
-  final int id_Examen;
+  final int idEstudiane;
+  final int idExamen;
   final List<dynamic> resultados;
   final double? nota;
   final String? recomendacion;
 
   Resultados({
     required this.id,
-    required this.id_Estudiane,
-    required this.id_Examen,
+    required this.idEstudiane,
+    required this.idExamen,
     required this.resultados,
     this.nota,
     this.recomendacion,
@@ -194,8 +194,8 @@ class Resultados {
   factory Resultados.fromjson(Map<String, dynamic> json) {
     return Resultados(
       id: json["id"],
-      id_Estudiane: json["id_Estudiane"],
-      id_Examen: json["id_Examen"],
+      idEstudiane: json["id_Estudiane"],
+      idExamen: json["id_Examen"],
       resultados: jsonDecode(json["resultado"]),
       nota: (json['nota'] as num?)?.toDouble(),
       recomendacion: json["recomendacion"],
@@ -205,8 +205,8 @@ class Resultados {
   Map<String, dynamic> toJson() {
     return {
       'Id': id,
-      'Id_Estudiane': id_Estudiane,
-      'Id_Examen': id_Examen,
+      'Id_Estudiane': idEstudiane,
+      'Id_Examen': idExamen,
       'Resultados': resultados,
       'Nota': nota,
       'Recomendacion': recomendacion,

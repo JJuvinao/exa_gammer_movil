@@ -134,7 +134,7 @@ class _Info_ExamenState extends State<Info_Examen> {
     );
 
     if (confirmar == true) {
-      var res = await pc.DeleteExamen(examen.id, user.gettoken);
+      var res = await pc.deleteExamen(examen.id, user.gettoken);
       if (res) {
         Get.snackbar(
           '🗑️ Examen Eliminado',

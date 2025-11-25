@@ -115,10 +115,10 @@ class AhorcadoController extends GetxController {
 
   bool get juegoTerminado => indexPalabra >= palabrasRandom.length - 1;
 
-  Future<void> saveResultado(int id_user, String token, int id_examen) async {
+  Future<void> saveResultado(int idUser, String token, int idExamen) async {
     var data = {
-      "id_Estudiane": id_user,
-      "id_Examen": id_examen,
+      "id_Estudiane": idUser,
+      "id_Examen": idExamen,
       "resultadoJson": jsonEncode(respuestas.map((r) => r.toJson()).toList()),
       "notas": 0,
       "recomendaciones": "",
@@ -131,7 +131,7 @@ class AhorcadoController extends GetxController {
       final res = await http.post(
         url,
         headers: {
-          'Authorization': 'Bearer ${token}',
+          'Authorization': 'Bearer $token',
           'Content-Type': 'application/json',
         },
         body: jsonEncode(data),

@@ -28,8 +28,8 @@ class _DetalleExamenPageState extends State<DetalleExamenPage> {
 
   Resultados resultados = Resultados(
     id: 0,
-    id_Estudiane: 0,
-    id_Examen: 0,
+    idEstudiane: 0,
+    idExamen: 0,
     resultados: [],
   );
 
@@ -75,7 +75,7 @@ class _DetalleExamenPageState extends State<DetalleExamenPage> {
 
   Future<void> cargarContenido() async {
     try {
-      final r = await pc.ResultadoEstudiante(
+      final r = await pc.resultadoEstudiante(
         user.getuser.id,
         examen.id,
         user.gettoken,
@@ -83,8 +83,8 @@ class _DetalleExamenPageState extends State<DetalleExamenPage> {
       setState(() {
         resultados = Resultados(
           id: r.id,
-          id_Estudiane: r.id_Estudiane,
-          id_Examen: r.id_Examen,
+          idEstudiane: r.idEstudiane,
+          idExamen: r.idExamen,
           resultados: r.resultados,
           nota: r.nota,
           recomendacion: r.recomendacion,
@@ -495,9 +495,9 @@ class _DetalleExamenPageState extends State<DetalleExamenPage> {
                   Get.to(
                     () => AhorcadoPage(
                       ahorcados: listaahorcado,
-                      id_user: user.getuser.id,
+                      iduser: user.getuser.id,
                       token: user.gettoken,
-                      id_examen: examen.id,
+                      idExamen: examen.id,
                     ),
                   );
                   return;

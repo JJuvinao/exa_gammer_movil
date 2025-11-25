@@ -23,7 +23,7 @@ class _ExamenViewState extends State<ExamenView> {
     /// Guardamos los valores una sola vez para evitar reconstrucciones peligrosas
     final controller = Get.find<VistaControles>();
     _navBarItems = controller.navBarItems(widget.vista);
-    _screens = controller.getScreens_Examen();
+    _screens = controller.getScreensExamen();
   }
 
   @override

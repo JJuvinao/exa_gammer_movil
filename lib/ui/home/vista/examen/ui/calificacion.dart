@@ -665,7 +665,7 @@ class _CalificarExamState extends State<CalificarExam> {
               nota: double.parse(notaController.text),
               reco: recomendacionController.text,
             );
-            var res = await exacontroller.CalificarExamen(
+            var res = await exacontroller.calificarExamen(
               calificar,
               user.gettoken,
             );

@@ -42,12 +42,12 @@ class ExamenController extends GetxController {
   }
 
   Future<dynamic> getResultado(int idUser, int idExamen, String token) async {
-    await ResultadoEstudiante(idUser, idExamen, token);
+    await resultadoEstudiante(idUser, idExamen, token);
     return resultados;
   }
 
   Future<List<Examen>> filteredList(int id, String token) async {
-    await CargarExamenes(id, token);
+    await cargarExamenes(id, token);
     if (examenList.isEmpty) {
       return [];
     }
@@ -55,7 +55,7 @@ class ExamenController extends GetxController {
   }
 
   Future<List<Heroes>> listaHeroes(String codigo, String token) async {
-    await CargarHeroes(codigo, token);
+    await cargarHeroes(codigo, token);
     if (heroesList.isEmpty) {
       return [];
     }
@@ -63,7 +63,7 @@ class ExamenController extends GetxController {
   }
 
   Future<List<Ahorcado>> listaAhorcados(String codigo, String token) async {
-    await CargarAhorcados(token, codigo);
+    await cargarAhorcados(token, codigo);
     if (ahorcadoList.isEmpty) {
       return [];
     }
@@ -75,22 +75,22 @@ class ExamenController extends GetxController {
     int idExamen,
     String token,
   ) async {
-    await Resultados_Estu(idExamen, token);
-    await Estudiantes_Result(idExamen, token);
+    await resultadosEstu(idExamen, token);
+    await estudiantesResult(idExamen, token);
     if (resultadosList.isEmpty || userResult.isEmpty) {
       return [];
     }
 
     var estuResult = <Estudi_Resultados>[];
     for (int i = 0; i < resultadosList.length; i++) {
-      if (resultadosList[i].id_Estudiane == userResult[i].id) {
+      if (resultadosList[i].idEstudiane == userResult[i].id) {
         var estu = Estudi_Resultados(
           id: resultadosList[i].id,
           id_Estudiante: userResult[i].id,
           Nombre: userResult[i].username,
           correo: userResult[i].email,
           img: userResult[i].img!,
-          id_Examen: resultadosList[i].id_Examen,
+          id_Examen: resultadosList[i].idExamen,
           resultados: resultadosList[i].resultados,
           nota: resultadosList[i].nota,
           recomendacion: resultadosList[i].recomendacion,
@@ -101,7 +101,7 @@ class ExamenController extends GetxController {
     return estuResult;
   }
 
-  Future<void> CargarExamenes(int id, String token) async {
+  Future<void> cargarExamenes(int id, String token) async {
     try {
       final url = Uri.parse(
         'https://www.apiexagammer.somee.com/api/Examenes/ExamenesClase/$id',
@@ -184,7 +184,7 @@ class ExamenController extends GetxController {
     return false;
   }
 
-  Future<void> CargarHeroes(String codigo, String token) async {
+  Future<void> cargarHeroes(String codigo, String token) async {
     try {
       final url = Uri.parse(
         "https://www.apiexagammer.somee.com/api/Examenes/GetConte_Heroe/$codigo",
@@ -209,7 +209,7 @@ class ExamenController extends GetxController {
     }
   }
 
-  Future<void> CargarAhorcados(String token, String codigo) async {
+  Future<void> cargarAhorcados(String token, String codigo) async {
     try {
       final url = Uri.parse(
         "https://www.apiexagammer.somee.com/api/Examenes/GetConte_Ahorcado/$codigo",
@@ -234,10 +234,10 @@ class ExamenController extends GetxController {
     }
   }
 
-  Future<void> Resultados_Estu(int id_examen, String token) async {
+  Future<void> resultadosEstu(int idExamen, String token) async {
     try {
       final url = Uri.parse(
-        'https://www.apiexagammer.somee.com/api/Estudi_Examen/UsersResultados/$id_examen',
+        'https://www.apiexagammer.somee.com/api/Estudi_Examen/UsersResultados/$idExamen',
       );
 
       final res = await http.get(
@@ -260,10 +260,10 @@ class ExamenController extends GetxController {
     }
   }
 
-  Future<void> Estudiantes_Result(int id_examen, String token) async {
+  Future<void> estudiantesResult(int idExamen, String token) async {
     try {
       final url = Uri.parse(
-        'https://www.apiexagammer.somee.com/api/Estudi_Examen/Estudiantes_exa/$id_examen',
+        'https://www.apiexagammer.somee.com/api/Estudi_Examen/Estudiantes_exa/$idExamen',
       );
 
       final res = await http.get(
@@ -284,7 +284,7 @@ class ExamenController extends GetxController {
     }
   }
 
-  Future<bool> CalificarExamen(Calificar calificar, String token) async {
+  Future<bool> calificarExamen(Calificar calificar, String token) async {
     try {
       final url = Uri.parse(
         "https://apiexagammer.somee.com/api/Estudi_Examen/Calificar",
@@ -307,13 +307,13 @@ class ExamenController extends GetxController {
     return false;
   }
 
-  Future<Resultados> ResultadoEstudiante(
-    int id_user,
-    int id_examen,
+  Future<Resultados> resultadoEstudiante(
+    int idUser,
+    int idExamen,
     String token,
   ) async {
     try {
-      var datos = {"id_Estudiane": id_user, "id_Examen": id_examen};
+      var datos = {"idEstudiane": idUser, "idExamen": idExamen};
       final url = Uri.parse(
         'https://www.apiexagammer.somee.com/api/Estudi_Examen/get_estu_exa',
       );
@@ -330,18 +330,18 @@ class ExamenController extends GetxController {
       if (data is List && data.isNotEmpty) {
         return Resultados.fromjson(data[0]);
       } else {
-        return Resultados(id: 0, id_Estudiane: 0, id_Examen: 0, resultados: []);
+        return Resultados(id: 0, idEstudiane: 0, idExamen: 0, resultados: []);
       }
     } catch (e) {
       print('Error al cargar los resultados del estudiante: ${e.toString()}');
     }
-    return Resultados(id: 0, id_Estudiane: 0, id_Examen: 0, resultados: []);
+    return Resultados(id: 0, idEstudiane: 0, idExamen: 0, resultados: []);
   }
 
-  Future<bool> DeleteExamen(int id_Examen, String token) async {
+  Future<bool> deleteExamen(int idExamen, String token) async {
     try {
       final url = Uri.parse(
-        'https://www.apiexagammer.somee.com/api/Examenes/$id_Examen',
+        'https://www.apiexagammer.somee.com/api/Examenes/$idExamen',
       );
 
       final res = await http.delete(
