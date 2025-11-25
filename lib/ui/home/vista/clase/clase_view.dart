@@ -76,7 +76,7 @@ class _ClaseViewState extends State<ClaseView> {
                       Icons.bar_chart_rounded,
                       color: Color(0xFF00F0FF),
                     ),
-                    duration: Duration(seconds: 2),
+                    duration: const Duration(seconds: 2),
                     margin: EdgeInsets.all(16),
                     borderRadius: 12,
                   );

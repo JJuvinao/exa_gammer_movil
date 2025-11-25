@@ -29,7 +29,7 @@ class CursoController extends GetxController {
 
       final res = await http
           .get(url, headers: {type: app})
-          .timeout(Duration(seconds: 15));
+          .timeout(const Duration(seconds: 15));
 
       if (res.statusCode != 200) {
         print(res.statusCode);

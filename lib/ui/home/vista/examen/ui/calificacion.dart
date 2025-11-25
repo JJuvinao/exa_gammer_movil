@@ -680,7 +680,7 @@ class _CalificarExamState extends State<CalificarExam> {
                 borderColor: Color(0xFF00FF41).withOpacity(0.5),
                 borderWidth: 1.5,
                 icon: Icon(Icons.check_circle, color: Color(0xFF00FF41)),
-                duration: Duration(seconds: 3),
+                duration: const Duration(seconds: 3),
                 margin: EdgeInsets.all(16),
                 borderRadius: 12,
               );
@@ -694,7 +694,7 @@ class _CalificarExamState extends State<CalificarExam> {
                 borderColor: Colors.red.withOpacity(0.5),
                 borderWidth: 1.5,
                 icon: Icon(Icons.error, color: Colors.red.shade300),
-                duration: Duration(seconds: 3),
+                duration: const Duration(seconds: 3),
                 margin: EdgeInsets.all(16),
                 borderRadius: 12,
               );

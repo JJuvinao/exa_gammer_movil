@@ -102,8 +102,14 @@ class UpdateClase extends StatelessWidget {
                           txtTema.text,
                           txtAutor.text,
                         );
-                        Get.snackbar('Éxito', 'Clase actualizada correctamente.');
-                        Future.delayed(Duration(seconds: 1), () => Get.back());
+                        Get.snackbar(
+                          'Éxito',
+                          'Clase actualizada correctamente.',
+                        );
+                        Future.delayed(
+                          const Duration(seconds: 1),
+                          () => Get.back(),
+                        );
                       }
                       Get.back();
                     },
@@ -143,4 +149,3 @@ class UpdateClase extends StatelessWidget {
     );
   }
 }
-

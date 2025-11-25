@@ -45,7 +45,7 @@ class _Info_ExamenState extends State<Info_Examen> {
       borderColor: Color(0xFF00FF41).withOpacity(0.5),
       borderWidth: 1.5,
       icon: Icon(Icons.check_circle, color: Color(0xFF00FF41)),
-      duration: Duration(seconds: 2),
+      duration: const Duration(seconds: 2),
       margin: EdgeInsets.all(16),
       borderRadius: 12,
     );
@@ -61,7 +61,7 @@ class _Info_ExamenState extends State<Info_Examen> {
       borderColor: Color(0xFF00F0FF).withOpacity(0.5),
       borderWidth: 1.5,
       icon: Icon(Icons.edit, color: Color(0xFF00F0FF)),
-      duration: Duration(seconds: 2),
+      duration: const Duration(seconds: 2),
       margin: EdgeInsets.all(16),
       borderRadius: 12,
     );
@@ -145,7 +145,7 @@ class _Info_ExamenState extends State<Info_Examen> {
           borderColor: Colors.green.withOpacity(0.5),
           borderWidth: 1.5,
           icon: Icon(Icons.delete, color: Colors.red.shade300),
-          duration: Duration(seconds: 2),
+          duration: const Duration(seconds: 2),
           margin: EdgeInsets.all(16),
           borderRadius: 12,
         );
@@ -160,7 +160,7 @@ class _Info_ExamenState extends State<Info_Examen> {
           borderColor: Colors.red.withOpacity(0.5),
           borderWidth: 1.5,
           icon: Icon(Icons.delete, color: Colors.red.shade300),
-          duration: Duration(seconds: 2),
+          duration: const Duration(seconds: 2),
           margin: EdgeInsets.all(16),
           borderRadius: 12,
         );

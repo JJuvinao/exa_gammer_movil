@@ -41,7 +41,7 @@ class UserController extends GetxController {
             },
             body: jsonEncode(userfrom.toJson()),
           )
-          .timeout(Duration(seconds: 15));
+          .timeout(const Duration(seconds: 15));
 
       if (res.statusCode == 200) {
         return "ok";
@@ -65,7 +65,7 @@ class UserController extends GetxController {
     try {
       final res = await http
           .post(url, headers: {type: app}, body: jsonEncode(userdto.toJson()))
-          .timeout(Duration(seconds: 15));
+          .timeout(const Duration(seconds: 15));
       if (res.statusCode == 200) {
         final data = jsonDecode(res.body);
         User user = User.fromjson(data["user"]);
@@ -96,7 +96,7 @@ class UserController extends GetxController {
               Userclase(userid: getuser.id, claseid: 0, codigo: codigoClase),
             ),
           )
-          .timeout(Duration(seconds: 15));
+          .timeout(const Duration(seconds: 15));
       if (res.statusCode != 200) {
         return false;
       }
