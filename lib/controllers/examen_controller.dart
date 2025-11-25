@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_typing_uninitialized_variables, non_constant_identifier_names
-
 import 'package:exa_gammer_movil/models/examen_model.dart';
 import 'package:exa_gammer_movil/models/user_model.dart';
 import 'package:exa_gammer_movil/service/localServices.dart';
@@ -8,6 +6,8 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class ExamenController extends GetxController {
+  final type = "Content-Type";
+  final app = "application/json";
   var examenList = <Examen>[].obs;
   var resultadosList = <Resultados>[].obs;
   var userResult = <Userto>[].obs;
@@ -109,10 +109,7 @@ class ExamenController extends GetxController {
 
       final res = await http.get(
         url,
-        headers: {
-          'Authorization': 'Bearer $token',
-          'Content-Type': 'application/json',
-        },
+        headers: {'Authorization': 'Bearer $token', type: app},
       );
 
       if (res.statusCode != 200) {
@@ -172,10 +169,7 @@ class ExamenController extends GetxController {
       final res = await http
           .post(
             url,
-            headers: {
-              'Authorization': 'Bearer $token',
-              'Content-Type': 'application/json',
-            },
+            headers: {'Authorization': 'Bearer $token', type: app},
             body: jsonEncode(datosExamen),
           )
           .timeout(const Duration(seconds: 15));
@@ -198,10 +192,7 @@ class ExamenController extends GetxController {
 
       final res = await http.get(
         url,
-        headers: {
-          'Authorization': 'Bearer $token',
-          'Content-Type': 'application/json',
-        },
+        headers: {'Authorization': 'Bearer $token', type: app},
       );
 
       if (res.statusCode != 200) {
@@ -251,10 +242,7 @@ class ExamenController extends GetxController {
 
       final res = await http.get(
         url,
-        headers: {
-          'Authorization': 'Bearer $token',
-          'Content-Type': 'application/json',
-        },
+        headers: {'Authorization': 'Bearer $token', type: app},
       );
       if (res.statusCode != 200) {
         print(res.statusCode);
@@ -280,10 +268,7 @@ class ExamenController extends GetxController {
 
       final res = await http.get(
         url,
-        headers: {
-          'Authorization': 'Bearer $token',
-          'Content-Type': 'application/json',
-        },
+        headers: {'Authorization': 'Bearer $token', type: app},
       );
       if (res.statusCode != 200) {
         print(res.statusCode);
@@ -307,10 +292,7 @@ class ExamenController extends GetxController {
 
       final res = await http.put(
         url,
-        headers: {
-          'Authorization': 'Bearer $token',
-          'Content-Type': 'application/json',
-        },
+        headers: {'Authorization': 'Bearer $token', type: app},
         body: jsonEncode(calificar.toJson()),
       );
 
@@ -338,10 +320,7 @@ class ExamenController extends GetxController {
 
       final res = await http.post(
         url,
-        headers: {
-          'Authorization': 'Bearer $token',
-          'Content-Type': 'application/json',
-        },
+        headers: {'Authorization': 'Bearer $token', type: app},
         body: jsonEncode(datos),
       );
       if (res.statusCode != 200) {
@@ -367,10 +346,7 @@ class ExamenController extends GetxController {
 
       final res = await http.delete(
         url,
-        headers: {
-          'Authorization': 'Bearer $token',
-          'Content-Type': 'application/json',
-        },
+        headers: {'Authorization': 'Bearer $token', type: app},
       );
       if (res.statusCode != 204 && res.statusCode != 200) {
         return false;

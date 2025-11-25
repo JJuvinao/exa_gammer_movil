@@ -5,6 +5,8 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class UserController extends GetxController {
+  final type = "Content-Type";
+  final app = "application/json";
   final _storageService = Get.find<StorageService>();
 
   Future<void> logout() async {
@@ -62,11 +64,7 @@ class UserController extends GetxController {
     final url = Uri.parse('https://apiexagammer.somee.com/api/Login');
     try {
       final res = await http
-          .post(
-            url,
-            headers: {'Content-Type': 'application/json'},
-            body: jsonEncode(userdto.toJson()),
-          )
+          .post(url, headers: {type: app}, body: jsonEncode(userdto.toJson()))
           .timeout(Duration(seconds: 15));
       if (res.statusCode == 200) {
         final data = jsonDecode(res.body);
@@ -115,10 +113,7 @@ class UserController extends GetxController {
     try {
       final res = await http.put(
         Uri.parse(url),
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer $gettoken',
-        },
+        headers: {type: app, 'Authorization': 'Bearer $gettoken'},
         body: jsonEncode(usuario.toJson()),
       );
 
@@ -141,10 +136,7 @@ class UserController extends GetxController {
     try {
       final res = await http.put(
         Uri.parse(url),
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer $gettoken',
-        },
+        headers: {type: app, 'Authorization': 'Bearer $gettoken'},
         body: jsonEncode({"id_user": userId, "premium": premium}),
       );
 

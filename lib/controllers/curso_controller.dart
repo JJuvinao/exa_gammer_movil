@@ -7,6 +7,8 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
 class CursoController extends GetxController {
+  final type = "Content-Type";
+  final app = "application/json";
   var cursoList = <Curso>[].obs;
   UserController user = Get.find<UserController>();
   var isLoading = false.obs;
@@ -26,7 +28,7 @@ class CursoController extends GetxController {
       );
 
       final res = await http
-          .get(url, headers: {'Content-Type': 'application/json'})
+          .get(url, headers: {type: app})
           .timeout(Duration(seconds: 15));
 
       if (res.statusCode != 200) {
@@ -53,7 +55,7 @@ class CursoController extends GetxController {
     );
     final response = await http.post(
       url,
-      headers: {'Content-Type': 'application/json'},
+      headers: {type: app},
       body: jsonEncode({'Id_user': idUser, 'userRequest': userRequest}),
     );
 

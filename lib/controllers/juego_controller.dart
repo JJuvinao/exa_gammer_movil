@@ -4,6 +4,8 @@ import 'dart:convert';
 import 'package:exa_gammer_movil/models/juego_model.dart';
 
 class JuegoController extends GetxController {
+  final type = "Content-Type";
+  final app = "application/json";
   var juegoList = <Juego>[].obs;
 
   Future<List<Juego>> getjuegoList() async {
@@ -18,10 +20,7 @@ class JuegoController extends GetxController {
     try {
       final url = Uri.parse('https://www.apiexagammer.somee.com/api/juego');
 
-      final res = await http.get(
-        url,
-        headers: {'Content-Type': 'application/json'},
-      );
+      final res = await http.get(url, headers: {type: app});
 
       if (res.statusCode != 200) {
         print(res.body);

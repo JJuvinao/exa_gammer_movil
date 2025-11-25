@@ -12,6 +12,8 @@ import 'package:exa_gammer_movil/service/localServices.dart';
 import 'package:exa_gammer_movil/ui/home/profesor/main_view.dart';
 
 class ClaseController extends GetxController {
+  final type = "Content-Type";
+  final app = "application/json";
   var claseList = <Clase>[].obs;
   var searchQuery = ''.obs;
   final _storageService = Get.find<StorageService>();
@@ -40,10 +42,7 @@ class ClaseController extends GetxController {
       final res = await http
           .post(
             url,
-            headers: {
-              'Authorization': 'Bearer $token',
-              'Content-Type': 'application/json',
-            },
+            headers: {'Authorization': 'Bearer $token', type: app},
             body: jsonEncode(newclase.toJson()),
           )
           .timeout(const Duration(seconds: 15));
@@ -90,13 +89,7 @@ class ClaseController extends GetxController {
       );
 
       final res = await http
-          .get(
-            url,
-            headers: {
-              'Authorization': 'Bearer $token',
-              'Content-Type': 'application/json',
-            },
-          )
+          .get(url, headers: {'Authorization': 'Bearer $token', type: app})
           .timeout(const Duration(seconds: 15));
 
       if (res.statusCode != 200) {
@@ -124,13 +117,7 @@ class ClaseController extends GetxController {
       );
 
       final res = await http
-          .get(
-            url,
-            headers: {
-              'Authorization': 'Bearer $token',
-              'Content-Type': 'application/json',
-            },
-          )
+          .get(url, headers: {'Authorization': 'Bearer $token', type: app})
           .timeout(const Duration(seconds: 15));
 
       if (res.statusCode != 200) {}
@@ -156,13 +143,7 @@ class ClaseController extends GetxController {
       );
 
       final res = await http
-          .get(
-            url,
-            headers: {
-              'Authorization': 'Bearer $token',
-              'Content-Type': 'application/json',
-            },
-          )
+          .get(url, headers: {'Authorization': 'Bearer $token', type: app})
           .timeout(const Duration(seconds: 15));
 
       if (res.statusCode != 200) {
@@ -191,10 +172,7 @@ class ClaseController extends GetxController {
 
       final res = await http.delete(
         url,
-        headers: {
-          'Authorization': 'Bearer $token',
-          'Content-Type': 'application/json',
-        },
+        headers: {'Authorization': 'Bearer $token', type: app},
       );
       if (res.statusCode != 204 && res.statusCode != 200) {
         return false;

@@ -48,6 +48,12 @@ class FakeUserController extends GetxController implements UserController {
   Future<bool> actualizarUsuario(User usuario) async => false;
   @override
   Future<String> registerUser(String u, p, r, e) async => "";
+
+  @override
+  String get app => throw UnimplementedError();
+
+  @override
+  String get type => throw UnimplementedError();
 }
 
 class FakeStorageService extends StorageService {
