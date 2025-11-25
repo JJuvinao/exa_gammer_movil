@@ -1,31 +1,28 @@
 name: SonarCloud
-
 on:
   push:
     branches:
       - main
-  pull_request:
 
 jobs:
-  build:
+  analyze:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
-      - uses: subosito/flutter-action@v2
+      - name: Install Flutter
+        uses: subosito/flutter-action@v2
         with:
-          channel: stable
+          flutter-version: "3.24.0"
 
-      - name: Install Flutter dependencies
+      - name: Get dependencies
         run: flutter pub get
 
-      - name: Run Flutter Analyze
-        run: |
-          flutter analyze --no-preamble --write=sonar-result.json || true
+      - name: Run Flutter analyzer
+        run: flutter analyze --write=sonar-result.json
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@v2
@@ -36,6 +33,7 @@ jobs:
             -Dsonar.projectKey=JJuvinao_exa_gammer_movil
             -Dsonar.organization=jjuvinao
             -Dsonar.sources=lib
-            -Dsonar.exclusions=**/*.png,**/*.jpg,**/*.gif,assets/**
+            -Dsonar.host.url=https://sonarcloud.io
             -Dsonar.flutter.analyzer.reportPath=sonar-result.json
-            -Dsonar.sourceEncoding=UTF-8
+            -Dsonar.dart.analysis.useBuiltin=false
+            -Dsonar.pluginsDir=./sonar
