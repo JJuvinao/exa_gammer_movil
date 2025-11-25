@@ -4,7 +4,7 @@ class PreguntaModel {
   final List<String> options;
   final int answerIndex;
   final String response;
-  final bool Completed;
+  bool Completed;
 
   PreguntaModel({
     required this.id,

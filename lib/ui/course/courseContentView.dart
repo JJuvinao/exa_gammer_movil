@@ -1,17 +1,22 @@
-import 'package:exa_gammer_movil/models/CursoModel/curso_model.dart';
+import 'package:exa_gammer_movil/controllers/curso_controller.dart';
+import 'package:exa_gammer_movil/ui/course/widget/modulesTab.dart';
+import 'package:exa_gammer_movil/ui/course/widget/questionsTab.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class Coursecontentview extends StatelessWidget {
-  const Coursecontentview({super.key, required this.curso});
+  Coursecontentview({super.key});
 
-  final Curso curso;
+  final CursoController controller = Get.find();
 
   @override
   Widget build(BuildContext context) {
+    final curso = controller.selectedCurso!.value;
+
     return Scaffold(
       appBar: AppBar(title: Text(curso.title)),
       body: DefaultTabController(
-        length: 3,
+        length: 2,
         child: Column(
           children: [
             Container(
@@ -47,12 +52,7 @@ class Coursecontentview extends StatelessWidget {
               ],
             ),
             Expanded(
-              child: TabBarView(
-                children: [
-                  _ModulesTab(curso: curso),
-                  _QuestionsTab(curso: curso),
-                ],
-              ),
+              child: TabBarView(children: [ModulesTab(), QuestionsTab()]),
             ),
           ],
         ),
