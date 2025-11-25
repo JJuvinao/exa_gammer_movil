@@ -1,6 +1,7 @@
 import 'package:exa_gammer_movil/controllers/examen_controller.dart';
 import 'package:exa_gammer_movil/controllers/user_controller.dart';
 import 'package:exa_gammer_movil/models/examen_model.dart';
+import 'package:exa_gammer_movil/ui/home/vista/examen/examen_view.dart';
 import 'package:exa_gammer_movil/ui/home/vista/examen/widget/listPalab_Res.dart';
 import 'package:exa_gammer_movil/ui/home/vista/examen/widget/listPregun_Res.dart';
 import 'package:flutter/material.dart';
@@ -56,7 +57,7 @@ class _CalificarExamState extends State<CalificarExam> {
         centerTitle: true,
         title: ShaderMask(
           shaderCallback: (bounds) => LinearGradient(
-            colors: [Color(0xFF00F0FF), Color(0xFF00FF41)],
+            colors: const [Color(0xFF00F0FF), Color(0xFF00FF41)],
           ).createShader(bounds),
           child: Text(
             "Calificar Examen",
@@ -92,7 +93,11 @@ class _CalificarExamState extends State<CalificarExam> {
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [Color(0xFF0a0a14), Color(0xFF16213e), Color(0xFF0a0a14)],
+            colors: const [
+              Color(0xFF0a0a14),
+              Color(0xFF16213e),
+              Color(0xFF0a0a14),
+            ],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),
@@ -111,7 +116,7 @@ class _CalificarExamState extends State<CalificarExam> {
                 padding: const EdgeInsets.all(24),
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
-                    colors: [Color(0xFF1a1a2e), Color(0xFF16213e)],
+                    colors: const [Color(0xFF1a1a2e), Color(0xFF16213e)],
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                   ),
@@ -192,7 +197,7 @@ class _CalificarExamState extends State<CalificarExam> {
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [Color(0xFF1a1a2e), Color(0xFF16213e)],
+          colors: const [Color(0xFF1a1a2e), Color(0xFF16213e)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -215,7 +220,7 @@ class _CalificarExamState extends State<CalificarExam> {
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [Color(0xFF00F0FF), Color(0xFF00FF41)],
+                colors: const [Color(0xFF00F0FF), Color(0xFF00FF41)],
               ),
               borderRadius: BorderRadius.circular(15),
               boxShadow: [
@@ -231,7 +236,7 @@ class _CalificarExamState extends State<CalificarExam> {
           Expanded(
             child: ShaderMask(
               shaderCallback: (bounds) => LinearGradient(
-                colors: [Color(0xFF00F0FF), Color(0xFF00FF41)],
+                colors: const [Color(0xFF00F0FF), Color(0xFF00FF41)],
               ).createShader(bounds),
               child: Text(
                 'Calificar Examen',
@@ -284,7 +289,7 @@ class _CalificarExamState extends State<CalificarExam> {
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
-                    colors: [Color(0xFF00F0FF), Color(0xFF00FF41)],
+                    colors: const [Color(0xFF00F0FF), Color(0xFF00FF41)],
                   ),
                   borderRadius: BorderRadius.circular(10),
                   boxShadow: [
@@ -299,7 +304,7 @@ class _CalificarExamState extends State<CalificarExam> {
               const SizedBox(width: 12),
               ShaderMask(
                 shaderCallback: (bounds) => LinearGradient(
-                  colors: [Color(0xFF00F0FF), Color(0xFF00FF41)],
+                  colors: const [Color(0xFF00F0FF), Color(0xFF00FF41)],
                 ).createShader(bounds),
                 child: Text(
                   title,
@@ -404,7 +409,7 @@ class _CalificarExamState extends State<CalificarExam> {
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
-                    colors: [Color(0xFF00FF41), Color(0xFF00F0FF)],
+                    colors: const [Color(0xFF00FF41), Color(0xFF00F0FF)],
                   ),
                   borderRadius: BorderRadius.circular(10),
                   boxShadow: [
@@ -419,7 +424,7 @@ class _CalificarExamState extends State<CalificarExam> {
               const SizedBox(width: 12),
               ShaderMask(
                 shaderCallback: (bounds) => LinearGradient(
-                  colors: [Color(0xFF00FF41), Color(0xFF00F0FF)],
+                  colors: const [Color(0xFF00FF41), Color(0xFF00F0FF)],
                 ).createShader(bounds),
                 child: Text(
                   "Calificación",
@@ -669,7 +674,6 @@ class _CalificarExamState extends State<CalificarExam> {
               calificar,
               user.gettoken,
             );
-            Get.back();
             if (res) {
               Get.snackbar(
                 '✅ Calificado',
@@ -684,6 +688,7 @@ class _CalificarExamState extends State<CalificarExam> {
                 margin: EdgeInsets.all(16),
                 borderRadius: 12,
               );
+              Get.to(() => ExamenView(vista: "Examen"));
             } else {
               Get.snackbar(
                 '❌ Error',

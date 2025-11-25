@@ -13,7 +13,11 @@ class Listaperso extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: [Color(0xFF0F0F1E), Color(0xFF1A1A2E), Color(0xFF16213E)],
+          colors: const [
+            Color(0xFF0F0F1E),
+            Color(0xFF1A1A2E),
+            Color(0xFF16213E),
+          ],
         ),
       ),
       child: ListView.separated(
@@ -38,7 +42,7 @@ class Listaperso extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [Color(0xFF1a1a2e), Color(0xFF16213e)],
+          colors: const [Color(0xFF1a1a2e), Color(0xFF16213e)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),

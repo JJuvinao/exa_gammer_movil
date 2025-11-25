@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class QuestionsTab extends StatefulWidget {
-  QuestionsTab();
+  QuestionsTab({super.key});
 
   final CursoController controller = Get.find();
 

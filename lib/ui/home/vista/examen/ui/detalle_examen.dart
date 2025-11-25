@@ -22,7 +22,7 @@ class _DetalleExamenPageState extends State<DetalleExamenPage> {
   late final UserController user;
   late final PreguntaController preguntaController;
 
-  late dynamic examen;
+  var examen;
   List<Ahorcado> listaahorcado = [];
   List<Heroes> listher = [];
 
@@ -119,7 +119,7 @@ class _DetalleExamenPageState extends State<DetalleExamenPage> {
           centerTitle: true,
           title: ShaderMask(
             shaderCallback: (bounds) => LinearGradient(
-              colors: [Color(0xFF00F0FF), Color(0xFF00FF41)],
+              colors: const [Color(0xFF00F0FF), Color(0xFF00FF41)],
             ).createShader(bounds),
             child: Text(
               "Detalle del Examen",
@@ -139,7 +139,7 @@ class _DetalleExamenPageState extends State<DetalleExamenPage> {
           flexibleSpace: Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [Color(0xFF1a1a2e), Color(0xFF16213e)],
+                colors: const [Color(0xFF1a1a2e), Color(0xFF16213e)],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               ),
@@ -155,7 +155,11 @@ class _DetalleExamenPageState extends State<DetalleExamenPage> {
         body: Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [Color(0xFF0a0a14), Color(0xFF16213e), Color(0xFF0a0a14)],
+              colors: const [
+                Color(0xFF0a0a14),
+                Color(0xFF16213e),
+                Color(0xFF0a0a14),
+              ],
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
             ),
@@ -173,7 +177,7 @@ class _DetalleExamenPageState extends State<DetalleExamenPage> {
                       SizedBox(height: 16),
                       ShaderMask(
                         shaderCallback: (bounds) => LinearGradient(
-                          colors: [Color(0xFF00F0FF), Color(0xFF00FF41)],
+                          colors: const [Color(0xFF00F0FF), Color(0xFF00FF41)],
                         ).createShader(bounds),
                         child: Text(
                           "Cargando examen...",
@@ -197,7 +201,10 @@ class _DetalleExamenPageState extends State<DetalleExamenPage> {
                         padding: const EdgeInsets.all(24),
                         decoration: BoxDecoration(
                           gradient: LinearGradient(
-                            colors: [Color(0xFF1a1a2e), Color(0xFF16213e)],
+                            colors: const [
+                              Color(0xFF1a1a2e),
+                              Color(0xFF16213e),
+                            ],
                             begin: Alignment.topLeft,
                             end: Alignment.bottomRight,
                           ),
@@ -226,7 +233,7 @@ class _DetalleExamenPageState extends State<DetalleExamenPage> {
                               padding: const EdgeInsets.all(16),
                               decoration: BoxDecoration(
                                 gradient: LinearGradient(
-                                  colors: [
+                                  colors: const [
                                     Color(0xFF00F0FF),
                                     Color(0xFF00FF41),
                                   ],
@@ -250,7 +257,10 @@ class _DetalleExamenPageState extends State<DetalleExamenPage> {
                             // Nombre del examen
                             ShaderMask(
                               shaderCallback: (bounds) => LinearGradient(
-                                colors: [Color(0xFF00F0FF), Color(0xFF00FF41)],
+                                colors: const [
+                                  Color(0xFF00F0FF),
+                                  Color(0xFF00FF41),
+                                ],
                               ).createShader(bounds),
                               child: Text(
                                 examen.nombre,
@@ -467,7 +477,9 @@ class _DetalleExamenPageState extends State<DetalleExamenPage> {
       height: 55,
       decoration: BoxDecoration(
         gradient: hayresultados
-            ? LinearGradient(colors: [Color(0xFF00F0FF), Color(0xFF00FF41)])
+            ? LinearGradient(
+                colors: const [Color(0xFF00F0FF), Color(0xFF00FF41)],
+              )
             : LinearGradient(colors: [Colors.grey[700]!, Colors.grey[800]!]),
         borderRadius: BorderRadius.circular(12),
         boxShadow: hayresultados

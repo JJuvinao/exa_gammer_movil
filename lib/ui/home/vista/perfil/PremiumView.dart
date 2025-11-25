@@ -40,7 +40,7 @@ class PremiumView extends StatelessWidget {
 
             PlanCard(
               title: 'Prueba Gratis (7 días)',
-              features: [
+              features: const [
                 'Crea hasta 5 cursos con IA',
                 'Acceso completo durante 7 días',
               ],
@@ -61,7 +61,7 @@ class PremiumView extends StatelessWidget {
 
             PlanCard(
               title: 'Paquete Mensual',
-              features: [
+              features: const [
                 'Acceso a todos los juegos educativos',
                 'Crea hasta 25 cursos con IA',
               ],
@@ -82,7 +82,7 @@ class PremiumView extends StatelessWidget {
 
             PlanCard(
               title: 'Paquete Anual',
-              features: [
+              features: const [
                 'Acceso a todos los juegos educativos',
                 'Creación ilimitada de cursos con IA',
                 'Ahorra 2 meses con este plan',

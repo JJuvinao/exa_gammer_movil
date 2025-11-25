@@ -25,48 +25,41 @@ class _EditarPerfilViewState extends State<EditarPerfilView> {
   }
 
   Future<void> _guardarCambios() async {
-  final nombre = nombreController.text.trim().isEmpty
-      ? userController.getuser.username
-      : nombreController.text.trim();
+    final nombre = nombreController.text.trim().isEmpty
+        ? userController.getuser.username
+        : nombreController.text.trim();
 
-  final correo = correoController.text.trim().isEmpty
-      ? userController.getuser.email
-      : correoController.text.trim();
+    final correo = correoController.text.trim().isEmpty
+        ? userController.getuser.email
+        : correoController.text.trim();
 
-  final actualizado = User(
-    id: userController.getuser.id,
-    username: nombre,
-    rol: userController.getuser.rol,
-    email: correo,
-    img: userController.getuser.img,
-    premium: userController.getuser.premium,
-  );
-
-  final exito = await userController.actualizarUsuario(actualizado);
-
-  if (exito) {
-    showDialog(
-      context: context,
-      builder: (_) => AlertDialog(
-        backgroundColor: const Color(0xFF16213e),
-        title: const Text("Perfil actualizado", style: TextStyle(color: Colors.cyan)),
-        content: const Text("Tus cambios se guardaron correctamente.", style: TextStyle(color: Colors.white)),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Get.back(); 
-              Get.back(); 
-            },
-            child: const Text("Aceptar", style: TextStyle(color: Colors.cyan)),
-          ),
-        ],
-      ),
+    final actualizado = User(
+      id: userController.getuser.id,
+      username: nombre,
+      rol: userController.getuser.rol,
+      email: correo,
+      img: userController.getuser.img,
+      premium: userController.getuser.premium,
     );
-  } else {
-    Get.snackbar("❌ Error", "No se pudo actualizar el perfil",
-        backgroundColor: Colors.redAccent, colorText: Colors.white);
+
+    final exito = await userController.actualizarUsuario(actualizado);
+
+    if (exito) {
+      Get.snackbar(
+        "Perfil actualizado",
+        "Tus cambios se guardaron correctamente",
+        backgroundColor: Colors.redAccent,
+        colorText: Colors.white,
+      );
+    } else {
+      Get.snackbar(
+        "❌ Error",
+        "No se pudo actualizar el perfil",
+        backgroundColor: Colors.redAccent,
+        colorText: Colors.white,
+      );
+    }
   }
-}
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +72,14 @@ class _EditarPerfilViewState extends State<EditarPerfilView> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Text("Editar Perfil", style: TextStyle(color: Colors.cyan, fontSize: 20, fontWeight: FontWeight.bold)),
+          const Text(
+            "Editar Perfil",
+            style: TextStyle(
+              color: Colors.cyan,
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
           const SizedBox(height: 20),
           TextField(
             controller: nombreController,
@@ -111,7 +111,9 @@ class _EditarPerfilViewState extends State<EditarPerfilView> {
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.cyan,
               padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
             ),
           ),
         ],

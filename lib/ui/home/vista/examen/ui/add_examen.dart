@@ -614,7 +614,7 @@ class _AddExamenState extends State<AddExamen> {
         height: 55,
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [Color(0xFF00F0FF), Color(0xFF00FF41)],
+            colors: const [Color(0xFF00F0FF), Color(0xFF00FF41)],
           ),
           borderRadius: BorderRadius.circular(12),
           boxShadow: [

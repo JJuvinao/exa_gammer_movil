@@ -312,8 +312,11 @@ class ExamenController extends GetxController {
     int idExamen,
     String token,
   ) async {
+    print("user: ${idUser}");
+    print("token: ${token}");
+    print("idexamen: $idExamen");
     try {
-      var datos = {"idEstudiane": idUser, "idExamen": idExamen};
+      var datos = {"id_Estudiane": idUser, "id_Examen": idExamen};
       final url = Uri.parse(
         'https://www.apiexagammer.somee.com/api/Estudi_Examen/get_estu_exa',
       );

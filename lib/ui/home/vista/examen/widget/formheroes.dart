@@ -16,7 +16,7 @@ class HeroesFormState extends State<HeroesForm> {
   final TextEditingController _respuesta1Controller = TextEditingController();
   final TextEditingController _respuesta2Controller = TextEditingController();
   final TextEditingController _respuesta3Controller = TextEditingController();
-
+  final String campo = "Campo obligatorio";
   final List<Map<String, String>> _preguntas = [];
 
   void _agregarPregunta() {
@@ -119,9 +119,8 @@ class HeroesFormState extends State<HeroesForm> {
                     border: OutlineInputBorder(),
                     prefixIcon: Icon(Icons.check_circle_outline),
                   ),
-                  validator: (value) => value == null || value.isEmpty
-                      ? "Campo obligatorio"
-                      : null,
+                  validator: (value) =>
+                      value == null || value.isEmpty ? campo : null,
                 ),
                 const SizedBox(height: 16),
 
@@ -132,9 +131,8 @@ class HeroesFormState extends State<HeroesForm> {
                     border: OutlineInputBorder(),
                     prefixIcon: Icon(Icons.close),
                   ),
-                  validator: (value) => value == null || value.isEmpty
-                      ? "Campo obligatorio"
-                      : null,
+                  validator: (value) =>
+                      value == null || value.isEmpty ? campo : null,
                 ),
                 const SizedBox(height: 16),
 
@@ -145,9 +143,8 @@ class HeroesFormState extends State<HeroesForm> {
                     border: OutlineInputBorder(),
                     prefixIcon: Icon(Icons.close),
                   ),
-                  validator: (value) => value == null || value.isEmpty
-                      ? "Campo obligatorio"
-                      : null,
+                  validator: (value) =>
+                      value == null || value.isEmpty ? campo : null,
                 ),
                 const SizedBox(height: 16),
 
@@ -158,9 +155,8 @@ class HeroesFormState extends State<HeroesForm> {
                     border: OutlineInputBorder(),
                     prefixIcon: Icon(Icons.close),
                   ),
-                  validator: (value) => value == null || value.isEmpty
-                      ? "Campo obligatorio"
-                      : null,
+                  validator: (value) =>
+                      value == null || value.isEmpty ? campo : null,
                 ),
                 const SizedBox(height: 24),
 

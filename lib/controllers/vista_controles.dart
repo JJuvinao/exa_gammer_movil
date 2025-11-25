@@ -21,9 +21,9 @@ class VistaControles extends GetxController {
   List<Widget> getScreens(String vista) {
     screens.clear();
     if (vista == "Profesor") {
-      screens.addAll([HomeProfesor(), courseScreen(), ProfileView()]);
+      screens.addAll([const HomeProfesor(), courseScreen(), ProfileView()]);
     } else {
-      screens.addAll([HomeEstudiante(), courseScreen(), ProfileView()]);
+      screens.addAll([const HomeEstudiante(), courseScreen(), ProfileView()]);
     }
     return screens;
   }
@@ -31,9 +31,9 @@ class VistaControles extends GetxController {
   List<Widget> getScreensClase(String vista) {
     screens.clear();
     if (vista == "Profesor") {
-      screens.addAll([DetalleClase(), Info_Clase(), Estud_Clase()]);
+      screens.addAll([const DetalleClase(), Info_Clase(), Estud_Clase()]);
     } else {
-      screens.addAll([DetalleClase_Estu(), Info_Clase(), Estud_Clase()]);
+      screens.addAll([const DetalleClase_Estu(), Info_Clase(), Estud_Clase()]);
     }
     return screens;
   }

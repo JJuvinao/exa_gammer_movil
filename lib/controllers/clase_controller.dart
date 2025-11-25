@@ -237,7 +237,7 @@ class ClaseController extends GetxController {
 
         limpiarFormulario();
         await Future.delayed(const Duration(milliseconds: 500));
-        Get.off(() => MainView(vista: "Profesor"));
+        Get.off(() => const MainView(vista: "Profesor"));
       } else {
         throw Exception();
       }

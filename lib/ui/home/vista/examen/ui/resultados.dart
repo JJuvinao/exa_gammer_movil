@@ -53,7 +53,7 @@ class _ResultadosState extends State<Resultados> {
             margin: const EdgeInsets.symmetric(vertical: 8.0),
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [Color(0xFF1a1a2e), Color(0xFF16213e)],
+                colors: const [Color(0xFF1a1a2e), Color(0xFF16213e)],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               ),
@@ -77,7 +77,7 @@ class _ResultadosState extends State<Resultados> {
               ),
               title: ShaderMask(
                 shaderCallback: (bounds) => LinearGradient(
-                  colors: [Color(0xFF00F0FF), Color(0xFF00FF41)],
+                  colors: const [Color(0xFF00F0FF), Color(0xFF00FF41)],
                 ).createShader(bounds),
                 child: Text(
                   "Estudiante: ${result.Nombre}",
@@ -123,7 +123,7 @@ class _ResultadosState extends State<Resultados> {
         iconTheme: IconThemeData(color: const Color(0xFF00F0FF)),
         title: ShaderMask(
           shaderCallback: (bounds) => LinearGradient(
-            colors: [Color(0xFF00F0FF), Color(0xFF00FF41)],
+            colors: const [Color(0xFF00F0FF), Color(0xFF00FF41)],
           ).createShader(bounds),
           child: const Text(
             "Resultados del examen",
@@ -139,7 +139,11 @@ class _ResultadosState extends State<Resultados> {
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [Color(0xFF0a0a14), Color(0xFF16213e), Color(0xFF0a0a14)],
+            colors: const [
+              Color(0xFF0a0a14),
+              Color(0xFF16213e),
+              Color(0xFF0a0a14),
+            ],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),

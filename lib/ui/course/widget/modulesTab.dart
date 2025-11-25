@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ModulesTab extends StatelessWidget {
-  ModulesTab();
+  ModulesTab({super.key});
 
   final CursoController controller = Get.find();
 
