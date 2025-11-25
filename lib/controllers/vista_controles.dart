@@ -3,19 +3,19 @@ import 'package:exa_gammer_movil/ui/home/estudiante/detalle_clase_estu.dart';
 import 'package:exa_gammer_movil/ui/home/profesor/Detalle_Clase_Profesor/detalle_clase_profe.dart';
 import 'package:exa_gammer_movil/ui/home/profesor/Home_Profesor/home_profesor.dart';
 import 'package:exa_gammer_movil/ui/course/courseView.dart';
-import 'package:exa_gammer_movil/ui/home/vista/examen/detalle_examen.dart';
-import 'package:exa_gammer_movil/ui/home/vista/examen/info_examen.dart';
+import 'package:exa_gammer_movil/ui/home/vista/examen/ui/detalle_examen.dart';
+import 'package:exa_gammer_movil/ui/home/vista/examen/ui/info_examen.dart';
 import 'package:exa_gammer_movil/ui/home/vista/perfil/profile_view.dart';
 import 'package:exa_gammer_movil/ui/home/estudiante/home_estudiante.dart';
 import 'package:exa_gammer_movil/ui/home/vista/clase/info_clase.dart';
 import 'package:exa_gammer_movil/ui/home/vista/clase/estud_clase.dart';
-import 'package:exa_gammer_movil/ui/home/vista/examen/resultados.dart';
+import 'package:exa_gammer_movil/ui/home/vista/examen/ui/resultados.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class VistaControles extends GetxController {
   var screens = <Widget>[].obs;
-  var _navBarItems = <BottomNavigationBarItem>[].obs;
+  final _navBarItems = <BottomNavigationBarItem>[].obs;
   final UserController user = Get.find<UserController>();
 
   List<Widget> getScreens(String vista) {
@@ -28,7 +28,7 @@ class VistaControles extends GetxController {
     return screens;
   }
 
-  List<Widget> getScreens_Clase(String vista) {
+  List<Widget> getScreensClase(String vista) {
     screens.clear();
     if (vista == "Profesor") {
       screens.addAll([DetalleClase(), Info_Clase(), Estud_Clase()]);
@@ -38,7 +38,7 @@ class VistaControles extends GetxController {
     return screens;
   }
 
-  List<Widget> getScreens_Examen() {
+  List<Widget> getScreensExamen() {
     screens.clear();
     if (user.getuser.rol == "Profesor") {
       screens.addAll([DetalleExamenPage(), Info_Examen(), Resultados()]);

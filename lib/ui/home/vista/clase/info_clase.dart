@@ -1,12 +1,13 @@
 import 'package:exa_gammer_movil/controllers/clase_controller.dart';
 import 'package:exa_gammer_movil/controllers/user_controller.dart';
+import 'package:exa_gammer_movil/models/clase_model.dart';
 import 'package:exa_gammer_movil/ui/home/profesor/main_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 class Info_Clase extends StatefulWidget {
-  Info_Clase({super.key});
+  const Info_Clase({super.key});
 
   @override
   State<Info_Clase> createState() => _Info_ClaseState();
@@ -15,7 +16,17 @@ class Info_Clase extends StatefulWidget {
 class _Info_ClaseState extends State<Info_Clase> {
   final ClaseController pc = Get.find();
   late final UserController user = Get.find<UserController>();
-  var clase;
+  var clase = Clase(
+    id: 0,
+    nombre: "nombre",
+    tema: "tema",
+    autor: "autor",
+    codigo: "codigo",
+    estado: true,
+    fecha: "fecha",
+    img: "img",
+    id_profe: 0,
+  );
 
   @override
   void initState() {
@@ -34,14 +45,13 @@ class _Info_ClaseState extends State<Info_Clase> {
       borderColor: Color(0xFF00FF41).withOpacity(0.5),
       borderWidth: 1.5,
       icon: Icon(Icons.check_circle, color: Color(0xFF00FF41)),
-      duration: Duration(seconds: 2),
+      duration: const Duration(seconds: 2),
       margin: EdgeInsets.all(16),
       borderRadius: 12,
     );
   }
 
   void _generarNuevoCodigo() {
-    // TODO: Implementar lógica para generar nuevo código
     Get.snackbar(
       '🔄 Generar Código',
       'Función en desarrollo',
@@ -51,14 +61,13 @@ class _Info_ClaseState extends State<Info_Clase> {
       borderColor: Color(0xFF00F0FF).withOpacity(0.5),
       borderWidth: 1.5,
       icon: Icon(Icons.refresh, color: Color(0xFF00F0FF)),
-      duration: Duration(seconds: 2),
+      duration: const Duration(seconds: 2),
       margin: EdgeInsets.all(16),
       borderRadius: 12,
     );
   }
 
   void _editarClase() {
-    // TODO: Implementar lógica para editar clase
     Get.snackbar(
       '✏️ Editar Clase',
       'Función en desarrollo',
@@ -68,7 +77,7 @@ class _Info_ClaseState extends State<Info_Clase> {
       borderColor: Color(0xFF00F0FF).withOpacity(0.5),
       borderWidth: 1.5,
       icon: Icon(Icons.edit, color: Color(0xFF00F0FF)),
-      duration: Duration(seconds: 2),
+      duration: const Duration(seconds: 2),
       margin: EdgeInsets.all(16),
       borderRadius: 12,
     );
@@ -152,7 +161,7 @@ class _Info_ClaseState extends State<Info_Clase> {
           borderColor: Colors.green.withOpacity(0.5),
           borderWidth: 1.5,
           icon: Icon(Icons.delete, color: Colors.red.shade300),
-          duration: Duration(seconds: 2),
+          duration: const Duration(seconds: 2),
           margin: EdgeInsets.all(16),
           borderRadius: 12,
         );
@@ -167,7 +176,7 @@ class _Info_ClaseState extends State<Info_Clase> {
           borderColor: Colors.red.withOpacity(0.5),
           borderWidth: 1.5,
           icon: Icon(Icons.delete, color: Colors.red.shade300),
-          duration: Duration(seconds: 2),
+          duration: const Duration(seconds: 2),
           margin: EdgeInsets.all(16),
           borderRadius: 12,
         );

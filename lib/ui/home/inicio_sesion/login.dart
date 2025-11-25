@@ -22,6 +22,7 @@ class _LoginFromState extends State<LoginForm> {
       children: [
         // Campo Usuario
         TextField(
+          key: Key('inputUsuario'),
           controller: usuario,
           style: const TextStyle(color: Colors.white), // 🔹 texto blanco
           decoration: _input('Usuario', Icons.person),
@@ -30,6 +31,7 @@ class _LoginFromState extends State<LoginForm> {
 
         // Campo Contraseña
         TextField(
+          key: Key('inputPassword'),
           controller: clave,
           style: const TextStyle(color: Colors.white), // 🔹 texto blanco
           obscureText: _obscureText,
@@ -52,8 +54,43 @@ class _LoginFromState extends State<LoginForm> {
         SizedBox(
           width: double.infinity,
           child: ElevatedButton(
+            key: Key('btnLogin'),
             style: _buttonStyle(),
             onPressed: () async {
+              /*
+              String nombre = usuario.text.trim();
+              String password = clave.text.trim();
+
+              if (nombre.length < 10) {
+                Get.snackbar(
+                  'Error',
+                  'El nombre debe tener mínimo 10 caracteres',
+                  backgroundColor: Colors.red,
+                  colorText: Colors.white,
+                );
+                return;
+              }
+
+              if (nombre.length > 40) {
+                Get.snackbar(
+                  'Error',
+                  'El nombre no puede superar los 40 caracteres',
+                  backgroundColor: Colors.red,
+                  colorText: Colors.white,
+                );
+                return;
+              }
+
+              if (password.length < 8) {
+                Get.snackbar(
+                  'Error',
+                  'La contraseña debe tener mínimo 8 caracteres',
+                  backgroundColor: Colors.red,
+                  colorText: Colors.white,
+                );
+                return;
+              }
+              */
               final rol = await userController.iniciarSesionYObtenerRol(
                 usuario.text,
                 clave.text,
@@ -87,6 +124,22 @@ class _LoginFromState extends State<LoginForm> {
                     colorText: Colors.white,
                   );
                 }
+                /*
+                if (GetPlatform.isWeb || Get.testMode) {
+                } else {
+                  if (rol == 'Profesor') {
+                    Get.offAll(() => MainView(vista: "Profesor"));
+                  } else if (rol == 'Estudiante') {
+                    Get.off(() => MainView(vista: "Estudiante"));
+                  } else {
+                    Get.snackbar(
+                      'Error',
+                      'Rol no reconocido: $rol',
+                      backgroundColor: Colors.red,
+                      colorText: Colors.white,
+                    );
+                  }
+                }*/
               } else {
                 Get.snackbar(
                   'Error',
@@ -121,10 +174,7 @@ class _LoginFromState extends State<LoginForm> {
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
-        borderSide: const BorderSide(
-          color: Color(0xFF00F0FF),
-          width: 2,
-        ),
+        borderSide: const BorderSide(color: Color(0xFF00F0FF), width: 2),
       ),
       filled: true,
       fillColor: Colors.white.withOpacity(0.05), // sutil glass effect
@@ -133,13 +183,11 @@ class _LoginFromState extends State<LoginForm> {
 
   // 🔹 Estilo del botón
   ButtonStyle _buttonStyle() => ElevatedButton.styleFrom(
-        backgroundColor: const Color(0xFF00F0FF),
-        foregroundColor: Colors.black,
-        padding: const EdgeInsets.symmetric(vertical: 16),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-        ),
-        elevation: 8,
-        shadowColor: const Color(0xFF00F0FF).withOpacity(0.5),
-      );
+    backgroundColor: const Color(0xFF00F0FF),
+    foregroundColor: Colors.black,
+    padding: const EdgeInsets.symmetric(vertical: 16),
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+    elevation: 8,
+    shadowColor: const Color(0xFF00F0FF).withOpacity(0.5),
+  );
 }

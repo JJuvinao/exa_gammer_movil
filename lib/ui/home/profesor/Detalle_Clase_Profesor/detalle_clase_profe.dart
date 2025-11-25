@@ -1,34 +1,41 @@
 import 'package:exa_gammer_movil/controllers/clase_controller.dart';
 import 'package:exa_gammer_movil/controllers/examen_controller.dart';
 import 'package:exa_gammer_movil/controllers/user_controller.dart';
-import 'package:exa_gammer_movil/ui/home/profesor/Detalle_Clase_Profesor/Widgets_Detalle_Clase/empty_examenes_widget.dart';
-import 'package:exa_gammer_movil/ui/home/profesor/Detalle_Clase_Profesor/Widgets_Detalle_Clase/examen_card.dart';
+import 'package:exa_gammer_movil/models/clase_model.dart';
+import 'package:exa_gammer_movil/ui/home/profesor/Detalle_Clase_Profesor/Widgets_Detalle_Clase/examenesListView.dart';
 import 'package:exa_gammer_movil/ui/home/profesor/main_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:exa_gammer_movil/ui/home/vista/examen/add_examen.dart';
+import 'package:exa_gammer_movil/ui/home/vista/examen/ui/add_examen.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
 class DetalleClase extends StatefulWidget {
-  DetalleClase({super.key});
+  const DetalleClase({super.key});
 
   @override
-  State<DetalleClase> createState() => _DetalleClaseState();
+  State<DetalleClase> createState() => DetalleClaseState();
 }
 
-class _DetalleClaseState extends State<DetalleClase> {
-  late final examenController;
-  late final claseController;
-  late final UserController user;
-  var clase;
+class DetalleClaseState extends State<DetalleClase> {
+  late final examenController = Get.find<ExamenController>();
+  late final claseController = Get.find<ClaseController>();
+  late final UserController user = Get.find<UserController>();
+  var clase = Clase(
+    id: 0,
+    nombre: "nombre",
+    tema: "tema",
+    autor: "autor",
+    codigo: "codigo",
+    estado: true,
+    fecha: "fecha",
+    img: "img",
+    id_profe: 0,
+  );
   var listexamen = <dynamic>[].obs;
 
   @override
   void initState() {
     super.initState();
-    examenController = Get.find<ExamenController>();
-    claseController = Get.find<ClaseController>();
-    user = Get.find<UserController>();
     _cargarExamenes();
   }
 
@@ -42,7 +49,6 @@ class _DetalleClaseState extends State<DetalleClase> {
     clase = claseController.getclase;
     final token = user.gettoken;
     listexamen.value = await examenController.filteredList(clase.id, token);
-    ;
   }
 
   @override
@@ -74,7 +80,12 @@ class _DetalleClaseState extends State<DetalleClase> {
                   const SizedBox(height: 24),
                   _buildSectionTitle(),
                   const SizedBox(height: 16),
-                  Expanded(child: _buildExamenList()),
+                  Expanded(
+                    child: ExamenesListView(
+                      filteredExamenes: listexamen,
+                      examenController: examenController,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -198,19 +209,6 @@ class _DetalleClaseState extends State<DetalleClase> {
         ),
       ],
     );
-  }
-
-  Widget _buildExamenList() {
-    return Obx(() {
-      if (listexamen.isEmpty) return const EmptyExamenesWidget();
-
-      return ListView.separated(
-        padding: const EdgeInsets.only(bottom: 80),
-        itemCount: listexamen.length,
-        separatorBuilder: (_, __) => const SizedBox(height: 16),
-        itemBuilder: (_, i) => ExamenCard(actividad: listexamen[i]),
-      );
-    });
   }
 
   Widget _buildFAB() {

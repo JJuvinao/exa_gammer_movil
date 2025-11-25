@@ -7,10 +7,10 @@ class RendirseDialog extends StatelessWidget {
   final VoidCallback onCancel;
 
   const RendirseDialog({
-    Key? key,
+    super.key,
     required this.onConfirm,
     required this.onCancel,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

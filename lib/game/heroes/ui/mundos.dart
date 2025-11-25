@@ -1,3 +1,4 @@
+import 'package:exa_gammer_movil/game/heroes/controller/heroe_controller.dart';
 import 'package:exa_gammer_movil/game/heroes/ui/escenario.dart';
 import 'package:exa_gammer_movil/game/heroes/ui/personajes.dart';
 import 'package:exa_gammer_movil/game/heroes/widget/mundocard.dart';
@@ -17,6 +18,7 @@ class _MundosPageState extends State<MundosPage> {
   final String fondo1 = "lib/game/heroes/imagenes/Fondos/fondomontaña.png";
   final String fondo2 = "lib/game/heroes/imagenes/Fondos/fondopradera.png";
   final String fondo3 = "lib/game/heroes/imagenes/Fondos/fondocastillo.jpg";
+  final HeroeController controller = Get.find<HeroeController>();
   @override
   void initState() {
     super.initState();
@@ -60,8 +62,9 @@ class _MundosPageState extends State<MundosPage> {
                             image: fondo1,
                             personaje: widget.personaje,
                             onTap: () {
+                              controller.iniciar();
                               Get.to(
-                                Escenario(
+                                () => Escenario(
                                   background: fondo1,
                                   heroe: widget.personaje,
                                 ),
@@ -76,8 +79,9 @@ class _MundosPageState extends State<MundosPage> {
                             image: fondo2,
                             personaje: widget.personaje,
                             onTap: () {
+                              controller.iniciar();
                               Get.to(
-                                Escenario(
+                                () => Escenario(
                                   background: fondo2,
                                   heroe: widget.personaje,
                                 ),
@@ -92,8 +96,9 @@ class _MundosPageState extends State<MundosPage> {
                             image: fondo3,
                             personaje: widget.personaje,
                             onTap: () {
+                              controller.iniciar();
                               Get.to(
-                                Escenario(
+                                () => Escenario(
                                   background: fondo3,
                                   heroe: widget.personaje,
                                 ),

@@ -1,5 +1,4 @@
 import 'package:exa_gammer_movil/controllers/vista_controles.dart';
-import 'package:exa_gammer_movil/ui/home/profesor/main_view.dart';
 import 'package:exa_gammer_movil/controllers/user_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -20,7 +19,7 @@ class _ClaseViewState extends State<ClaseView> {
       Get.find<VistaControles>().navBarItems(widget.vista);
 
   List<Widget> get _screens =>
-      Get.find<VistaControles>().getScreens_Clase(user.getuser.rol);
+      Get.find<VistaControles>().getScreensClase(user.getuser.rol);
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +76,7 @@ class _ClaseViewState extends State<ClaseView> {
                       Icons.bar_chart_rounded,
                       color: Color(0xFF00F0FF),
                     ),
-                    duration: Duration(seconds: 2),
+                    duration: const Duration(seconds: 2),
                     margin: EdgeInsets.all(16),
                     borderRadius: 12,
                   );
@@ -86,7 +85,7 @@ class _ClaseViewState extends State<ClaseView> {
               }
 
               setState(() {
-                _currentIndex = index - 1;
+                _currentIndex = index;
               });
             },
             selectedLabelStyle: TextStyle(
@@ -160,7 +159,7 @@ class _ClaseViewState extends State<ClaseView> {
                       ),
                     ],
                   ),
-                  child: item.activeIcon ?? item.icon,
+                  child: item.activeIcon,
                 ),
                 label: item.label,
               );

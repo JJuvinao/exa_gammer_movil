@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:convert';
 import 'package:exa_gammer_movil/controllers/user_controller.dart';
 import 'package:exa_gammer_movil/models/CursoModel/curso_model.dart';
@@ -6,6 +8,8 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
 class CursoController extends GetxController {
+  final type = "Content-Type";
+  final app = "application/json";
   var cursoList = <Curso>[].obs;
   Rx<Curso>? selectedCurso;
   UserController user = Get.find<UserController>();
@@ -18,26 +22,26 @@ class CursoController extends GetxController {
   }
 
   Future<void> fetchCursos() async {
-    final int id_user = user.getuser.id;
+    final int idUser = user.getuser.id;
     isLoading.value = true;
     try {
       final url = Uri.parse(
-        'https://www.apiexagammer.somee.com/api/Cursos/${id_user}',
+        'https://www.apiexagammer.somee.com/api/Cursos/$idUser',
       );
 
       final res = await http
-          .get(url, headers: {'Content-Type': 'application/json'})
-          .timeout(Duration(seconds: 15));
+          .get(url, headers: {type: app})
+          .timeout(const Duration(seconds: 15));
 
       if (res.statusCode != 200) {
         print(res.statusCode);
       }
       final data = jsonDecode(res.body);
-      List<Curso> _cursoList = [];
+      List<Curso> cursoListe = [];
       for (var item in data) {
-        _cursoList.add(Curso.fromJson(item));
+        cursoListe.add(Curso.fromJson(item));
       }
-      cursoList.value = _cursoList;
+      cursoList.value = cursoListe;
       isLoading.value = false;
     } catch (e) {
       print("ERROR DE LA CARGA DE CURSOS ${e.toString()}");
@@ -45,7 +49,7 @@ class CursoController extends GetxController {
   }
 
   Future<String> generateCurso(String userRequest) async {
-    final int id_user = user.getuser.id;
+    final int idUser = user.getuser.id;
     isLoading.value = true;
     print(userRequest);
     final url = Uri.parse(
@@ -53,8 +57,8 @@ class CursoController extends GetxController {
     );
     final response = await http.post(
       url,
-      headers: {'Content-Type': 'application/json'},
-      body: jsonEncode({'Id_user': id_user, 'userRequest': userRequest}),
+      headers: {type: app},
+      body: jsonEncode({'Id_user': idUser, 'userRequest': userRequest}),
     );
 
     if (response.statusCode == 200) {

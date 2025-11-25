@@ -50,7 +50,7 @@ Future<bool?> IngresarCodigo(BuildContext context) async {
           ElevatedButton(
             onPressed: () async {
               final codigo = codigoController.text.trim();
-              final exito = await usercontroller.UnirseClase(codigo);
+              final exito = await usercontroller.unirseClase(codigo);
               if (exito) {
                 Get.snackbar(
                   'Éxito',

@@ -43,3 +43,18 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# AGREGADO: Archivos de build completos de Android
+/android/app/build/
+/android/.gradle/
+/android/build/
+android/local.properties
+
+# AGREGADO: Archivos grandes de librerías nativas
+**/merged_native_libs/
+**/libflutter.so
+
+# Keystore files (no subir claves de firma)
+*.jks
+*.keystore
+!android/app/debug.keystore
