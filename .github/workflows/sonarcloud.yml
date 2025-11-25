@@ -36,5 +36,4 @@ jobs:
             -Dsonar.sources=lib
             -Dsonar.host.url=https://sonarcloud.io
             -Dsonar.flutter.analyzer.reportPath=sonar-result.json
-            -Dsonar.dart.analysis.useBuiltin=false
-            -Dsonar.pluginsDir=./sonar
+            -Dsonar.sourceEncoding=UTF-8
