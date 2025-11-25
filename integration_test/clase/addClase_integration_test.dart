@@ -41,7 +41,7 @@ class FakeUserController extends GetxController implements UserController {
   @override
   Future<void> logout() async {}
   @override
-  Future<bool> UnirseClase(String codigoClase) async => false;
+  Future<bool> unirseClase(String codigoClase) async => false;
   @override
   Future<bool> actualizarPremium(int userId, bool premium) async => false;
   @override

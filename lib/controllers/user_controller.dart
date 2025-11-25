@@ -82,7 +82,7 @@ class UserController extends GetxController {
     }
   }
 
-  Future<bool> UnirseClase(String codigoClase) async {
+  Future<bool> unirseClase(String codigoClase) async {
     final url = Uri.parse(
       'https://www.apiexagammer.somee.com/api/Estudi_Clases/Ingresar',
     );
