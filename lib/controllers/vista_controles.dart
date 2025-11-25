@@ -31,9 +31,17 @@ class VistaControles extends GetxController {
   List<Widget> getScreensClase(String vista) {
     screens.clear();
     if (vista == "Profesor") {
-      screens.addAll([const DetalleClase(), Info_Clase(), Estud_Clase()]);
+      screens.addAll([
+        const DetalleClase(),
+        const Info_Clase(),
+        const Estud_Clase(),
+      ]);
     } else {
-      screens.addAll([const DetalleClase_Estu(), Info_Clase(), Estud_Clase()]);
+      screens.addAll([
+        const DetalleClase_Estu(),
+        const Info_Clase(),
+        const Estud_Clase(),
+      ]);
     }
     return screens;
   }
@@ -41,9 +49,13 @@ class VistaControles extends GetxController {
   List<Widget> getScreensExamen() {
     screens.clear();
     if (user.getuser.rol == "Profesor") {
-      screens.addAll([DetalleExamenPage(), Info_Examen(), Resultados()]);
+      screens.addAll([
+        const DetalleExamenPage(),
+        const Info_Examen(),
+        const Resultados(),
+      ]);
     } else {
-      screens.addAll([DetalleExamenPage(), Info_Examen()]);
+      screens.addAll([const DetalleExamenPage(), const Info_Examen()]);
     }
     return screens;
   }

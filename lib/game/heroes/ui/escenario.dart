@@ -97,7 +97,7 @@ class _EscenarioState extends State<Escenario> {
                     color: Colors.black54,
                     child: Center(
                       child: Container(
-                        padding: EdgeInsets.all(20),
+                        padding: const EdgeInsets.all(20),
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(20),
@@ -135,7 +135,7 @@ class _EscenarioState extends State<Escenario> {
   void showResponder() async {
     setState(() => showAttackMenu = false);
 
-    await Get.to(() => PreguntaDialog());
+    await Get.to(() => const PreguntaDialog());
     setState(() {
       mostrarMensaje = true;
       accionEnProgreso = true;
@@ -205,7 +205,7 @@ class _EscenarioState extends State<Escenario> {
               DeviceOrientation.portraitDown,
             ]);
             Navigator.pop(context);
-            Get.off(() => ExamenView(vista: "Examen"));
+            Get.off(() => const ExamenView(vista: "Examen"));
           },
           onCancel: () => Navigator.pop(context),
         );

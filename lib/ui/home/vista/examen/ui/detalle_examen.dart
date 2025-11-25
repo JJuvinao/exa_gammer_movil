@@ -22,7 +22,17 @@ class _DetalleExamenPageState extends State<DetalleExamenPage> {
   late final UserController user;
   late final PreguntaController preguntaController;
 
-  var examen;
+  var examen = Examen(
+    id: 0,
+    nombre: "nombre",
+    tema: "tema",
+    autor: "autor",
+    descripcion: "descripcion",
+    codigo: "codigo",
+    fecha: "fecha",
+    img: "img",
+    id_juego: 0,
+  );
   List<Ahorcado> listaahorcado = [];
   List<Heroes> listher = [];
 

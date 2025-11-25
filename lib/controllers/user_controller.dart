@@ -36,9 +36,7 @@ class UserController extends GetxController {
       final res = await http
           .post(
             url,
-            headers: <String, String>{
-              'Content-Type': 'application/json; charset=UTF-8',
-            },
+            headers: <String, String>{type: 'application/json; charset=UTF-8'},
             body: jsonEncode(userfrom.toJson()),
           )
           .timeout(const Duration(seconds: 15));
@@ -89,7 +87,7 @@ class UserController extends GetxController {
           .post(
             url,
             headers: <String, String>{
-              'Content-Type': 'application/json; charset=UTF-8',
+              type: 'application/json; charset=UTF-8',
               'Authorization': 'Bearer $gettoken',
             },
             body: jsonEncode(

@@ -47,7 +47,7 @@ class Mensaje extends StatelessWidget {
       actions: [
         const SizedBox(width: 10),
         TextButton(
-          onPressed: () => Get.off(() => ExamenView(vista: "Examen")),
+          onPressed: () => Get.off(() => const ExamenView(vista: "Examen")),
           child: const Text("Aceptar"),
         ),
       ],

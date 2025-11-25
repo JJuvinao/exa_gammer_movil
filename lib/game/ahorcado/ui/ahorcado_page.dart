@@ -111,7 +111,7 @@ class _AhorcadoPageState extends State<AhorcadoPage> {
                                         widget.idExamen,
                                       );
                                       Get.off(
-                                        () => ExamenView(vista: "Examen"),
+                                        () => const ExamenView(vista: "Examen"),
                                       );
                                     }
                                   }
