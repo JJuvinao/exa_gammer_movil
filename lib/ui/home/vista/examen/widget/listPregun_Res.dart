@@ -58,6 +58,9 @@ class _ListPregunta_RespuestaState extends State<ListPregunta_Respuesta> {
             itemBuilder: (context, index) {
               final resp = listRes_Pregunta[index];
               return Card(
+                color: resp.respuestaV == resp.respuesta
+                    ? Colors.green.shade100
+                    : Colors.red.shade100,
                 margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
