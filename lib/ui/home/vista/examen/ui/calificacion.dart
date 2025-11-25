@@ -1,4 +1,3 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:exa_gammer_movil/controllers/examen_controller.dart';
 import 'package:exa_gammer_movil/controllers/user_controller.dart';
 import 'package:exa_gammer_movil/models/examen_model.dart';
@@ -77,10 +76,7 @@ class _CalificarExamState extends State<CalificarExam> {
         flexibleSpace: Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [
-                Color(0xFF1a1a2e),
-                Color(0xFF16213e),
-              ],
+              colors: [Color(0xFF1a1a2e), Color(0xFF16213e)],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
@@ -96,11 +92,7 @@ class _CalificarExamState extends State<CalificarExam> {
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [
-              Color(0xFF0a0a14),
-              Color(0xFF16213e),
-              Color(0xFF0a0a14),
-            ],
+            colors: [Color(0xFF0a0a14), Color(0xFF16213e), Color(0xFF0a0a14)],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),
@@ -119,10 +111,7 @@ class _CalificarExamState extends State<CalificarExam> {
                 padding: const EdgeInsets.all(24),
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
-                    colors: [
-                      Color(0xFF1a1a2e),
-                      Color(0xFF16213e),
-                    ],
+                    colors: [Color(0xFF1a1a2e), Color(0xFF16213e)],
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                   ),
@@ -203,10 +192,7 @@ class _CalificarExamState extends State<CalificarExam> {
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [
-            Color(0xFF1a1a2e),
-            Color(0xFF16213e),
-          ],
+          colors: [Color(0xFF1a1a2e), Color(0xFF16213e)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -239,10 +225,7 @@ class _CalificarExamState extends State<CalificarExam> {
                 ),
               ],
             ),
-            child: Image.asset(
-              'assets/imagen/logo_exa.png',
-              height: 50,
-            ),
+            child: Image.asset('assets/imagen/logo_exa.png', height: 50),
           ),
           const SizedBox(width: 16),
           Expanded(
@@ -458,9 +441,7 @@ class _CalificarExamState extends State<CalificarExam> {
             style: TextStyle(color: Colors.white),
             keyboardType: const TextInputType.numberWithOptions(decimal: true),
             inputFormatters: [
-              FilteringTextInputFormatter.allow(
-                RegExp(r'^\d*\.?\d{0,2}'),
-              ),
+              FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d{0,2}')),
             ],
             decoration: InputDecoration(
               labelText: 'Nota actual: ${widget.resultado.nota} / 5.0',
@@ -483,10 +464,7 @@ class _CalificarExamState extends State<CalificarExam> {
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
-                borderSide: BorderSide(
-                  color: Color(0xFF00FF41),
-                  width: 2,
-                ),
+                borderSide: BorderSide(color: Color(0xFF00FF41), width: 2),
               ),
               disabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
@@ -552,7 +530,11 @@ class _CalificarExamState extends State<CalificarExam> {
                     ),
                   ],
                 ),
-                child: Icon(Icons.comment_rounded, color: Colors.black, size: 20),
+                child: Icon(
+                  Icons.comment_rounded,
+                  color: Colors.black,
+                  size: 20,
+                ),
               ),
               const SizedBox(width: 12),
               ShaderMask(
@@ -576,7 +558,8 @@ class _CalificarExamState extends State<CalificarExam> {
             enabled: editar,
             style: TextStyle(color: Colors.white),
             decoration: InputDecoration(
-              hintText: (widget.resultado.recomendacion == null ||
+              hintText:
+                  (widget.resultado.recomendacion == null ||
                       widget.resultado.recomendacion!.isEmpty)
                   ? "Escribe tu recomendación para el estudiante..."
                   : widget.resultado.recomendacion,
@@ -599,10 +582,7 @@ class _CalificarExamState extends State<CalificarExam> {
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
-                borderSide: BorderSide(
-                  color: Color(0xFF00F0FF),
-                  width: 2,
-                ),
+                borderSide: BorderSide(color: Color(0xFF00F0FF), width: 2),
               ),
               disabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),

@@ -1,13 +1,9 @@
-// ignore_for_file: override_on_non_overriding_member, non_constant_identifier_names, avoid_print, file_names
-
 import 'package:exa_gammer_movil/ui/home/profesor/Home_Profesor/home_profesor.dart';
 import 'package:exa_gammer_movil/ui/home/profesor/agregar_clase/add_class.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
 import 'package:integration_test/integration_test.dart';
-
-// TUS IMPORTS
 import 'package:exa_gammer_movil/ui/home/inicio_sesion/login.dart';
 import 'package:exa_gammer_movil/controllers/user_controller.dart';
 import 'package:exa_gammer_movil/controllers/clase_controller.dart';
@@ -15,13 +11,11 @@ import 'package:exa_gammer_movil/service/localServices.dart';
 import 'package:exa_gammer_movil/models/user_model.dart';
 import 'package:exa_gammer_movil/models/clase_model.dart';
 
-/// DATOS DE PRUEBA
 class UsuarioLogin {
   String nombre = "jose luis juvi";
   String password = "12345678";
 }
 
-/// CONTROLADORES MOCK
 class FakeUserController extends GetxController implements UserController {
   final User _fakeUser = User(
     id: 1,
@@ -56,7 +50,6 @@ class FakeUserController extends GetxController implements UserController {
   Future<String> registerUser(String u, p, r, e) async => "";
 }
 
-/// FAKE DEL STORAGE
 class FakeStorageService extends StorageService {
   @override
   Future<StorageService> init() async => this;
@@ -70,9 +63,7 @@ class FakeStorageService extends StorageService {
   Future<void> clearAll() async {}
 }
 
-/// CONTROLADOR FAKE DE CLASES CON DATOS MOCKEADOS
 class FakeClaseController extends ClaseController {
-  // Lista observable de clases fake
   final RxList<Clase> _clasesMock = <Clase>[].obs;
 
   @override
@@ -80,7 +71,6 @@ class FakeClaseController extends ClaseController {
 
   @override
   Future<void> cargarClases(dynamic user, dynamic token) async {
-    // Simular carga exitosa sin hacer llamada HTTP real
     print("✔️ ClaseController: Clases cargadas (mock)");
     _clasesMock.value = [
       Clase(
@@ -104,7 +94,6 @@ class FakeClaseController extends ClaseController {
     GlobalKey<FormState> formKey,
   ) async {
     print("✔️ ClaseController: Clase creada exitosamente (mock)");
-    // Simular éxito sin retornar nada
   }
 
   @override
@@ -117,10 +106,8 @@ class FakeClaseController extends ClaseController {
     print("✔️ ClaseController: Clase eliminada (mock)");
   }
 
-  // CRÍTICO: Sobrescribir limpiarFormulario para que no haga nada durante los tests
   @override
   void limpiarFormulario() {
-    // No hacer nada en tests para evitar setState durante build
     print(
       "✔️ ClaseController: limpiarFormulario() llamado (ignorado en tests)",
     );
@@ -172,7 +159,6 @@ void main() {
 
     print("🔐 Login realizado… validando navegación");
 
-    // Buscar mensaje de login exitoso
     expect(find.textContaining("Inicio de sesión exitoso"), findsOneWidget);
     print("✔️ Navegación correcta — Se llegó al menú principal del Profesor");
 
@@ -195,15 +181,12 @@ void main() {
 
     print("🔘 Presionando botón 'Crear Clase'…");
 
-    // SOLUCIÓN: Hacer scroll hasta el final de la pantalla primero
     await tester.drag(find.byType(HomeProfesor), const Offset(0, -300));
     await tester.pumpAndSettle();
 
-    // Usar ensureVisible para asegurar que el botón esté en pantalla
     await tester.ensureVisible(fab);
     await tester.pumpAndSettle();
 
-    // Usar warnIfMissed: false para suprimir la advertencia si no se puede tocar
     await tester.tap(fab, warnIfMissed: false);
     await tester.pumpAndSettle(const Duration(seconds: 1));
 
@@ -239,32 +222,26 @@ void main() {
     // SOLUCIÓN: Buscar específicamente el botón único
     final btnCrear = find.byKey(const Key('btnCrearClase'));
 
-    // Verificar que existe solo uno
     expect(
       btnCrear,
       findsOneWidget,
       reason: "Debe haber exactamente un botón con key 'btnCrearClase'",
     );
 
-    // Hacer scroll si es necesario
     final gesture = await tester.startGesture(const Offset(400, 300));
     await gesture.moveBy(const Offset(0, -200));
     await gesture.up();
     await tester.pumpAndSettle();
 
-    // Asegurar visibilidad
     await tester.ensureVisible(btnCrear);
     await tester.pumpAndSettle();
 
-    // Tocar el botón
     await tester.tap(btnCrear);
     await tester.pumpAndSettle(const Duration(seconds: 2));
 
     print("🎉 Clase creada exitosamente — flujo completado\n");
 
     // =============== 8. VALIDAR RESULTADO ==========================
-    // Buscar algún indicador de éxito (ajustar según tu app)
-    // Ejemplo: un SnackBar, diálogo o mensaje
     final mensajeExito = find.textContaining("Clase creada");
 
     if (mensajeExito.evaluate().isNotEmpty) {

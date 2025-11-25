@@ -16,6 +16,9 @@ subprojects {
     project.evaluationDependsOn(":app")
 }
 
-tasks.register<Delete>("clean") {
-    delete(rootProject.layout.buildDirectory)
+tasks.register<DocsGenerate>("generateHtmlDocs") { // Compliant, defines "description" and "group"
+    description = "Generates the HTML documentation for this project."
+    group = JavaBasePlugin.DOCUMENTATION_GROUP
+    title.set("Project docs")
+    outputDir.set(layout.buildDirectory.dir("docs"))
 }
