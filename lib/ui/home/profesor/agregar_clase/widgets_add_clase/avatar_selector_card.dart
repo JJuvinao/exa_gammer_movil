@@ -21,10 +21,7 @@ class AvatarSelectorCard extends StatelessWidget {
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [
-            Color(0xFF1a1a2e),
-            Color(0xFF16213e),
-          ],
+          colors: const [Color(0xFF1a1a2e), Color(0xFF16213e)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -56,7 +53,7 @@ class AvatarSelectorCard extends StatelessWidget {
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
-                    colors: [Color(0xFF00FF41), Color(0xFF00F0FF)],
+                    colors: const [Color(0xFF00FF41), Color(0xFF00F0FF)],
                   ),
                   borderRadius: BorderRadius.circular(10),
                   boxShadow: [
@@ -75,12 +72,7 @@ class AvatarSelectorCard extends StatelessWidget {
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
                   color: Color(0xFF00FF41),
-                  shadows: [
-                    Shadow(
-                      color: Color(0xFF00FF41),
-                      blurRadius: 10,
-                    ),
-                  ],
+                  shadows: [Shadow(color: Color(0xFF00FF41), blurRadius: 10)],
                 ),
               ),
             ],
@@ -96,7 +88,7 @@ class AvatarSelectorCard extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [Color(0xFF00FF41), Color(0xFF00F0FF)],
+                colors: const [Color(0xFF00FF41), Color(0xFF00F0FF)],
               ),
               borderRadius: BorderRadius.circular(12),
               boxShadow: [
@@ -109,10 +101,16 @@ class AvatarSelectorCard extends StatelessWidget {
             ),
             child: ElevatedButton.icon(
               onPressed: () async {
-                final avatar = await AvatarSelectorModal.show(context, avatarList);
+                final avatar = await AvatarSelectorModal.show(
+                  context,
+                  avatarList,
+                );
                 if (avatar != null) onAvatarSelected(avatar);
               },
-              icon: const Icon(Icons.photo_library_rounded, color: Colors.black),
+              icon: const Icon(
+                Icons.photo_library_rounded,
+                color: Colors.black,
+              ),
               label: Text(
                 mostrarAvatar ? 'Cambiar imagen' : 'Seleccionar imagen',
                 style: const TextStyle(
@@ -124,7 +122,10 @@ class AvatarSelectorCard extends StatelessWidget {
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.transparent,
                 shadowColor: Colors.transparent,
-                padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 32,
+                  vertical: 16,
+                ),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),
@@ -141,10 +142,7 @@ class AvatarSelectorCard extends StatelessWidget {
       return Container(
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          border: Border.all(
-            color: Color(0xFF00FF41),
-            width: 3,
-          ),
+          border: Border.all(color: Color(0xFF00FF41), width: 3),
           boxShadow: [
             BoxShadow(
               color: Color(0xFF00FF41).withOpacity(0.6),
@@ -174,21 +172,11 @@ class AvatarSelectorCard extends StatelessWidget {
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         gradient: LinearGradient(
-          colors: [
-            Color(0xFF0f0f1e),
-            Color(0xFF1a1a2e),
-          ],
+          colors: const [Color(0xFF0f0f1e), Color(0xFF1a1a2e)],
         ),
-        border: Border.all(
-          color: Color(0xFF00FF41).withOpacity(0.3),
-          width: 2,
-        ),
+        border: Border.all(color: Color(0xFF00FF41).withOpacity(0.3), width: 2),
       ),
-      child: Icon(
-        Icons.image_rounded,
-        size: 50,
-        color: Colors.grey[600],
-      ),
+      child: Icon(Icons.image_rounded, size: 50, color: Colors.grey[600]),
     );
   }
 }

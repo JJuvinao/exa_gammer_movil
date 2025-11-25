@@ -197,7 +197,7 @@ class _Info_ClaseState extends State<Info_Clase> {
           centerTitle: true,
           title: ShaderMask(
             shaderCallback: (bounds) => LinearGradient(
-              colors: [Color(0xFF00F0FF), Color(0xFF00FF41)],
+              colors: const [Color(0xFF00F0FF), Color(0xFF00FF41)],
             ).createShader(bounds),
             child: Text(
               "Información de la Clase",
@@ -217,7 +217,7 @@ class _Info_ClaseState extends State<Info_Clase> {
           flexibleSpace: Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [Color(0xFF1a1a2e), Color(0xFF16213e)],
+                colors: const [Color(0xFF1a1a2e), Color(0xFF16213e)],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               ),
@@ -233,7 +233,11 @@ class _Info_ClaseState extends State<Info_Clase> {
         body: Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [Color(0xFF0a0a14), Color(0xFF16213e), Color(0xFF0a0a14)],
+              colors: const [
+                Color(0xFF0a0a14),
+                Color(0xFF16213e),
+                Color(0xFF0a0a14),
+              ],
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
             ),
@@ -248,7 +252,7 @@ class _Info_ClaseState extends State<Info_Clase> {
                   padding: const EdgeInsets.all(24),
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
-                      colors: [Color(0xFF1a1a2e), Color(0xFF16213e)],
+                      colors: const [Color(0xFF1a1a2e), Color(0xFF16213e)],
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
                     ),
@@ -277,7 +281,10 @@ class _Info_ClaseState extends State<Info_Clase> {
                         padding: const EdgeInsets.all(16),
                         decoration: BoxDecoration(
                           gradient: LinearGradient(
-                            colors: [Color(0xFF00F0FF), Color(0xFF00FF41)],
+                            colors: const [
+                              Color(0xFF00F0FF),
+                              Color(0xFF00FF41),
+                            ],
                           ),
                           borderRadius: BorderRadius.circular(20),
                           boxShadow: [
@@ -298,7 +305,7 @@ class _Info_ClaseState extends State<Info_Clase> {
                       // Nombre de la clase
                       ShaderMask(
                         shaderCallback: (bounds) => LinearGradient(
-                          colors: [Color(0xFF00F0FF), Color(0xFF00FF41)],
+                          colors: const [Color(0xFF00F0FF), Color(0xFF00FF41)],
                         ).createShader(bounds),
                         child: Text(
                           clase.nombre,
@@ -370,7 +377,7 @@ class _Info_ClaseState extends State<Info_Clase> {
                     icon: Icons.refresh_rounded,
                     label: "Generar Nuevo Código",
                     gradient: LinearGradient(
-                      colors: [Color(0xFF00F0FF), Color(0xFF00FF41)],
+                      colors: const [Color(0xFF00F0FF), Color(0xFF00FF41)],
                     ),
                     glowColor: Color(0xFF00F0FF),
                     onPressed: _generarNuevoCodigo,
@@ -487,7 +494,7 @@ class _Info_ClaseState extends State<Info_Clase> {
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [Color(0xFF00FF41), Color(0xFF00F0FF)],
+                colors: const [Color(0xFF00FF41), Color(0xFF00F0FF)],
               ),
               borderRadius: BorderRadius.circular(10),
               boxShadow: [

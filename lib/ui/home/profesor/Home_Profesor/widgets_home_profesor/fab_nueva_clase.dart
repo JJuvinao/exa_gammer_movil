@@ -10,7 +10,7 @@ class FabNuevaClase extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [Color(0xFF00FF41), Color(0xFF00F0FF)],
+          colors: const [Color(0xFF00FF41), Color(0xFF00F0FF)],
         ),
         borderRadius: BorderRadius.circular(16),
         boxShadow: [

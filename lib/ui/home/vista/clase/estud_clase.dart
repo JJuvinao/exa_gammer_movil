@@ -85,7 +85,7 @@ class _Estud_ClaseState extends State<Estud_Clase> {
           centerTitle: true,
           title: ShaderMask(
             shaderCallback: (bounds) => LinearGradient(
-              colors: [Color(0xFF00F0FF), Color(0xFF00FF41)],
+              colors: const [Color(0xFF00F0FF), Color(0xFF00FF41)],
             ).createShader(bounds),
             child: Text(
               "Estudiantes de la clase",
@@ -104,7 +104,7 @@ class _Estud_ClaseState extends State<Estud_Clase> {
           flexibleSpace: Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [Color(0xFF1a1a2e), Color(0xFF16213e)],
+                colors: const [Color(0xFF1a1a2e), Color(0xFF16213e)],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               ),
@@ -120,7 +120,11 @@ class _Estud_ClaseState extends State<Estud_Clase> {
         body: Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [Color(0xFF0a0a14), Color(0xFF16213e), Color(0xFF0a0a14)],
+              colors: const [
+                Color(0xFF0a0a14),
+                Color(0xFF16213e),
+                Color(0xFF0a0a14),
+              ],
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
             ),

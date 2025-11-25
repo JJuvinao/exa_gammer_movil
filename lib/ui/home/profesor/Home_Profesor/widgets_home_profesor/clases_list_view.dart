@@ -37,7 +37,7 @@ class ClasesListView extends StatelessWidget {
               height: 120,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [Color(0xFF1a1a2e), Color(0xFF16213e)],
+                  colors: const [Color(0xFF1a1a2e), Color(0xFF16213e)],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                 ),

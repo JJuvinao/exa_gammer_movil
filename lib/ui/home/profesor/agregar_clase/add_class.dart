@@ -80,7 +80,7 @@ class _AgregarClaseState extends State<AgregarClase> {
         ),
         title: ShaderMask(
           shaderCallback: (bounds) => LinearGradient(
-            colors: [Color(0xFF00F0FF), Color(0xFF00FF41)],
+            colors: const [Color(0xFF00F0FF), Color(0xFF00FF41)],
           ).createShader(bounds),
           child: const Text(
             'Nueva Clase',
@@ -97,7 +97,11 @@ class _AgregarClaseState extends State<AgregarClase> {
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [Color(0xFF0a0a14), Color(0xFF16213e), Color(0xFF0a0a14)],
+            colors: const [
+              Color(0xFF0a0a14),
+              Color(0xFF16213e),
+              Color(0xFF0a0a14),
+            ],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),

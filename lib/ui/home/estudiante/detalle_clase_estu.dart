@@ -51,7 +51,7 @@ class _DetalleClase_EstuState extends State<DetalleClase_Estu> {
               const SizedBox(height: 16),
               ShaderMask(
                 shaderCallback: (bounds) => LinearGradient(
-                  colors: [Color(0xFF00F0FF), Color(0xFF00FF41)],
+                  colors: const [Color(0xFF00F0FF), Color(0xFF00FF41)],
                 ).createShader(bounds),
                 child: Text(
                   'No hay actividades registradas',
@@ -81,7 +81,7 @@ class _DetalleClase_EstuState extends State<DetalleClase_Estu> {
             margin: const EdgeInsets.symmetric(vertical: 10),
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [Color(0xFF1a1a2e), Color(0xFF16213e)],
+                colors: const [Color(0xFF1a1a2e), Color(0xFF16213e)],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               ),
@@ -109,7 +109,7 @@ class _DetalleClase_EstuState extends State<DetalleClase_Estu> {
               },
               title: ShaderMask(
                 shaderCallback: (bounds) => LinearGradient(
-                  colors: [Color(0xFF00F0FF), Color(0xFF00FF41)],
+                  colors: const [Color(0xFF00F0FF), Color(0xFF00FF41)],
                 ).createShader(bounds),
                 child: Text(
                   actividad.nombre,
@@ -158,7 +158,7 @@ class _DetalleClase_EstuState extends State<DetalleClase_Estu> {
           iconTheme: IconThemeData(color: Color(0xFF00F0FF)),
           title: ShaderMask(
             shaderCallback: (bounds) => LinearGradient(
-              colors: [Color(0xFF00F0FF), Color(0xFF00FF41)],
+              colors: const [Color(0xFF00F0FF), Color(0xFF00FF41)],
             ).createShader(bounds),
             child: Text(
               "Detalle de Clase",
@@ -174,7 +174,11 @@ class _DetalleClase_EstuState extends State<DetalleClase_Estu> {
         body: Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [Color(0xFF0a0a14), Color(0xFF16213e), Color(0xFF0a0a14)],
+              colors: const [
+                Color(0xFF0a0a14),
+                Color(0xFF16213e),
+                Color(0xFF0a0a14),
+              ],
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
             ),
@@ -190,7 +194,7 @@ class _DetalleClase_EstuState extends State<DetalleClase_Estu> {
 
                 ShaderMask(
                   shaderCallback: (bounds) => LinearGradient(
-                    colors: [Color(0xFF00F0FF), Color(0xFF00FF41)],
+                    colors: const [Color(0xFF00F0FF), Color(0xFF00FF41)],
                   ).createShader(bounds),
                   child: Text(
                     "Actividades",
@@ -220,7 +224,7 @@ class _DetalleClase_EstuState extends State<DetalleClase_Estu> {
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [Color(0xFF1a1a2e), Color(0xFF16213e)],
+          colors: const [Color(0xFF1a1a2e), Color(0xFF16213e)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -243,7 +247,7 @@ class _DetalleClase_EstuState extends State<DetalleClase_Estu> {
             padding: EdgeInsets.all(14),
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [Color(0xFF00F0FF), Color(0xFF00FF41)],
+                colors: const [Color(0xFF00F0FF), Color(0xFF00FF41)],
               ),
               borderRadius: BorderRadius.circular(12),
               boxShadow: [

@@ -113,7 +113,7 @@ Future<bool?> showRendirseDialog(BuildContext context) {
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [Color(0xFF00F0FF), Color(0xFF00FF41)],
+                colors: const [Color(0xFF00F0FF), Color(0xFF00FF41)],
               ),
               borderRadius: BorderRadius.circular(8),
             ),
@@ -142,7 +142,7 @@ Future<bool?> showRendirseDialog(BuildContext context) {
         Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [Color(0xFF00FF41), Color(0xFF00F0FF)],
+              colors: const [Color(0xFF00FF41), Color(0xFF00F0FF)],
             ),
             borderRadius: BorderRadius.circular(8),
           ),

@@ -26,7 +26,7 @@ class _MainViewState extends State<MainView> {
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [Color(0xFF1a1a2e), Color(0xFF0f0f1e)],
+            colors: const [Color(0xFF1a1a2e), Color(0xFF0f0f1e)],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),

@@ -53,7 +53,7 @@ class ClaseFormCard extends StatelessWidget {
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
-                    colors: [Color(0xFF00F0FF), Color(0xFF00FF41)],
+                    colors: const [Color(0xFF00F0FF), Color(0xFF00FF41)],
                   ),
                   borderRadius: BorderRadius.circular(10),
                   boxShadow: [
@@ -134,9 +134,9 @@ class ClaseFormCard extends StatelessWidget {
         border: Border.all(color: Color(0xFF00FF41).withOpacity(0.3), width: 1),
       ),
       child: Row(
-        children: [
+        children: const [
           Icon(Icons.info_outline, color: Color(0xFF00FF41), size: 16),
-          const SizedBox(width: 8),
+          SizedBox(width: 8),
           Expanded(
             child: Text(
               'Nombre y Tema: entre 5 y 20 caracteres',
@@ -154,7 +154,7 @@ class ClaseFormCard extends StatelessWidget {
 
   BoxDecoration _cardDecoration() => BoxDecoration(
     gradient: LinearGradient(
-      colors: [Color(0xFF1a1a2e), Color(0xFF16213e)],
+      colors: const [Color(0xFF1a1a2e), Color(0xFF16213e)],
       begin: Alignment.topLeft,
       end: Alignment.bottomRight,
     ),

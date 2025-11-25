@@ -23,10 +23,7 @@ class HeaderLogo extends StatelessWidget {
                 end: Alignment.bottomRight,
               ),
               borderRadius: BorderRadius.circular(20),
-              border: Border.all(
-                color: Color(0xFF00F0FF),
-                width: 2,
-              ),
+              border: Border.all(color: Color(0xFF00F0FF), width: 2),
               boxShadow: [
                 BoxShadow(
                   color: Color(0xFF00F0FF).withOpacity(0.5),
@@ -40,19 +37,13 @@ class HeaderLogo extends StatelessWidget {
                 ),
               ],
             ),
-            child: Image.asset(
-              'assets/imagen/logo_exa.png',
-              height: 45,
-            ),
+            child: Image.asset('assets/imagen/logo_exa.png', height: 45),
           ),
           const SizedBox(width: 16),
           // Texto con efecto glow
           ShaderMask(
             shaderCallback: (bounds) => LinearGradient(
-              colors: [
-                Color(0xFF00F0FF),
-                Color(0xFF00FF41),
-              ],
+              colors: const [Color(0xFF00F0FF), Color(0xFF00FF41)],
             ).createShader(bounds),
             child: const Text(
               'EXA-GAMMER',
@@ -62,14 +53,8 @@ class HeaderLogo extends StatelessWidget {
                 fontFamily: "TitanOne",
                 color: Colors.white,
                 shadows: [
-                  Shadow(
-                    color: Color(0xFF00F0FF),
-                    blurRadius: 10,
-                  ),
-                  Shadow(
-                    color: Color(0xFF00FF41),
-                    blurRadius: 20,
-                  ),
+                  Shadow(color: Color(0xFF00F0FF), blurRadius: 10),
+                  Shadow(color: Color(0xFF00FF41), blurRadius: 20),
                 ],
               ),
             ),

@@ -41,7 +41,7 @@ class Coursecontentview extends StatelessWidget {
             TabBar(
               labelColor: Colors.blue,
               unselectedLabelColor: Colors.grey,
-              tabs: [
+              tabs: const [
                 Tab(icon: Icon(Icons.menu_book), text: 'Módulos'),
                 Tab(icon: Icon(Icons.quiz), text: 'Preguntas'),
               ],

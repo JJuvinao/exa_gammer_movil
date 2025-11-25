@@ -66,7 +66,7 @@ class _AddExamenState extends State<AddExamen> {
         centerTitle: true,
         title: ShaderMask(
           shaderCallback: (bounds) => LinearGradient(
-            colors: [Color(0xFF00F0FF), Color(0xFF00FF41)],
+            colors: const [Color(0xFF00F0FF), Color(0xFF00FF41)],
           ).createShader(bounds),
           child: Text(
             "Agregar Examen",
@@ -86,7 +86,7 @@ class _AddExamenState extends State<AddExamen> {
         flexibleSpace: Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [Color(0xFF1a1a2e), Color(0xFF16213e)],
+              colors: const [Color(0xFF1a1a2e), Color(0xFF16213e)],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
@@ -102,7 +102,11 @@ class _AddExamenState extends State<AddExamen> {
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [Color(0xFF0a0a14), Color(0xFF16213e), Color(0xFF0a0a14)],
+            colors: const [
+              Color(0xFF0a0a14),
+              Color(0xFF16213e),
+              Color(0xFF0a0a14),
+            ],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),
@@ -123,7 +127,7 @@ class _AddExamenState extends State<AddExamen> {
                   padding: const EdgeInsets.all(24),
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
-                      colors: [Color(0xFF1a1a2e), Color(0xFF16213e)],
+                      colors: const [Color(0xFF1a1a2e), Color(0xFF16213e)],
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
                     ),
@@ -157,7 +161,7 @@ class _AddExamenState extends State<AddExamen> {
                               padding: const EdgeInsets.all(10),
                               decoration: BoxDecoration(
                                 gradient: LinearGradient(
-                                  colors: [
+                                  colors: const [
                                     Color(0xFF00F0FF),
                                     Color(0xFF00FF41),
                                   ],
@@ -179,7 +183,10 @@ class _AddExamenState extends State<AddExamen> {
                             const SizedBox(width: 12),
                             ShaderMask(
                               shaderCallback: (bounds) => LinearGradient(
-                                colors: [Color(0xFF00F0FF), Color(0xFF00FF41)],
+                                colors: const [
+                                  Color(0xFF00F0FF),
+                                  Color(0xFF00FF41),
+                                ],
                               ).createShader(bounds),
                               child: Text(
                                 'Nuevo Examen',
@@ -301,7 +308,7 @@ class _AddExamenState extends State<AddExamen> {
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [Color(0xFF1a1a2e), Color(0xFF16213e)],
+          colors: const [Color(0xFF1a1a2e), Color(0xFF16213e)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -324,7 +331,7 @@ class _AddExamenState extends State<AddExamen> {
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [Color(0xFF00F0FF), Color(0xFF00FF41)],
+                colors: const [Color(0xFF00F0FF), Color(0xFF00FF41)],
               ),
               borderRadius: BorderRadius.circular(15),
               boxShadow: [
@@ -339,7 +346,7 @@ class _AddExamenState extends State<AddExamen> {
           const SizedBox(width: 16),
           ShaderMask(
             shaderCallback: (bounds) => LinearGradient(
-              colors: [Color(0xFF00F0FF), Color(0xFF00FF41)],
+              colors: const [Color(0xFF00F0FF), Color(0xFF00FF41)],
             ).createShader(bounds),
             child: Text(
               'EXA-GAMMER',
@@ -436,7 +443,7 @@ class _AddExamenState extends State<AddExamen> {
               padding: const EdgeInsets.all(4),
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [Color(0xFF00F0FF), Color(0xFF00FF41)],
+                  colors: const [Color(0xFF00F0FF), Color(0xFF00FF41)],
                 ),
                 shape: BoxShape.circle,
                 boxShadow: [
@@ -459,7 +466,7 @@ class _AddExamenState extends State<AddExamen> {
           Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [Color(0xFF00F0FF), Color(0xFF00FF41)],
+                colors: const [Color(0xFF00F0FF), Color(0xFF00FF41)],
               ),
               borderRadius: BorderRadius.circular(12),
               boxShadow: [
@@ -635,7 +642,7 @@ class _AddExamenState extends State<AddExamen> {
               datos = ahorcadoFormKey.currentState?.getData();
               if (datos == null || datos['listaAhorcado'].length < 5) {
                 Get.snackbar(
-                  '❌ Error',
+                  'Error',
                   'Debe agregar al menos 5 palabras.',
                   snackPosition: SnackPosition.BOTTOM,
                   backgroundColor: Color(0xFF1a1a2e),

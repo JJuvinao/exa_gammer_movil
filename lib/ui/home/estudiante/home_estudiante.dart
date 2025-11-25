@@ -112,7 +112,7 @@ class _HomeEstudianteState extends State<HomeEstudiante> {
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [Color(0xFF1a1a2e), Color(0xFF16213e)],
+          colors: const [Color(0xFF1a1a2e), Color(0xFF16213e)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -136,7 +136,7 @@ class _HomeEstudianteState extends State<HomeEstudiante> {
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [Color(0xFF00F0FF), Color(0xFF00FF41)],
+                colors: const [Color(0xFF00F0FF), Color(0xFF00FF41)],
               ),
               borderRadius: BorderRadius.circular(15),
               boxShadow: [
@@ -157,7 +157,7 @@ class _HomeEstudianteState extends State<HomeEstudiante> {
               children: [
                 ShaderMask(
                   shaderCallback: (bounds) => LinearGradient(
-                    colors: [Color(0xFF00F0FF), Color(0xFF00FF41)],
+                    colors: const [Color(0xFF00F0FF), Color(0xFF00FF41)],
                   ).createShader(bounds),
                   child: Text(
                     'EXA-GAMMER',
@@ -259,7 +259,7 @@ class _HomeEstudianteState extends State<HomeEstudiante> {
         height: 120,
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [Color(0xFF1a1a2e), Color(0xFF16213e)],
+            colors: const [Color(0xFF1a1a2e), Color(0xFF16213e)],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -322,7 +322,7 @@ class _HomeEstudianteState extends State<HomeEstudiante> {
                       height: 60,
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
-                          colors: [Color(0xFF00F0FF), Color(0xFF00FF41)],
+                          colors: const [Color(0xFF00F0FF), Color(0xFF00FF41)],
                         ),
                         borderRadius: BorderRadius.circular(12),
                         boxShadow: [
@@ -444,7 +444,7 @@ class _HomeEstudianteState extends State<HomeEstudiante> {
           const SizedBox(height: 24),
           ShaderMask(
             shaderCallback: (bounds) => LinearGradient(
-              colors: [Color(0xFF00F0FF), Color(0xFF00FF41)],
+              colors: const [Color(0xFF00F0FF), Color(0xFF00FF41)],
             ).createShader(bounds),
             child: Text(
               'No hay clases registradas',
@@ -469,7 +469,7 @@ class _HomeEstudianteState extends State<HomeEstudiante> {
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [Color(0xFF00F0FF), Color(0xFF00FF41)],
+          colors: const [Color(0xFF00F0FF), Color(0xFF00FF41)],
         ),
         borderRadius: BorderRadius.circular(16),
         boxShadow: [

@@ -17,11 +17,9 @@ class CreateButton extends StatelessWidget {
       height: 60,
       decoration: BoxDecoration(
         gradient: isLoading
-            ? LinearGradient(
-                colors: [Colors.grey[700]!, Colors.grey[800]!],
-              )
+            ? LinearGradient(colors: [Colors.grey[700]!, Colors.grey[800]!])
             : LinearGradient(
-                colors: [
+                colors: const [
                   Color(0xFF00FF41),
                   Color(0xFF00F0FF),
                   Color(0xFF00FF41),

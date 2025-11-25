@@ -7,10 +7,7 @@ Future<bool?> showLogoutDialog(BuildContext context) {
       backgroundColor: Color(0xFF1a1a2e),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
-        side: BorderSide(
-          color: Color(0xFF00F0FF).withOpacity(0.5),
-          width: 2,
-        ),
+        side: BorderSide(color: Color(0xFF00F0FF).withOpacity(0.5), width: 2),
       ),
       title: Row(
         children: [
@@ -18,7 +15,7 @@ Future<bool?> showLogoutDialog(BuildContext context) {
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [Color(0xFF00F0FF), Color(0xFF00FF41)],
+                colors: const [Color(0xFF00F0FF), Color(0xFF00FF41)],
               ),
               borderRadius: BorderRadius.circular(8),
             ),
@@ -41,15 +38,13 @@ Future<bool?> showLogoutDialog(BuildContext context) {
       actions: [
         TextButton(
           onPressed: () => Navigator.of(context).pop(false),
-          style: TextButton.styleFrom(
-            foregroundColor: Colors.grey[400],
-          ),
+          style: TextButton.styleFrom(foregroundColor: Colors.grey[400]),
           child: const Text('No'),
         ),
         Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [Color(0xFF00FF41), Color(0xFF00F0FF)],
+              colors: const [Color(0xFF00FF41), Color(0xFF00F0FF)],
             ),
             borderRadius: BorderRadius.circular(8),
           ),
@@ -57,10 +52,7 @@ Future<bool?> showLogoutDialog(BuildContext context) {
             onPressed: () => Navigator.of(context).pop(true),
             style: TextButton.styleFrom(
               foregroundColor: Colors.black,
-              padding: const EdgeInsets.symmetric(
-                horizontal: 20,
-                vertical: 8,
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
             ),
             child: const Text(
               'Sí',

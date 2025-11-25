@@ -6,10 +6,7 @@ class HeaderHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 16,
-        vertical: 12,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
@@ -36,7 +33,7 @@ class HeaderHome extends StatelessWidget {
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [Color(0xFF00F0FF), Color(0xFF00FF41)],
+                colors: const [Color(0xFF00F0FF), Color(0xFF00FF41)],
               ),
               borderRadius: BorderRadius.circular(12),
               boxShadow: [
@@ -46,15 +43,12 @@ class HeaderHome extends StatelessWidget {
                 ),
               ],
             ),
-            child: Image.asset(
-              'assets/imagen/logo_exa.png',
-              height: 35,
-            ),
+            child: Image.asset('assets/imagen/logo_exa.png', height: 35),
           ),
           const SizedBox(width: 12),
           ShaderMask(
             shaderCallback: (bounds) => LinearGradient(
-              colors: [Color(0xFF00F0FF), Color(0xFF00FF41)],
+              colors: const [Color(0xFF00F0FF), Color(0xFF00FF41)],
             ).createShader(bounds),
             child: const Text(
               'Exa-Gammer',
@@ -63,12 +57,7 @@ class HeaderHome extends StatelessWidget {
                 fontWeight: FontWeight.bold,
                 fontFamily: "TitanOne",
                 color: Colors.white,
-                shadows: [
-                  Shadow(
-                    color: Color(0xFF00F0FF),
-                    blurRadius: 10,
-                  ),
-                ],
+                shadows: [Shadow(color: Color(0xFF00F0FF), blurRadius: 10)],
               ),
             ),
           ),

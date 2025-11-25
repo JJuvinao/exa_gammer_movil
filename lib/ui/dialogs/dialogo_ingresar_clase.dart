@@ -12,8 +12,8 @@ Future<bool?> IngresarCodigo(BuildContext context) async {
       return AlertDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         title: Row(
-          children: [
-            const Text(
+          children: const [
+            Text(
               'EXA-GAMMER',
               style: TextStyle(
                 fontSize: 20,
@@ -43,7 +43,7 @@ Future<bool?> IngresarCodigo(BuildContext context) async {
         actions: [
           TextButton(
             onPressed: () {
-              Navigator.pop(context, false);
+              Get.back();
             },
             child: const Text('Cancelar'),
           ),
@@ -52,6 +52,7 @@ Future<bool?> IngresarCodigo(BuildContext context) async {
               final codigo = codigoController.text.trim();
               final exito = await usercontroller.unirseClase(codigo);
               if (exito) {
+                Get.back();
                 Get.snackbar(
                   'Éxito',
                   'Te has unido a la clase con éxito.',
@@ -59,7 +60,6 @@ Future<bool?> IngresarCodigo(BuildContext context) async {
                   colorText: Colors.black,
                   snackPosition: SnackPosition.BOTTOM,
                 );
-                Navigator.pop(context, true);
               } else {
                 Get.snackbar(
                   'Error',
