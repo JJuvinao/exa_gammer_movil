@@ -66,6 +66,9 @@ class _QuestionsTabState extends State<QuestionsTab> {
               final pregunta = curso.questions[i];
 
               return Card(
+                elevation: 5,
+                shadowColor: Colors.deepPurpleAccent,
+                color: const Color.fromARGB(255, 25, 25, 51),
                 margin: EdgeInsets.only(bottom: 12),
                 child: Padding(
                   padding: EdgeInsets.all(16),
@@ -74,23 +77,38 @@ class _QuestionsTabState extends State<QuestionsTab> {
                     children: [
                       Text(
                         'Pregunta ${i + 1}: ${pregunta.text}',
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                        style: const TextStyle(
+                          color: Color.fromARGB(255, 173, 173, 173),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
+                        ),
                       ),
                       SizedBox(height: 12),
                       ...pregunta.options.asMap().entries.map((entry) {
                         int index = entry.key;
                         String option = entry.value;
-                        return RadioListTile<int>(
-                          title: Text(option),
-                          value: index,
-                          groupValue: pregunta.Completed
-                              ? pregunta.answerIndex
-                              : selectedAnswers[i],
-                          onChanged: (value) {
-                            setState(() {
-                              selectedAnswers[i] = value!;
-                            });
-                          },
+                        return Padding(
+                          padding: const EdgeInsets.all(2),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(10),
+                              ),
+                            ),
+                            child: RadioListTile<int>(
+                              title: Text(option),
+                              value: index,
+                              groupValue: pregunta.Completed
+                                  ? pregunta.answerIndex
+                                  : selectedAnswers[i],
+                              onChanged: (value) {
+                                setState(() {
+                                  selectedAnswers[i] = value!;
+                                });
+                              },
+                            ),
+                          ),
                         );
                       }),
                       SizedBox(height: 12),

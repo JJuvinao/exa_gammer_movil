@@ -72,10 +72,6 @@ class LessonDialog extends StatelessWidget {
                 IconButton(
                   icon: Icon(Icons.close),
                   onPressed: () {
-                    //if (!lesson.Completed) {
-                    //  lesson.Completed = true;
-                    //  controller.CompleteModule(module);
-                    //}
                     Get.back();
                   },
                 ),
@@ -94,20 +90,20 @@ class LessonDialog extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton.icon(
-                onPressed: lesson.Completed
+                onPressed: lesson.completed
                     ? null
                     : () {
-                        lesson.Completed = true;
+                        lesson.completed = true;
                         controller.CompleteModule(module);
                         _NextDialog(context);
                         _ShowSnackbar(lesson.title);
                       },
-                icon: Icon(lesson.Completed ? Icons.check_circle : Icons.check),
+                icon: Icon(lesson.completed ? Icons.check_circle : Icons.check),
                 label: Text(
-                  lesson.Completed ? "Completada" : "Siguiente lección",
+                  lesson.completed ? "Completada" : "Siguiente lección",
                 ),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: lesson.Completed
+                  backgroundColor: lesson.completed
                       ? Colors.grey
                       : Colors.green,
                   foregroundColor: Colors.white,

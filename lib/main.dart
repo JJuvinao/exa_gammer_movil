@@ -27,7 +27,6 @@ Future<void> main() async {
   Get.put(ExamenController());
   Get.put(JuegoController());
   Get.put(AhorcadoController());
-  Get.put(CursoController());
 
   runApp(MyApp());
 }
