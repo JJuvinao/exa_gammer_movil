@@ -57,33 +57,6 @@ class _ClaseViewState extends State<ClaseView> {
             type: BottomNavigationBarType.fixed,
             currentIndex: _currentIndex,
             onTap: (index) {
-              // Validar si es el botón de estadísticas (último índice después de estudiantes)
-              // Asumiendo que el orden es: Detalle Clase, Actividades, Estudiantes, Estadísticas
-              if (user.getuser.rol == "Profesor") {
-                final estadisticasIndex = _navBarItems.length - 1;
-
-                if (index == estadisticasIndex) {
-                  // Mostrar snackbar indicando que está en desarrollo
-                  Get.snackbar(
-                    '📊 Estadísticas',
-                    'Esta función estará disponible próximamente',
-                    snackPosition: SnackPosition.BOTTOM,
-                    backgroundColor: Color(0xFF1a1a2e),
-                    colorText: Color(0xFF00F0FF),
-                    borderColor: Color(0xFF00F0FF).withOpacity(0.5),
-                    borderWidth: 1.5,
-                    icon: Icon(
-                      Icons.bar_chart_rounded,
-                      color: Color(0xFF00F0FF),
-                    ),
-                    duration: const Duration(seconds: 2),
-                    margin: EdgeInsets.all(16),
-                    borderRadius: 12,
-                  );
-                  return;
-                }
-              }
-
               setState(() {
                 _currentIndex = index;
               });

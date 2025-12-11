@@ -4,10 +4,21 @@ import 'package:exa_gammer_movil/ui/course/courseContentView.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class courseScreen extends StatelessWidget {
-  courseScreen({super.key});
+class courseScreen extends StatefulWidget {
+  const courseScreen({super.key});
 
+  @override
+  State<courseScreen> createState() => _courseScreenState();
+}
+
+class _courseScreenState extends State<courseScreen> {
   final CursoController controller = Get.put(CursoController());
+
+  @override
+  void initState() {
+    super.initState();
+    controller.fetchCursos();
+  }
 
   @override
   Widget build(BuildContext context) {

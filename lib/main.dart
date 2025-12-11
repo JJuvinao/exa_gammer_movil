@@ -1,4 +1,5 @@
 import 'package:exa_gammer_movil/controllers/curso_controller.dart';
+import 'package:exa_gammer_movil/controllers/https_controller.dart';
 import 'package:exa_gammer_movil/game/heroes/controller/animation_controller.dart';
 import 'package:exa_gammer_movil/game/heroes/controller/heroe_controller.dart';
 import 'package:exa_gammer_movil/game/heroes/controller/pregunta_controller.dart';
@@ -17,7 +18,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // ignore: unused_local_variable
   final storageService = await Get.putAsync(() => StorageService().init());
-
+  Get.put(Https_Controllers());
   Get.put(UserController());
   Get.put(ClaseController());
   Get.put(VistaControles());

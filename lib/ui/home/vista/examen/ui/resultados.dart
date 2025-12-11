@@ -118,6 +118,7 @@ class _ResultadosState extends State<Resultados> {
     return Scaffold(
       backgroundColor: const Color(0xFF0a0a14), // Fondo oscuro
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: const Color(0xFF1a1a2e), // Color oscuro para la AppBar
         elevation: 0,
         iconTheme: IconThemeData(color: const Color(0xFF00F0FF)),

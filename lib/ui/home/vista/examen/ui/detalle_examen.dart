@@ -124,7 +124,7 @@ class _DetalleExamenPageState extends State<DetalleExamenPage> {
         appBar: AppBar(
           backgroundColor: Color(0xFF1a1a2e),
           elevation: 0,
-          automaticallyImplyLeading: true,
+          automaticallyImplyLeading: false,
           iconTheme: IconThemeData(color: Color(0xFF00F0FF)),
           centerTitle: true,
           title: ShaderMask(

@@ -52,32 +52,13 @@ class _AgregarClaseState extends State<AgregarClase> {
     controller.txtAutor.text = user.username;
 
     return Scaffold(
-      backgroundColor: Color(0xFF0a0a14), // Fondo oscuro profundo
+      backgroundColor: Color(0xFF0a0a14),
       extendBodyBehindAppBar: true,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: Colors.transparent,
         elevation: 0,
         iconTheme: const IconThemeData(color: Color(0xFF00F0FF)),
-        leading: IconButton(
-          icon: Container(
-            padding: const EdgeInsets.all(8),
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  Color(0xFF00F0FF).withOpacity(0.2),
-                  Color(0xFF00FF41).withOpacity(0.2),
-                ],
-              ),
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(
-                color: Color(0xFF00F0FF).withOpacity(0.5),
-                width: 1.5,
-              ),
-            ),
-            child: const Icon(Icons.arrow_back_ios_new, size: 20),
-          ),
-          onPressed: () => Navigator.pop(context),
-        ),
         title: ShaderMask(
           shaderCallback: (bounds) => LinearGradient(
             colors: const [Color(0xFF00F0FF), Color(0xFF00FF41)],
@@ -116,7 +97,6 @@ class _AgregarClaseState extends State<AgregarClase> {
                 const HeaderLogo(),
                 const SizedBox(height: 32),
 
-                // Línea decorativa superior
                 _buildDecorativeLine(),
                 const SizedBox(height: 24),
 
@@ -138,7 +118,6 @@ class _AgregarClaseState extends State<AgregarClase> {
 
                 const SizedBox(height: 24),
 
-                // Línea decorativa inferior
                 _buildDecorativeLine(),
                 const SizedBox(height: 32),
 
@@ -152,17 +131,6 @@ class _AgregarClaseState extends State<AgregarClase> {
                 ),
 
                 const SizedBox(height: 20),
-
-                // Texto informativo
-                /*                Text(
-                  'Crea una experiencia educativa épica',
-                  style: TextStyle(
-                    color: Colors.grey[600],
-                    fontSize: 12,
-                    fontStyle: FontStyle.italic,
-                  ),
-                ),
-*/
               ],
             ),
           ),

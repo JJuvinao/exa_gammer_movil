@@ -15,8 +15,14 @@ class ProfileView extends StatelessWidget {
       context: context,
       builder: (_) => AlertDialog(
         backgroundColor: const Color(0xFF1f1f2e),
-        title: const Text("¿Cerrar sesión?", style: TextStyle(color: Colors.white)),
-        content: const Text("¿Estás segura de que deseas salir?", style: TextStyle(color: Colors.white70)),
+        title: const Text(
+          "¿Cerrar sesión?",
+          style: TextStyle(color: Colors.white),
+        ),
+        content: const Text(
+          "¿Estás segura de que deseas salir?",
+          style: TextStyle(color: Colors.white70),
+        ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
@@ -24,7 +30,10 @@ class ProfileView extends StatelessWidget {
           ),
           TextButton(
             onPressed: () => Navigator.pop(context, true),
-            child: const Text("Salir", style: TextStyle(color: Colors.redAccent)),
+            child: const Text(
+              "Salir",
+              style: TextStyle(color: Colors.redAccent),
+            ),
           ),
         ],
       ),
@@ -67,15 +76,20 @@ class ProfileView extends StatelessWidget {
                 color: const Color(0xFF1f1f2e),
                 child: Container(
                   width: MediaQuery.of(context).size.width * 0.85,
-                  padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 20),
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 30,
+                    horizontal: 20,
+                  ),
                   child: Column(
                     children: [
                       if (esPremium)
-                      CircleAvatar(
-                        radius: 55,
-                        backgroundImage: NetworkImage(user.img ?? ''),
-                        backgroundColor: Colors.grey.shade800,
-                      ),
+                        CircleAvatar(
+                          radius: 55,
+                          backgroundImage: AssetImage(
+                            'assets/avatars/fotoperfil.png',
+                          ),
+                          backgroundColor: Colors.grey.shade800,
+                        ),
                       const SizedBox(height: 20),
                       Text(
                         user.username,
@@ -116,15 +130,25 @@ class ProfileView extends StatelessWidget {
                           onPressed: () {
                             Get.to(() => const PremiumView());
                           },
-                          icon: const Icon(Icons.emoji_events, color: Colors.amber, size: 24),
+                          icon: const Icon(
+                            Icons.emoji_events,
+                            color: Colors.amber,
+                            size: 24,
+                          ),
                           label: const Text(
                             "Premium",
-                            style: TextStyle(color: Colors.amber, fontSize: 16, fontWeight: FontWeight.bold),
+                            style: TextStyle(
+                              color: Colors.amber,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                           style: OutlinedButton.styleFrom(
                             side: const BorderSide(color: Colors.amber),
                             backgroundColor: const Color(0xFF1f1f2e),
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
                             padding: const EdgeInsets.symmetric(vertical: 14),
                           ),
                         ),
@@ -143,22 +167,38 @@ class ProfileView extends StatelessWidget {
                               );
                             },
                             icon: const Icon(Icons.edit, color: Colors.cyan),
-                            label: const Text("Editar", style: TextStyle(color: Colors.cyan)),
+                            label: const Text(
+                              "Editar",
+                              style: TextStyle(color: Colors.cyan),
+                            ),
                             style: OutlinedButton.styleFrom(
                               backgroundColor: const Color(0xFF1f1f2e),
                               side: const BorderSide(color: Colors.cyan),
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 24,
+                                vertical: 14,
+                              ),
                             ),
                           ),
                           ElevatedButton.icon(
                             onPressed: () => _confirmLogout(context),
                             icon: const Icon(Icons.logout, color: Colors.white),
-                            label: const Text("Salir", style: TextStyle(color: Colors.white)),
+                            label: const Text(
+                              "Salir",
+                              style: TextStyle(color: Colors.white),
+                            ),
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.redAccent,
-                              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 24,
+                                vertical: 14,
+                              ),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
                             ),
                           ),
                         ],

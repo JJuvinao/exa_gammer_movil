@@ -58,9 +58,9 @@ class DetalleClaseState extends State<DetalleClase> {
       child: Scaffold(
         backgroundColor: const Color(0xFF0a0a14),
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           backgroundColor: const Color(0xFF1a1a2e),
           elevation: 0,
-          leading: _buildBackButton(context),
         ),
         body: Container(
           decoration: const BoxDecoration(
@@ -93,33 +93,6 @@ class DetalleClaseState extends State<DetalleClase> {
         ),
         floatingActionButton: _buildFAB(),
       ),
-    );
-  }
-
-  Widget _buildBackButton(BuildContext context) {
-    return IconButton(
-      icon: Container(
-        padding: const EdgeInsets.all(8),
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              Color(0xFF00F0FF).withOpacity(0.2),
-              Color(0xFF00FF41).withOpacity(0.2),
-            ],
-          ),
-          borderRadius: BorderRadius.circular(10),
-          border: Border.all(
-            color: const Color(0xFF00F0FF).withOpacity(0.5),
-            width: 1.5,
-          ),
-        ),
-        child: const Icon(
-          Icons.arrow_back_ios_new,
-          color: Color(0xFF00F0FF),
-          size: 20,
-        ),
-      ),
-      onPressed: () => Get.to(MainView(vista: user.getuser.rol)),
     );
   }
 

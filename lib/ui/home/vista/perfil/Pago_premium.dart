@@ -1,5 +1,6 @@
 // ignore_for_file: file_names
 
+import 'package:exa_gammer_movil/ui/home/vista/perfil/profile_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:exa_gammer_movil/controllers/user_controller.dart';
@@ -93,7 +94,6 @@ class _PagosPremiumViewState extends State<PagosPremiumView> {
     final exito = await userController.actualizarPremium(user.id, true);
 
     if (exito) {
-      Get.back();
       Future.delayed(const Duration(milliseconds: 400), () {
         Get.snackbar(
           '¡Listo!',
@@ -103,6 +103,7 @@ class _PagosPremiumViewState extends State<PagosPremiumView> {
           snackPosition: SnackPosition.BOTTOM,
           duration: const Duration(seconds: 4),
         );
+        Get.off(ProfileView());
       });
     } else {
       Get.snackbar(

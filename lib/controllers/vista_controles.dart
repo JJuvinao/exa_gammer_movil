@@ -94,10 +94,6 @@ class VistaControles extends GetxController {
               icon: Icon(Icons.group_rounded),
               label: 'Estudiantes',
             ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.bar_chart_rounded),
-              label: 'Estadísticas',
-            ),
           ]);
         } else {
           _navBarItems.addAll(const [

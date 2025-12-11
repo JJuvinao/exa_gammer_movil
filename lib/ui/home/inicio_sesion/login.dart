@@ -89,8 +89,8 @@ class _LoginFromState extends State<LoginForm> {
                   colorText: Colors.white,
                 );
                 return;
-              }
-              */
+              }*/
+
               final rol = await userController.iniciarSesionYObtenerRol(
                 usuario.text,
                 clave.text,
@@ -111,19 +111,6 @@ class _LoginFromState extends State<LoginForm> {
                 if (!Get.isRegistered<ClaseController>()) {
                   Get.put(ClaseController());
                 }
-
-                if (rol == 'Profesor') {
-                  Get.offAll(() => MainView(vista: "Profesor"));
-                } else if (rol == 'Estudiante') {
-                  Get.off(() => MainView(vista: "Estudiante"));
-                } else {
-                  Get.snackbar(
-                    'Error',
-                    'Rol no reconocido: $rol',
-                    backgroundColor: Colors.red,
-                    colorText: Colors.white,
-                  );
-                }
                 /*
                 if (GetPlatform.isWeb || Get.testMode) {
                 } else {
@@ -140,6 +127,19 @@ class _LoginFromState extends State<LoginForm> {
                     );
                   }
                 }*/
+
+                if (rol == 'Profesor') {
+                  Get.offAll(() => MainView(vista: "Profesor"));
+                } else if (rol == 'Estudiante') {
+                  Get.off(() => MainView(vista: "Estudiante"));
+                } else {
+                  Get.snackbar(
+                    'Error',
+                    'Rol no reconocido: $rol',
+                    backgroundColor: Colors.red,
+                    colorText: Colors.white,
+                  );
+                }
               } else {
                 Get.snackbar(
                   'Error',

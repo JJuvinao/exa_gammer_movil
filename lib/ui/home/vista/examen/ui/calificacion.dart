@@ -51,6 +51,7 @@ class _CalificarExamState extends State<CalificarExam> {
     return Scaffold(
       backgroundColor: const Color(0xFF0a0a14),
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: Color(0xFF1a1a2e),
         elevation: 0,
         iconTheme: IconThemeData(color: Color(0xFF00F0FF)),
