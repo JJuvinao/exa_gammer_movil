@@ -25,7 +25,7 @@ class ModuloModel {
               ?.map((e) => LeccionModel.fromJson(e))
               .toList() ??
           [],
-      Completed: json['Completed'] ?? false,
+      Completed: json['completed'] ?? false,
     );
   }
 
@@ -34,6 +34,6 @@ class ModuloModel {
     'title': title,
     'description': description,
     'lessons': lessons.map((e) => e.toJson()).toList(),
-    'Completed': Completed,
+    'completed': Completed,
   };
 }

@@ -2,13 +2,13 @@ class LeccionModel {
   final int id;
   final String title;
   final String content;
-  bool Completed;
+  bool completed;
 
   LeccionModel({
     required this.id,
     required this.title,
     required this.content,
-    this.Completed = false,
+    this.completed = false,
   });
 
   factory LeccionModel.fromJson(Map<String, dynamic> json) {
@@ -16,7 +16,7 @@ class LeccionModel {
       id: int.parse(json['id'].toString()),
       title: json['title'] ?? '',
       content: json['content'] ?? '',
-      Completed: json['Completed'] ?? false,
+      completed: json['completed'] ?? false,
     );
   }
 
@@ -24,6 +24,6 @@ class LeccionModel {
     'id': id,
     'title': title,
     'content': content,
-    'Completed': Completed,
+    'completed': completed,
   };
 }
