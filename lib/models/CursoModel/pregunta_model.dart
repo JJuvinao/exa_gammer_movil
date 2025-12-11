@@ -22,7 +22,7 @@ class PreguntaModel {
       options: List<String>.from(json['options'] ?? []),
       answerIndex: json['answerIndex'] ?? 0,
       response: json['response'] ?? '',
-      Completed: json['Completed'] ?? false,
+      Completed: json['completed'] ?? false,
     );
   }
 
@@ -32,6 +32,6 @@ class PreguntaModel {
     'options': options,
     'answerIndex': answerIndex,
     'response': response,
-    'Completed': Completed,
+    'completed': Completed,
   };
 }

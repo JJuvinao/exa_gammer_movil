@@ -2,31 +2,35 @@ import 'modulo_model.dart';
 import 'pregunta_model.dart';
 
 class Curso {
-  final int Id_curso;
+  final int id_curso;
   final String title;
   final String description;
   final List<ModuloModel> modules;
   final List<PreguntaModel> questions;
-  bool Completed;
-  final int Num_sections;
-  int Percentage;
-  final int Id_user;
+  bool completed;
+  final int num_sections;
+  int completed_sections;
+  int percentage;
+  final int id_user;
+  final String codigo;
 
   Curso({
-    required this.Id_curso,
+    required this.id_curso,
     required this.title,
     required this.description,
     required this.modules,
     required this.questions,
-    required this.Completed,
-    required this.Num_sections,
-    required this.Percentage,
-    required this.Id_user,
+    required this.completed,
+    required this.num_sections,
+    required this.completed_sections,
+    required this.percentage,
+    required this.id_user,
+    required this.codigo,
   });
 
   factory Curso.fromJson(Map<String, dynamic> json) {
     return Curso(
-      Id_curso: json['Id_curso'] ?? 0,
+      id_curso: json['id_curso'] ?? 0,
       title: json['title'] ?? '',
       description: json['description'] ?? '',
       modules:
@@ -39,33 +43,42 @@ class Curso {
               ?.map((e) => PreguntaModel.fromJson(e))
               .toList() ??
           [],
-      Completed: json['Completed'] ?? false,
-      Num_sections: json['Num_sections'] ?? 0,
-      Percentage: json['Percentage'] ?? 0,
-      Id_user: json['Id_user'] ?? 0,
+      completed: json['completed'] ?? false,
+      num_sections: json['num_sections'] ?? 0,
+      completed_sections: json['completed_sections'] ?? 0,
+      percentage: json['percentage'] ?? 0,
+      id_user: json['id_user'] ?? 0,
+      codigo: json["codigo"],
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'Id_curso': Id_curso,
+      'id_curso': id_curso,
       'title': title,
       'description': description,
       'modules': modules.map((e) => e.toJson()).toList(),
       'questions': questions.map((e) => e.toJson()).toList(),
-      'Completed': Completed,
-      'Num_sections': Num_sections,
-      'Percentage': Percentage,
-      'Id_user': Id_user,
+      'completed': completed,
+      'num_sections': num_sections,
+      'completed_sections': completed_sections,
+      'percentage': percentage,
+      'id_user': id_user,
+      'codigo': codigo,
     };
   }
 
   Map<String, dynamic> toUpdateJson() {
     return {
+      'id_curso': id_curso,
       'title': title,
       'description': description,
       'modules': modules.map((e) => e.toJson()).toList(),
       'questions': questions.map((e) => e.toJson()).toList(),
+      "completed": completed,
+      "completed_sections": completed_sections,
+      "percentage": percentage,
+      "id_user": id_user,
     };
   }
 }

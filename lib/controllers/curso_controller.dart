@@ -1,5 +1,3 @@
-// ignore_for_file: avoid_print
-
 import 'dart:convert';
 import 'package:exa_gammer_movil/controllers/user_controller.dart';
 import 'package:exa_gammer_movil/models/CursoModel/curso_model.dart';
@@ -25,9 +23,7 @@ class CursoController extends GetxController {
     final int idUser = user.getuser.id;
     isLoading.value = true;
     try {
-      final url = Uri.parse(
-        'https://www.apiexagammer.somee.com/api/Cursos/$idUser',
-      );
+      final url = Uri.parse('https://localhost:7248/api/Cursos/$idUser');
 
       final res = await http
           .get(url, headers: {type: app})
@@ -48,24 +44,61 @@ class CursoController extends GetxController {
     }
   }
 
-  Future<String> generateCurso(String userRequest) async {
+  Future<String?> generateCurso(String userRequest) async {
     final int idUser = user.getuser.id;
     isLoading.value = true;
-    print(userRequest);
-    final url = Uri.parse(
-      'https://www.apiexagammer.somee.com/api/Cursos/AIGenerate',
-    );
-    final response = await http.post(
-      url,
-      headers: {type: app},
-      body: jsonEncode({'Id_user': idUser, 'userRequest': userRequest}),
-    );
+    try {
+      final url = Uri.parse('https://localhost:7248/api/Cursos/AIGenerate');
+      final response = await http.post(
+        url,
+        headers: {type: app},
+        body: jsonEncode({'Id_user': idUser, 'userRequest': userRequest}),
+      );
 
-    if (response.statusCode == 200) {
+      if (response.statusCode == 200) {
+        isLoading.value = false;
+        return response.body;
+      }
+    } catch (e) {
       isLoading.value = false;
-      return response.body;
+      return "ERROR AL GENERAR CURSO ${e.toString()}";
     }
-    throw Exception('Error al generar curso');
+  }
+
+  Future<bool> PutCurso() async {
+    if (selectedCurso?.value == null) return false;
+    var curso = selectedCurso!.value;
+
+    try {
+      final url = Uri.parse('https://localhost:7248/api/Cursos');
+      final response = await http.put(
+        url,
+        headers: {type: app},
+        body: jsonEncode(curso.toUpdateJson()),
+      );
+
+      return response.statusCode == 200 || response.statusCode == 204;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  Future<void> DeleteCurso(int idCurso) async {
+    final int idUser = user.getuser.id;
+    try {
+      final url = Uri.parse('https://localhost:7248/api/Cursos');
+      final response = await http.delete(
+        url,
+        headers: {type: app},
+        body: jsonEncode({"id_curso": idCurso, "id_user": idUser}),
+      );
+
+      if (response.statusCode == 200 || response.statusCode == 204) {
+        cursoList.removeWhere((c) => c.id_curso == idCurso);
+      }
+    } catch (e) {
+      Get.snackbar("Error", "No se pudo eliminar el curso");
+    }
   }
 
   void CourseSelect(Curso curso) {
@@ -74,42 +107,46 @@ class CursoController extends GetxController {
 
   void CompleteModule(ModuloModel module) {
     module.Completed = module.lessons.every(
-      (lesson) => lesson.Completed == true,
+      (lesson) => lesson.completed == true,
     );
+
     update(["Modules"]);
     UpdatePercentage();
   }
 
+  bool AreModulesCompleted() {
+    return selectedCurso!.value.modules.every((m) => m.Completed == true);
+  }
+
   void CompleteCourse() {
     final Curso curso = selectedCurso!.value;
-    final bool isModulesCompleted = curso.modules.every(
-      (module) => module.Completed == true,
-    );
+
     final bool isQuestionsCompleted = curso.questions.every(
       (question) => question.Completed == true,
     );
 
-    if (isModulesCompleted && isQuestionsCompleted) {
-      curso.Completed = true;
+    if (isQuestionsCompleted) {
+      curso.completed = true;
     }
 
     UpdatePercentage();
   }
 
   void UpdatePercentage() {
-    final completedParts =
-        selectedCurso!.value.modules.where((m) => m.Completed).length +
-        selectedCurso!.value.questions.where((q) => q.Completed).length;
+    selectedCurso!.value.completed_sections += 1;
+    final double percentage =
+        (selectedCurso!.value.completed_sections /
+            selectedCurso!.value.num_sections) *
+        100;
+    selectedCurso!.value.percentage = percentage.toInt();
+    selectedCurso!.refresh();
+  }
 
-    final totalParts =
-        selectedCurso!.value.modules.length +
-        selectedCurso!.value.questions.length;
-
-    print(completedParts);
-    print(selectedCurso!.value.Num_sections);
-
-    final double percentage = (completedParts / totalParts) * 100;
-    selectedCurso!.value.Percentage = percentage.toInt();
+  Future<void> RefreshAndSave() async {
+    if (selectedCurso!.value.completed) {
+      return;
+    }
     cursoList.refresh();
+    await PutCurso();
   }
 }
